@@ -1,0 +1,8 @@
+- [direct_db_query needs --write](feedback_direct_db_query.md) — UPDATE/INSERT/DELETE via direct_db_query.py silently rolls back without --write flag
+- [IR URL caching — SPAs and per-quarter deep links](feedback_ir_url_caching_spa.md) — when Ben confirms an IR URL, cache it even if WebFetch sees SPA template only; per-quarter deep links are acceptable but will go stale
+- [Memory must stay in project workspace](feedback_memory_workspace_only.md) — a PreToolUse hook blocks Write outside E:\options_scanner\agents\earnings_researcher\
+- [Ticker P = Pure Storage / Everpure](project_p_ticker_everpure.md) — Pure Storage (PSTG) rebranded to Everpure and changed ticker to P on 2026-04-17
+- [SEC.gov reachable via Bash+curl, not WebFetch](reference_sec_via_curl.md) — UA-bearing curl gets 8-Ks, filings JSON, and EDGAR full-text search; WebFetch 403s
+- [Company earnings-cadence table](reference_company_cadence.md) — per-symbol lead times, BMO/AMC, IR-page quirks, working source, CIKs; the data behind window-gating
+- [Parse big inbox JSON, don't Read it](feedback_parse_big_inbox_json.md) — never Read raw EDGAR *_filings.json (≈25k tokens each, no value); pipe to Python
+- [Window-gating & no-op sessions](feedback_window_gating_and_noop.md) — gate research by each symbol's announcement window; confidently end a session when nothing's actionable, with logged next-check dates

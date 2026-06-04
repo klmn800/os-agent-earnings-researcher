@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python E:/options_scanner/tools/earnings_confirm.py *)",
+      "Bash(python E:/options_scanner/tools/direct_db_query.py *)",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Bash(sqlite3 *)",
+      "Bash(python E:/options_scanner/main.py *)",
+      "Bash(rm *)",
+      "Bash(del *)"
+    ]
+  },
+  "claudeMdExcludes": [
+    "E:/options_scanner/CLAUDE.md"
+  ],
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python E:/options_scanner/agents/earnings_researcher/hooks/inject_context.py",
+            "timeout": 15000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python E:/options_scanner/.claude/hooks/earnings_researcher_write_guard.py",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}
