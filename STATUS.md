@@ -4,7 +4,7 @@
 > weekly maintenance session (`PROMPT_SUNDAY.md`). Glance here for current
 > state without reading the full research log.
 
-**Last updated:** 2026-05-28 (weekly maintenance)
+**Last updated:** 2026-06-14 (weekly maintenance)
 
 ---
 
@@ -12,40 +12,45 @@
 
 Symbols still unresolved, with current status and the date to re-check (derived from
 each company's announcement window — see `memory/reference_company_cadence.md`).
+Both are next-check **Monday 06-15**.
 
-| Symbol | Reason still open | Current status | Next-check date |
-|--------|-------------------|----------------|-----------------|
-| CNM | No Q1 FY26 schedule PR yet | DB 06-09 unk; PR overdue (last-yr 05-23→06-10 bmo); yf+finnhub 06-10 | 2026-06-01 |
-| ADBE | No Q2 FY26 "to Announce" PR | DB 06-11 amc; pattern-consistent (Q2 = 2nd/3rd Thu of June); PR ~now | 2026-06-01 |
-| ORCL | No Q4 FY26 "Sets the Date" PR/8-K | DB 06-10 amc; PR historically ~Jun 3; finnhub 06-16 aggregator-only | 2026-06-03 |
-| UEC | **DB date wrong (=today)**; no advance PR for Q3 | DB 05-28 unk — impossible; Q3 10-Q drops ~early-mid June; flagged to Ben | 2026-06-04 |
-| GME | No Q1 FY26 8-K/PR; minimal advance notice | DB 06-09 unk; reports ~06-09/10 AMC; finnhub 06-08 | 2026-06-05 |
+| Symbol | Reason still open | Current status (feeds @ 06-12) | Next-check |
+|--------|-------------------|--------------------------------|------------|
+| JEF | Jefferies Q2 FY26 — no advance businesswire PR yet | Feeds split: DB **06-24 amc** / finnhub 07-01 (`conflict=1`). Cadence favors DB (Q1 released 25d post-quarter-end → ~06-25; finnhub's 31d is atypical). | 2026-06-15 |
+| FDX | FedEx Corp — no company advance PR yet | Feeds have **converged on 06-23 amc** (stored=yf=finnhub, `conflict=0`) — corroborates the third-party date but is NOT a company source. FDXF spinco reports 06-25 (don't conflate). | 2026-06-15 |
 
-**Horizon** (surfaced before, outside window — don't research yet): LEN 06-15, JBL 06-16, KMX 06-17, ACN 06-18, DRI 06-18. Re-check ~06-08+.
+**Confirmed-but-upcoming (locked; don't re-research):** JBL 06-17 bmo, KMX 06-17 bmo,
+ACN 06-18 bmo, KR 06-18 bmo, CCL 06-23 bmo, MU 06-24 amc, PAYX 06-24 bmo, DRI 06-25 bmo,
+MKC 06-25 bmo, CNXC 06-29 amc, NKE 06-30 amc, GIS 07-01 bmo.
+
+`earnings_date_disputes` is present and current this Sunday (06-11/06-12 rows persisted) —
+the 06-07 Sunday-absence did not recur.
 
 ---
 
 ## Last Week's Calibration
 
-Window: 2026-05-21 → 05-28 (5 sessions).
+Window: 2026-06-08 → 06-14.
 
 | Metric | Value |
 |--------|-------|
-| Sessions run | 5 (05-21, 05-22, 05-26, 05-27, 05-28) |
-| Symbols confirmed | 9 |
-| Symbols skipped (logged next-check) | 16 |
-| Confirm rate | 9/25 ≈ 36% |
-| Skips that later confirmed on the predicted date | GWRE + TTC (skipped 05-20/21 → both confirmed 05-22 at predicted 06-04). No skip proved to be a missed confirmable date. |
-| Open skips awaiting validation | 5 (CNM, ADBE, ORCL, UEC, GME) — next-checks early June |
-| Notes / drift to watch | Late-week sessions (05-27, 05-28) were 0-confirm — every symbol a pre-PR June reporter. These should become clean **no-ops** via window-gating + the new cadence table, not full research passes. (Recall the 151k-token/0-confirm 05-28 session that prompted window-gating.) |
+| Symbols confirmed | **14** (13 on 06-11, 1 on 06-12) |
+| Skips that later proved to be missed confirmable dates | **0** |
+| Last Sunday's 4 carry-overs | All resolved correctly: ORCL/GME/UEC reported 06-09/10 (as feed dates predicted); JBL's advance PR dropped → confirmed 06-17 on 06-11. |
+| This week's skips | CCL skipped 06-11 → confirmable 06-12 when PR dropped (clean 1-day-early skip). JEF still split (correctly held). FDX feeds converged but no company PR (correctly held, not locked). |
 
-**Read:** skip judgment is well-calibrated — the "wait for the company PR" discipline keeps paying off (GWRE/TTC/WSM all confirmed at/near predicted dates; the M +7d move was caught by *not* confirming a stale feed date). The improvement lever is fewer wasted cycles on too-early symbols, not better accuracy.
+**Read:** skip judgment stays well-calibrated. The feed-convergence rule held up cleanly —
+FDX's feeds agreeing on 06-23 is corroboration, not a company confirmation, so it stays a
+carry-over rather than a lock. 06-11 was high-yield (13/16), the opposite of the late-May
+0-confirm churn. Standing lever is unchanged: minimize too-early cycles (the window-gating
+hook proposal addresses this at the source).
 
 ---
 
 ## Maintenance Bookkeeping
 
-- **Active `research_log.md` size:** 390 lines (was 1,157 before this roll).
-- **Archive files:** `memory/archive/research_log_2026-Q2_spring-earnings.md` (849 lines, covers 2026-04-23 → 05-13).
-- **Last archive roll:** 2026-05-28.
-- **New this session:** `memory/reference_company_cadence.md` (cadence/lead-time table behind window-gating).
+- **Archived:** 05-28 (truncated stub) + 05-29 (5-confirm) sessions rolled to `memory/archive/research_log_2026-Q2_spring-earnings.md`; active log now ~150 lines.
+- **Cadence table:** **+14 symbols** from the 06-11/06-12 confirm wave (ACN, CCL, CNXC, DRI, FDX, GIS, JBL, JEF, KMX, KR, MKC, MU, NKE, PAYX) with lead times, BMO/AMC, and DB-vs-finnhub error notes — now 51 rows (~55 tickers). This is the data behind window-gating.
+- **`notes_for_ben.md`:** pruned to one open item (window-gating hook proposal); 5 items moved to Resolved (dispute-list fix, UEC, Sunday-table-absence, restore, weekend-maintenance proposal marked implemented).
+- **Inbox:** root clean (README + processed/ only). **Outbox:** all files ≤ 65 lines — no rotation.
+- **MEMORY.md:** index pointers verified; no new files this session (cadence already indexed).

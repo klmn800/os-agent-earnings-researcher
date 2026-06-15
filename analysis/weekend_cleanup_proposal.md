@@ -3,7 +3,7 @@
 **Author:** Earnings Researcher agent
 **Date:** 2026-05-28
 **For:** Ben → dev session to implement
-**Status:** proposal / awaiting decisions
+**Status:** ✅ IMPLEMENTED (confirmed 2026-06-14). `PROMPT_SUNDAY.md`, `STATUS.md`, `memory/archive/`, and the `<maintenance-session>` hook injection all exist and run; archive granularity landed as quarterly-by-earnings-season. Kept for the design rationale.
 
 ---
 
