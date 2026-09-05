@@ -28,7 +28,19 @@ The User-Agent string must include a contact email per SEC's fair-access policy.
    `https://efts.sec.gov/LATEST/search-index?q=<phrase>&forms=8-K&ciks=<cik>&dateRange=custom&startdt=YYYY-MM-DD&enddt=YYYY-MM-DD`
    Returns `hits.total.value` and `hits.hits[*]._source.{file_date,adsh,...}`. Useful for "has Company X filed any earnings-date 8-K in date range" — `total.value == 0` is an authoritative "no announcement yet."
 
-**Bash gotcha on Windows:** Python under Bash can't write to `/tmp` — use absolute Windows paths under the project workspace (e.g. `E:/options_scanner/agents/earnings_researcher/inbox/`).
+**Bash gotcha on Windows:** Python under Bash can't write to `/tmp` — use absolute Windows paths under the project workspace — **write to `inbox/fetch/`, NOT `inbox/` itself**, or the context hook reports the scratch file as an unprocessed handoff note next session (see [[feedback-fetch-artifacts-not-in-inbox]]).
+
+⭐ **Endpoint 1 is the best opening tripwire, and it beats a feed read for the "has anything happened at all" question.**
+One call per CIK, no host discovery, no RSS-path guessing — and critically **a bot wall cannot fake it**, unlike the
+`200-for-every-path` hosts that silently invert slug probes (Copart). It also answers questions a feed cannot: on 2026-08-24
+it proved Copart's advance scheduling PR is **not an EDGAR document at all** (four known advance-PR dates, zero 8-Ks),
+which converted a months-old assumed gate into a verified one. Sweep the surfaced CIKs with it first, then spend IR-feed
+reads only on symbols inside their announcement windows.
+
+⚠ `index.json` per filing (`/Archives/edgar/data/<cik>/<accession_nodash>/index.json`) lists every exhibit with sizes —
+cheaper than fetching the 8-K body when you only need to know whether an **Ex-99.1 press release** is attached.
+The Ex-99.1 dateline also names the **wire service**, which is the reliable way to learn a company's actual wire
+(Copart's said `/PRNewswire/` where the cadence table had claimed BusinessWire).
 
 **Why this matters for the earnings-research workflow:**
 - SEC 8-K body text is the gold-standard source for "Sets the Date" / "to Announce Q… Results" press releases (Exhibit 99.1).

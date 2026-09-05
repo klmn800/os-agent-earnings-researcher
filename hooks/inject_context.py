@@ -296,14 +296,21 @@ def build_dispute_list(now, today_str, horizon_str, limit):
     try:
         conn = sqlite3.connect(str(PERF_DB), timeout=10)
         conn.execute("PRAGMA busy_timeout = 10000")
+        # NOTE: no db_date horizon gate here (unlike the backfill query below).
+        # A dispute means the stored db_date is itself the value under suspicion,
+        # so filtering on it can hide a dispute whose *true* date is imminent behind
+        # a *wrong* stored date that looks far out. The WHERE trade_date = ? clause
+        # already bounds this to today's freshly-detected disputes (no stale
+        # accumulation), and the set is count-bounded by how many disagreements
+        # exist, so the horizon added nothing but a silent-drop bug (GIS/NKE 06-11,
+        # JBL/KMX/KR 05-29 were all dropped this way). See SA P033 dispute lifecycle.
         rows = conn.execute("""
             SELECT symbol, db_date, db_time, yfinance_date, finnhub_date, dispute_reason
             FROM earnings_date_disputes
             WHERE trade_date = ?
               AND (resolution = 'unresolved' OR resolution IS NULL)
-              AND db_date <= ?
             ORDER BY db_date ASC, symbol ASC
-        """, (today_str, horizon_str)).fetchall()
+        """, (today_str,)).fetchall()
         conn.close()
         rows.sort(key=lambda r: (PRIORITY.get(r[5], 9), r[1] or '9999'))
         if limit > 0:
@@ -377,13 +384,28 @@ def build_dispute_list(now, today_str, horizon_str, limit):
     except Exception:
         pass
 
+    # Real disputes occupy disputes[:dispute_only]; unconfirmed backfill (appended
+    # after sorting) occupies the tail. They come from DIFFERENT sources and need
+    # DIFFERENT actions, so render them under separate sub-headers — merging them
+    # under one count is what made the injected set look like it "diverged" from
+    # the earnings_date_disputes table (it never matched: backfill rows have no
+    # dispute row at all). See notes_for_ben.md 06-11.
+    dispute_only = len(disputes) - backfill_count
     if backfill_count > 0:
-        dispute_only = len(disputes) - backfill_count
         parts.append("Symbols to research ({} total: {} disputes, {} unconfirmed-but-undisputed):".format(
             len(disputes), dispute_only, backfill_count))
     else:
         parts.append("Symbols to research ({} disputes):".format(len(disputes)))
+    backfill_header_emitted = False
     for i, (sym, db_date, db_time, yf_date, fh_date, reason) in enumerate(disputes, 1):
+        if i == 1 and dispute_only > 0:
+            parts.append("")
+            parts.append("-- DISPUTES (rows in earnings_date_disputes — resolve via the UPDATE in CLAUDE.md step 7) --")
+        if not backfill_header_emitted and i > dispute_only:
+            parts.append("")
+            parts.append("-- UNCONFIRMED CALENDAR ROWS (NO dispute row — confirm via earnings_confirm.py; "
+                         "the earnings_date_disputes UPDATE matches 0 rows for these) --")
+            backfill_header_emitted = True
         company = company_names.get(sym, 'Unknown')
         parts.append("{}. {} ({}) -- DB date: {}, time: {}, reason: {}".format(
             i, sym, company, db_date, db_time or 'Unknown', reason))

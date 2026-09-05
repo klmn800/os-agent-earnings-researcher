@@ -1,0 +1,414 @@
+==============================================================================
+APTV: FEED https://ir.aptiv.com/rss/pressrelease.aspx -> OK 10 items
+   Tue, 04 Aug 2026 06:45   Aptiv Reports Second Quarter 2026 Financial Results ***
+        https://ir.aptiv.com/news/news-details/2026/Aptiv-Reports-Second-Quarter-2026-Financial-Results/default.aspx
+   Wed, 29 Jul 2026 16:30   Aptiv to Present at J.P. Morgan 2026 Auto Conference
+   Tue, 14 Jul 2026 10:00   Kyndryl and Aptiv partner to power mission-critical systems globally
+   Tue, 07 Jul 2026 16:30   Aptiv to Release Second Quarter 2026 Financial Results on August 4 ***
+        https://ir.aptiv.com/news/news-details/2026/Aptiv-to-Release-Second-Quarter-2026-Financial-Results-on-August-4/default.aspx
+   Tue, 23 Jun 2026 09:00   Robust.AI Selects Aptiv Perception, Powered by PULSE™, for its Gen 3 Carter™ Robot
+   Mon, 15 Jun 2026 08:00   Aptiv Showcasing Next Generation Intelligent Edge Solutions at Automate 2026
+   Mon, 08 Jun 2026 08:00   Aptiv Introduces Advanced Occupancy Classification, The Industry’s First Camera-Only Occupant Detect
+   Thu, 04 Jun 2026 08:00   Aptiv’s Winchester Interconnect Launches VITA 67.2 RF Connector Product Line for High-Density Aerosp
+   Mon, 01 Jun 2026 22:05   Aptiv Delivering Production-Ready Edge AI with Long-Term Support with NVIDIA
+   Wed, 27 May 2026 16:30   Aptiv to Present at Wells Fargo 16th Annual Industrials &amp; Materials Conference
+==============================================================================
+BP: https://www.bp.com/rss/pressrelease.aspx -> HTTP 404
+BP: https://www.bp.com/rss/news-releases.xml -> HTTP 404
+BP: https://www.bp.com/rss -> HTTP 404
+BP: https://www.bp.com/news-events/press-releases/rss -> HTTP 404
+BP: https://www.bp.com/rss/press-releases -> HTTP 404
+BP: https://www.bp.com/feed -> HTTP 404
+==============================================================================
+BR: https://investors.broadridge.com/rss/pressrelease.aspx -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://investors.broadridge.com/rss/news-releases.xml -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://investors.broadridge.com/rss -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://investors.broadridge.com/news-events/press-releases/rss -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://investors.broadridge.com/rss/press-releases -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://investors.broadridge.com/feed -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://ir.broadridge.com/rss/pressrelease.aspx -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://ir.broadridge.com/rss/news-releases.xml -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://ir.broadridge.com/rss -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://ir.broadridge.com/news-events/press-releases/rss -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://ir.broadridge.com/rss/press-releases -> URLERR [Errno 11001] getaddrinfo failed
+BR: https://ir.broadridge.com/feed -> URLERR [Errno 11001] getaddrinfo failed
+==============================================================================
+BRBR: https://ir.bellring.com/rss/pressrelease.aspx -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://ir.bellring.com/rss/news-releases.xml -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://ir.bellring.com/rss -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://ir.bellring.com/news-events/press-releases/rss -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://ir.bellring.com/rss/press-releases -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://ir.bellring.com/feed -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://investors.bellring.com/rss/pressrelease.aspx -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://investors.bellring.com/rss/news-releases.xml -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://investors.bellring.com/rss -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://investors.bellring.com/news-events/press-releases/rss -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://investors.bellring.com/rss/press-releases -> URLERR [Errno 11001] getaddrinfo failed
+BRBR: https://investors.bellring.com/feed -> URLERR [Errno 11001] getaddrinfo failed
+==============================================================================
+BRKR: FEED https://ir.bruker.com/rss/pressrelease.aspx -> OK 10 items
+   Tue, 04 Aug 2026 07:00   Bruker Reports Second Quarter 2026 Financial Results ***
+        https://ir.bruker.com/press-releases/press-release-details/2026/Bruker-Reports-Second-Quarter-2026-Financial-Results/default.aspx
+   Fri, 24 Jul 2026 16:01   Bruker Announces Date and Time of Second Quarter 2026 Earnings Release and Webcast ***
+        https://ir.bruker.com/press-releases/press-release-details/2026/Bruker-Announces-Date-and-Time-of-Second-Quarter-2026-Earnings-Release-and-Webcast/default.aspx
+   Wed, 15 Jul 2026 07:00   Bruker Expands Infection Detection Portfolio with Acquisition of Metagenomic mNGS DISQVER® Platform 
+   Thu, 04 Jun 2026 07:00   Bruker Showcases Expanding Microbiology &amp; Infection Diagnostics Portfolio at ASM Microbe 2026
+   Tue, 02 Jun 2026 11:24   Bruker Launches new timsMRMS Mass Spectrometry Platform for Unique Ultra-Complex Mixture Application
+   Mon, 01 Jun 2026 07:00   Bruker Announces Major Strides in 4D Proteomics Performance, Further Advances In Intact and Top-Down ***
+        https://ir.bruker.com/press-releases/press-release-details/2026/Bruker-Announces-Major-Strides-in-4D-Proteomics-Performance-Further-Advances-In-Intact-and-Top-Down-Functional-Proteoform-Analysis-and-Innovations-in-Hybrid-QualQuant-4D-Metabolomics--all-to-Enable-Deeper-Insights-into-Disease-Biology/default.aspx
+   Tue, 26 May 2026 07:00   Champalimaud Foundation’s Neuroscience and Oncology Research Benefits from 18 Tesla Ultra-High Field
+   Wed, 06 May 2026 06:30   Bruker Reports First Quarter 2026 Financial Results ***
+        https://ir.bruker.com/press-releases/press-release-details/2026/Bruker-Reports-First-Quarter-2026-Financial-Results/default.aspx
+   Fri, 24 Apr 2026 07:00   Bruker Announces Date and Time of First Quarter 2026 Earnings Release and Webcast ***
+        https://ir.bruker.com/press-releases/press-release-details/2026/Bruker-Announces-Date-and-Time-of-First-Quarter-2026-Earnings-Release-and-Webcast/default.aspx
+   Fri, 17 Apr 2026 09:00   Bruker Spatial Biology Showcases High Fidelity Spatial Data and Integrated Multi-platform Workflows 
+==============================================================================
+CAT: FEED https://investors.caterpillar.com/rss/pressrelease.aspx -> OK 10 items
+   Tue, 04 Aug 2026 06:30   Caterpillar Reports Second-Quarter 2026 Results ***
+        https://www.caterpillar.com/en/news/corporate-press-releases/h/2q26-results-caterpillar-inc.html
+   Wed, 29 Jul 2026 12:00   Caterpillar Invests in the Future of Manufacturing Talent in Illinois
+   Tue, 21 Jul 2026 09:10   Caterpillar Inc. to Announce Second-Quarter 2026 Financial Results on August 4 ***
+        https://investors.caterpillar.com/news/news-details/2026/Caterpillar-Inc--to-Announce-Second-Quarter-2026-Financial-Results-on-August-4/default.aspx
+   Tue, 07 Jul 2026 09:15   Caterpillar expands mining technology capabilities with Skycatch acquisition
+   Thu, 02 Jul 2026 12:00   Caterpillar Invests in the Future of Texas' Manufacturing Workforce
+   Wed, 10 Jun 2026 16:05   Caterpillar Inc. Increases Dividend
+   Tue, 12 May 2026 09:05   Caterpillar Inc. Releases 2025 Annual and Sustainability Reports ***
+        https://investors.caterpillar.com/news/news-details/2026/Caterpillar-Inc--Releases-2025-Annual-and-Sustainability-Reports/default.aspx
+   Thu, 07 May 2026 09:00   Caterpillar Opens Registration for Global Innovation Challenge
+   Thu, 30 Apr 2026 16:15   Caterpillar Announces Virtual 2026 Shareholder Meeting ***
+        https://investors.caterpillar.com/news/news-details/2026/Caterpillar-Announces-Virtual-2026-Shareholder-Meeting/default.aspx
+   Thu, 30 Apr 2026 06:30   Caterpillar Reports First-Quarter 2026 Results ***
+        https://www.caterpillar.com/en/news/corporate-press-releases/h/1q26-results-caterpillar-inc.html
+==============================================================================
+CCEP: FEED https://ir.cocacolaep.com/rss/news-releases.xml -> OK 10 items
+   Tue, 04 Aug 2026 02:00   Coca-Cola EP PLC - Results for the six months ended 3 July 2026 ***
+        https://ir.cocacolaep.com/news-releases/news-release-details/coca-cola-ep-plc-results-six-months-ended-3-july-2026
+   Mon, 03 Aug 2026 10:30   Coca-Cola EP PLC - Total Voting Rights
+   Mon, 03 Aug 2026 09:30   Coca-Cola EP PLC - Transactions in Own Shares
+   Mon, 27 Jul 2026 11:00   Coca-Cola EP PLC - Transactions in Own Shares
+   Wed, 22 Jul 2026 10:15   Coca-Cola EP PLC - Director/PDMR Shareholding
+   Mon, 20 Jul 2026 11:00   Coca-Cola EP PLC - Transactions in Own Shares
+   Tue, 14 Jul 2026 10:45   Coca-Cola EP PLC - Director/PDMR Shareholding
+   Mon, 13 Jul 2026 10:45   Coca-Cola EP PLC - Transactions in Own Shares
+   Thu, 02 Jul 2026 06:00   Coca-Cola EP PLC - CCEP announces update to share buyback programme ***
+        https://ir.cocacolaep.com/news-releases/news-release-details/coca-cola-ep-plc-ccep-announces-update-share-buyback-programme
+   Wed, 24 Jun 2026 08:00   Coca-Cola EP PLC - Director/PDMR Shareholding
+==============================================================================
+CG: FEED https://ir.carlyle.com/rss/news-releases.xml -> OK 10 items
+   Tue, 07 Jul 2026 08:00   Carlyle to Announce Second Quarter 2026 Financial Results and Host Investor Conference Call ***
+        https://ir.carlyle.com/news-releases/news-release-details/carlyle-announce-second-quarter-2026-financial-results-and-host
+   Mon, 01 Jun 2026 08:00   Carlyle to Present at the Morgan Stanley US Financials Conference ***
+        https://ir.carlyle.com/news-releases/news-release-details/carlyle-present-morgan-stanley-us-financials-conference
+   Mon, 01 Jun 2026 08:00   Carlyle Appoints Kate Heinzelman as General Counsel
+   Mon, 18 May 2026 10:36   Carlyle to Present at the Bernstein 42nd Annual Strategic Decisions Conference
+   Thu, 07 May 2026 06:00   Carlyle Reports First Quarter 2026 Financial Results ***
+        https://ir.carlyle.com/news-releases/news-release-details/carlyle-reports-first-quarter-2026-financial-results
+   Thu, 09 Apr 2026 09:00   Carlyle to Announce First Quarter 2026 Financial Results and Host Investor Conference Call ***
+        https://ir.carlyle.com/news-releases/news-release-details/carlyle-announce-first-quarter-2026-financial-results-and-host
+   Thu, 26 Feb 2026 07:00   Carlyle Presents Growth Outlook at 2026 Shareholder Update
+   Fri, 06 Feb 2026 06:00   Carlyle Reports Fourth Quarter and Full-Year 2025 Financial Results ***
+        https://ir.carlyle.com/news-releases/news-release-details/carlyle-reports-fourth-quarter-and-full-year-2025-financial
+   Mon, 02 Feb 2026 08:00   Carlyle to Host 2026 Shareholder Update
+   Fri, 09 Jan 2026 09:00   Carlyle to Announce Fourth Quarter and Full-Year 2025 Financial Results and Host Investor Conference ***
+        https://ir.carlyle.com/news-releases/news-release-details/carlyle-announce-fourth-quarter-and-full-year-2025-financial
+==============================================================================
+CMI: FEED https://investor.cummins.com/rss/news-releases.xml -> OK 20 items  (redirected to https://investor.cummins.com/news/rss)
+   Thu, 23 Jul 26 08:00:0   Cummins Announces Phased Model Year 2027 Product Launch Plan ***
+        http:///news/detail/700/cummins-announces-phased-model-year-2027-product-launch-plan
+   Mon, 13 Jul 26 16:15:0   Cummins Inc. Increases Quarterly Common Stock Dividend ***
+        http:///news/detail/699/cummins-inc-increases-quarterly-common-stock-dividend
+   Mon, 06 Jul 26 11:00:0   Cummins Supports Customers with Updated DEF Inducement Calibrations
+   Tue, 16 Jun 26 12:00:0   Cummins Natural Gas Generators to Power Large Scale Data Centers in West Texas
+   Thu, 21 May 26 11:30:0   Cummins Raises 2030 Financial Targets, Announces Large-engine Capacity and Product Investments ***
+        http:///news/detail/696/cummins-raises-2030-financial-targets-announces-large-engine-capacity-and-product-investments
+   Tue, 12 May 26 16:15:0   Cummins Inc. Declares Quarterly Common Stock Dividend ***
+        http:///news/detail/695/cummins-inc-declares-quarterly-common-stock-dividend
+   Tue, 05 May 26 07:30:0   Cummins Delivered Strong Operating Results and Returned $519 Million to Shareholders in the First Qu ***
+        http:///news/detail/694/cummins-delivered-strong-operating-results-and-returned-519-million-to-shareholders-in-the-first-quarter-of-2026-raises-full-year-outlook
+   Tue, 14 Apr 26 10:00:0   Cummins Announces Sponsorship of America250 to Support Nation’s 250th Anniversary Commemoration ***
+        http:///news/detail/693/cummins-announces-sponsorship-of-america250-to-support-nations-250th-anniversary-commemoration
+   Thu, 26 Mar 26 08:00:0   Cummins Takes Forever Rising Tour Nationwide After Strong Customer Response
+   Tue, 17 Feb 26 09:00:0   Cummins Offers $500 for Emissions Recall 67A on Ram Diesel Trucks
+   Tue, 10 Feb 26 16:15:0   Cummins Inc. Declares Quarterly Common Stock Dividend ***
+        http:///news/detail/690/cummins-inc-declares-quarterly-common-stock-dividend
+   Thu, 05 Feb 26 07:30:0   Cummins Reports Strong Fourth Quarter and Full-Year 2025 Results, Records Charges Associated with El ***
+        http:///news/detail/689/cummins-reports-strong-fourth-quarter-and-full-year-2025-results-records-charges-associated-with-electrolyzer-business-strategic-review
+   Thu, 06 Nov 25 07:30:0   Cummins Reports Strong Third Quarter Operating Results, Records Non-Cash Charges Related to its Elec ***
+        http:///news/detail/687/cummins-reports-strong-third-quarter-operating-results-records-non-cash-charges-related-to-its-electrolyzer-business
+   Tue, 14 Oct 25 16:15:0   Cummins Inc. Declares Quarterly Common Stock Dividend ***
+        http:///news/detail/686/cummins-inc-declares-quarterly-common-stock-dividend
+==============================================================================
+DOC: FEED https://ir.healthpeak.com/rss/pressrelease.aspx -> OK 10 items
+   Mon, 20 Jul 2026 06:45   Healthpeak Properties and Brookfield Form a $2.1 Billion Strategic Joint Venture
+   Thu, 09 Jul 2026 16:15   Healthpeak Properties Declares Monthly Common Stock Cash Dividends for the Third Quarter of 2026 ***
+        https://ir.healthpeak.com/news/news-details/2026/Healthpeak-Properties-Declares-Monthly-Common-Stock-Cash-Dividends-for-the-Third-Quarter-of-2026/default.aspx
+   Thu, 18 Jun 2026 16:15   Healthpeak Properties Publishes Its 15th Annual Corporate Impact Report ***
+        https://ir.healthpeak.com/news/news-details/2026/Healthpeak-Properties-Publishes-Its-15th-Annual-Corporate-Impact-Report/default.aspx
+   Mon, 15 Jun 2026 16:15   Healthpeak Properties Announces Dates of Second Quarter 2026 Earnings Release, Conference Call, and  ***
+        https://ir.healthpeak.com/news/news-details/2026/Healthpeak-Properties-Announces-Dates-of-Second-Quarter-2026-Earnings-Release-Conference-Call-and-Webcast/default.aspx
+   Tue, 05 May 2026 16:15   Healthpeak Properties Raises 2026 Earnings Guidance Following Completion of the Janus Living IPO, Ac ***
+        https://ir.healthpeak.com/news/news-details/2026/Healthpeak-Properties-Raises-2026-Earnings-Guidance-Following-Completion-of-the-Janus-Living-IPO-Accretive-Capital-Allocation-and-Strong-First-Quarter-2026-Results/default.aspx
+   Wed, 08 Apr 2026 16:15   Healthpeak Properties Announces Dates of First Quarter 2026 Earnings Release, Conference Call, and W ***
+        https://ir.healthpeak.com/news/news-details/2026/Healthpeak-Properties-Announces-Dates-of-First-Quarter-2026-Earnings-Release-Conference-Call-and-Webcast/default.aspx
+   Mon, 06 Apr 2026 16:15   Healthpeak Properties Declares Monthly Common Stock Cash Dividends for the Second Quarter of 2026 ***
+        https://ir.healthpeak.com/news/news-details/2026/Healthpeak-Properties-Declares-Monthly-Common-Stock-Cash-Dividends-for-the-Second-Quarter-of-2026/default.aspx
+   Mon, 23 Mar 2026 16:16   Healthpeak Properties Closes New $400 Million Delayed-Draw Term Loan Facility
+   Mon, 23 Mar 2026 16:15   Healthpeak Properties and Janus Living Announce Closing of Janus Living Initial Public Offering ***
+        https://ir.healthpeak.com/news/news-details/2026/Healthpeak-Properties-and-Janus-Living-Announce-Closing-of-Janus-Living-Initial-Public-Offering/default.aspx
+   Thu, 19 Mar 2026 16:35   Healthpeak Properties and Janus Living Announce Pricing of Upsized $840 Million Janus Living Initial ***
+        https://ir.healthpeak.com/news/news-details/2026/Healthpeak-Properties-and-Janus-Living-Announce-Pricing-of-Upsized-840-Million-Janus-Living-Initial-Public-Offering/default.aspx
+==============================================================================
+DUK: FEED https://investors.duke-energy.com/rss/pressrelease.aspx -> OK 10 items
+   Tue, 04 Aug 2026 07:00   Duke Energy reports second-quarter 2026 financial results ***
+        https://investors.duke-energy.com/news/news-details/2026/Duke-Energy-reports-second-quarter-2026-financial-results/default.aspx
+   Thu, 30 Jul 2026 11:13   Duke Energy Foundation provides $300,000 in grants to support organizations serving older South Caro
+   Mon, 27 Jul 2026 11:43   Duke Energy surpasses $65 million in North Carolina customer assistance with new $1 million investme
+   Thu, 23 Jul 2026 15:00   Duke Energy: Data center growth will deliver billions of dollars in customer savings
+   Fri, 17 Jul 2026 19:07   Duke Energy Carolinas reaches agreement with North Carolina Public Staff and other stakeholders to d
+   Wed, 15 Jul 2026 09:20   Sign up, sit back, save: Duke Energy Florida program offers bill credits with minimal requirements, 
+   Tue, 14 Jul 2026 14:05   Duke Energy announces dividend payments to shareholders ***
+        https://investors.duke-energy.com/news/news-details/2026/Duke-Energy-announces-dividend-payments-to-shareholders-5ddb8ba5f/default.aspx
+   Fri, 10 Jul 2026 10:49   Duke Energy Florida delivers $50 million in customer savings, avoids 2027 base rate increase through
+   Tue, 07 Jul 2026 10:00   Duke Energy to announce second-quarter 2026 financial results on Aug. 4 ***
+        https://investors.duke-energy.com/news/news-details/2026/Duke-Energy-to-announce-second-quarter-2026-financial-results-on-Aug--4/default.aspx
+   Wed, 01 Jul 2026 09:51   Duke Energy Foundation invests $773,000 to strengthen STEM education in Florida
+==============================================================================
+DVA: FEED https://investors.davita.com/rss -> OK 10 items  (redirected to https://investors.davita.com/feed/)
+   Tue, 21 Jul 2026 17:00   DaVita Inc. Schedules 2nd Quarter 2026 Investor Conference Call ***
+        https://investors.davita.com/2026-07-21-davita-inc-schedules-2nd-quarter-2026-investor-conference-call/
+   Mon, 18 May 2026 15:00   DaVita Sets Bold 2030 Community Care Commitments After Exceeding Prior Five-Year ESG Goals
+   Wed, 06 May 2026 18:01   DaVita Inc. to Participate in the BofA Securities 2026 Health Care Conference
+   Tue, 05 May 2026 16:05   DaVita Inc. 1st Quarter 2026 Results ***
+        https://investors.davita.com/2026-05-05-davita-inc-1st-quarter-2026-results/
+   Mon, 20 Apr 2026 14:06   DaVita Inc. Schedules 1st Quarter 2026 Investor Conference Call ***
+        https://investors.davita.com/2026-04-20-davita-inc-schedules-1st-quarter-2026-investor-conference-call/
+   Wed, 18 Mar 2026 15:00   DaVita Highlights Continued Progress in Value-Based Kidney Care as CKCC Results Show Year-Over-Year  ***
+        https://investors.davita.com/2026-03-18-davita-highlights-continued-progress-in-value-based-kidney-care-as-ckcc-results-show-year-over-year-improvement/
+   Tue, 24 Feb 2026 14:00   DaVita Inc. to Participate in TD Cowen&#8217;s 46th Annual Health Care Conference
+   Mon, 02 Feb 2026 16:05   DaVita Inc. 4th Quarter 2025 Results ***
+        https://investors.davita.com/2026-02-02-davita-inc-4th-quarter-2025-results/
+   Wed, 21 Jan 2026 10:00   DaVita Inc. Schedules 4th Quarter 2025 Investor Conference Call ***
+        https://investors.davita.com/2026-01-21-davita-inc-schedules-4th-quarter-2025-investor-conference-call/
+   Thu, 11 Dec 2025 08:00   DaVita Names New Leaders to Accelerate Care Transformation
+==============================================================================
+DVN: FEED https://investors.devonenergy.com/rss/pressrelease.aspx -> OK 10 items
+   Wed, 01 Jul 2026 16:05   Devon Energy Schedules Second-Quarter 2026 Earnings Release and Conference Call ***
+        http://investors.devonenergy.com/investors/press-releases/press-release-details/2026/Devon-Energy-Schedules-Second-Quarter-2026-Earnings-Release-and-Conference-Call/default.aspx
+   Wed, 24 Jun 2026 06:55   Devon Announces Expiration and Final Results of its Private Exchange Offers and Consent Solicitation ***
+        http://investors.devonenergy.com/investors/press-releases/press-release-details/2026/Devon-Announces-Expiration-and-Final-Results-of-its-Private-Exchange-Offers-and-Consent-Solicitations/default.aspx
+   Tue, 16 Jun 2026 16:05   Devon Energy CEO Clay Gaspar to Participate in a Fireside Chat at the J.P. Morgan Energy, Power, Ren
+   Tue, 09 Jun 2026 16:55   Devon Energy Provides Updated 2026 Outlook
+   Mon, 08 Jun 2026 06:55   Devon Announces Results of Early Participation in Private Exchange Offers and Consent Solicitations  ***
+        http://investors.devonenergy.com/investors/press-releases/press-release-details/2026/Devon-Announces-Results-of-Early-Participation-in-Private-Exchange-Offers-and-Consent-Solicitations-and-Extension-of-Deadline-to-Receive-Total-Exchange-Consideration/default.aspx
+   Fri, 22 May 2026 09:38   Devon Commences Private Exchange Offers and Coterra Commences Consent Solicitations
+   Thu, 21 May 2026 06:55   Devon Energy Enhances Permian Inventory in Federal Lease Sale
+   Thu, 07 May 2026 16:30   Devon Energy Announces Capital Return Update ***
+        http://investors.devonenergy.com/investors/press-releases/press-release-details/2026/Devon-Energy-Announces-Capital-Return-Update/default.aspx
+   Thu, 07 May 2026 08:30   Devon Energy and Coterra Energy Complete Merger
+   Tue, 05 May 2026 16:05   Devon Energy Reports First-Quarter 2026 Results ***
+        http://investors.devonenergy.com/investors/press-releases/press-release-details/2026/Devon-Energy-Reports-First-Quarter-2026-Results/default.aspx
+==============================================================================
+EA: FEED https://ir.ea.com/rss/pressrelease.aspx -> OK 10 items
+   Thu, 23 Jul 2026 12:00   Kylian Mbappé and Jude Bellingham Welcome You to EA SPORTS FC™ 27, Launching Worldwide on September 
+   Fri, 17 Jul 2026 11:00   Battlefield 6 and Top Gun Join Forces for Biggest Blockbuster Season Yet
+   Thu, 16 Jul 2026 11:05   Every Team Has an Edge: EA SPORTS™ NHL® 27 Overhauls All 32 Arena Atmospheres and Presentation for T
+   Thu, 09 Jul 2026 12:57   EA SPORTS™ College Football 27 Launches Worldwide, Bringing New Era of College Football to Life
+   Fri, 19 Jun 2026 11:05   EA SPORTS™ UFC® 6 Launches Worldwide Today, Inviting Players Everywhere to Fight Their Fight
+   Mon, 15 Jun 2026 07:00   Electronic Arts Introduces EA Advertising, Launching Brands Directly Into Gameplay and Live Experien
+   Fri, 05 Jun 2026 21:00   Command the Clone Wars’™ Most Cunning Operatives in Star Wars Zero Company™, Launching August 27
+   Thu, 04 Jun 2026 12:00   Experience the Excitement of The World’s Game in EA SPORTS FC™, Where History Is Playable
+   Wed, 03 Jun 2026 11:05   Experience the Definitive New Era of Formula 1: EA Sports™ F1® 25 2026 Season Pack Available Now
+   Wed, 03 Jun 2026 08:00   Caleb Williams Named EA SPORTS™ Madden NFL 27 Cover Athlete
+==============================================================================
+TECH: FEED https://investors.bio-techne.com/rss -> OK 20 items
+   Wed, 08 Jul 2026 06:30   Bio-Techne Launches Expanded R&amp;D Systems AI-Engineered Designer Protein Portfolio
+   Thu, 25 Jun 2026 06:10   Merck KGaA, Darmstadt, Germany, Agrees to Acquire Bio-Techne, Strengthening Leadership Position in F
+   Thu, 04 Jun 2026 06:30   Bio‑Techne and Refeyn Close Critical Gap in Bispecific Antibody and Biosimilar Characterization
+   Wed, 06 May 2026 06:30   Bio-Techne Releases Third Quarter Fiscal 2026 Results ***
+        https://investors.bio-techne.com/news/detail/533/bio-techne-releases-third-quarter-fiscal-2026-results
+   Wed, 06 May 2026 06:30   Bio-Techne Declares Dividend
+   Mon, 04 May 2026 07:00   Bio-Techne to Present at the Bank of America Securities 2026 Global Healthcare Conference
+   Thu, 16 Apr 2026 08:00   Bio-Techne Introduces Streamlined Brand Architecture to Help Customers Navigate Solutions Faster and
+   Tue, 14 Apr 2026 07:00   Bio-Techne to Host Conference Call on May 6, 2026, to Announce Third Quarter Fiscal 2026 Financial R ***
+        https://investors.bio-techne.com/news/detail/529/bio-techne-to-host-conference-call-on-may-6-2026-to-announce-third-quarter-fiscal-2026-financial-results
+   Wed, 25 Mar 2026 06:30   Bio-Techne Advances Spatial Biology with Modular Expansion of COMET™ Suite
+   Tue, 24 Feb 2026 07:00   Bio-Techne to Present at Upcoming Investor Conferences
+   Mon, 16 Feb 2026 06:30   Bio-Techne&apos;s Ella Platform Achieves CE-IVD Marking Expanding Access to Rapid, Cartridge‑Based I
+   Wed, 11 Feb 2026 09:00   Bio-Techne Announces Changes to its Leadership Team ***
+        https://investors.bio-techne.com/news/detail/525/bio-techne-announces-changes-to-its-leadership-team
+   Wed, 04 Feb 2026 06:30   Bio-Techne Releases Second Quarter Fiscal 2026 Results ***
+        https://investors.bio-techne.com/news/detail/524/bio-techne-releases-second-quarter-fiscal-2026-results
+   Wed, 04 Feb 2026 06:30   Bio-Techne Declares Dividend
+==============================================================================
+FLO: FEED https://www.flowersfoods.com/rss -> OK 10 items  (redirected to https://flowersfoods.com/feed/)
+   Thu, 21 May 2026 20:05   FLOWERS FOODS, INC. REPORTS FIRST QUARTER 2026 RESULTS ***
+        https://flowersfoods.com/news/news-releases/2026/flowers-foods-inc-reports-first-quarter-2026-results/
+   Mon, 04 May 2026 20:00   Flowers Foods’ Innovations Deliver Fresh Variety to Breakfast, Snacking Categories
+   Wed, 08 Apr 2026 13:00   Flowers Foods Announces Retirement of Chief Supply Chain Officer ***
+        https://flowersfoods.com/news/news-releases/2026/flowers-foods-announces-retirement-of-chief-supply-chain-officer/
+   Mon, 30 Mar 2026 13:00   FLOWERS FOODS ANNOUNCES DEPARTURE OF CHIEF GROWTH OFFICER TERRY THOMAS ***
+        https://flowersfoods.com/news/news-releases/2026/flowers-foods-announces-departure-of-chief-growth-officer-terry-thomas/
+   Mon, 02 Mar 2026 21:30   FLOWERS FOODS ANNOUNCES MICHELLE LORGE AS PRESIDENT OF SIMPLE MILLS ***
+        https://flowersfoods.com/news/news-releases/2026/flowers-foods-announces-michelle-lorge-as-president-of-simple-mills/
+   Fri, 20 Feb 2026 14:02   FLOWERS FOODS DECLARES QUARTERLY DIVIDEND ***
+        https://flowersfoods.com/news/news-releases/2026/flowers-foods-declares-quarterly-dividend-6/
+   Thu, 12 Feb 2026 21:05   FLOWERS FOODS, INC. REPORTS FOURTH QUARTER AND FULL YEAR 2025 RESULTS ***
+        https://flowersfoods.com/news/news-releases/2026/flowers-foods-inc-reports-fourth-quarter-and-full-year-2025-results/
+   Mon, 09 Feb 2026 16:30   FLOWERS FOODS NAMES DAVID ROACH CHIEF DSD OPERATIONS OFFICER
+   Fri, 14 Nov 2025 14:00   FLOWERS FOODS DECLARES QUARTERLY DIVIDEND ***
+        https://flowersfoods.com/news/news-releases/2025/flowers-foods-declares-quarterly-dividend-5/
+   Thu, 06 Nov 2025 21:05   FLOWERS FOODS, INC. REPORTS THIRD QUARTER 2025 RESULTS ***
+        https://flowersfoods.com/news/news-releases/2025/flowers-foods-inc-reports-third-quarter-2025-results/
+==============================================================================
+PANW: FEED https://investors.paloaltonetworks.com/rss/news-releases.xml -> OK 10 items
+   Mon, 03 Aug 2026 08:30   Palo Alto Networks to Announce Fiscal Fourth Quarter and Fiscal Year 2026 Financial Results on Tuesd ***
+        https://investors.paloaltonetworks.com/news-releases/news-release-details/palo-alto-networks-announce-fiscal-fourth-quarter-and-fiscal-7
+   Tue, 21 Jul 2026 16:10   Palo Alto Networks to Extend Leading Observability Platform with Innovative Digital Experience Monit
+   Wed, 24 Jun 2026 09:00   IBM, Red Hat and Palo Alto Networks Expand Project Lightwell to Help Organizations Respond to Softwa
+   Tue, 09 Jun 2026 03:00   Palo Alto Networks and Deutsche Telekom Bring AI-Driven Security with Advanced Sovereignty Controls 
+   Tue, 02 Jun 2026 16:05   Palo Alto Networks Reports Fiscal Third Quarter 2026 Financial Results ***
+        https://investors.paloaltonetworks.com/news-releases/news-release-details/palo-alto-networks-reports-fiscal-third-quarter-2026-financial
+   Fri, 29 May 2026 09:55   Palo Alto Networks Completes Acquisition of Portkey to Secure AI Agents
+   Tue, 12 May 2026 10:00   Palo Alto Networks Introduces Idira: the Next-Generation Identity Security Platform Built for the AI
+   Fri, 01 May 2026 08:30   Palo Alto Networks to Announce Fiscal Third Quarter 2026 Financial Results on Tuesday, June 2, 2026 ***
+        https://investors.paloaltonetworks.com/news-releases/news-release-details/palo-alto-networks-announce-fiscal-third-quarter-2026-financial
+   Thu, 30 Apr 2026 16:10   Palo Alto Networks to Acquire Portkey to Secure the Rise of AI Agents
+   Tue, 14 Apr 2026 08:00   Palo Alto Networks Completes Acquisition of Koi to Secure the Agentic Endpoint
+==============================================================================
+WDAY: FEED https://investor.workday.com/rss/pressrelease.aspx -> OK 10 items
+   Mon, 03 Aug 2026 08:30   Workday to Announce Fiscal 2027 Second Quarter Financial Results on August 27, 2026 ***
+        https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-to-Announce-Fiscal-2027-Second-Quarter-Financial-Results-on-August-27-2026/default.aspx
+   Thu, 23 Jul 2026 09:23   Workday Adaptive Planning Achieves FedRAMP Moderate Authorization to Support Federal Workforce and B
+   Wed, 22 Jul 2026 09:00   Workday Learning, Powered by Sana, Now Generally Available as an AI-Native Learning Experience Built
+   Tue, 21 Jul 2026 09:00   Workday Announces Rising 2026: Where Agentic HR and Agentic Finance Take Center Stage October 12-15  ***
+        https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-Announces-Rising-2026-Where-Agentic-HR-and-Agentic-Finance-Take-Center-Stage-October-12-15-in-Las-Vegas/default.aspx
+   Tue, 02 Jun 2026 09:05   Workday Launches Agent Passport to Test, Verify, and Continuously Monitor Every AI Agent in the Ente
+   Tue, 02 Jun 2026 09:05   Workday Launches New Tools for Developers to Build, Connect, and Verify AI Agents For HR, Finance, a
+   Tue, 02 Jun 2026 09:05   Workday Announces Workday Data Cloud Integration with AWS, Giving Developers Direct Access to Workda ***
+        https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-Announces-Workday-Data-Cloud-Integration-with-AWS-Giving-Developers-Direct-Access-to-Workdays-Governed-Data-Layer/default.aspx
+   Thu, 28 May 2026 09:00   Workday and Google Cloud Expand Strategic Partnership to Bring AI Agents for HR and Finance Into Emp
+   Wed, 27 May 2026 09:03   Workday Introduces Adaptive Decision Intelligence, Bringing Planning Questions, Scenarios, and Decis
+   Wed, 27 May 2026 09:00   New Workday Global Research Finds AI is Easing Burnout but May Be Deepening a Connection Deficit at 
+==============================================================================
+NXE: FEED https://www.nexgenenergy.ca/rss/pressrelease.aspx -> OK 10 items
+   Tue, 30 Jun 2026 21:32   NexGen Announces Voting Results for Election of Directors ***
+        https://www.nexgenenergy.ca/news/news-details/2026/NexGen-Announces-Voting-Results-for-Election-of-Directors/default.aspx
+   Thu, 21 May 2026 16:56   NexGen Files Management Information Circular in Connection with Annual General and Special Meeting o
+   Wed, 20 May 2026 06:30   NexGen Announces the Appointment of Ryan Podrasky as Chief Financial Officer ***
+        https://www.nexgenenergy.ca/news/news-details/2026/NexGen-Announces-the-Appointment-of-Ryan-Podrasky-as-Chief-Financial-Officer/default.aspx
+   Thu, 07 May 2026 06:30   NexGen's Final Batch of 2025 Assays Return Multiple High-Grade Intercepts
+   Tue, 05 May 2026 06:30   NexGen to Host Q1 2026 Conference Call ***
+        https://www.nexgenenergy.ca/news/news-details/2026/NexGen-to-Host-Q1-2026-Conference-Call/default.aspx
+   Wed, 22 Apr 2026 06:30   NexGen Announces Expansion of High-Grade Zone at Patterson Corridor East (PCE) and the Completion of ***
+        https://www.nexgenenergy.ca/news/news-details/2026/NexGen-Announces-Expansion-of-High-Grade-Zone-at-Patterson-Corridor-East-PCE-and-the-Completion-of-2026-Winter-Drill-Program/default.aspx
+   Thu, 05 Mar 2026 10:07   NexGen Receives Final Federal Approval for the Rook I Uranium Project
+   Mon, 02 Mar 2026 07:24   NexGen to Host Q4 2025 Conference Call ***
+        https://www.nexgenenergy.ca/news/news-details/2026/NexGen-to-Host-Q4-2025-Conference-Call/default.aspx
+   Mon, 09 Feb 2026 11:59   Canadian Nuclear Safety Commission ("CNSC") Part 2 Commission Hearing for the Approval of the Rook I
+   Thu, 22 Jan 2026 06:30   NexGen Establishes Partnership with Indigenous Communities to Develop a New Hotel in La Loche to Sup
+==============================================================================
+XPEV: FEED https://ir.xiaopeng.com/rss/news-releases.xml -> OK 10 items
+   Tue, 04 Aug 2026 05:00   XPENG to Report Second Quarter 2026 Financial Results on Monday, August 24, 2026 ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-report-second-quarter-2026-financial-results-monday-august
+   Sat, 01 Aug 2026 00:00   XPENG Announces Vehicle Delivery Results for July 2026 ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-announces-vehicle-delivery-results-july-2026
+   Wed, 01 Jul 2026 00:15   XPENG Announces Vehicle Delivery Results for June and Second Quarter 2026 ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-announces-vehicle-delivery-results-june-and-second-2
+   Mon, 01 Jun 2026 00:47   XPENG Announces Vehicle Delivery Results for May 2026 ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-announces-vehicle-delivery-results-may-2026
+   Thu, 28 May 2026 05:00   XPENG Reports First Quarter 2026 Unaudited Financial Results ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-reports-first-quarter-2026-unaudited-financial-results
+   Wed, 13 May 2026 06:00   XPENG to Report First Quarter 2026 Financial Results on Thursday, May 28, 2026 ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-report-first-quarter-2026-financial-results-thursday-may
+   Fri, 01 May 2026 02:45   XPENG Announces Vehicle Delivery Results for April 2026 ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-announces-vehicle-delivery-results-april-2026
+   Thu, 16 Apr 2026 06:18   XPENG Files 2025 Annual Report on Form 20-F ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-files-2025-annual-report-form-20-f
+   Thu, 16 Apr 2026 05:31   XPENG Publishes 2025 Environmental, Social and Governance Report ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-publishes-2025-environmental-social-and-governance-report
+   Wed, 01 Apr 2026 04:30   XPENG Announces Vehicle Delivery Results for March and First Quarter 2026 ***
+        https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-announces-vehicle-delivery-results-march-and-first-4
+==============================================================================
+NCNO: https://investors.ncino.com/rss/pressrelease.aspx -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://investors.ncino.com/rss/news-releases.xml -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://investors.ncino.com/rss -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://investors.ncino.com/news-events/press-releases/rss -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://investors.ncino.com/rss/press-releases -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://investors.ncino.com/feed -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://ir.ncino.com/rss/pressrelease.aspx -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://ir.ncino.com/rss/news-releases.xml -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://ir.ncino.com/rss -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://ir.ncino.com/news-events/press-releases/rss -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://ir.ncino.com/rss/press-releases -> URLERR [Errno 11001] getaddrinfo failed
+NCNO: https://ir.ncino.com/feed -> URLERR [Errno 11001] getaddrinfo failed
+==============================================================================
+NNE: FEED https://ir.nanonuclearenergy.com/rss/news-releases.xml -> OK 10 items
+   Mon, 27 Jul 2026 08:00   NANO Nuclear Energy Selected by AFWERX for SBIR Phase I Award to Advance KRONOS MMR™ for the U.S. Ai
+   Wed, 22 Jul 2026 08:00   NANO Nuclear and Fortil Advance Engineering Collaboration for the KRONOS MMR™ Fuel Handling &amp; St
+   Fri, 17 Jul 2026 08:00   NANO Nuclear Energy Joins Virginia Nuclear Energy Consortium to Advance Nuclear Innovation and Suppo
+   Thu, 25 Jun 2026 08:00   NANO Nuclear’s KRONOS MMR™ Program Advances as U.S. NRC Initiates Formal Review Activities with Univ
+   Wed, 24 Jun 2026 20:45   NANO Nuclear Highlights Global Strategic Engagements Across Emerging Nuclear Markets and Management 
+   Thu, 28 May 2026 08:00   Recently Acquired NANO Nuclear Subsidiary Secured Transportation Services (STS) Completes Three DOE 
+   Tue, 26 May 2026 08:00   NANO Nuclear Acquires Secured Transportation Services LLC, Establishing a Fully Integrated Nuclear F
+   Wed, 20 May 2026 08:00   NANO Nuclear’s KRONOS MMR™ and the University of Illinois Urbana-Champaign Advance to Next Regulator
+   Thu, 14 May 2026 16:15   NANO Nuclear Reports Q2 FY 2026 Financial Results and Provides Business Update ***
+        https://ir.nanonuclearenergy.com/news-releases/news-release-details/nano-nuclear-reports-q2-fy-2026-financial-results-and-provides
+   Thu, 07 May 2026 08:06   NANO Nuclear to Hold Second Quarter Business Update Webcast on May 14, 2026 ***
+        https://ir.nanonuclearenergy.com/news-releases/news-release-details/nano-nuclear-hold-second-quarter-business-update-webcast-may-14
+==============================================================================
+SQM: FEED https://ir.sqm.com/rss/news-releases.xml -> OK 10 items
+   Tue, 21 Jul 2026 18:00   SQM and Wesfarmers Announces Final Investment Decision for Mt Holland Lithium Expansion Project ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-and-wesfarmers-announces-final-investment-decision-mt
+   Tue, 26 May 2026 21:57   SQM Announces Changes to the Board of Directors ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-announces-changes-board-directors
+   Tue, 26 May 2026 20:40   SQM REPORTS EARNINGS FOR THE THREE MONTHS ENDED MARCH 31, 2026 ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-reports-earnings-three-months-ended-march-31-2026
+   Wed, 29 Apr 2026 18:22   SQM Announces Notice of Dividend Payment ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-announces-notice-dividend-payment
+   Wed, 22 Apr 2026 16:50   SQM Files its Annual Report on Form 20-F for the Year 2025 ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-files-its-annual-report-form-20-f-year-2025
+   Thu, 16 Apr 2026 12:40   SQM files Technical Report Summaries ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-files-technical-report-summaries-2
+   Tue, 17 Mar 2026 19:00   Final Dividend Proposal
+   Tue, 17 Mar 2026 19:00   SQM Announces the Date for its Shareholders’ Meeting ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-announces-date-its-shareholders-meeting-0
+   Fri, 27 Feb 2026 21:30   SQM Reports Earnings for the Twelve Months Ended December 31, 2025 ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-reports-earnings-twelve-months-ended-december-31-2025
+   Tue, 27 Jan 2026 15:06   SQM Announces Full Completion of Merger with Codelco After Favourable Supreme Court Resolution ***
+        https://ir.sqm.com/news-releases/news-release-details/sqm-announces-full-completion-merger-codelco-after-favourable
+==============================================================================
+OKTA: FEED https://investor.okta.com/rss/pressrelease.aspx -> OK 10 items
+   Sat, 01 Aug 2026 08:00   Okta to Announce Second Quarter Fiscal Year 2027 Financial Results on August 26, 2026 ***
+        https://investor.okta.com/news-and-events/news-releases/news-details/2026/Okta-to-Announce-Second-Quarter-Fiscal-Year-2027-Financial-Results-on-August-26-2026/default.aspx
+   Fri, 29 May 2026 08:00   Okta to Present at Upcoming Investor Conferences
+   Thu, 28 May 2026 16:01   Okta Announces First Quarter Fiscal Year 2027 Financial Results ***
+        https://investor.okta.com/news-and-events/news-releases/news-details/2026/Okta-Announces-First-Quarter-Fiscal-Year-2027-Financial-Results/default.aspx
+   Thu, 21 May 2026 08:30   Okta Named a Leader in The 2026 Forrester Wave™: Workforce Identity Security Platforms
+   Mon, 04 May 2026 09:00   Okta Ventures Unveils "The 2026 Identity 25" to Honor Pioneers Securing Identity in the Age of AI
+   Fri, 01 May 2026 08:00   Okta to Announce First Quarter Fiscal Year 2027 Financial Results on May 28, 2026 ***
+        https://investor.okta.com/news-and-events/news-releases/news-details/2026/Okta-to-Announce-First-Quarter-Fiscal-Year-2027-Financial-Results-on-May-28-2026/default.aspx
+   Mon, 16 Mar 2026 08:00   Okta Announces New Blueprint for the Secure Agentic Enterprise ***
+        https://investor.okta.com/news-and-events/news-releases/news-details/2026/Okta-Announces-New-Blueprint-for-the-Secure-Agentic-Enterprise/default.aspx
+   Wed, 04 Mar 2026 16:01   Okta Announces Fourth Quarter And Fiscal Year 2026 Financial Results ***
+        https://investor.okta.com/news-and-events/news-releases/news-details/2026/Okta-Announces-Fourth-Quarter-And-Fiscal-Year-2026-Financial-Results/default.aspx
+   Mon, 02 Mar 2026 08:00   Okta to Present at Upcoming Investor Conference
+   Thu, 05 Feb 2026 09:00   Okta Expands Relationship with PGA of America to Secure Its Golf Professionals’ Identities Worldwide
+==============================================================================
+PVH: https://www.pvh.com/rss/pressrelease.aspx -> HTTP 404
+PVH: https://www.pvh.com/rss/news-releases.xml -> HTTP 404
+PVH: https://www.pvh.com/rss -> HTTP 404
+PVH: https://www.pvh.com/news-events/press-releases/rss -> HTTP 404
+PVH: https://www.pvh.com/rss/press-releases -> HTTP 404
+PVH: https://www.pvh.com/feed -> HTTP 404
+PVH: https://ir.pvh.com/rss/pressrelease.aspx -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://ir.pvh.com/rss/news-releases.xml -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://ir.pvh.com/rss -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://ir.pvh.com/news-events/press-releases/rss -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://ir.pvh.com/rss/press-releases -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://ir.pvh.com/feed -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://investors.pvh.com/rss/pressrelease.aspx -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://investors.pvh.com/rss/news-releases.xml -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://investors.pvh.com/rss -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://investors.pvh.com/news-events/press-releases/rss -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://investors.pvh.com/rss/press-releases -> URLERR [Errno 11001] getaddrinfo failed
+PVH: https://investors.pvh.com/feed -> URLERR [Errno 11001] getaddrinfo failed
