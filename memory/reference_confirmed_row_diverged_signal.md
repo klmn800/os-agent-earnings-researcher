@@ -24,4 +24,15 @@ metadata:
 
 Likely an earlier session locked a date from an aggregator/estimate or a superseded PR, then the company issued (or moved to) an earlier date. The lock (`date_confirmed=1`) then *prevented* the feed from correcting it — the drift flag is the only escape hatch. Corollary: when locking a date, prefer the company advance PR over any feed/aggregator, and if only an estimate is available, keep `date_confirmed=0`.
 
+## Live case — PAYX, raised 2026-09-11, open at the 09-13 maintenance
+
+Confirmed **2026-09-29 bmo** by agent on 09-08 with **no same-quarter source** (a time fix run through
+`earnings_confirm.py`, which locks the date as a side effect — see [[feedback-earnings-confirm-bare-symbol-trap]]).
+yfinance now **2026-09-23 (−6d)**. That is the ≥3d-earlier rule above ⇒ **priority verify**. Paychex's Q1
+was Tuesday-bmo in 2024 (10-01) and 2025 (09-30); 09-23 would be a Wednesday, so cadence mildly favours
+the stored date — which is exactly the kind of prior that lost on RTX/LMT/CLF/EQT. Only the Q1 FY27
+advance PR settles it. **Second-order lesson:** both recorded batches of bad agent-locks (06-30 cadence
+locks, 09-08 time fixes) had the same root — a date locked without a company source — and the drift
+flag caught both. Locking is the error; the flag is the safety net, not the plan.
+
 Related: [[sec-8k-acceptance-time-as-timing-source]] (companion year-ago+364d date sanity-check), [[company-earnings-cadence]], [[window-gating-and-noop-sessions]], [[feedback-direct-db-query]].

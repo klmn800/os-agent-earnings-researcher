@@ -330,11 +330,11 @@ For each symbol:
    ```
 6. Save the IR URL:
    ```
-   python E:\\options_scanner\\tools\\direct_db_query.py --db E:\\options_scanner\\data\\datalake.db --sql "UPDATE symbol_metadata SET ir_earnings_url='URL', ir_url_last_verified='{date}' WHERE symbol='SYM'"
+   python E:\\options_scanner\\tools\\direct_db_query.py --db E:\\options_scanner\\data\\datalake.db --write --sql "UPDATE symbol_metadata SET ir_earnings_url='URL', ir_url_last_verified='{date}' WHERE symbol='SYM'"
    ```
 7. Update dispute resolution:
    ```
-   python E:\\options_scanner\\tools\\direct_db_query.py --db E:\\options_scanner\\data\\performance.db --sql "UPDATE earnings_date_disputes SET resolution='confirmed_agent', resolved_date='DATE', resolved_time='TIME', resolved_at='TIMESTAMP', research_url='URL' WHERE trade_date='{date}' AND symbol='SYM'"
+   python E:\\options_scanner\\tools\\direct_db_query.py --db E:\\options_scanner\\data\\performance.db --write --sql "UPDATE earnings_date_disputes SET resolution='confirmed_agent', resolved_date='DATE', resolved_time='TIME', resolved_at='TIMESTAMP', research_url='URL' WHERE trade_date='{date}' AND symbol='SYM'"
    ```
 8. If you can't find a reliable source, or do not have enough confidence to lock in a date, skip and log to memory/research_log.md.
 

@@ -131,6 +131,13 @@ company's advance PR overdue against a verified lead?**
 
 Demote it back to what it was on 2026-07-15: a **defensive sanity guard** for not stamping `date_confirmed=1` on an unsourced date, and a **tie-breaker against finnhub only**. It is *not* evidence that DB is right, and a `+364d`-backed date should never shorten a next-check or justify skipping a search when a company PR is due. On 07-30 the three misses were all caught by a plain WebSearch that would have run anyway.
 
+### 2026-09-13 maintenance — after a recorded slip, `+364d` is a floor, not a centre
+
+**CNXC** slipped forward two quarters running (Q2-26 +4d, Q3-26 +5d vs the anniversary date), and the
+Q3 slip broke a five-year Item 2.02 band by a day. For any symbol whose cadence row records a slip,
+read the `+364d` date as *"no earlier than"* and do not use a historical band as a fence. Consistent
+with the cumulative asymmetry above (misses overwhelmingly predict **earlier** than reality).
+
 ## What it is good for
 
 - **Breaking DB-vs-finnhub ties in the right direction.** finnhub's known **+7d week-shift artifact** is exactly what `+364d` is built to expose: on 07-28 it caught HRB (finnhub 08-18 vs cadence/DB 08-11) and TOL (08-25 vs 08-18). It also flags *off-weekday* feed dates — AAP's finnhub 08-17 is a **Monday** for a company that reports Thursday-bmo every quarter.

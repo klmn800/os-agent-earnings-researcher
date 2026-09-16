@@ -1,6 +1,6 @@
 ---
 name: feedback-earnings-confirm-bare-symbol-trap
-description: earnings_confirm.py --symbol SYM with no --date/--time is NOT a read — it confirms the row as-is and stamps date_confirmed_by='ben'. RECURRED 2026-09-02 on 4 symbols; 2 could not be reverted.
+description: earnings_confirm.py is never a read and never a time-only write — a bare --symbol confirms the row as-is stamped 'ben' (08-19, 09-02); a --time fix through it locks an unsourced date (KMX/PAYX 09-08). Time-only fixes go through a plain UPDATE.
 metadata:
   type: feedback
 ---
@@ -66,10 +66,26 @@ behind Ben's name is strictly worse than an unconfirmed one.
 - If a `ben` stamp appears on a row with no corresponding entry in
   [[research-log]], suspect this bug before trusting the attribution.
 
+**Third shape — 2026-09-08, KMX and PAYX: the confirm tool used for a *time* fix.** Both were
+`unknown_time` disputes; the log called them *"time only, date not in dispute"*, but they went
+through `earnings_confirm.py`, which sets `date_confirmed=1` unconditionally — so both 09-29 dates
+were **locked with no same-quarter company source**, and a locked row is suppressed from the normal
+dispute stream. Three days later PAYX drew a `confirmed_row_diverged` flag (yfinance 09-23), the
+exact RTX/LMT/CLF/EQT shape from 07-17 ([[confirmed-row-diverged-drift-signal]]). `--by agent`
+was passed correctly; the error was the *tool choice*. **Rule: if the date is not company-sourced
+this quarter, the confirm tool is the wrong tool — use the plain `earnings_time` UPDATE above.**
+
 **Fixes worth asking Ben for** (raised 2026-09-02): make `--date` or `--time`
 required so a bare `--symbol` is a no-op, and make `--by` required rather than
 defaulting to the most privileged value. A `--time`-only mode would also remove
 the reason to hand-write UPDATEs at all.
+
+**2026-09-14: Ben approved the fix, and it is staged, not applied.** Patch + 34-check test suite in
+`analysis/earnings_confirm_patch/`. The write guard blocks my edits to `tools/`, so Ben has to copy
+it in. **Check before relying on it:** if `tools/earnings_confirm.py --help` shows `--time-only`,
+the patch is live. Then time-only fixes use `--symbol SYM --time T --time-only --by agent`, a bare
+`--symbol` errors out, and agent writes to `ben` rows are refused by the tool. If it doesn't show
+`--time-only`, every rule above still applies in full.
 
 Related: [[feedback-direct-db-query]] (writes need `--write`),
 [[reference-db-write-forward-slash-paths]] (`--sql` is split on `;` even inside
