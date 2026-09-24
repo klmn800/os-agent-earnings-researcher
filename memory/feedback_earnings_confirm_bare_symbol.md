@@ -1,93 +1,65 @@
 ---
 name: feedback-earnings-confirm-bare-symbol-trap
-description: earnings_confirm.py is never a read and never a time-only write — a bare --symbol confirms the row as-is stamped 'ben' (08-19, 09-02); a --time fix through it locks an unsourced date (KMX/PAYX 09-08). Time-only fixes go through a plain UPDATE.
+description: earnings_confirm.py — PATCHED 2026-09-16 (verified live 09-20) — --date and --by are now required, --time-only exists for time fixes, agent writes to ben rows are refused. The standing rule survives the patch — a date is confirmed only on a same-quarter company source. History of the three pre-patch traps kept below.
 metadata:
   type: feedback
 ---
 
-**`python earnings_confirm.py --symbol SYM` with no `--date`/`--time` does not
-print the row — it CONFIRMS it**, writing `date_confirmed=1` and, because `--by`
-defaults to `ben`, **`date_confirmed_by='ben'`**.
+## Current state — the safety patch is LIVE (installed 2026-09-16, verified 2026-09-20)
 
-The tool's own `--help` lists `--symbol VZ` on its own as an example, right
-underneath the full confirm form, which reads like a lookup. It is not one.
-`confirm_symbol()` always appends `date_confirmed = 1`, `date_confirmed_by = ?`
-and `date_confirmed_at = ?` to the UPDATE, regardless of which optional args
-were supplied — there is no read-only path through that function.
+My 09-14 patch (`analysis/earnings_confirm_patch/`, 34/34 checks) was installed byte-for-byte at
+`tools/earnings_confirm.py` on 2026-09-16 (inbox note `2026-09-16_earnings-confirm-patch-installed.md`).
+Verified on 2026-09-20: `--help` shows `--time-only`, `--by {ben,agent}` "required", and the footer
+*"This tool only writes. To read a row, query earnings_upcoming."*
 
-**Hit twice.** 2026-08-19 on GME (reverted the same minute). **Recurred
-2026-09-02 on all four of the session's symbols — CPRT, ORCL, CTAS, GIS — in a
-single loop**, run to inspect state before deciding what to write. The recurrence
-is the important half of this note, for two reasons:
-
-1. **It was worse the second time, because the revert failed.** Two of the four
-   were repaired implicitly by the real confirms that followed (`--by agent`
-   overwrites the stamp). The other two, ORCL and CTAS, were **gated symbols with
-   nothing to confirm** — and the corrective
-   `UPDATE ... SET date_confirmed=0, date_confirmed_by=NULL` was **blocked by the
-   permission classifier on all three attempts**, in single-symbol and batched
-   form alike, so the damage had to be handed to Ben in `notes_for_ben.md` as SQL
-   for him to run.
-   ⚠⚠ **CORRECTED 2026-09-03 — “assume this is irreversible” was wrong.** When Ben
-   read the note and said *“can you run the query?”*, the **identical** UPDATE
-   (`date_confirmed=0, date_confirmed_by=NULL, date_confirmed_at=NULL WHERE
-   symbol='CTAS'`) **passed the classifier on the first attempt** and the verify
-   SELECT showed `0 / None / None`. So the gate is **not a property of the
-   statement** — it is contextual, and an explicit in-session request from Ben
-   clears it. **Repair is a one-line ask, not a permanent loss.**
-   Still surface it in `notes_for_ben.md` (he has to know a false stamp exists at
-   all), but **write it as “here is the statement, say the word and I'll run it”**
-   rather than “you must run this yourself” — the old framing handed him manual
-   work that I could have done on request, and left a wrong row standing for a day.
-2. **Knowing about it did not prevent it.** This memory already existed, in full,
-   with the fix — and the mistake still happened, because the command was typed
-   while chasing a different question (what does the DB hold?) and never
-   registered as a write.
-
-**Why it matters:** CLAUDE.md's critical rule is *never overwrite a date
-confirmed by Ben*. A false `ben` stamp is therefore self-sealing — it makes a row
-that no future session (including mine) is permitted to correct, and nothing in
-the row records that a tool default, not Ben, wrote it. A wrong date frozen
-behind Ben's name is strictly worse than an unconfirmed one.
+What the tool now does:
+- **Bare `--symbol SYM` (no `--date`, not `--time-only`) fails with exit 2.** It can no longer silently
+  confirm a row.
+- **`--by` is required** (`ben` / `agent`), no default. The false-`ben`-stamp route is closed.
+- **`--time-only`**: `--symbol SYM --time T --time-only --by agent` writes `earnings_time` and leaves the
+  date and every `date_confirmed*` field untouched. **This replaces the plain
+  `UPDATE earnings_upcoming SET earnings_time=...` workaround** — use the tool now.
+- **An agent write to a row Ben confirmed is refused (exit 1)**, not just warned about.
 
 **How to apply:**
-- **There is no reason to ever run `earnings_confirm.py` without `--date`.** If a
-  command doesn't carry `--date` and `--by agent`, it is the wrong command.
-- To **read** state, query the table — never the confirm tool:
+- Company-sourced **date + time** this quarter ⇒ `--symbol SYM --date YYYY-MM-DD --time T --by agent`.
+- Only the **time** is sourced (or settled from Item 2.02 furnish history) and the date is not ⇒
+  `--symbol SYM --time T --time-only --by agent`. Never the full form.
+- To **read** state, query the table — the tool is write-only:
   `direct_db_query.py --db E:/options_scanner/data/datalake.db --sql "SELECT symbol, earnings_date, earnings_time, date_confirmed, date_confirmed_by FROM earnings_upcoming WHERE symbol='SYM'"`
-- **Always pass `--by agent`** on any `earnings_confirm.py` call, even ones that
-  look like no-ops. Never let `--by` default.
-- To write a **time** while leaving the date unsourced (the NIO/GME/CTAS shape),
-  skip the confirm tool and `UPDATE earnings_upcoming SET earnings_time='bmo'
-  WHERE symbol='SYM'` directly — ✅ **that plain-UPDATE path passes the
-  classifier** (verified on CTAS, 2026-09-02). The
-  `date_confirmed=0, date_confirmed_by=NULL` clearing form is blocked
-  **unprompted**, but runs fine once Ben has asked for it (2026-09-03).
-- If a `ben` stamp appears on a row with no corresponding entry in
-  [[research-log]], suspect this bug before trusting the attribution.
+- SELECT the row after every write, as before.
+- If `--help` ever stops showing `--time-only` (file reverted/overwritten), every pre-patch rule in the
+  history below applies again in full.
 
-**Third shape — 2026-09-08, KMX and PAYX: the confirm tool used for a *time* fix.** Both were
-`unknown_time` disputes; the log called them *"time only, date not in dispute"*, but they went
-through `earnings_confirm.py`, which sets `date_confirmed=1` unconditionally — so both 09-29 dates
-were **locked with no same-quarter company source**, and a locked row is suppressed from the normal
-dispute stream. Three days later PAYX drew a `confirmed_row_diverged` flag (yfinance 09-23), the
-exact RTX/LMT/CLF/EQT shape from 07-17 ([[confirmed-row-diverged-drift-signal]]). `--by agent`
-was passed correctly; the error was the *tool choice*. **Rule: if the date is not company-sourced
-this quarter, the confirm tool is the wrong tool — use the plain `earnings_time` UPDATE above.**
+**What the patch does NOT fix — the rule that still needs me:** the tool cannot know whether a date is
+sourced. `--date D --by agent` on a date with no same-quarter company source still locks it, and a
+locked row drops out of the normal dispute stream. **A date is confirmed only on a same-quarter
+company source.** The 06-30 convergence batch (≥4 of 10 wrong) and the 09-08 KMX/PAYX locks were both
+this error by different routes; only the second route is now closed by tooling.
 
-**Fixes worth asking Ben for** (raised 2026-09-02): make `--date` or `--time`
-required so a bare `--symbol` is a no-op, and make `--by` required rather than
-defaulting to the most privileged value. A `--time`-only mode would also remove
-the reason to hand-write UPDATEs at all.
+## History — the three pre-patch traps (why the patch exists)
 
-**2026-09-14: Ben approved the fix, and it is staged, not applied.** Patch + 34-check test suite in
-`analysis/earnings_confirm_patch/`. The write guard blocks my edits to `tools/`, so Ben has to copy
-it in. **Check before relying on it:** if `tools/earnings_confirm.py --help` shows `--time-only`,
-the patch is live. Then time-only fixes use `--symbol SYM --time T --time-only --by agent`, a bare
-`--symbol` errors out, and agent writes to `ben` rows are refused by the tool. If it doesn't show
-`--time-only`, every rule above still applies in full.
+1. **Bare `--symbol` was a write stamped `ben`.** `confirm_symbol()` always set `date_confirmed=1,
+   date_confirmed_by=?, date_confirmed_at=?`, and `--by` defaulted to `ben`. Hit 2026-08-19 (GME,
+   reverted the same minute) and **2026-09-02 on four symbols in one loop** (CPRT, ORCL, CTAS, GIS), run
+   to "inspect state". Knowing about the trap did not prevent the recurrence — the command was typed
+   while chasing a different question and never registered as a write. A false `ben` stamp is
+   self-sealing under CLAUDE.md's never-overwrite-Ben rule, which is what made it the worst mistake
+   available here.
+2. **"Assume the repair is irreversible" was wrong (corrected 2026-09-03).** The clearing UPDATE
+   (`date_confirmed=0, date_confirmed_by=NULL, date_confirmed_at=NULL`) was refused by the permission
+   classifier three times when I ran it unprompted, and passed first try once Ben said *"can you run
+   the query?"*. **A permission denial is evidence about the current context, not a permanent fact
+   about the command.** Surface a needed repair in `notes_for_ben.md` as *"here is the statement, say
+   the word and I'll run it"* — don't hand Ben the work, and don't record a denial as a capability limit.
+3. **A time fix through the confirm tool locked the date (2026-09-08, KMX + PAYX).** Both were
+   `unknown_time` disputes; both 09-29 dates ended `date_confirmed=1 / agent` with no same-quarter
+   source. PAYX drew a `confirmed_row_diverged` flag on 09-11 (yfinance 09-23 —
+   [[confirmed-row-diverged-drift-signal]]); on 09-14 the company PR showed **PAYX was wrong by 6 days**
+   (KMX happened to be right). The wrong lock stood 5 days with the PR already on the wire.
+- If a `ben` stamp appears on a row dated before 2026-09-16 with no matching entry in
+  [[research-log]], suspect trap 1 before trusting the attribution.
 
 Related: [[feedback-direct-db-query]] (writes need `--write`),
-[[reference-db-write-forward-slash-paths]] (`--sql` is split on `;` even inside
-string literals), [[reference-sec-acceptance-time-timing]] (the evidence used to
-correct a time without touching the date).
+[[reference-db-write-forward-slash-paths]] (`--sql` is split on `;` even inside string literals),
+[[reference-sec-acceptance-time-timing]] (the evidence for settling a time without the date).

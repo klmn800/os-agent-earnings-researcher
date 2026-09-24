@@ -2,8 +2,9 @@
 
 > Summer 2026 earnings season — Q2 calendar results (plus the off-cycle fiscal quarters that
 > report in the same wave: May/Jun/Jul/Aug quarter-ends), reported ~mid-July through early
-> September 2026. Sessions **2026-07-01 → 2026-08-28**, rolled off the active `research_log.md`
-> at the 2026-09-13 weekly maintenance (the first maintenance pass since 06-21). Chronological
+> September 2026. Sessions **2026-07-01 → 2026-09-03**, rolled off the active `research_log.md`
+> at the 2026-09-13 weekly maintenance (07-01 → 08-28; the first maintenance pass since 06-21)
+> and the 2026-09-20 maintenance (09-01 → 09-03, inserted ahead of the appendices). Chronological
 > order, oldest first. Two sessions (07-02, 07-24) had lost their `## Session` headers and six
 > (07-21, 07-22, 07-27 → 07-30) had been written as condensed paragraphs inside the carry-over
 > header; all are restored below as normal session blocks, each with a bracketed note. 07-03 had
@@ -2113,6 +2114,344 @@ hunting for sources that cannot exist. One batched EDGAR sweep did that for all 
 generalisable bit is in the cadence table now: **`+364d` and weekday habits are quarter-scoped
 facts — reading them off the wrong quarter is how a borrowed argument gets stated with unearned
 confidence** (ORCL today, CPRT on 08-26).
+
+---
+
+## Session: 2026-09-01 (Tuesday) — 07:13 AM ET
+
+4 symbols (1 dispute ORCL, 3 unconfirmed-undisputed CPRT/GME/ADBE) — **2 confirmed, 2 held.**
+The best session in a while, and it happened because **every one of the four hit its first
+informative read date today** — three of the four gates were computed in prior sessions and all
+three fired on schedule.
+
+### Confirmed (2)
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| **GME** | **2026-09-08 `amc`** (DB was right) | GameStop's own PR, `news.gamestop.com/rss/pressrelease.aspx`, 08-31 06:05 ET |
+| **ADBE** | **2026-09-10 `amc`** (DB was right) | *"Adobe to Announce Q3 FY2026 Earnings Results on Sept. 10, 2026"*, BusinessWire, 08-31 |
+
+Both DB dates were already correct — the work converted them from `unconfirmed` to
+`date_confirmed_by='agent'`, which is the whole point of the unconfirmed-but-undisputed queue.
+
+### ⭐ GME — the date arrived through a channel no title search would have found
+
+GameStop **did not issue** its usual *"Announces Release Date for Second Quarter"* advance PR.
+The date is buried in the last bullet of a **preliminary results** release:
+
+> *"The Company expects to release its complete second quarter results on **September 8, 2026**."*
+
+— inside *"GameStop Announces Second Quarter 2026 Preliminary Results"* (08-31 06:05 ET), which
+exists only because GameStop was obligated to disclose alongside **amendments to its convertible
+notes exchange** ("in connection with the amendments... announced separately today"). It is a
+transaction-driven disclosure, not an earnings-cadence event.
+
+**The generalisable rule:** when a company is mid-transaction — notes exchange, M&A, offering —
+the earnings date can surface in a **preliminary-results or transaction PR** that matches no
+advance-PR title pattern. A title-only search would have returned nothing and the session would
+have logged a false absence. **Parse the feed's `<description>` bodies, not just the headlines.**
+The one-curl full-body read cost nothing and is what caught it.
+
+Worth noting this also **resolves the standing "GME issues advances inconsistently" ambiguity in a
+new way**: the answer this quarter is not "issued" or "skipped" but "the information moved to a
+different PR." Absence of the advance title remains weak evidence — now for a documented reason.
+
+### ✅ ADBE — the 08-27 row rebuild paid off on the first day it could
+
+The advance PR landed **08-31 = day 1 of the predicted 08-31..09-02 window**, at a **10d lead**
+(the top of the corrected 8–10d band — exactly what "gate off the 10d" told this session to expect).
+It states both halves outright: *"after the market closes on Thursday, Sept. 10, 2026"* + call
+*"2-3 p.m. Pacific Time"* (= 5 p.m. ET ⇒ `amc` from the PR itself, not inferred from furnish times).
+
+This is the clean vindication of the 08-27 correction. The **old row's "~14d" lead** would have put
+the window at 08-27 and spent four sessions confirming a guaranteed absence, and the **old row named
+no advance channel at all** — the TECH failure shape waiting to happen. Measuring the lead and
+verifying the channel is what turned ADBE into a first-day catch.
+
+### ⚠⚠ The methodological find: BusinessWire's search index lags ~1 day
+
+This one changes how absence arguments must be built, and it surfaced by accident.
+
+Adobe's PR published **08-31**. The **domain-restricted BusinessWire search returned only prior
+quarters** — no Q3 FY2026 — while the open web search and **stocktitan** both had it. Had I run only
+the BW exact-title search (the documented CPRT/ADBE channel), **I would have logged ADBE as "advance
+not out" on the very day it published.**
+
+**Practice, now standing:** an exact-title BusinessWire search is a valid *positive* channel but is
+**not trustworthy as a negative on its most recent ~1 day**. Any "the PR is absent" conclusion that
+drives a floor must be corroborated on a **second, faster-indexing channel** — stocktitan proved
+current today (it carried the 08-31 ADBE release). This is the same class of error as the
+200-for-everything bot wall: a channel that answers confidently but wrongly in one direction only.
+
+### Held (2)
+
+| Symbol | DB date | Why held | Next check |
+|--------|---------|----------|------------|
+| CPRT | 2026-09-03 amc ⚠ **believed wrong** | Advance PR absent on **two** channels now (BW title search + stocktitan, the latter current through 08-18 with nothing since). ⚠⚠ **Q4-specific leads corrected DOWNWARD to 7–8d**: Q4 FY22 **7d** (08-31→09-07), FY23 8d, FY24 8d, FY25 8d — the **9d** in the old band came from **Q1 FY26**, a different quarter (the same cross-quarter error caught on ORCL last week). Floor recomputed on the 7d minimum: absence through 08-31 ⇒ **release ≥ 09-08**, and 09-08 is a Tuesday, excluded by the 2019+ **Wed/Thu 7/7** rule ⇒ **09-09 (Wed) or 09-10 (Thu)**. DB's **09-03 stays excluded** even at the 7d floor. ⚠ Not yet late — Q4 FY23's advance published **09-06**. | **2026-09-02** |
+| ORCL | 2026-09-10 amc | One curl: feed live (200, 10 items), newest still the **06-10** Q4 results PR — no *Sets the Date for its 1Q FY27*. At the 7d minimum lead, absence through 08-31 ⇒ release ≥ 09-08, which **excludes neither candidate**. But it does kill the 8–9d paths to **09-08**, which now survives only if the PR drops today ~16:01 ET. ⇒ **tomorrow's read is decisive**: still empty ⇒ 09-08 is out and DB's 09-10 wins. Dispute vs finnhub 09-14 `skipped`, unresolved by design. | **2026-09-02** |
+
+### Lessons
+
+- **Read PR bodies, not headlines.** GME's date existed only in the last bullet of a PR whose title
+  is about preliminary results. Title-pattern matching — the documented channel for CPRT and ADBE —
+  would have produced a confident false negative.
+- **A negative from a search index needs a second channel.** BW's ~1-day lag would have made today's
+  ADBE catch into a logged absence. Absence arguments drive *floors*, and a wrong floor silently
+  moves a date; this is the highest-consequence failure mode left in the workflow.
+- **The quarter-scoping rule keeps paying.** Third symbol in a week (ORCL, then CPRT twice) where a
+  cadence number turned out to be borrowed from the wrong fiscal quarter. CPRT's "8–9d" was really
+  Q1's 9d contaminating a Q4 band that is 7–8d. **Every lead in the cadence table should be assumed
+  cross-quarter until someone filters it.**
+- **Gates fired 3/3 on schedule** (GME 09-01, ADBE 09-01, CPRT/ORCL 09-02 pending). Zero wasted
+  sessions on these four this cycle, and two dates locked on the first day they were knowable.
+
+---
+
+## Session: 2026-09-02 (Wednesday) — 07:13 AM ET
+
+4 disputes (CPRT/ORCL/CTAS/GIS) — **2 confirmed, 2 gated**, ~12 HTTP reads, 0 web searches.
+Both confirms came from **BusinessWire advance PRs that were already sitting on the wire**, and
+both were found by the same one-fetch move: `stocktitan.net/news/<SYM>/`, whose JSON-LD block
+lists the last 10 headlines with ISO timestamps **and** their article URLs. Every prior session
+had been reading that page as a *cross-check for absence*; today it was the primary discovery
+channel for two symbols whose IR hosts do not resolve at all.
+
+### Confirmed (2)
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| CPRT | **2026-09-10 `amc`** (DB snapshot said 09-03) | Advance PR *"Copart, Inc. to Release Fourth Quarter Fiscal 2026 Results"*, **09-01 10:34 ET**, BusinessWire: *"will release earnings for the fourth quarter of fiscal 2026 **after 4:00 p.m. Eastern Time** (3:00 p.m. Central) **on Thursday, September 10, 2026**,"* call 5:30pm ET. `businesswire.com/news/home/20260901213040/en/` |
+| GIS | **2026-09-23 `bmo`** (time was Unknown) | Advance PR *"General Mills to Webcast Fiscal 2027 First Quarter Earnings Results on September 23, 2026"*, **08-26 08:00 ET**, BusinessWire: *"plans to report results for its fiscal 2027 first quarter on September 23, 2026. A press release, pre-recorded management remarks and supporting slides will be **issued that morning** followed by a webcasted question and answer session … at 8 a.m. CT."* `businesswire.com/news/home/20260826734008/en/` |
+
+### Gated (2)
+
+| Symbol | DB date | Why skipped | Next check |
+|--------|---------|-------------|------------|
+| ORCL | 2026-09-10 amc | *Sets the Date* PR still absent — feed live (200, 10 items, newest still the **06-10** Q4 results PR), EDGAR clean (no filing since 07-28). This was the read the 09-01 session called **decisive**, and it decided: absence through **09-01 16:01 ET** plus the **7d minimum** lead ⇒ release ≥ 09-09, which **kills the 09-08 candidate**. DB's **09-10** is the only in-band survivor, but cadence is not a company source ⇒ **no lock**. | 2026-09-03 |
+| CTAS | 2026-09-23 amc | Advance PR **not due yet**, and this row previously had no cadence entry at all. Cintas *does* issue one — *"Cintas Corporation Announces Webcast for \<n\> Quarter Fiscal Year \<yr\> Results"* — Q4 FY26 went out **07-01 13:29 ET** for a **07-15** release = **14d**. A 09-23 release therefore puts the PR near **09-09**; newest CTAS wire item is **08-10**, so today's absence carries no information. | 2026-09-08 |
+
+### ⭐ Two dead IR hosts, two confirms — stocktitan's JSON-LD is a discovery channel, not just a cross-check
+
+`investors.copart.com` is NXDOMAIN (six hosts, re-verified repeatedly) and `investors.cintas.com`
+/ `ir.cintas.com` are **both NXDOMAIN too** — Cintas' Q4-managed host `cintas.gcs-web.com`
+resolves but returns **403 Access Denied on every path** (Akamai). Two of today's four symbols
+had *no first-party surface at all*, which historically meant "gate and wait."
+
+What changed is how the mirror is read. `https://www.stocktitan.net/news/<SYM>/` embeds a
+`CollectionPage` JSON-LD object whose `hasPart` array carries the **last 10 headlines with
+`datePublished` in UTC and a direct article URL each**. One `curl --compressed` gives you the
+full recent-news spine of a company in ~16KB, and the article pages reproduce the **verbatim
+wire text including the `View source version on businesswire.com:` permalink** — so the
+citation that lands in `research_url` is the wire's own URL, not the mirror's.
+
+Two operational notes learned the hard way today:
+- ⚠ **You must send `--compressed`.** Without it curl returns the raw brotli body, which reads
+  as binary garbage and looks exactly like a bot wall. I burned a fetch on that.
+- ⚠ **Stocktitan rate-limits fast.** The 3rd and 4th requests in quick succession returned
+  **HTTP 429**, and `/news/<SYM>/page/2` **404s** (pagination is not that shape). Budget one
+  page fetch per symbol, space them, and pull everything you need from the JSON-LD in one pass.
+
+### ⚠⚠ CPRT — the gate was right about the date being wrong, but the *channel model* was wrong in three places
+
+The 09-01 session concluded "advance absent ⇒ release ≥ 09-09, DB's 09-03 is excluded." That
+call was **correct** — the PR published the very next morning naming **09-10**. But the cadence
+row's model of *how* Copart publishes was wrong in three ways that all pointed the same
+direction (too early):
+
+1. **The advance PR IS BusinessWire.** The row carried a ⚠⚠ CORRECTION from 08-24 saying
+   *"the wire is PRNewswire, not BusinessWire."* That correction was drawn from the **board-addition**
+   PR (a corporate release) and does not transfer: today's advance dateline reads
+   **`DALLAS --(BUSINESS WIRE)--`**. Copart uses **both wires for different release types**.
+2. **The lead is 9d for Q4, not 7–8d.** 09-01 → 09-10 = **9 days**. The 09-01 session had just
+   *narrowed* the band to 7–8d on Q4-specific evidence and used the **7d minimum** as the floor.
+   The floor logic still worked, but a gate built off "7–8d" would have expected the PR by 09-03
+   and read 09-01's absence as later than it was.
+3. **It does NOT publish after 16:00 ET.** Every version of this row said the advance posts
+   post-close, so the useful read was "next morning." It published at **10:34 ET** — *during*
+   the session day. A same-day afternoon re-read would have caught this ~20 hours earlier.
+
+### ⚠ CTAS — the stored `amc` is provably wrong, and no dispute would ever have surfaced it
+
+The dispute was filed as `date_disagreement` (DB 09-23 vs finnhub 09-30), so the **time** was
+never in question — but it is wrong. Cintas is **structurally bmo, 6/6 quarters**: Item 2.02
+acceptance times are **08:31–08:34 ET** (2026-07-15 08:31:16, 2026-03-25 08:31:08,
+2025-12-18 08:31:05, 2025-09-24 08:34:41, 2025-07-17 08:31:26, 2024-09-25 08:30:58), the release
+reads *"today reported results"*, and it names a **10:00 a.m. ET** webcast. **Fixed with a bare
+`UPDATE earnings_upcoming SET earnings_time='bmo' WHERE symbol='CTAS'`** rather than the confirm CLI,
+which has no time-only mode and would have locked the still-unsourced **date** along with it. ⚠ Note
+the classifier asymmetry this exposed: a plain field UPDATE passes, while the
+`date_confirmed=0, date_confirmed_by=NULL` clearing form is blocked.
+
+On the date itself, DB is strongly favoured without being sourced: Cintas' **Q1-only** Item 2.02
+dates are **2025-09-24 (Wed), 2024-09-25 (Wed), 2023-09-26 (Tue)** — stepping exactly one day
+earlier each year, extrapolating to **2026-09-23 (Wed) = DB**. finnhub's **09-30** sits a full
+week outside that three-year band.
+
+### ⚠⚠ TOOL HAZARD — `earnings_confirm.py --symbol SYM` (no `--date`) is a WRITE, and it stamps `by=ben`
+
+I ran `earnings_confirm.py --symbol X` on all four symbols expecting a read-only status query;
+its help text lists it as *"Confirm current date/time as-is."* It **is** a write. With no
+`--date`/`--time` it keeps the existing values but **always** executes
+`date_confirmed=1, date_confirmed_by=?, date_confirmed_at=?` — and `--by` **defaults to `ben`**.
+All four rows were stamped `date_confirmed_by='ben'` at **07:18:46**.
+
+This is the single worst mistake available in this workspace, because CLAUDE.md's hardest rule
+is *never overwrite a date confirmed by Ben* — so a false `ben` stamp is **self-protecting**:
+it makes a wholly unresearched date look like the one source that must not be touched.
+
+CPRT and GIS were repaired implicitly by the real confirms (`--by agent` overwrites the stamp).
+**ORCL and CTAS are still falsely marked `date_confirmed_by='ben'`** — the revert UPDATE was
+blocked by the permission classifier three times (clearing confirmation flags is gated), so it
+is written up in `notes_for_ben.md` with the exact SQL. **Never use this tool to inspect state.**
+Read `earnings_upcoming` with `direct_db_query.py` instead:
+
+```
+python tools/direct_db_query.py --db data/datalake.db --sql "SELECT symbol, earnings_date, earnings_time, date_confirmed, date_confirmed_by FROM earnings_upcoming WHERE symbol='SYM'"
+```
+
+### Other notes
+
+- ⚠ **`direct_db_query.py` breaks on a `;` inside a string literal** — it splits the statement
+  before parsing, so a `notes='...; ...'` value dies with `unrecognized token`. Both dispute
+  UPDATEs failed on this first try. Use commas or dashes in note text.
+- **The CPRT dispute snapshot was stale by the time I read it.** The dispute row recorded
+  `db_date=2026-09-03`, but `earnings_upcoming` already held **09-10** when I queried it at
+  07:18 — a feed self-corrected between dispute generation and the session. Worth checking the
+  live row rather than trusting the injected snapshot when the two can be compared cheaply.
+- **GIS needed no cadence extrapolation, and that is lucky.** Its Q1 Item 2.02 history —
+  2025-09-17 (Wed), 2024-09-18 (Wed), 2023-09-20 (Wed) — extrapolates to **09-16**, which is
+  **a week off the company's own announced 09-23**. A `+364d`-style argument would have
+  produced a confident wrong answer here.
+- **finnhub scoreboard, 4/4 wrong:** CPRT 11-18 (next quarter entirely), ORCL 09-14 (a Monday
+  needing a PR on 09-05..09-07, and 09-07 is Labor Day), CTAS 09-30 (outside a 3-year band),
+  GIS 09-15 (company says 09-23).
+
+---
+
+## Session: 2026-09-03 (Thursday) — 07:13 AM ET
+
+4 surfaced symbols (FDS/CNXC/DRI/LEN) + 1 carry-over swept (ORCL) — **4 confirmed, 1 gated**,
+~14 HTTP reads, 1 web search. Every confirm came from a **company-issued advance PR**, and
+**three of the four had published within the last 24 hours** (ORCL 09-02 16:00, LEN 09-02 17:30,
+FDS 09-02 11:00) — a genuinely unusual clustering that made this a cheap session.
+
+### Confirmed (4)
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| FDS | **2026-09-30 `bmo`** (snapshot said 09-17 `amc`) | GlobeNewswire **09-02 11:00 ET**, *"FactSet Schedules Fourth Quarter 2026 Earnings Call"* — results 09-30, presentation 8:30am ET, call **9:00am ET**. `globenewswire.com/news-release/2026/09/02/3354957/7768/en/...` |
+| LEN | **2026-09-16 `amc`** (was unconfirmed) | `investors.lennar.com/rss/press-releases` **09-02 17:30 ET** — headline says call **09-17**, body says results *"after the market closes on **September 16, 2026**."* |
+| DRI | **2026-09-24 `bmo`** (time was Unknown) | `investor.darden.com/rss/pressrelease.aspx` **08-27 16:00 ET** — *"**before the market opens** on Thursday, September 24, 2026,"* call 8:30am ET. |
+| ORCL | **2026-09-10 `amc`** (carry-over, next-check was today) | `investor.oracle.com/rss/pressrelease.aspx` **09-02 16:00 ET** — *"released on **Thursday, September 10th, after the close of the market**,"* webcast 4:00pm CT. |
+
+### Gated (1)
+
+| Symbol | DB date | Why skipped | Next check |
+|--------|---------|-------------|------------|
+| CNXC | 2026-09-24 amc | Advance PR not due yet — feed live and empty since **08-10**, corroborated independently by stocktitan's JSON-LD showing the same 10-item spine. Q2 lead was **19d** ⇒ PR due ~09-05 (for a 09-24 release) or ~09-11 (for 09-30). Cadence **cannot** break the DB-vs-finnhub tie here (below). | 2026-09-05 |
+
+### ⭐ LEN — the headline names the call date, the body names the release date
+
+Lennar's advance PR is titled *"Lennar Corporation to Broadcast Its Third Quarter 2026 Earnings
+Call on **September 17, 2026**"* — and September 17 is **not** the earnings date. The body:
+*"will release its third quarter 2026 results **after the market closes on September 16, 2026**,"*
+with the call the following morning at 11:00am ET.
+
+**A title-only read writes 09-17 and is wrong by a day, every quarter.** The prior quarter has the
+identical shape (PR 05-28 → *"…Earnings Call on June 12"* → results actually **06-11 amc**, wire
+timestamp 17:45 ET), so this is Lennar's standing format, not a one-off. DB's 09-16 `amc` was
+already right; the risk here was me "correcting" a correct row off the headline. **Open the body.**
+
+This is a distinct failure mode from the release-vs-call ambiguity settled on SQM (08-13): there,
+two sources each named a different real event and the question was which one the DB should carry.
+Here **one document names both**, and the trap is purely that the *headline* advertises the less
+useful one.
+
+### ⚠⚠ CNXC — the case where `+364d` looks strongest and I still refused it
+
+Concentrix's Q1 8-K Item 2.02 history is about as clean as this job gets: **2025-09-25, 2024-09-25,
+2023-09-27, 2022-09-28, 2021-09-27** — a five-year **Sep 24–28** band that appears to exclude
+finnhub's **09-30** outright, with `+364d` off 2025-09-25 landing on **09-24 = DB exactly**.
+
+That is precisely the shape [[cadence-364d-weekday-aligned-corroborator]] warns about (the AAP
+lesson: the strongest-looking precondition match still missed by 7d). And **this symbol has already
+broken the arithmetic once this year** — Q2-26 was predicted 06-25 by `+364d`, and the actual was
+**06-29**, a +4d slip that finnhub called correctly and the DB did not. Apply that same slip to Q3
+and the band moves to **09-28…09-30**, which is finnhub's date.
+
+So the tidy five-year band is an illusion of precision: it describes a company that demonstrably
+moved four days one quarter ago. **No lock — wait for the PR (~09-05).** Logged the reasoning in
+the cadence row so the next session doesn't re-derive it and reach the opposite conclusion.
+
+### ⚠⚠ `investor.factset.com` is now a hard 403, not a timeout — and the distinction matters
+
+The cadence row has said "IR page fetch timed out" since June, which under
+[[ir-rss-feeds-beat-spa-pages]] licenses the inference *"probably my User-Agent — re-probe with a
+browser UA."* That is no longer true. Re-probed today across **six paths × four host variants**
+(`investor.` / `ir.` / `investors.` / `factset.gcs-web.com`): the `investor.` and `gcs-web` hosts
+return **HTTP 403 on every path**, to `urllib` and `curl` with a browser UA alike, and both
+alternate prefixes are **NXDOMAIN**. WebFetch on the cached news-release URL also burned its full
+60s. **FactSet has no readable first-party surface at all.**
+
+Corrected the cheat-sheet from "timeout-prone" to "403 on every path," because the two license
+different next moves: a timeout says *retry differently*, a 403 says *stop probing and switch
+channels*. The working channel is **stocktitan JSON-LD → GlobeNewswire permalink**, which found it
+in one fetch. Stored the GlobeNewswire permalink as `ir_earnings_url` rather than the dead
+`investor.factset.com` slug the dispute had cached.
+
+### ⭐ ORCL closed the way a gate is supposed to close
+
+The 09-02 session eliminated 09-08 on the absence floor, noted 09-10 was the only in-band survivor,
+and **explicitly refused to write it** because cadence is not a company source. The PR then
+published at **16:00:00 ET that same afternoon** — ~9 hours after that session ended — naming
+09-10 *"after the close of the market."* The extra session cost one curl and converted a correct
+guess into a sourced confirm. ⚠ Note the timing: Oracle posts these at **16:00–16:01 ET**, so an
+ORCL advance is *never* readable in the morning session that predicts it; it is always a next-day
+read. Same structural lag as GWRE (16:15) and DRI (16:00).
+
+### ⚠⚠ CTAS repair ran fine — correcting the 09-02 claim that clearing a `ben` stamp is blocked
+
+**09:45 addendum.** Ben read `notes_for_ben.md` and asked *“can you run the query?”* The statement I had
+declared un-runnable — `UPDATE earnings_upcoming SET date_confirmed=0, date_confirmed_by=NULL,
+date_confirmed_at=NULL WHERE symbol='CTAS'` — **passed the permission classifier on the first
+attempt.** Verify SELECT: `CTAS | 2026-09-23 | bmo | 0 | None | None`. All four rows from the 09-02
+incident now read correctly (CPRT/GIS/ORCL `1 / agent`, CTAS `0 / NULL`).
+
+**The 09-02 conclusion was wrong, and wrong in a costly direction.** That session tried the revert
+three times, was refused three times, and generalised to *“clearing confirmation flags is gated —
+assume this is irreversible.”* The gate is **not a property of the statement**; it is contextual, and
+an explicit request from Ben clears it. What the bad generalisation actually produced: I handed Ben
+hand-run SQL for work I could have done on request, and a row carrying a false `ben` stamp — the one
+attribution CLAUDE.md forbids any session from overriding — **stood for an extra day** for no reason.
+
+**The lesson is about how to read a refusal, not about the classifier.** Three denials in one session
+felt like a capability boundary; it was a boundary on *unprompted* action. The correct move on being
+refused a repair is to surface it as **“here is the exact statement, say the word and I'll run it”** —
+which keeps Ben's authorisation in the loop *and* keeps the fix one message away. `[[feedback-earnings-confirm-bare-symbol-trap]]`
+corrected accordingly, and the framing rule written into it.
+
+⚠ Corollary worth carrying: **a permission denial is evidence about the current context, not a
+permanent fact about the command.** Don't promote a denial to a capability claim in memory — several
+notes in this workspace record “X is blocked for me,” and at least this one was really “X is blocked
+until asked for.”
+
+**Also closed three stale `notes_for_ben.md` items** that today's work resolved but that still read as
+open asks (CTAS-time → now `bmo`; CPRT → confirmed 09-10; ORCL → confirmed 09-10). Same failure shape
+as the inbox notice above: a file of standing action items is only useful if its items are still
+actions. Ben's open list went from 4 red/warn items to 1.
+
+### Housekeeping — the inbox notice had been crying wolf
+
+The context hook reported **18 unprocessed inbox files**. None were handoff notes: all 18 were my
+own spent `curl` artifacts from the 09-02 session (`st_CPRT.html`, `ctas_gcs.html`,
+`orcl_rss_20260902.xml`, …), every one already written up in this log. The collision is that
+[[reference_sec_via_curl]] tells me to write scratch output to `inbox/` (Windows can't use `/tmp`),
+while `check_inbox()` flags every loose file in `inbox/` as an unread message.
+
+Moved all 21 (18 + today's 3) to **`inbox/fetch/`** — the hook doesn't descend into subdirectories —
+and recorded the convention in [[feedback-fetch-artifacts-not-in-inbox]] plus a pointer in the
+curl reference. The cost of leaving it was not clutter but **signal loss**: a real note from Ben
+would have been buried in a list of my own garbage.
 
 ---
 

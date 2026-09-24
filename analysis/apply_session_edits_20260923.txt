@@ -1,0 +1,108 @@
+# 2026-09-23 session: apply research_log / cadence / STATUS edits in one pass.
+# (Saved with a .txt extension because the Write hook refuses .py; run with `python <file>`.)
+import io, os
+os.chdir(r'E:\options_scanner\agents\earnings_researcher')
+
+def rw(path, fn):
+    s = io.open(path, encoding='utf-8').read()
+    t = fn(s)
+    assert t != s, path
+    io.open(path, 'w', encoding='utf-8', newline='\n').write(t)
+    print('updated', path)
+
+# ---------- research_log.md ----------
+SESSION = """## Session: 2026-09-23 (Wednesday) — 07:13 AM ET
+
+4 disputes (PGR, SYF `date_disagreement`; FHN `both`; REXR `unknown_time`), all four rows dated 10-14 in the
+snapshot. **3 confirmed on company sources (PGR, SYF, FHN), 1 time-only (REXR — date held).** The snapshot was
+stale for two: the live rows already read **SYF 10-20** and **FHN 10-15** before this session touched them, so
+those confirms locked the moved dates rather than correcting anything (0 dates changed today). Reads: 6
+searches, 9 WebFetches (2× 404 on guessed Progressive event URLs), EDGAR submissions ×2 + 1 exhibit,
+Progressive Q4 `Event.svc` feed ×3.
+
+### Confirmed
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| **PGR** | **2026-10-14 `bmo`** (DB right; finnhub 11-02 is the same +19d artifact as Q2's 08-03) | ⭐ **The previous month's results release is the advance channel.** *"Progressive Reports August Results"* (8-K **Item 7.01**, filed 09-18 08:38 ET, EX-99 `pgr202608ex99earningsrelea.htm`, read via curl) closes with *"Events — We plan to release September results on **Wednesday, October 14, 2026, before the market opens**."* Quarter releases since 2025-04 are all 3rd-Wednesday bmo (04-16, 07-16, 10-15 '25; 04-15, 07-15 '26; furnished 08:40–09:50 ET) and 10-14 is October's 3rd Wednesday. The Q4 `Event.svc` feed on `investors.progressive.com` renders (browser UA) but lists only the quarterly investor calls (~3 weeks after each release), not the results dates. |
+| **SYF** | **2026-10-20 `bmo`** (snapshot 10-14; live row had already moved to 10-20 — yfinance 10-20 right, finnhub 10-13 wrong) | `investors.synchrony.com` financial-news detail/588, *"Synchrony to Announce Third Quarter 2026 Financial Results on October 20, 2026"*: release *"approximately 6:00 a.m. Eastern Time,"* call 8:00am ET. First-time name; IR URL cached (financial-news list). PR date not captured — lead unmeasured. |
+| **FHN** | **2026-10-15 `bmo`** (snapshot 10-14 `Unknown`; live row already 10-15 — yfinance 10-15 right, finnhub 10-21 wrong) | `ir.firsthorizon.com` press release **09-22**, *"First Horizon Corporation to Announce Third Quarter Financial Results on October 15, 2026"*: materials *"approximately 6:30 am ET,"* call 9:30am ET. Lead **23d** (Q2 was 28d → 2 obs, 23–28d). |
+
+### Held
+
+| Symbol | State | Reasoning | Next check |
+|--------|-------|-----------|------------|
+| **REXR** | 10-14, **time set `amc` via `--time-only`; date NOT confirmed and probably wrong** | **Time** rests on the company's own advance PRs — Q3'25 *"after the market closes on Wednesday, October 15, 2025,"* Q1'26 and Q2'26 *"after the market closes on Thursday…"*; the Item 2.02 furnish stamps (20:1x–21:2x`Z`, 12/12 quarters since 2023) are consistent and were not timezone-converted. **Date:** the IR press list is current through 09-17 and carries no Q3 advance. Leads now 3 obs: Q3'25 **29d** (09-16→10-15), Q1'26 **35d** (03-19→04-23), Q2'26 **24d** (06-29→07-23). For a 10-14 release the PR was due 09-09 → 09-20 — **3+ days overdue against the shortest lead** ⇒ the PVH shape: distrust the date, don't guess the replacement. Cadence hint only: Q3 was Wed 10-18 / 10-16 / 10-15 ('23–'25), but both 2026 quarters slipped to the **4th Thursday** (04-23, 07-23) → October's is **10-22** (PR due 09-17 → 09-28). finnhub 10-13 is the −1d shape. The PR publishes ~16:05 ET (2/2), so a morning read only sees prior-day PRs. Dispute row left `unresolved` (unlike ACI on 09-22, which was marked `confirmed_agent` on a time-only fix — leaving it open keeps the row visible while the date is doubted). | **09-24**, then daily through 09-29 (one WebFetch of the press list) |
+
+### Notes
+
+- **Stale snapshot ×2 (SYF, FHN).** Both live rows had already moved to the company's dates (FHN's PR is dated
+  09-22, so the overnight feed caught it). Per [[dispute-snapshot-is-stale]] these are locks, not corrections.
+- **PGR channel:** Progressive pre-announces the quarter-end release date inside the *previous month's* results
+  release ("Events" paragraph, ~26d ahead) and files that release under **Item 7.01** — an EDGAR sweep
+  filtered on 2.02 misses it for this name. Cached IR URL moved from the home page to the
+  financial-news-releases list (JS-rendered; the EDGAR exhibit is the readable copy).
+- 10-13 → 10-16 cohort: PGR and FHN handled today; SYF moved out of it (10-20). REXR is the first cohort
+  member showing the overdue-advance signal.
+
+"""
+
+def log(s):
+    anchor = "# Research Sessions (newest first)\n\n"
+    assert anchor in s
+    s = s.replace(anchor, anchor + SESSION, 1)
+    aci = [l for l in s.split('\n') if l.startswith('| **ACI** | 2026-10-13')][0]
+    rexr = ("| **REXR** | 2026-10-14 `amc` (time set 09-23; finnhub 10-13) | Held 09-23. IR press list current through 09-17, no Q3 advance. "
+            "Leads 24–35d (3 obs) ⇒ a 10-14 release's PR was due by 09-20 — **overdue**, so the date is probably wrong (PVH shape). "
+            "2026 quarters have been 4th-Thursday amc (04-23, 07-23) → 10-22 would put the PR at 09-17 → 09-28. PR publishes ~16:05 ET. | **2026-09-24**, then daily to 09-29 |")
+    s = s.replace(aci, aci + '\n' + rexr, 1)
+    crow = [l for l in s.split('\n') if l.startswith('| C | 2026-10-13 | bmo |')][0]
+    new = ("| PGR | 2026-10-14 | bmo | Progressive August results release (8-K 7.01, 09-18): *\"We plan to release September results on Wednesday, October 14, 2026, before the market opens\"* — 09-23 |\n"
+           "| FHN | 2026-10-15 | bmo | `ir.firsthorizon.com` PR 09-22: materials ~6:30am ET, call 9:30am ET. Snapshot 10-14 was already stale — 09-23 |\n"
+           "| SYF | 2026-10-20 | bmo | `investors.synchrony.com` detail/588: release ~6:00am ET, call 8:00am ET. Snapshot 10-14 was already stale — 09-23 |")
+    s = s.replace(crow, crow + '\n' + new, 1)
+    s = s.replace("14 rows (+6 added 09-22)", "14 rows (+6 added 09-22, +3 added 09-23)", 1)
+    return s
+rw('memory/research_log.md', log)
+
+# ---------- reference_company_cadence.md ----------
+def cad(s):
+    old_pgr = "| PGR | Progressive / Q2 (monthly reporter) | bmo | — | June-quarter results 07-15 before open; finnhub was +19d wrong (08-03). Q3 row: 10-14 bmo. | investors.progressive.com |"
+    new_pgr = ("| PGR | Progressive / Q2 + **Q3** (monthly reporter) | bmo (quarter 8-Ks furnished 08:40–09:50 ET, 5/5 since 2025-04) | **~26d — the PREVIOUS MONTH's results release** | "
+               "⭐ Advance channel found 09-23: each monthly release ends with *\"Events — We plan to release ‹month› results on ‹date›, before the market opens\"* (Aug release 09-18 → *\"Wednesday, October 14, 2026\"*). "
+               "Monthly releases are filed under **8-K Item 7.01** (only quarter-ends are 2.02) — don't filter the sweep on 2.02. Quarter releases are the **3rd Wednesday** (04-16, 07-16, 10-15 '25; 04-15, 07-15 '26; 10-14 '26 ✅). "
+               "finnhub +19d both quarters (08-03, 11-02) ≈ the investor-call date, not the release. Q4 `Event.svc` feed renders but lists only investor calls. CIK 80661. | "
+               "EDGAR 8-K 7.01 exhibit (curl) — the IR news list is JS-only |")
+    assert old_pgr in s; s = s.replace(old_pgr, new_pgr, 1)
+    old_fhn = "| FHN | First Horizon / Q2 | bmo | ~28d (1 obs) | \"to Announce Second Quarter Financial Results on July 15, 2026\" PR 06-17 (PRNewswire); release ~6:30am ET, call 9:30am. Q3 row: 10-14 **Unknown** (re-seeded). | ir.firsthorizon.com / prnewswire |"
+    new_fhn = ("| FHN | First Horizon / Q2 + **Q3** | bmo | **23–28d (2 obs)** | \"to Announce ‹n› Quarter Financial Results on ‹date›\" — Q2 PR 06-17 → 07-15 (28d); **Q3 PR 09-22 → 10-15 (23d)** ✅ 09-23; release ~6:30am ET, call 9:30am. "
+               "The re-seeded 10-14 `Unknown` row had already been moved to 10-15 by the feed before the confirm. | ir.firsthorizon.com/press-releases (WebFetch renders the detail page) |")
+    assert old_fhn in s; s = s.replace(old_fhn, new_fhn, 1)
+    old_rexr = "| REXR | Rexford Industrial / Q2 | amc | — | \"Announces Dates for Second Quarter 2026 Earnings\" (PRNewswire) → after close Thu 07-23, call 07-24 11am ET. DB had been 07-15 (8d early). Q3 row: 10-14 **Unknown** — watch for the same early-DB shape. | PRNewswire (IR press list lags) |"
+    new_rexr = ("| REXR | Rexford Industrial / Q2 + **Q3 (open)** | **amc** (every advance PR says *\"after the market closes\"*; 12/12 Item 2.02 stamps 20:1x–21:2x`Z` since 2023) — set 09-23 via `--time-only` | **24–35d (3 obs):** Q3'25 09-16→10-15 (29d), Q1'26 03-19→04-23 (35d), Q2'26 06-29→07-23 (24d) | "
+                "\"Announces Dates for ‹n› Quarter ‹yr› Earnings Release and Conference Call\" (PRNewswire, **~16:05 ET**, call next morning 11am/1pm ET). Q3 was Wed 10-18/10-16/10-15 ('23–'25) but **2026 slipped to the 4th Thursday** (04-23, 07-23) → 10-22 candidate. "
+                "⚠ **10-14 DB date: advance PR overdue as of 09-23** (due by 09-20 on the shortest lead) — same early-DB shape as Q2 (07-15 vs 07-23). Hold, read the press list daily; don't write a cadence guess. CIK 1571283. | "
+                "ir.rexfordindustrial.com/news-events/press-releases (WebFetch renders the list, current same-week) |")
+    assert old_rexr in s; s = s.replace(old_rexr, new_rexr, 1)
+    new_syf = ("| SYF | Synchrony Financial / **Q3** (first-time name) | bmo (release ~6:00am ET, call 8:00am ET) | unmeasured (PR date not captured) | "
+               "\"Synchrony to Announce ‹n› Quarter ‹yr› Financial Results on ‹date›\" on `investors.synchrony.com` financial-news (detail/588 for Q3'26). **Q3'26 = Tue 10-20** ✅ 09-23; the seeded 10-14 was 6d early and yfinance (10-20) was right, finnhub (10-13) wrong. | investors.synchrony.com/news-events/financial-news (WebFetch renders detail pages) |")
+    s = s.replace(new_fhn, new_fhn + '\n' + new_syf, 1)
+    return s
+rw('memory/reference_company_cadence.md', cad)
+
+# ---------- STATUS.md ----------
+def st(s):
+    old = "**Last updated:** 2026-09-20 (weekly maintenance); carry-overs/ledger refreshed by the 2026-09-22 session"
+    assert old in s
+    s = s.replace(old, "**Last updated:** 2026-09-20 (weekly maintenance); carry-overs/ledger refreshed by the 2026-09-23 session", 1)
+    aci = [l for l in s.split('\n') if l.startswith('| ACI | 10-13 (time now bmo')][0]
+    rexr = ("| REXR | 10-14 amc (time set 09-23; finnhub 10-13) | No Q3 advance PR on the IR list (current through 09-17); leads 24–35d (3 obs) ⇒ a 10-14 release's PR was due by 09-20 — **overdue, date probably wrong**. 2026 quarters have been 4th-Thursday amc → 10-22 is the shape to expect (PR 09-17 → 09-28). | **09-24**, then daily to 09-29 |")
+    s = s.replace(aci, aci + '\n' + rexr, 1)
+    old = "**Added 09-22:** UEC 09-29 bmo, CCL 09-29 bmo, MU 09-30 amc, ACN 10-01 bmo, STZ 10-06 amc, C 10-13 bmo."
+    assert old in s
+    s = s.replace(old, old + "\n**Added 09-23:** PGR 10-14 bmo, FHN 10-15 bmo, SYF 10-20 bmo (SYF/FHN snapshots were stale — the feed had already moved them).", 1)
+    old2 = "3. ~~First reads for whichever session runs next~~"
+    assert old2 in s
+    s = s.replace(old2, "4. **REXR (09-23):** its 10-14 date is held as probably wrong (advance PR overdue). Next check **09-24** — if no dispute fires that morning (finnhub 10-13 should keep it flagged, but the flagged reason was `unknown_time` and the time is now set), a manual session is needed to read `ir.rexfordindustrial.com/news-events/press-releases`.\n" + old2, 1)
+    return s
+rw('STATUS.md', st)

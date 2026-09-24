@@ -1,4 +1,5 @@
 {
+  "model": "sonnet",
   "permissions": {
     "allow": [
       "Bash(python E:/options_scanner/tools/earnings_confirm.py *)",

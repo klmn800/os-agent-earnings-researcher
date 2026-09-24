@@ -4,55 +4,52 @@ Issues, questions, and findings from the Earnings Date Researcher agent.
 **Open** items first, most urgent at the top — each condensed to what is still live, with a pointer
 to its full history. Everything else moved **verbatim** to
 [`notes_for_ben_archive.md`](notes_for_ben_archive.md) at the 2026-09-13 maintenance (headings are
-unchanged there, so the pointers below are searchable).
+unchanged there, so the pointers below are searchable); items closed since are appended there each Sunday.
 
 ---
 
 ## Open
 
-### 🔧 `earnings_confirm.py` safety patch — staged, needs you to apply (the write guard blocks me) — 09-14
+### ⚠ SNA 10-15 is probably a week early — a 53-week fiscal year shifted every Snap-on date in 2026, and the July lock was wrong the same way — 09-24
 
-You OK'd me editing the tool, but `.claude/hooks/earnings_researcher_write_guard.py` blocks every write
-outside my workspace (correctly, it's your guard, so I didn't route around it). The patch is staged at
-`analysis/earnings_confirm_patch/` with a diff (`earnings_confirm.diff`) and a 34-check scratch-DB test
-suite (all pass, production hash unchanged). What it changes:
-- `--date` required to confirm. A bare `--symbol` is an error now, not a silent confirm.
-- `--by` required, `ben`/`agent` only (was: defaults to `ben`).
-- New `--time-only` mode: writes `earnings_time`, never touches `date_confirmed*` (the PAYX/KMX fix).
-- Refuses any non-`ben` write to a `ben`-confirmed row. Today it only warns.
+Snap-on's fiscal 2025 ended **January 3, 2026** (53 weeks), so each 2026 quarter ends a week later than
+2025's. Its Q2-26 8-K exhibit is headed "Three Months Ended July 4, 2026 / June 28, 2025", and the report
+dates moved with it: Q1 04-23 (vs 04-17 '25), Q2 **07-23** (vs 07-17). The 06-30 cadence lock put Q2 at
+**07-16** — wrong by 7d, and the outcome was never logged (it is not in the 07-17 bad-batch list either).
+The Q3 row (10-15, finnhub agrees) carries the same 2025-shaped "3rd Thursday" assumption; the arithmetic
+says **Thu 10-22** (Q3 ends 10-03, +19d as every quarter). I wrote only the time (`bmo`, sourced) and
+left the date unlocked; the advance webcast PR (14d lead) will settle it 10-01 or 10-08.
 
-No code imports it. The launcher template and CLAUDE.md already pass `--date --time --by agent`. Your
-04-23 bulk CSV would need `--by ben` on a re-run. To apply:
-```
-copy E:\options_scanner\agents\earnings_researcher\analysis\earnings_confirm_patch\earnings_confirm.py E:\options_scanner\tools\earnings_confirm.py
-```
+Two things for you: (1) if the scanner has SNA in a 10-15 setup, treat the date as unconfirmed;
+(2) the general failure — a company with a 52/53-week fiscal year moves every date after a 53-week year,
+and any "nth weekday" cadence row breaks silently — is worth a one-line check in whatever seeds the
+calendar (fiscal-year-end date from the latest 10-K cover). REXR's 2026 4th-Thursday shift looks like a
+different cause (calendar-year REIT).
 
-### ✅ RESOLVED 09-14 — PAYX and KMX: two dates I locked without a company source — and one is now flagged as probably wrong — 09-13
+### 🚨 No research session ran 09-16, 09-17 or 09-18 — a zero-dispute morning cancels the session, and UEC reports Thursday — 09-20
 
-> **Resolved 2026-09-14, no action needed from you.** Both advance PRs had been out since 09-09.
-> **PAYX was wrong: now 2026-09-23 `bmo`** (Paychex GlobeNewswire, *"Wednesday, September 23, 2026,
-> before the financial markets open"*). yfinance's flag was right. **KMX's 09-29 `bmo` was right** and is
-> now backed by CarMax's BusinessWire PR. Both re-confirmed `--by agent` with sources, and the PAYX
-> `confirmed_row_diverged` row is resolved. The reset SQL below is moot. Archive at the next maintenance.
+The orchestrator only launches me when the lite refresh flags **≥1 dispute**
+(`ei_lite_refresh.py:339`, `if disputes and spawn_agent`), and `launcher.py` has the same early-exit.
+Wed–Fri it flagged **0** (with 5–7 unconfirmed rows in scope each day), so nothing ran. My logged
+next-check dates and the unconfirmed backfill had only ever run because some *other* symbol's dispute
+fired the launcher that day.
 
-On **09-08** I fixed the *times* on KMX and PAYX (both `unknown_time`; `bmo` is solid on history for
-both) but ran them through `earnings_confirm.py`, which sets `date_confirmed=1` on every call. So both
-**2026-09-29** dates are now locked as agent-confirmed with **no same-quarter company source behind
-them**. My own memory already said to use a plain `earnings_time` UPDATE for a time-only fix; I didn't.
+What slipped:
+- **UEC — reports 2026-09-24, still unconfirmed, stored `amc` that I believe should be `bmo`.** Its
+  check was due 09-17 (the day its advance PR was expected). Never ran.
+- **CCL** — check due 09-16, never ran; the feed moved it 09-28 → 09-29 meanwhile, unsourced.
+- **MU (09-30)** and **ACN (10-01, stored `amc` vs bmo every observed quarter)** entered the 14-day
+  horizon and were never surfaced.
 
-On **09-11** the drift detector raised **`confirmed_row_diverged` on PAYX — yfinance now says 09-23**,
-six days earlier. That is exactly the shape that exposed the bad 06-30 batch in July (RTX/LMT/CLF/EQT:
-all four locked dates were late, yfinance was right every time). The 09-11 session log doesn't mention
-it. It's the first thing Monday reads.
+**What I need from you:** if Monday's refresh flags 0 disputes again, no session will run and UEC goes
+into its event unchecked. A manual session would cover it — from the code (untested): run
+`python launcher.py` once (it resets `.session_mode` to `daily` before it exits on "no disputes"; without
+that, tonight's `weekend` marker would suppress the list), then open `claude` in this folder — the hook
+injects the unconfirmed backfill on its own. No wrong write came out of the gap; the cost is lead time.
 
-- **Monday:** read Paychex's Q1 FY27 advance PR if it's out (historically mid-September) and correct or
-  re-confirm from it; same for CarMax's Q2 advance.
-- **Your call:** return both rows to unconfirmed until then, so they aren't suppressed behind a lock
-  with nothing under it. Say the word and I'll run it (times stay `bmo`):
-  ```
-  UPDATE earnings_upcoming SET date_confirmed=0, date_confirmed_by=NULL, date_confirmed_at=NULL WHERE symbol IN ('KMX','PAYX')
-  ```
-  Waiting for the PRs instead is also fine — Monday's read likely settles PAYX either way.
+Fix proposal (small): `analysis/proposal_20260920_spawn_on_due_next_checks.md` — spawn on "disputes
+**or** unconfirmed rows inside the hook's 14-day horizon", mirror it in the launcher, and have the hook
+say so when the last logged session is more than a trading day old.
 
 ### ⚠ Ten upcoming rows carry a time that contradicts one already established — the re-seeding problem, at scale — 09-13
 
@@ -63,36 +60,39 @@ with a time I company-sourced in an earlier quarter:
 |--------|-----------|-------------|----------|
 | ACN | `amc` | bmo — every observed quarter | 10-01 |
 | STZ | `bmo` | amc — Q1 FY27 PR (1 obs) | 10-06 |
-| C, FHN, SNA, ERIC, ACI | `Unknown` | bmo | 10-13 → 10-15 |
-| FNB, REXR | `Unknown` | amc | 10-14 / 10-15 |
+| C, FHN, SNA, ERIC, ACI | ~~`Unknown`~~ → all bmo ✅ (09-22 → 09-24) | bmo | 10-13 → 10-15 |
+| FNB, REXR | ~~`Unknown`~~ → both amc ✅ (09-23, 09-24) | amc | 10-14 / 10-15 |
 | MDT | `Unknown` | bmo — 6:45 ET release, every quarter | 11-17 |
 
 The `Unknown` ones will reach me as `unknown_time` disputes and I'll fix them as they come. **ACN and
-STZ are the dangerous ones**: they look filled in, so nothing will ever flag them, and a wrong bmo/amc
+STZ are the dangerous ones** (both still unchanged in the DB on 09-20; ACN's advance window opened ~09-15 and hasn't been read — see the top item): they look filled in, so nothing will ever flag them, and a wrong bmo/amc
 puts the whole trade on the wrong session. Nothing written today (Sunday; no same-quarter source yet).
 
 Fixes for the class, cheapest first (unchanged since 08-18 / 09-03):
 1. **Carry a confirmed time forward** to the next quarter's row instead of re-seeding it from the feed.
-2. A **`--time`-only mode** on `earnings_confirm.py` (or a `time_confirmed` column) so a time can be
-   locked without asserting the date — its absence is what produced the PAYX/KMX locks above.
+2. ~~A `--time`-only mode on `earnings_confirm.py`~~ — ✅ **done: `--time-only` is live (your 09-16
+   install).** It lets me *write* a sourced time without touching the date; it does not stop the next
+   quarter's row from being re-seeded, so fix 1 is still the one that closes the class.
 3. Optional sweep: SEC Item 2.02 furnish times as the default when the feed says Unknown
    (method in `memory/reference_sec_acceptance_time_timing.md`).
 
 Same family, never explained: TECH's time correction "wrote" three times in July and didn't persist (08-04).
 _History in the archive: "MDT's wrong time came back…", "CLOSED 09-03 — CTAS's time…", "A time correction I 'wrote' three times…", "`earnings_confirm.py` conflates…"._
 
-### 🐞 Tool fixes, still open — `earnings_confirm.py`, `direct_db_query.py`, the daily prompt template
+### 🐞 Tool fixes, still open — `direct_db_query.py`, and backslash paths in the daily template
 
-- **`earnings_confirm.py`:** bare `--symbol` is a *write* stamped `by=ben` (hit 08-19 and 09-02);
-  `--by` defaults to `ben`; `date_confirmed=1` is set on every call. Suggested: require `--by`, make
-  bare `--symbol` a read, add `--time-only`.
+- ✅ **`earnings_confirm.py` — fixed** (patch installed 09-16; verified 09-20 from `--help`: `--date`
+  and `--by` required, `--time-only` present). ✅ **`launcher.py` template `--write` — fixed** (verified
+  09-20, steps 6–7). Thank you — both were the two highest-consequence items on this list.
 - **`direct_db_query.py`:** exits 0 and prints "No results returned" on invalid SQL and on 0-row
   updates (suggest: print `rowcount`, exit non-zero on `sqlite3.Error`); splits `--sql` on `;` even
-  inside string literals; a backslash `--db` path under bash silently creates an **empty** database and
-  then reports `no such table`. My workarounds hold (forward slashes, no `;` in text, SELECT after every write).
-- **`launcher.py` daily template — re-verified 09-13 (lines 333/337): steps 6 and 7 still omit
-  `--write`** and use backslash `--db` paths. A session following the prompt literally writes nothing
-  and appears to succeed. `CLAUDE.md` has `--write`; the template doesn't.
+  inside string literals (hit again 09-14); a backslash `--db` path under bash silently creates an
+  **empty** database and then reports `no such table`. Small new one: a read-only `PRAGMA table_info`
+  trips the write-guard warning and prints nothing (seen once, 09-20). My workarounds hold (forward
+  slashes, no `;` in text, SELECT after every write).
+- **`launcher.py` daily template still uses backslash `--db` paths** in steps 6–7
+  (`E:\options_scanner\data\...`) — the stray-empty-DB hazard above if pasted into bash as-is.
+  I always rewrite them to forward slashes; changing the template would remove the trap.
 
 _History in the archive: "`earnings_confirm.py --symbol SYM`…", "`direct_db_query.py` splits…", "Tooling hazard…", "BUG in the daily session prompt…", "The `--write` bug…"._
 
@@ -126,8 +126,12 @@ _History in the archive: "EXPD: candidate for `dmh`", "WDS (Woodside)…", "Two 
 
 ### 💡 Proposals for a dev session (no urgency; each has a fuller write-up in the archive or `analysis/`)
 
+- **Spawn on due next-checks / unconfirmed horizon rows, not only on disputes** —
+  `analysis/proposal_20260920_spawn_on_due_next_checks.md` (this one *is* somewhat urgent — top item).
 - **Hook: give `confirmed_row_diverged` top priority** and show the signed delta — see
-  `analysis/proposal_20260913_hook_diverged_priority_status_tripwire.md` (with two other small items).
+  `analysis/proposal_20260913_hook_diverged_priority_status_tripwire.md` (with two other small items;
+  its item 3 predates the patch — the line to add to the prompt is now *"time-only ⇒ `--time-only`"*,
+  not the plain UPDATE).
 - **Hook: warn when `STATUS.md` is >10 days stale** — would have caught the 12-week maintenance gap in early July. (Same file.)
 - **Hook: join live `earnings_upcoming` at injection time**, or stamp the snapshot's age — the frozen
   `db_date` misled me at least four times (07-22, 07-30, 08-06, 08-20).
@@ -152,6 +156,13 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
 
 ## Resolved (condensed — full text in the archive)
 
+- **09-16 — `earnings_confirm.py` safety patch: installed by you, verified live 09-20.** Bare
+  `--symbol` now errors, `--by` is required, `--time-only` exists, agent writes to `ben` rows are
+  refused. My memory note now leads with the patched behaviour. Inbox notice processed.
+- **09-14 — PAYX and KMX (dates I locked 09-08 without a company source): both re-sourced.** PAYX was
+  wrong — corrected **09-29 → 09-23 `bmo`** from Paychex's PR (yfinance's drift flag was right); KMX's
+  09-29 `bmo` was right and is now backed by CarMax's PR. The wrong PAYX lock stood 5 days with the PR
+  already on the wire.
 - **09-13 — "The Sunday maintenance session has not run since 06-21 … the scheduled task and its
   launcher are both gone" (08-26): CLOSED, and its diagnosis was wrong.** The launcher is at
   `E:\options_scanner\scheduled_tasks\start_earnings_researcher_sunday.bat`, *outside* the workspace;

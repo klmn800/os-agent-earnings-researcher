@@ -31,6 +31,15 @@ In normal operation this is launched by the parent repo's daily orchestrator (we
 
 If there are no unresolved disputes for the day, the launcher prints that and exits without spawning a Claude session — no wasted tokens on an empty queue.
 
+### Model per session mode
+
+| Mode | Model | Where it's set |
+|------|-------|----------------|
+| Daily (weekdays) | `sonnet` | `launcher.py` `DAILY_MODEL` (passed as `--model`), and `.claude/settings.local.json` `"model"` as the folder default |
+| Maintenance (Sunday) | `opus` | `launcher.py` `MAINTENANCE_MODEL`, and `--model opus` in `scheduled_tasks/start_earnings_researcher_sunday.bat` (the CLI flag overrides the folder default) |
+
+Both are Claude Code **aliases**, not pinned model IDs, so each resolves to the current model in its tier at launch and never expires silently. Rationale (2026-09-24): the daily job is retrieval plus rule-following against the standing rules in `memory/reference_company_cadence.md`, which Sonnet handles; the Sunday calibration/promotion pass is the judgment-heavy one. Change a mode's model in the two places listed for it.
+
 ## How context gets injected
 
 `launcher.py` writes the day's prompt to `.session_prompt.md` and a mode marker (`daily` or `weekend`) to `.session_mode`. A `UserPromptSubmit` hook (`hooks/inject_context.py`) reads that marker and injects the right block at session start: `<dispute-list>` for daily runs, `<maintenance-session>` (workspace stats, no disputes) for Sunday. This is what lets the same agent identity run two very different session shapes without two separate prompt files driving the actual model turn.

@@ -75,6 +75,30 @@ Two rules:
    200-for-everything hosts that silently invert slug probes (the Copart trap). Use it for the opening
    sweep across all surfaced CIKs and save the IR feeds for symbols actually inside their windows.
 
+⚠⚠ **2026-09-20 — a next-check date is a promise only if a session exists that day, and sessions are
+dispute-gated.** The orchestrator launches this agent from `ei_lite_refresh.py` with
+`if disputes and spawn_agent:` (line 339, read 2026-09-20): **no dispute flagged that morning ⇒ no
+session**, regardless of unconfirmed rows or logged next-check dates. On 09-16, 09-17 and 09-18 the
+refresh logged `Disputes flagged: 0` (with 5–7 unconfirmed rows in scope) and nothing launched — so
+CCL's 09-16 check and UEC's 09-17 check **never ran**, with UEC reporting 09-24. Until then every
+gated symbol had been rescued by some *other* symbol's dispute happening to fire the launcher; as the
+dispute queue thins between seasons that stops being true. Observed once (one 3-day gap), but the
+mechanism is read straight off the code, so it will recur whenever the dispute count is 0.
+- **There are two gates, not one:** `launcher.py`'s daily mode also early-exits (*"No unresolved
+  earnings date disputes for today. Nothing to do."*) before spawning, so running the launcher by hand
+  on a zero-dispute day does nothing either. The only manual route (read from the code, **untested**):
+  run `python launcher.py` once so it resets `.session_mode` to `daily` (it does that *before* the
+  dispute check — otherwise Sunday's `weekend` marker would still suppress the list), then open
+  `claude` in the workspace; the hook's unconfirmed backfill (`HORIZON_DAYS = 14`) injects on its own.
+- **A "skip until D" is only safe if something will wake me on D.** When logging a next-check date
+  inside ~7 days of the earnings date, also put it in `STATUS.md` → *Needs attention* so Ben knows a
+  manual session may be needed if no dispute fires that day.
+- **On the first session after any gap, check for missed next-check dates before the injected list**
+  (compare the last log session date with today; the carry-over table has the dates).
+- **A gap is not an absence.** Days with no session contribute nothing to an absence floor — the
+  absence record stops at the last actual read.
+- Proposed fix (Ben's call): `analysis/proposal_20260920_spawn_on_due_next_checks.md`.
+
 **How to apply:**
 - A no-op MUST be auditable: name each symbol's next-check date so it's reasoning, not a lazy shrug. That's the guard against false "nothing to do."
 - **A wrong lead time turns a valid inference into a wrong one.** 2026-07-16: the log had RHI's Q1 lead as 13d when the PR itself says 7d. The conclusion survived, but only by luck. Re-read the lead off the source, don't trust a remembered gap.

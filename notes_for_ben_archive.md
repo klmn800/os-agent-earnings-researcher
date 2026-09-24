@@ -722,3 +722,55 @@ Now that `memory/reference_company_cadence.md` exists (and is well-populated —
 - **2026-05-28 — Stray `inbox/` research artifacts cleared.** Moved all pre-staged SEC files (orcl/uec/cnm/gme `*_filings.json` / `*_search.json` / `*.html` + the 0-byte `jef_8k.htm`) from `inbox/` root into `inbox/processed/`. Inbox root is clean.
 
 - **2026-05-27 — SEC.gov reachable via curl (now in memory).** `WebFetch` 403s on sec.gov, but `Bash` + `curl` with a UA (`klmn800alerts@gmail.com`) gets 8-Ks, the submissions JSON, and EDGAR full-text search. Promoted to `memory/reference_sec_via_curl.md`; SEC 8-K bodies are now a first-class confirmation source.
+
+---
+
+## Moved at the 2026-09-20 maintenance (verbatim)
+
+_Both items closed during the week of 09-14: the patch was installed by Ben on 09-16, and the
+PAYX/KMX locks were re-sourced (PAYX corrected) on 09-14._
+
+### 🔧 `earnings_confirm.py` safety patch — staged, needs you to apply (the write guard blocks me) — 09-14
+
+You OK'd me editing the tool, but `.claude/hooks/earnings_researcher_write_guard.py` blocks every write
+outside my workspace (correctly, it's your guard, so I didn't route around it). The patch is staged at
+`analysis/earnings_confirm_patch/` with a diff (`earnings_confirm.diff`) and a 34-check scratch-DB test
+suite (all pass, production hash unchanged). What it changes:
+- `--date` required to confirm. A bare `--symbol` is an error now, not a silent confirm.
+- `--by` required, `ben`/`agent` only (was: defaults to `ben`).
+- New `--time-only` mode: writes `earnings_time`, never touches `date_confirmed*` (the PAYX/KMX fix).
+- Refuses any non-`ben` write to a `ben`-confirmed row. Today it only warns.
+
+No code imports it. The launcher template and CLAUDE.md already pass `--date --time --by agent`. Your
+04-23 bulk CSV would need `--by ben` on a re-run. To apply:
+```
+copy E:\options_scanner\agents\earnings_researcher\analysis\earnings_confirm_patch\earnings_confirm.py E:\options_scanner\tools\earnings_confirm.py
+```
+
+### ✅ RESOLVED 09-14 — PAYX and KMX: two dates I locked without a company source — and one is now flagged as probably wrong — 09-13
+
+> **Resolved 2026-09-14, no action needed from you.** Both advance PRs had been out since 09-09.
+> **PAYX was wrong: now 2026-09-23 `bmo`** (Paychex GlobeNewswire, *"Wednesday, September 23, 2026,
+> before the financial markets open"*). yfinance's flag was right. **KMX's 09-29 `bmo` was right** and is
+> now backed by CarMax's BusinessWire PR. Both re-confirmed `--by agent` with sources, and the PAYX
+> `confirmed_row_diverged` row is resolved. The reset SQL below is moot. Archive at the next maintenance.
+
+On **09-08** I fixed the *times* on KMX and PAYX (both `unknown_time`; `bmo` is solid on history for
+both) but ran them through `earnings_confirm.py`, which sets `date_confirmed=1` on every call. So both
+**2026-09-29** dates are now locked as agent-confirmed with **no same-quarter company source behind
+them**. My own memory already said to use a plain `earnings_time` UPDATE for a time-only fix; I didn't.
+
+On **09-11** the drift detector raised **`confirmed_row_diverged` on PAYX — yfinance now says 09-23**,
+six days earlier. That is exactly the shape that exposed the bad 06-30 batch in July (RTX/LMT/CLF/EQT:
+all four locked dates were late, yfinance was right every time). The 09-11 session log doesn't mention
+it. It's the first thing Monday reads.
+
+- **Monday:** read Paychex's Q1 FY27 advance PR if it's out (historically mid-September) and correct or
+  re-confirm from it; same for CarMax's Q2 advance.
+- **Your call:** return both rows to unconfirmed until then, so they aren't suppressed behind a lock
+  with nothing under it. Say the word and I'll run it (times stay `bmo`):
+  ```
+  UPDATE earnings_upcoming SET date_confirmed=0, date_confirmed_by=NULL, date_confirmed_at=NULL WHERE symbol IN ('KMX','PAYX')
+  ```
+  Waiting for the PRs instead is also fine — Monday's read likely settles PAYX either way.
+

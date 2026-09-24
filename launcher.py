@@ -38,6 +38,15 @@ if hasattr(sys.stderr, 'reconfigure'):
 
 DISPUTE_PRIORITY = {'date_disagreement': 0, 'confirmed_row_diverged': 0, 'both': 1, 'unknown_time': 2}
 
+# Model per session mode (set 2026-09-24). Aliases, not pinned IDs, so each
+# resolves to the current model in its tier at launch and never expires silently.
+#   daily       -> 'sonnet' : retrieval + rule-following against a codified rulebook
+#   maintenance -> 'opus'   : Sunday calibration / promotion pass needs more judgment
+# The folder default (.claude/settings.local.json "model") is also 'sonnet'; the
+# Sunday .bat passes --model opus explicitly because a CLI flag overrides settings.
+DAILY_MODEL = 'sonnet'
+MAINTENANCE_MODEL = 'opus'
+
 
 def get_unresolved_disputes(limit=None):
     """Get unresolved disputes for today, prioritized by type.
@@ -75,7 +84,7 @@ def get_unresolved_count():
     return len(get_unresolved_disputes())
 
 
-def spawn_visible(prompt_file):
+def spawn_visible(prompt_file, model=DAILY_MODEL):
     """Run Claude Code inline in the current window (no second window spawned).
 
     The orchestrator wraps `python launcher.py` in `cmd /k`, so this window
@@ -86,30 +95,32 @@ def spawn_visible(prompt_file):
         print("ERROR: 'claude' command not found in PATH")
         return False
 
-    print("Starting Claude Code session in this window...")
+    print("Starting Claude Code session in this window (model: {})...".format(model))
     print()
 
     result = subprocess.run(
-        [claude_path, '--permission-mode', 'auto', '@{}'.format(prompt_file)],
+        [claude_path, '--model', model, '--permission-mode', 'auto',
+         '@{}'.format(prompt_file)],
         cwd=str(AGENT_DIR),
     )
 
     return result.returncode == 0
 
 
-def spawn_headless(prompt_file):
+def spawn_headless(prompt_file, model=DAILY_MODEL):
     """Spawn Claude Code headless (no window, captures output)."""
     claude_path = shutil.which('claude')
     if not claude_path:
         print("ERROR: 'claude' command not found in PATH")
         return False, ""
 
-    print("Running Earnings Researcher headless (this may take several minutes)...")
+    print("Running Earnings Researcher headless (model: {}; this may take "
+          "several minutes)...".format(model))
 
     prompt_text = Path(prompt_file).read_text(encoding='utf-8')
 
     result = subprocess.run(
-        [claude_path, '-p', '--permission-mode', 'auto'],
+        [claude_path, '-p', '--model', model, '--permission-mode', 'auto'],
         input=prompt_text,
         capture_output=True,
         text=True,
@@ -196,16 +207,17 @@ def main():
 
         if args.prepare_only:
             print("Session prompt written to: {}".format(session_prompt))
-            print("Ready for: cd /d {} && claude --permission-mode auto @.session_prompt.md".format(AGENT_DIR))
+            print("Ready for: cd /d {} && claude --model {} --permission-mode auto "
+                  "@.session_prompt.md".format(AGENT_DIR, MAINTENANCE_MODEL))
         elif args.headless:
-            success, output = spawn_headless(session_prompt)
+            success, output = spawn_headless(session_prompt, model=MAINTENANCE_MODEL)
             if output:
                 print("\n" + "=" * 50)
                 print("Session Output:")
                 print("=" * 50)
                 print(output[-2000:] if len(output) > 2000 else output)
         else:
-            spawn_visible(session_prompt)
+            spawn_visible(session_prompt, model=MAINTENANCE_MODEL)
         return
 
     # -----------------------------------------------------------------
@@ -266,7 +278,7 @@ def main():
     print("=" * 50)
 
     if args.headless:
-        success, output = spawn_headless(session_prompt)
+        success, output = spawn_headless(session_prompt, model=DAILY_MODEL)
         if output:
             print("\n" + "=" * 50)
             print("Session Output:")
@@ -274,7 +286,7 @@ def main():
             print(output[-2000:] if len(output) > 2000 else output)
     else:
         # spawn_visible blocks until Claude exits (single-window mode).
-        spawn_visible(session_prompt)
+        spawn_visible(session_prompt, model=DAILY_MODEL)
 
 
 # ---------------------------------------------------------------------------
