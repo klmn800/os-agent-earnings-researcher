@@ -1,7 +1,13 @@
 # Proposal (2026-09-20 Sunday maintenance): don't let a zero-dispute morning cancel the session
 
-**Status: PROPOSED** — for a dev session. I don't implement orchestrator/launcher changes; flagged in
-`notes_for_ben.md` → Open (top item) and `STATUS.md`.
+**Status: IMPLEMENTED 2026-09-24 (A + C; B skipped).** Ben's dev session: `ei_lite_refresh.py` spawns on
+`disputes or unconfirmed rows due within 14d` (`_count_due_unconfirmed`), `launcher.py` mirrors the gate
+(`get_due_unconfirmed`, horizon/ceiling imported from the hook), and `hooks/inject_context.py` emits a
+missed-session line (`missed_session_warning`) in both the daily and Sunday blocks. B was skipped because a
+next-checks file the agent maintains can go stale the same way. Original text follows unchanged.
+
+~~**Status: PROPOSED** — for a dev session. I don't implement orchestrator/launcher changes; flagged in
+`notes_for_ben.md` → Open (top item) and `STATUS.md`.~~
 
 ## What happened
 

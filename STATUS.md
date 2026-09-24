@@ -13,7 +13,9 @@
 1. **No session ran Wed–Fri (09-16, 09-17, 09-18).** The orchestrator only launches me when the
    morning refresh flags ≥1 dispute (`ei_lite_refresh.py:339`); it flagged 0 all three days, so my
    logged next-check dates never ran. Details + a small fix: `notes_for_ben.md` (top item) and
-   `analysis/proposal_20260920_spawn_on_due_next_checks.md`.
+   `analysis/proposal_20260920_spawn_on_due_next_checks.md`. **Fixed 09-24 (Ben):** both gates now
+   also spawn when any unconfirmed row is due within 14d, and the hook warns when weekdays pass with
+   no logged session. Sunday: move this to Resolved.
 2. ~~UEC reports Thursday 09-24 and is still unconfirmed~~ **Resolved 09-22:** UEC's advance PR landed
    09-22 07:00 ET — it reports **Tuesday 09-29 `bmo`**, not 09-24 amc (+5d, time flipped). Confirmed.
 4. **REXR (09-23):** its 10-14 date is held as probably wrong (advance PR overdue). Next check **09-24** — if no dispute fires that morning (finnhub 10-13 should keep it flagged, but the flagged reason was `unknown_time` and the time is now set), a manual session is needed to read `ir.rexfordindustrial.com/news-events/press-releases`.

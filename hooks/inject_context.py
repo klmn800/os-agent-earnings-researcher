@@ -10,6 +10,7 @@ Surfaces two independent context blocks:
     - inbound mailboxes: for_earnings_researcher.md from TA/SA/MA (tail if mtime changed)
 
   <dispute-list>      (always, with sentinel-based batching)
+    - missed-session tripwire (weekdays since the newest research_log session header)
     - today's unresolved earnings date disputes (PERF_DB)
     - cached IR URLs (DATALAKE_DB.symbol_metadata)
     - backfill of unconfirmed-but-undisputed earnings_upcoming rows (within HORIZON)
@@ -24,6 +25,7 @@ First run for any mailbox/inbox check is silent (initializes the marker).
 Output: JSON with hookSpecificOutput.additionalContext
 """
 
+import re
 import sys
 import json
 import sqlite3
@@ -229,6 +231,49 @@ def read_session_mode():
         return 'daily'
 
 
+def _last_logged_session_date():
+    """Date of the newest '## Session: YYYY-MM-DD' header in research_log.md, or None."""
+    try:
+        text = RESEARCH_LOG.read_text(encoding='utf-8')
+    except Exception:
+        return None
+    dates = re.findall(r'^## Session: (\d{4}-\d{2}-\d{2})', text, flags=re.M)
+    if not dates:
+        return None
+    try:
+        return datetime.strptime(max(dates), '%Y-%m-%d').date()
+    except ValueError:
+        return None
+
+
+def missed_session_warning(now, last=None):
+    """One-line tripwire when weekdays passed with no logged session.
+
+    Sessions are spawned by the orchestrator, and a day with none leaves no
+    trace in the workspace -- the 2026-09-16..18 gap was only noticed at the
+    Sunday maintenance. Counts Mon-Fri strictly between the newest research-log
+    session header and today. Market holidays are not excluded, so the day
+    after one warns spuriously (one line, harmless). Returns None when no gap.
+    """
+    if last is None:
+        last = _last_logged_session_date()
+    if last is None:
+        return None
+    today = now.date()
+    missed = []
+    d = last + timedelta(days=1)
+    while d < today:
+        if d.weekday() < 5:
+            missed.append(d.strftime('%m-%d'))
+        d += timedelta(days=1)
+    if not missed:
+        return None
+    shown = ', '.join(missed[:5]) + (', ...' if len(missed) > 5 else '')
+    return ("\u26a0 Last logged session {} \u2014 {} weekday(s) had no session ({}); "
+            "check missed next-check dates (STATUS.md carry-overs / research-log header) first."
+            .format(last.isoformat(), len(missed), shown))
+
+
 def build_maintenance_block(now):
     """Orientation block for the weekly maintenance (Sunday) session.
 
@@ -241,6 +286,10 @@ def build_maintenance_block(now):
     parts.append('Weekly maintenance session — the dispute list is suppressed on purpose. '
                  'Follow PROMPT_SUNDAY.md.')
     parts.append('')
+    gap = missed_session_warning(now)
+    if gap:
+        parts.append(gap)
+        parts.append('')
 
     try:
         text = RESEARCH_LOG.read_text(encoding='utf-8')
@@ -289,6 +338,10 @@ def build_dispute_list(now, today_str, horizon_str, limit):
     parts.append("Today's date: {} ({})".format(today_str, now.strftime('%A')))
     parts.append("Current time: {}".format(now.strftime('%I:%M %p')))
     parts.append('')
+    gap = missed_session_warning(now)
+    if gap:
+        parts.append(gap)
+        parts.append('')
 
     # Get unresolved disputes, prioritized: date_disagreement > both > unknown_time
     PRIORITY = {'date_disagreement': 0, 'both': 1, 'unknown_time': 2}

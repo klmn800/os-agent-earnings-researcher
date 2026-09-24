@@ -21,13 +21,14 @@ import subprocess
 import sqlite3
 import sys
 import tempfile
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 # Project root is grandparent of this script's directory
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 AGENT_DIR = PROJECT_ROOT / 'agents' / 'earnings_researcher'
 PERF_DB = PROJECT_ROOT / 'data' / 'performance.db'
+DATALAKE_DB = PROJECT_ROOT / 'data' / 'datalake.db'
 
 # Configure UTF-8 encoding for Windows compatibility
 if hasattr(sys.stdout, 'reconfigure'):
@@ -46,6 +47,19 @@ DISPUTE_PRIORITY = {'date_disagreement': 0, 'confirmed_row_diverged': 0, 'both':
 # Sunday .bat passes --model opus explicitly because a CLI flag overrides settings.
 DAILY_MODEL = 'sonnet'
 MAINTENANCE_MODEL = 'opus'
+
+# Daily-mode spawn gate: run when there are disputes OR any unconfirmed
+# earnings_upcoming row is due within HORIZON_DAYS. A zero-dispute morning used
+# to cancel the session, which silently skipped the agent's logged next-check
+# dates and the hook's unconfirmed backfill (no session 2026-09-16..18, 09-21).
+# Both values are imported from the context hook so this gate and the injected
+# backfill can't drift apart. Same rule in strategies/earnings_intel/ei_lite_refresh.py.
+# (2026-09-24 -- analysis/proposal_20260920_spawn_on_due_next_checks.md)
+try:
+    sys.path.insert(0, str(AGENT_DIR / 'hooks'))
+    from inject_context import HORIZON_DAYS, TOTAL_CEILING
+except Exception:
+    HORIZON_DAYS, TOTAL_CEILING = 14, 25
 
 
 def get_unresolved_disputes(limit=None):
@@ -76,6 +90,36 @@ def get_unresolved_disputes(limit=None):
         return rows
     except Exception as e:
         print("Could not check disputes: {}".format(e))
+        return []
+
+
+def get_due_unconfirmed(horizon_days=HORIZON_DAYS):
+    """Unconfirmed earnings_upcoming rows dated today..today+horizon_days.
+
+    Same predicate as the hook's backfill query. These are what a zero-dispute
+    session works on (logged next-check dates, advance-PR watch), so their
+    presence alone is reason to run.
+
+    Returns:
+        list of (symbol, earnings_date, earnings_time) tuples, soonest first
+    """
+    now = datetime.now()
+    today_str = now.strftime('%Y-%m-%d')
+    horizon_str = (now + timedelta(days=horizon_days)).strftime('%Y-%m-%d')
+    try:
+        conn = sqlite3.connect(str(DATALAKE_DB), timeout=10)
+        rows = conn.execute("""
+            SELECT symbol, earnings_date, earnings_time
+            FROM earnings_upcoming
+            WHERE (date_confirmed = 0 OR date_confirmed IS NULL)
+              AND earnings_date >= ?
+              AND earnings_date <= ?
+            ORDER BY earnings_date ASC, symbol ASC
+        """, (today_str, horizon_str)).fetchall()
+        conn.close()
+        return rows
+    except Exception as e:
+        print("Could not check unconfirmed rows: {}".format(e))
         return []
 
 
@@ -227,16 +271,34 @@ def main():
     # run can't suppress today's dispute list.
     session_mode.write_text('daily', encoding='utf-8')
 
-    # Check for disputes (all of them, for total count)
+    # Check for disputes (all of them, for total count) and for unconfirmed
+    # rows inside the hook's horizon. Either is reason to run -- except that
+    # the hook only backfills unconfirmed rows when no --limit is set, so with
+    # a limit the unconfirmed set can't be injected and doesn't count.
     all_disputes = get_unresolved_disputes()
-    if not all_disputes:
-        print("No unresolved earnings date disputes for today. Nothing to do.")
+    due_unconfirmed = get_due_unconfirmed()
+    if not all_disputes and (args.limit or not due_unconfirmed):
+        if args.limit:
+            print("No unresolved earnings date disputes for today "
+                  "(--limit set, so no unconfirmed backfill). Nothing to do.")
+        else:
+            print("No unresolved disputes and no unconfirmed rows due within {} days. "
+                  "Nothing to do.".format(HORIZON_DAYS))
         return
 
     # Apply limit — prioritized batch
     batch = get_unresolved_disputes(limit=args.limit)
     total_count = len(all_disputes)
     batch_count = len(batch)
+
+    # Size the session the way the hook will render it: disputes first, then
+    # (only when no --limit) unconfirmed backfill up to TOTAL_CEILING.
+    backfill_count = 0
+    if not args.limit:
+        dispute_syms = {r[0] for r in batch}
+        extra = [r for r in due_unconfirmed if r[0] not in dispute_syms]
+        backfill_count = max(0, min(len(extra), TOTAL_CEILING - batch_count))
+    session_count = batch_count + backfill_count
 
     # Write session limit file — hook reads this to enforce the cap.
     # "0" means no limit (process all). Positive integer = hard cap.
@@ -250,7 +312,7 @@ def main():
 
     prompt_text = date_header + PROMPT_TEMPLATE.format(
         date=now.strftime('%Y-%m-%d'),
-        N=batch_count,
+        N=session_count,
     )
 
     # Write session prompt
@@ -263,6 +325,8 @@ def main():
         print("  Disputes: {} of {} (batch limit {})".format(batch_count, total_count, args.limit))
     else:
         print("  Disputes to research: {} (all)".format(batch_count))
+    if backfill_count:
+        print("  Unconfirmed due within {}d: {} (hook backfill)".format(HORIZON_DAYS, backfill_count))
 
     # Show priority breakdown
     type_counts = {}

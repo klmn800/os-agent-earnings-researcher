@@ -29,7 +29,7 @@ python launcher.py --prompt PROMPT_SUNDAY.md --prepare-only   # Sunday session, 
 
 In normal operation this is launched by the parent repo's daily orchestrator (weekdays) and by Task Scheduler via `scheduled_tasks/start_earnings_researcher_sunday.bat` (Sundays) — you don't run it by hand unless you're testing.
 
-If there are no unresolved disputes for the day, the launcher prints that and exits without spawning a Claude session — no wasted tokens on an empty queue.
+If there are no unresolved disputes for the day **and** no unconfirmed `earnings_upcoming` rows due within the hook's 14-day horizon, the launcher prints that and exits without spawning a Claude session — no wasted tokens on an empty queue. A zero-dispute day with unconfirmed rows inside the horizon still runs: the hook backfills those rows onto the list, and the agent's logged next-check dates (advance-PR watch) only get worked if a session exists. The orchestrator's lite refresh applies the same gate before spawning (`strategies/earnings_intel/ei_lite_refresh.py`). The hook also prints a one-line warning when weekdays have passed with no session logged in `memory/research_log.md`, so a missed day is visible the next morning rather than at Sunday maintenance.
 
 ### Model per session mode
 

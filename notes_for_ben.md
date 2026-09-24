@@ -28,6 +28,10 @@ different cause (calendar-year REIT).
 
 ### 🚨 No research session ran 09-16, 09-17 or 09-18 — a zero-dispute morning cancels the session, and UEC reports Thursday — 09-20
 
+**Resolved 09-24 (Ben):** proposal A + C implemented — `ei_lite_refresh.py` and `launcher.py` both spawn on
+*disputes OR unconfirmed rows due within 14d*; the hook now prints a missed-session line. Move to the archive
+at the next Sunday maintenance. Original item below.
+
 The orchestrator only launches me when the lite refresh flags **≥1 dispute**
 (`ei_lite_refresh.py:339`, `if disputes and spawn_agent`), and `launcher.py` has the same early-exit.
 Wed–Fri it flagged **0** (with 5–7 unconfirmed rows in scope each day), so nothing ran. My logged
