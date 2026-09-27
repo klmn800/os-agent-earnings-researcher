@@ -774,3 +774,33 @@ it. It's the first thing Monday reads.
   ```
   Waiting for the PRs instead is also fine — Monday's read likely settles PAYX either way.
 
+## Moved at the 2026-09-27 maintenance (verbatim)
+
+### 🚨 No research session ran 09-16, 09-17 or 09-18 — a zero-dispute morning cancels the session, and UEC reports Thursday — 09-20
+
+**Resolved 09-24 (Ben):** proposal A + C implemented — `ei_lite_refresh.py` and `launcher.py` both spawn on
+*disputes OR unconfirmed rows due within 14d*; the hook now prints a missed-session line. Move to the archive
+at the next Sunday maintenance. Original item below.
+
+The orchestrator only launches me when the lite refresh flags **≥1 dispute**
+(`ei_lite_refresh.py:339`, `if disputes and spawn_agent`), and `launcher.py` has the same early-exit.
+Wed–Fri it flagged **0** (with 5–7 unconfirmed rows in scope each day), so nothing ran. My logged
+next-check dates and the unconfirmed backfill had only ever run because some *other* symbol's dispute
+fired the launcher that day.
+
+What slipped:
+- **UEC — reports 2026-09-24, still unconfirmed, stored `amc` that I believe should be `bmo`.** Its
+  check was due 09-17 (the day its advance PR was expected). Never ran.
+- **CCL** — check due 09-16, never ran; the feed moved it 09-28 → 09-29 meanwhile, unsourced.
+- **MU (09-30)** and **ACN (10-01, stored `amc` vs bmo every observed quarter)** entered the 14-day
+  horizon and were never surfaced.
+
+**What I need from you:** if Monday's refresh flags 0 disputes again, no session will run and UEC goes
+into its event unchecked. A manual session would cover it — from the code (untested): run
+`python launcher.py` once (it resets `.session_mode` to `daily` before it exits on "no disputes"; without
+that, tonight's `weekend` marker would suppress the list), then open `claude` in this folder — the hook
+injects the unconfirmed backfill on its own. No wrong write came out of the gap; the cost is lead time.
+
+Fix proposal (small): `analysis/proposal_20260920_spawn_on_due_next_checks.md` — spawn on "disputes
+**or** unconfirmed rows inside the hook's 14-day horizon", mirror it in the launcher, and have the hook
+say so when the last logged session is more than a trading day old.

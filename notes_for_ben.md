@@ -10,7 +10,18 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### ⚠ SNA 10-15 is probably a week early — a 53-week fiscal year shifted every Snap-on date in 2026, and the July lock was wrong the same way — 09-24
+### ⚠ Two stored dates I believe are wrong: SNA 10-15 (→ probably 10-22) and REXR 10-14 (→ probably 10-22) — 09-24, updated 09-27
+
+If the scanner has either name in a setup keyed to the stored date, treat that date as unconfirmed.
+Both rows are left unlocked with their dispute rows open on purpose. Neither is a guess I'll write:
+each waits for the company's advance PR.
+
+**REXR (10-14 amc):** Rexford's advance PR comes 24–35 days ahead (3 observations), so a 10-14 release
+should have had its PR by 09-20. None had appeared as of the last good read (09-24). Both 2026 quarters
+moved to the 4th Thursday (04-23, 07-23), which points to **10-22**, whose PR is due 09-17 → 09-28. Next
+check Monday 09-28. (The 09-25 read of the IR list was a bad view, so it tells us nothing either way.)
+
+**SNA:**
 
 Snap-on's fiscal 2025 ended **January 3, 2026** (53 weeks), so each 2026 quarter ends a week later than
 2025's. Its Q2-26 8-K exhibit is headed "Three Months Ended July 4, 2026 / June 28, 2025", and the report
@@ -20,57 +31,48 @@ The Q3 row (10-15, finnhub agrees) carries the same 2025-shaped "3rd Thursday" a
 says **Thu 10-22** (Q3 ends 10-03, +19d as every quarter). I wrote only the time (`bmo`, sourced) and
 left the date unlocked; the advance webcast PR (14d lead) will settle it 10-01 or 10-08.
 
-Two things for you: (1) if the scanner has SNA in a 10-15 setup, treat the date as unconfirmed;
-(2) the general failure — a company with a 52/53-week fiscal year moves every date after a 53-week year,
+For you: the general failure — a company with a 52/53-week fiscal year moves every date after a 53-week year,
 and any "nth weekday" cadence row breaks silently — is worth a one-line check in whatever seeds the
 calendar (fiscal-year-end date from the latest 10-K cover). REXR's 2026 4th-Thursday shift looks like a
 different cause (calendar-year REIT).
 
-### 🚨 No research session ran 09-16, 09-17 or 09-18 — a zero-dispute morning cancels the session, and UEC reports Thursday — 09-20
+### 👀 The first Sonnet daily session (09-25): writes clean, bookkeeping thin — one data point, watching — 09-27
 
-**Resolved 09-24 (Ben):** proposal A + C implemented — `ei_lite_refresh.py` and `launcher.py` both spawn on
-*disputes OR unconfirmed rows due within 14d*; the hook now prints a missed-session line. Move to the archive
-at the next Sunday maintenance. Original item below.
+Since your 09-24 change, daily sessions run on Sonnet. Only one has run (09-25), which is far too small a
+sample to judge the model, so this is a record, not a verdict.
 
-The orchestrator only launches me when the lite refresh flags **≥1 dispute**
-(`ei_lite_refresh.py:339`, `if disputes and spawn_agent`), and `launcher.py` has the same early-exit.
-Wed–Fri it flagged **0** (with 5–7 unconfirmed rows in scope each day), so nothing ran. My logged
-next-check dates and the unconfirmed backfill had only ever run because some *other* symbol's dispute
-fired the launcher that day.
+**What went right:** all three confirms (RF, TFC, DAL) were read off company pages, used the CLI
+correctly, and match the DB. It was also cheap: 8 searches and 9 fetches for 6 symbols.
 
-What slipped:
-- **UEC — reports 2026-09-24, still unconfirmed, stored `amc` that I believe should be `bmo`.** Its
-  check was due 09-17 (the day its advance PR was expected). Never ran.
-- **CCL** — check due 09-16, never ran; the feed moved it 09-28 → 09-29 meanwhile, unsourced.
-- **MU (09-30)** and **ACN (10-01, stored `amc` vs bmo every observed quarter)** entered the 14-day
-  horizon and were never surfaced.
+**What went wrong:**
+- **Two reads came back wrong and were logged as absences.** AMX's feed returned only 2014–2018 events
+  (logged as "quirk?"). REXR's press list "ends 03-19", which contradicts the day before (current to
+  09-17). Neither is evidence. If either had been read as "no advance yet", the next-check would have
+  slipped.
+- **No bookkeeping:** the carry-over table wasn't updated (REXR's next-check still read 09-25), first-time
+  names RF and TFC got no cadence rows, DAL's row still said "unsourced", and the session wasn't
+  committed. I've done all of that today.
 
-**What I need from you:** if Monday's refresh flags 0 disputes again, no session will run and UEC goes
-into its event unchecked. A manual session would cover it — from the code (untested): run
-`python launcher.py` once (it resets `.session_mode` to `daily` before it exits on "no disputes"; without
-that, tonight's `weekend` marker would suppress the list), then open `claude` in this folder — the hook
-injects the unconfirmed backfill on its own. No wrong write came out of the gap; the cost is lead time.
+**Part of the AMX miss is mine, not the model's.** The 09-24 (Opus) session found that the feed ignores
+`sortDirection`, but it put that only in a session note and the cadence row. The memory note still said
+`sortDirection=desc` works, and the cached URL still has `pageSize=25`. I've fixed the memory note
+today and added a "How to read" column to the carry-over table, so each row says exactly how to read it.
+That should help either model. The cached URL is in `symbol_metadata`, outside what Sunday may write, so
+the next weekday session re-caches it.
 
-Fix proposal (small): `analysis/proposal_20260920_spawn_on_due_next_checks.md` — spawn on "disputes
-**or** unconfirmed rows inside the hook's 14-day horizon", mirror it in the launcher, and have the hook
-say so when the last logged session is more than a trading day old.
+Nothing for you to do yet. I'll score the 09-28 → 10-02 sessions (a heavy week: 25 cohort rows enter the
+horizon) on the same points and report next Sunday.
 
-### ⚠ Ten upcoming rows carry a time that contradicts one already established — the re-seeding problem, at scale — 09-13
+### ⚠ Re-seeded times contradict established ones: 9 of the 10 rows are fixed, but the class isn't — 09-13, updated 09-27
 
-Reviewing the cadence table against the calendar today turned up ten rows whose stored time disagrees
-with a time I company-sourced in an earlier quarter:
+On 09-13 I found ten upcoming rows whose stored time disagreed with a time I had company-sourced in an
+earlier quarter. **Nine are now fixed from same-quarter sources** (09-22 → 09-24): ACN amc → **bmo**,
+STZ bmo → **amc**, and C, FHN, SNA, ERIC, ACI, FNB, REXR `Unknown` → sourced. All nine went the way the
+cadence table predicted. Left: **MDT** (11-17, `Unknown`; bmo, 6:45 ET release every quarter). It will
+reach me as an `unknown_time` dispute.
 
-| Symbol | Stored now | Established | Row date |
-|--------|-----------|-------------|----------|
-| ACN | `amc` | bmo — every observed quarter | 10-01 |
-| STZ | `bmo` | amc — Q1 FY27 PR (1 obs) | 10-06 |
-| C, FHN, SNA, ERIC, ACI | ~~`Unknown`~~ → all bmo ✅ (09-22 → 09-24) | bmo | 10-13 → 10-15 |
-| FNB, REXR | ~~`Unknown`~~ → both amc ✅ (09-23, 09-24) | amc | 10-14 / 10-15 |
-| MDT | `Unknown` | bmo — 6:45 ET release, every quarter | 11-17 |
-
-The `Unknown` ones will reach me as `unknown_time` disputes and I'll fix them as they come. **ACN and
-STZ are the dangerous ones** (both still unchanged in the DB on 09-20; ACN's advance window opened ~09-15 and hasn't been read — see the top item): they look filled in, so nothing will ever flag them, and a wrong bmo/amc
-puts the whole trade on the wrong session. Nothing written today (Sunday; no same-quarter source yet).
+What remains is the mechanism. Every quarter the feed re-seeds the next row, so the same names come back
+wrong or `Unknown`. ACN and STZ were the dangerous shape: a filled-in wrong time that nothing flags.
 
 Fixes for the class, cheapest first (unchanged since 08-18 / 09-03):
 1. **Carry a confirmed time forward** to the next quarter's row instead of re-seeding it from the feed.
@@ -123,6 +125,9 @@ _History in the archive: "AES is a phantom again…", "EA is a phantom…", "MKT
    Both encode the same overnight gap. I've been writing the company's published date (WDS `bmo`;
    SQM `amc` on its 22:00 ET release date). Pick one and I'll apply it consistently. UEC's fiscal
    year-end has the same shape domestically (10-K the prior evening, webcast next morning).
+   **Goes live ~10-03:** HDB and IBN (Indian bank ADRs) are dated **Saturday 10-17** in the DB (HDB `bmo`,
+   IBN `amc`). A Saturday release reaches the US market Monday 10-19 at the open, so either encoding
+   needs a date change, and I'd like your rule before those rows surface.
 3. **Sites that block every client (ITUB — `itau.com.br` 403s everything):** may an SEC 6-K filename
    cluster stand in for the date, or do I keep holding?
 
@@ -130,8 +135,6 @@ _History in the archive: "EXPD: candidate for `dmh`", "WDS (Woodside)…", "Two 
 
 ### 💡 Proposals for a dev session (no urgency; each has a fuller write-up in the archive or `analysis/`)
 
-- **Spawn on due next-checks / unconfirmed horizon rows, not only on disputes** —
-  `analysis/proposal_20260920_spawn_on_due_next_checks.md` (this one *is* somewhat urgent — top item).
 - **Hook: give `confirmed_row_diverged` top priority** and show the signed delta — see
   `analysis/proposal_20260913_hook_diverged_priority_status_tripwire.md` (with two other small items;
   its item 3 predates the patch — the line to add to the prompt is now *"time-only ⇒ `--time-only`"*,
@@ -160,6 +163,12 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
 
 ## Resolved (condensed — full text in the archive)
 
+- **09-24 — Sessions no longer need a dispute to spawn (your A + C from the 09-20 proposal).** Verified in
+  code 09-27: both gates spawn on disputes OR unconfirmed rows due ≤14d, and the hook warns on a missed
+  weekday. **Not yet exercised:** every morning since 09-22 had disputes, so the old gate would have fired too.
+  The first zero-dispute morning will be the real test. One residual gap is
+  logged in my memory (a next-check on a row >14d out with no dispute still spawns nothing; Monday 09-28
+  is such a day, but REXR/AMX/WIT have flagged daily, so it will probably run).
 - **09-16 — `earnings_confirm.py` safety patch: installed by you, verified live 09-20.** Bare
   `--symbol` now errors, `--by` is required, `--time-only` exists, agent writes to `ben` rows are
   refused. My memory note now leads with the patched behaviour. Inbox notice processed.

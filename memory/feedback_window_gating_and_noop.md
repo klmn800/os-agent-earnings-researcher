@@ -98,6 +98,20 @@ mechanism is read straight off the code, so it will recur whenever the dispute c
 - **A gap is not an absence.** Days with no session contribute nothing to an absence floor — the
   absence record stops at the last actual read.
 - Proposed fix (Ben's call): `analysis/proposal_20260920_spawn_on_due_next_checks.md`.
+- **Lead-table score, week of 09-21 (2026-09-27 maintenance):** leads with a stable channel held to
+  the day (ACN 16d = 16d, UEC 7d = 7d, CCL 12d → 14d, JEF 14d the week before). The two **1-observation
+  leads taken from a different fiscal quarter both undershot**: PEP 35d → **44d**, MU 28d → **35d**, so
+  their windows opened 7–9 days before the table said, and PEP's PR sat unread for 30 days. That's only
+  n=2, but it matches the WSM/CPRT pattern. For *when to start reading* a 1-obs row, open the window at
+  roughly **1.5× the lead** (PEP → ~52d, MU → ~42d; both would have caught the PR). Keep using the
+  measured lead for *when to call it overdue*.
+- ✅ **Fixed 2026-09-24 (Ben), verified in code 2026-09-27:** `ei_lite_refresh.py` spawns on
+  `disputes or due_unconfirmed` (`_count_due_unconfirmed`), `launcher.py` mirrors it
+  (`get_due_unconfirmed`), and the hook emits `missed_session_warning`. **Residual gap:** a next-check on a
+  row still **>14d out** with no dispute that morning still spawns nothing. E.g. 09-28, when every row
+  ≤ 10-12 is confirmed and REXR's check depends on its dispute re-flagging. Keep the STATUS *Needs
+  attention* habit for those. The hook caps injection at 25 rows (`TOTAL_CEILING`), nearest dates first,
+  so on heavy days the furthest rows slip to the next day rather than vanishing.
 
 **How to apply:**
 - A no-op MUST be auditable: name each symbol's next-check date so it's reasoning, not a lazy shrug. That's the guard against false "nothing to do."

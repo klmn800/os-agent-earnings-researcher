@@ -2,9 +2,9 @@
 
 > Summer 2026 earnings season — Q2 calendar results (plus the off-cycle fiscal quarters that
 > report in the same wave: May/Jun/Jul/Aug quarter-ends), reported ~mid-July through early
-> September 2026. Sessions **2026-07-01 → 2026-09-03**, rolled off the active `research_log.md`
-> at the 2026-09-13 weekly maintenance (07-01 → 08-28; the first maintenance pass since 06-21)
-> and the 2026-09-20 maintenance (09-01 → 09-03, inserted ahead of the appendices). Chronological
+> September 2026. Sessions **2026-07-01 → 2026-09-11**, rolled off the active `research_log.md`
+> at the 2026-09-13 weekly maintenance (07-01 → 08-28; the first maintenance pass since 06-21),
+> the 2026-09-20 maintenance (09-01 → 09-03) and the 2026-09-27 maintenance (09-08 → 09-11; 09-08 is a reconstructed stub), each inserted ahead of the appendices. Chronological
 > order, oldest first. Two sessions (07-02, 07-24) had lost their `## Session` headers and six
 > (07-21, 07-22, 07-27 → 07-30) had been written as condensed paragraphs inside the carry-over
 > header; all are restored below as normal session blocks, each with a bracketed note. 07-03 had
@@ -2452,6 +2452,234 @@ Moved all 21 (18 + today's 3) to **`inbox/fetch/`** — the hook doesn't descend
 and recorded the convention in [[feedback-fetch-artifacts-not-in-inbox]] plus a pointer in the
 curl reference. The cost of leaving it was not clutter but **signal loss**: a real note from Ben
 would have been buried in a list of my own garbage.
+
+---
+
+## Session: 2026-09-08 (Tuesday) — _[no session block was written this day; reconstructed at the 2026-09-13 maintenance from the carry-over rows (now in the summer archive, Appendix B) and `earnings_date_disputes`]_
+
+Surfaced (dispute rows, trade_date 09-08): **CNXC, CTAS** (`date_disagreement`), **JEF** (`both`), **KMX, PAYX** (`unknown_time`). **2 written, 3 held.**
+
+- **KMX 2026-09-29 `bmo`** and **PAYX 2026-09-29 `bmo`** — logged as *"time only, date not in dispute"*, but both rows ended `date_confirmed=1 / agent`: **the dates were locked with no same-quarter company source** (KMX on a 5/5 bmo pattern with its Q2 FY27 advance not yet out; PAYX on a 2/2 Tuesday-bmo pattern with its Q1 FY27 advance not yet out). The time-only path in [[feedback-earnings-confirm-bare-symbol-trap]] (`UPDATE earnings_upcoming SET earnings_time=...`) was the right tool. ⚠ PAYX drew a `confirmed_row_diverged` flag on 09-11 (yfinance 09-23) — see the 09-13 maintenance entry.
+- **JEF** — concluded *"no separate advance-scheduling PR; the results release is the first notice"*, next-check 09-25. **Overturned 09-09**: the BusinessWire channel exists every year; next-check moved to 09-14.
+- **CNXC, CTAS** — held (both confirmed later: CNXC 09-09, CTAS 09-10).
+
+---
+
+## Session: 2026-09-09 (Wednesday) — 07:13 AM ET
+
+5 surfaced symbols — **3 confirmed (CNXC, CAG, LW), 2 gated (CTAS, JEF)**, ~16 HTTP reads,
+6 web searches. Two of the three confirms came from advance PRs that **contradicted the DB date**,
+and the session's most useful output is arguably not a confirm at all but a **correction to
+yesterday's JEF row** that moves its next-check forward 11 days.
+
+### Confirmed (3)
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| CNXC | **2026-09-29 `amc`** (DB 09-24, finnhub 09-30 — both wrong) | GlobeNewswire **09-08**, *"Concentrix Schedules Release of Third Quarter 2026 Financial Results and Investor Conference Call"* — *"after market close on Tuesday, September 29, 2026,"* call 5:00pm ET. Discovered via the cached `ir.concentrix.com/rss/pressrelease.aspx`. |
+| CAG | **2026-09-30 `bmo`** (time was Unknown; date not in dispute) | Conagra's own PRNewswire release **08-31**, `conagrabrands.com/news-room/…-prn-122962` — materials *"issued that morning prior to a live question-and-answer session"* at 9:30am ET. Lead 30d. |
+| LW | **2026-10-06 `bmo`** (DB 09-30, finnhub 10-01 — both wrong; yfinance right) | Lamb Weston scheduling release — results 10-06, news release ~8:00am ET, call 9:00am ET. ⚠ No first-party fetch succeeded (see below). |
+
+### Gated (2)
+
+| Symbol | DB date | Why skipped | Next check |
+|--------|---------|-------------|------------|
+| CTAS | 2026-09-23 | Advance PR still absent on the **predicted due date** — but checked at 07:2x, and Cintas publishes these at **13:29 ET**. The absence is a clock artifact, not a signal. | 2026-09-10 |
+| JEF | 2026-09-28 | Q3 advance PR exists (correction below) but isn't due until ~09-14 at the 14d lead. Cadence cannot break 09-28 vs 09-30. | 2026-09-14 |
+
+### ⚠⚠ JEF — yesterday's row concluded a channel doesn't exist, on the strength of a search that used the wrong title
+
+The 09-08 row read: *"no separate advance-scheduling PR found in either year — the results release
+appears to be the first notice,"* and set next-check **09-25**, i.e. wait for the release itself.
+
+It exists. Every year. On BusinessWire, with an unvarying title shape:
+
+- *"Jefferies to Release its Third Quarter Financial Results on **September 25, 2024**"* — published **2024-09-11** ⇒ **14d lead**
+- *"Jefferies to Release its Third Quarter Financial Results on **September 29, 2025**"*
+
+Both name **after market close**. What went wrong is narrow and repeatable: the search was built from
+the *Second*-Quarter title already in the cached URL plus "2026", so it only ever matched the current
+quarter — which genuinely hasn't published. **An empty result for ‹title› + ‹this year› was read as
+evidence about the channel, when it was only evidence about this quarter.** The fix that worked was
+searching the title shape against **prior** years (`2025 OR 2024`), which is the cheap way to ask
+"does this channel exist?" separately from "has it fired yet?" — two questions the 09-08 search
+collapsed into one.
+
+**Cost of the error:** next-check was set 11 days too late. At the now-measured 14d lead a 09-28
+release needs its PR by ~**09-14** and a 09-30 release by ~**09-16**, so the DB-vs-finnhub tie is
+decidable ~10 days before the old row would have looked. Moved to **09-14**.
+
+⭐ **Generalisable rule, worth carrying:** *before concluding a company has no advance-PR channel,
+run the title shape against a prior year.* Absence-of-channel and absence-of-firing look identical in
+a single search and have opposite consequences — one says stop waiting, the other says keep waiting.
+
+⚠ Two secondary corrections to the same row: JEF's time is effectively settled at **`amc`, 4/4**
+(Q3-24, Q3-25, Q2-25 06-25, Q2-26 06-24) but **was not written** — `earnings_confirm.py` has no
+time-only mode and would lock the unsourced date alongside it. And the row's *"Monday matches 2025"*
+weekday argument for DB is a **1-year** pattern; 2024's Q3 landed on a Wednesday. Days-after-quarter-end
+runs 25d/29d against DB's 28d and finnhub's 30d — both inside the band, so cadence is genuinely mute here.
+
+### ⭐ CNXC — the 09-03 refusal to lock on `+364d` paid off, and the slip is now the pattern
+
+09-03 declined to write DB's 09-24 even though `+364d` off 2025-09-25 landed on it *exactly* and a
+tight **Sep 24–28** Item 2.02 band (2021–2025) appeared to exclude finnhub's 09-30. The stated reason
+was that **Q2-26 had already slipped +4d** against that same arithmetic, and a company that moves once
+can move again.
+
+Q3-26 slipped **+5d** — to **09-29**, which is **outside the five-year band by a day**. So:
+
+- **Both feeds were wrong**, in opposite directions (DB −5d, finnhub +1d). A tiebreak framing would
+  have picked a loser either way; the only winning move was to wait for the PR, which is what happened.
+- **Two consecutive quarters of forward slip means `+364d` is now a *lower* bound for CNXC, not a
+  centre.** Next year, read the anniversary date as "no earlier than," not "probably."
+- **The Sep 24–28 band is broken** and should not be used as a fence again.
+- **Lead is drifting with it:** 19d (Q2) → **21d** (Q3, advance 09-08 → release 09-29).
+
+⚠ The gate itself was slightly loose — 09-03 bracketed the PR at "~09-05 (if 09-24) or ~09-11 (if
+09-30)" and it landed **09-08**, between the two. The bracket held; the 09-08 row's reading of the
+closed 09-05 window as *"a real (mild) counter-signal"* weakening 09-24 was directionally correct.
+
+⚠ Channel note: the cached RSS feed carried the **headline only** — no body, so it establishes
+*that* the PR exists but not the date. The date came from the GlobeNewswire release itself. For this
+symbol the feed is a **trigger**, not a source; budget a second fetch after it fires.
+
+### ⚠⚠ LW — confirmed with the company's own IR estate entirely unreachable, and no 8-K to fall back on
+
+Two independent fallbacks failed at once:
+
+1. **Blanket 403 bot-wall — NOT the outage it first looked like.** WebFetch timed out on 5/5
+   attempts across every path tried (news-releases listing, events-and-presentations, both
+   news-release-details slug shapes, the `newsroom-home/press-release-details/2026/…` shape), and
+   the first draft of this entry recorded that as a total IR blackout. ⚠⚠ **That was wrong, and the
+   file's own standing rule 2 says so:** *try `urllib` + browser UA before concluding a host is
+   unreachable.* Doing that returns **HTTP 403 Forbidden, instantly** — on every slug, on the RSS
+   path, on `/`, and on a deliberately nonsense path. So the correct reading is **host UP, blanket
+   403 to non-browser clients** (the Cintas `gcs-web` shape), not "down." Two consequences that the
+   timeout reading would have gotten backwards: the paths are **not** disqualified, and per standing
+   rule 3 the host **cannot be used as an existence probe** in either direction — a 403 on a guessed
+   slug is not evidence the PR is missing. WebFetch's 60s timeout is a *symptom of the wall*, not a
+   measurement of the host.
+2. **No 8-K.** EDGAR's submissions API for CIK 1679273 shows **nothing but Form 4s and a 13G/A since
+   the 07-24-2026 8-K** — the FY27 Q1 scheduling release was not filed. The **FY26 equivalent was**
+   (`lw-20250824x8kxexx9911q26.htm`), so EDGAR looked like a reasonable fallback and isn't one.
+
+Confirmed anyway, on: the release text reproduced **consistently and specifically** across multiple
+independent search summaries (10-06, release ~8:00am ET, call 9:00am ET — the same three figures every
+time), **plus** yfinance independently at 10-06, **plus** LW's own early-October Q1 history
+(2023-10-05, 2022-10-05, 2020-10-07). Flagging the sourcing honestly: this is the weakest-sourced
+confirm of the session and the only one not read off a company-controlled surface. The 403 finding
+does not strengthen it — it only means a **browser-rendered** fetch would likely succeed where every
+scriptable client is refused, which is the same hard tooling dependency already recorded for FDX.
+
+⚠⚠ **The DB date deserves separate note: 09-30 is exactly last year's Q1 release date (2025-09-30).**
+That is not a near-miss or a rounding error — it is a **prior-year date sitting in the current-year
+row**, the same failure shape worth watching for wherever a DB date lands precisely on `last year ± 0d`
+while the company's own multi-year cadence points elsewhere. Here the multi-year cadence (early Oct)
+was right and 2025-09-30 was itself the outlier year, so the stale value inherited the one atypical date.
+
+### ⚠ CTAS — the gate fired on the right day and still couldn't see anything, for a boring reason
+
+Today **was** the predicted PR-due date (14d before DB's 09-23), and the check came back empty:
+`stocktitan.net/news/CTAS/` newest item still **08-10**, cintas.com newsroom tops out **09-01**, and
+`businesswire.com/newsroom` now **403s** (a new blocker — it had been usable).
+
+But the one measured Cintas advance published at **13:29 ET**, and this session runs at **07:13**.
+**A 07:1x check on the due date is structurally blind for this symbol** — roughly six hours early
+against the only observed publication time. Recording it because the failure is systematic, not
+one-off: for any symbol whose advance publishes midday/afternoon, the due-date morning check is
+close to free of information and the real check is the *following* morning. Held, next-check 09-10.
+
+Date reasoning unchanged and still favours DB: Q1-only Item 2.02 dates walk one day earlier each year
+(2025-09-24 Wed, 2024-09-25 Wed, 2023-09-26 Tue) ⇒ **09-23 Wed**, with finnhub's 09-30 a full week
+outside. Time was already repaired to `bmo` on 09-02 (bmo 6/6).
+
+### ⚠ CAG — a `bmo` inferred rather than quoted
+
+Conagra's release says materials are *"issued that morning prior to a live question-and-answer
+session"* at 9:30am ET. It **never states a clock time for the release** and never says "before the
+market opens." The inference is sound — a morning issue ahead of a 9:30am ET Q&A cannot be `amc` —
+but it is an inference, unlike DRI/CNM/GIS whose releases quote the phrase outright. Logged as such
+in case a later session needs to know how firmly the `bmo` is held. Date was never in dispute
+(reason was `unknown_time`); finnhub's 09-29 is wrong.
+
+### Calibration
+
+**3 confirms / 5 surfaced**, both gates correct and neither one a missed confirmable date. The
+session's leverage was concentrated in re-reading yesterday's own conclusions rather than in new
+research: CNXC vindicated a prior refusal-to-lock, JEF **overturned** a prior claim of channel
+absence, and CTAS explained a prior gate's blind spot. All three prior rows were written by sessions
+that had the right instincts and, in JEF's case, one bad search.
+
+**Standing levers after today:**
+- **Search the title shape against a prior year before declaring a channel absent.** (JEF; new)
+- **For midday-publishing symbols, the due-date morning check is worthless — check the morning after.** (CTAS; new, and cheap to apply)
+- **`+364d` is a lower bound, not a centre, for any symbol with a recorded slip.** (CNXC; now 2/2 quarters)
+- **Apply standing rule 2 to *timeouts*, not just to refusals.** (LW; new) I read 5/5 WebFetch
+  timeouts as "the host is down" and only ran the urllib+UA check while writing this log up — it
+  returned an instant 403 on every path including `/`. The rule was already in
+  `reference_company_cadence.md` and I skipped it because a timeout *feels* like a network fact in a
+  way a 403 doesn't. It isn't.
+- Unchanged: feed convergence is corroboration, not a source; a DB date landing exactly on last year's date is a staleness smell (LW).
+
+---
+
+## Session: 2026-09-10 (Thursday) — 07:16 AM ET
+
+6 surfaced (5 disputes + UEC unconfirmed): **4 confirmed (CTAS, JBL, MKC, NKE), 2 gated (JEF, UEC)**.
+**WebSearch was down for the whole session** (6/6 attempts returned "unavailable"), so every
+confirm came from the fallback stack: IR RSS feeds (browser UA), stocktitan JSON-LD, and EDGAR
+submissions. All four were read off company-issued text; none needed search.
+
+### Confirmed (4)
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| CTAS | **2026-09-23 `bmo`** (DB right; finnhub 09-30 wrong) | BusinessWire **09-09 13:00 ET**, *"Cintas Corporation Announces Webcast for First Quarter Fiscal Year 2027 Results"* — releases Wed 09-23, webcast **10:00am ET** same day. Found via `stocktitan.net/news/CTAS/` JSON-LD. PR states no clock time; `bmo` rests on the 10am webcast + Item 2.02 furnish 08:31–08:34 ET 6/6. BW `20260909223284`. No IR URL cached (no first-party host exists). |
+| JBL | **2026-09-30 `bmo`** (DB 09-24 wrong; **yfinance right**) | `investors.jabil.com` feed → *"Jabil Announces Date for Fourth Quarter and Fiscal Year 2026 Earnings Release and Investor Briefing"* **09-09 16:10 ET** — *"Wednesday, September 30, 2026, before the market opens,"* call 8:30am ET. Lead **21d**. `earnings_upcoming` already held 09-30 (adopted from yfinance after the dispute snapshot). Cached `investors.jabil.com/rss/pressrelease.aspx`. |
+| MKC | **2026-10-01 `bmo`** (DB right; finnhub 10-05 wrong) | PRNewswire **08-31 08:00 ET**, *"McCormick & Company to Report 2026 Third Quarter Financial Results on October 1, 2026"* — call **8:00am ET**. Found via stocktitan (`ir.mccormick.com` **403s every path** to urllib). `bmo` also 100% on furnish history (Item 2.02 06:40–07:39 ET every quarter since 2020). Lead **31d**. |
+| NKE | **2026-10-01 `amc`** (DB right; finnhub 09-28 wrong) | `investors.nike.com` feed → *"NIKE, Inc. Announces First Quarter Fiscal 2027 Earnings and Conference Call"* **08-28** — *"Thursday, October 1, 2026, at approximately 1:15 p.m. PT, following the close."* Lead **34d**. Time was Unknown → `amc`. Cached IR URL upgraded to the feed. |
+
+### Gated (2)
+
+| Symbol | DB date | Why skipped | Next check |
+|--------|---------|-------------|------------|
+| JEF | 2026-09-28 (Unknown) | `ir.jefferies.com/rss/pressrelease.aspx` **works** (current to 09-09), no Q3 advance yet — expected, due ~09-14 for 09-28 or ~09-16 for 09-30 at the 14d lead, and Jefferies publishes ~16:20 ET ⇒ check the morning after. Time still `amc` 4/4 but unwritten (no time-only confirm mode). | 2026-09-15 |
+| UEC | 2026-09-24 `amc` | No FY26 year-end date PR yet (stocktitan + uraniumenergy.com, newest item 07-23). UEC's FY26 Q2/Q3 advances ran **7d leads at 07:00 ET** ⇒ due ~09-17 for a 09-24 release. | 2026-09-17 |
+
+### ⚠ UEC — the stored `09-24 amc` is wrong under either reading of the FY-end filing pattern
+
+FY25 year-end: 10-K accepted **2025-09-23 20:43 ET**, results webcast **Wed 2025-09-24 8:00am PT**
+(company events page). FY26 Q1/Q2/Q3 all stated *"before markets open"* in the company PR. So the
+market reacts on the **morning of the webcast day**. That can be encoded as "D−1 amc" or "D bmo",
+but **"D amc" (which is what the DB holds) puts the reaction a day late** under both readings. Did
+not write the time, because the 2026 date is unsourced and the FY-end quarter could differ. When
+the advance lands, expect `bmo` and check whether the 10-K again drops the prior evening.
+FY-end 10-K history: 2025-09-23, 2024-09-26, 2023-09-28, 2022-09-29 (all evening), so 09-24 is
+plausible but the band spans ~a week.
+
+### Notes
+- **WebSearch outage cost nothing.** The RSS sweep plus one stocktitan spine per symbol found all four
+  advance PRs, and three of them were already sitting in feeds the prior session had not probed. The
+  fallback stack is now evidence-tested as a *primary* for any symbol with a known feed.
+- **JEF's cached IR URL was a Morningstar reprint** (third-party). Replaced with the verified first-party
+  feed `ir.jefferies.com/rss/pressrelease.aspx`, which carried the Q2 advance (06-16 16:20 ET). The old
+  cheat-sheet listed ir.jefferies.com as "SPA shell"; the HTML is, but the RSS is not.
+- **CTAS second lead observation = 14d** (09-09 → 09-23), matching Q4 FY26's 14d. The band now rests on
+  2 observations. Publish time 13:00 ET (vs 13:29 last quarter), which confirms the "check the morning
+  after" rule; yesterday's empty 07:13 read was the clock artifact predicted.
+- finnhub was wrong on all four confirms (CTAS +7d, MKC +4d, NKE −3d, and it matched DB's wrong 09-24 on JBL). yfinance-only dissent (JBL) was right again.
+
+---
+
+## Session: 2026-09-11 (Friday) — 07:16 AM ET
+
+2 surfaced (JEF dispute `both`, UEC unconfirmed): **0 confirmed, 2 gated** — both re-surfaced ahead of
+their recorded next-check dates (09-15 / 09-17), so this was an early-fire probe only. 5 HTTP reads, 0 searches.
+
+| Symbol | DB date | Why skipped | Next check |
+|--------|---------|-------------|------------|
+| JEF | 2026-09-28 (Unknown) | `ir.jefferies.com/rss/pressrelease.aspx` read OK, newest item 09-09; **no Q3 advance**. One unlogged item: *"Jefferies Financial Group Inc. to Host Annual Investor Meeting"* (09-03 16:30 ET) — meeting **Mon 10-19-2026 9:00am**, Manhattan; body says nothing about Q3 results (read via WebFetch — the news-details HTML is a shell to urllib, RSS carries headline only). Not informative for 09-28 vs 09-30. ⚠ **Third candidate (Ben, 09-11):** third-party estimates show **10-05** (+35d post-qtr-end — outside the 24–29d band on 5 recorded quarters, so least likely by cadence, but estimate-only, not a source either way). At the 14d lead its advance would land ~**09-21**, so an empty feed on 09-15/09-16 rules out 09-28/09-30 progressively but says nothing against 10-05 — keep checking through ~09-22 before reading silence as signal. | 2026-09-15 |
+| UEC | 2026-09-24 `amc` | stocktitan newest still 07-23; EDGAR (CIK 1334933) nothing but Form 4 / 13G since 07-31, no 8-K. FY-end advance due ~09-17 at the 7d lead. Prior `bmo`-not-`amc` caution (09-10 entry) still stands. | 2026-09-17 |
 
 ---
 
