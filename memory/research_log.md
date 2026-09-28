@@ -18,8 +18,8 @@ rediscover it.** (On 09-25 two reads went wrong because the fix lived only in an
 
 | Symbol | DB row | Status | How to read | Next check |
 |--------|--------|--------|-------------|------------|
-| **REXR** | 10-14 `amc` (time set 09-23; date unlocked, **probably wrong**) | No Q3 advance as of the last *good* read (09-24: list current to the 09-17 portfolio-sale PR). Leads 24–35d (3 obs) ⇒ a 10-14 release's PR was due by 09-20: overdue. 2026 quarters are 4th-Thursday amc (04-23, 07-23) → **10-22** expected, PR due 09-17 → 09-28. ⚠ The 09-25 read reported the list "ends 03-19". That contradicts 09-24, so it was a bad view, **not an absence**. | WebFetch `ir.rexfordindustrial.com/news-events/press-releases`. **First check that the newest item is ≥ 09-17**; if it isn't, the view is stale, so try the stocktitan spine `stocktitan.net/news/REXR/` (`--compressed`). PR publishes ~16:05 ET, so a morning read sees prior-day PRs. Title: *"Announces Dates for Third Quarter 2026 Earnings Release…"* | **09-28**, then 09-29. No PR by 09-29 ⇒ 10-22 is also doubtful; widen to the spine + EDGAR |
-| **AMX** | 10-13 `amc` (finnhub 10-20) | No 3Q26 event as of 09-24 (the 09-25 read saw only 2014–2018 events, which is the feed quirk below, **not an absence**). Q3 is Tuesday amc every year (10-17 / 10-15 / 10-14); 10-13 fits the trend, 10-20 is the +7d artifact shape. | curl the Event.svc feed with a browser UA, **`pageSize=100`** (the cached URL still says `pageSize=25` and `sortDirection` is ignored, so a verbatim read returns 2014 first). Page with `pageNumber` until empty, dedupe by `EventId`, sort by `StartDate` in Python, open as utf-8. **Monday: re-cache the URL with `pageSize=100`.** | **09-29**, then 10-06 |
+| **REXR** | 10-14 `amc` (time set 09-23; date unlocked, **probably wrong**) | Still no Q3 advance as of 09-28 (press-releases list and events-webcasts page both checked fresh; events page explicitly says "no upcoming events scheduled"). Leads 24–35d (3 obs) ⇒ a 10-14 release's PR was due by 09-20: now 8d overdue. 2026 quarters are 4th-Thursday amc (04-23, 07-23) → **10-22** expected, PR due 09-17 → 09-28 (also now due). | WebFetch `ir.rexfordindustrial.com/news-events/press-releases`. **First check that the newest item is ≥ 09-17**; if it isn't, the view is stale, so try the stocktitan spine `stocktitan.net/news/REXR/` (`--compressed`). PR publishes ~16:05 ET, so a morning read sees prior-day PRs. Title: *"Announces Dates for Third Quarter 2026 Earnings Release…"* | **09-29**, then 09-30. No PR by 09-30 ⇒ 10-22 is also doubtful; widen to the spine + EDGAR |
+| **AMX** | 10-13 `amc` (finnhub 10-20) | Re-checked 09-28 with the **corrected `pageSize=100` feed URL** (now re-cached — the old `pageSize=25` URL was confirmed broken, returning only 2014–2018 events). Feed reads clean: newest event is 2Q26 (07-21 amc). No 3Q26 event yet. Q3 is Tuesday amc every year (10-17 / 10-15 / 10-14); 10-13 fits the trend, 10-20 is the +7d artifact shape. | curl the Event.svc feed with a browser UA, **`pageSize=100`** (now cached correctly in `symbol_metadata` as of 09-28). Page with `pageNumber` until empty, dedupe by `EventId`, sort by `StartDate` in Python, open as utf-8. | **09-29**, then 10-06 |
 | **ACI** | 10-13 `bmo` (time via `--time-only` 09-22; date unlocked) | FQ2 ends 09-12; the last two FQ2s reported 38d after quarter-end ⇒ **10-20**. 10-13 would be the shortest FQ2 on record. Advance PR (BusinessWire, 14d lead) due ~09-29 for 10-13 / ~10-06 for 10-20. | stocktitan spine `ACI` (BW deep links 403). Title: *"Albertsons Companies Announces Second Quarter Fiscal 2026 Earnings Release and Conference Call Date."* | **09-30**, then 10-07 |
 | **FNB** | 10-15 `amc` (time via `--time-only` 09-24; date unlocked) | Q2's scheduling PR came 06-30 15:30 ET for 07-16 (16d, 1 obs) ⇒ Q3's due ~09-29 for 10-15. 3rd-Thursday amc fits. | stocktitan spine `FNB` or `fnb-online.com` newsroom (cached). Title: *"F.N.B. Corporation Schedules Third Quarter 2026 Earnings Report and Conference Call."* | **09-30**, then 10-01 |
 | **SNA** | 10-15 `bmo` (time via `--time-only` 09-24; date unlocked, **probably 7d early**) | 53-week fiscal 2025 shifted every 2026 quarter a week later; Q3 ends 10-03, +19d ⇒ **Thu 10-22**. Dispute row left `unresolved` on purpose. | stocktitan spine `SNA`. Title: *"Snap-on Incorporated to Webcast 2026 Third Quarter Results Conference Call"* (BusinessWire, 14d lead). Due **10-01** if 10-15, **10-08** if 10-22. `investors.snapon.com` is NXDOMAIN. | **10-02** (silent ⇒ 10-15 is dead), then 10-09 |
@@ -76,11 +76,48 @@ summer archive's Appendix A.
 | JBHT | 2026-10-15 | amc | `investor.jbhunt.com` "Estimated Earnings Periods" table: Q3 release **October 15, 2026**, quiet period Sep 26 – Oct 15; amc = Item 2.02 furnished 20:08–21:26Z (16:0x–16:2x ET) 8/8 since 2024-10 — 09-24 |
 | RF | 2026-10-16 | bmo | ir.regions.com 2026 release-dates PR: *"pre-market open on Friday, Oct. 16, 2026,"* call 10am ET — 09-25 |
 | TFC | 2026-10-16 | bmo | media.truist.com 09-18: *"before the market opens on Friday, Oct. 16, 2026,"* call 8am ET — 09-25 |
+| CCK | 2026-10-19 | amc | crowncork.com/news 09-22 PR: *"after the close of trading on the New York Stock Exchange on Monday, October 19, 2026,"* call Tue 10-20 9am EDT — 09-28 |
+| FITB | 2026-10-19 | bmo | ir.53.com event page: results ~6:30am ET, call 9:00am ET, per the 2026/2027 annual dates PR — 09-28 |
 | SYF | 2026-10-20 | bmo | `investors.synchrony.com` detail/588: release ~6:00am ET, call 8:00am ET. Snapshot 10-14 was already stale — 09-23 |
 
 ---
 
 # Research Sessions (newest first)
+
+## Session: 2026-09-28 (Monday) — 07:14 AM ET
+
+6 surfaced (3 disputes: AMX, REXR, WIT `date_disagreement`; 3 disputes: AGNC, CCK, FITB `unknown_time`).
+**2 confirmed on company sources (CCK, FITB), 1 time-only (AGNC), 3 held (AMX, REXR, WIT).** 0 dates changed;
+1 `Unknown` time filled via historical pattern (AGNC amc), 2 unknown times filled + dates re-confirmed (CCK amc,
+FITB bmo). Also fixed a standing bug: AMX's cached IR URL used the broken `pageSize=25` feed param (returns
+only 2014–2018 events) — re-cached with `pageSize=100` per the 09-22/09-25 cadence notes.
+Reads: 6 searches, 11 WebFetches (2 AGNC investors.agnc.com timeouts, fell back to SEC EDGAR 8-K exhibits).
+
+### Confirmed
+
+| Symbol | Resolution | Evidence |
+|--------|-----------|----------|
+| **CCK** | **2026-10-19 `amc`** (date + time both company-sourced; dispute closed) | crowncork.com/news 09-22 PR *"CROWN HOLDINGS SCHEDULES THIRD QUARTER 2026 EARNINGS CONFERENCE CALL"*: *"release its earnings for the third quarter ended September 30, 2026, after the close of trading on the New York Stock Exchange on Monday, October 19, 2026,"* call Tue 10-20 9:00am EDT. Cached dispute URL (crowncork.com "Schedules Second Quarter 2026...") was stale — replaced with the Q3 PR. |
+| **FITB** | **2026-10-19 `bmo`** (date + time both company-sourced; dispute closed) | ir.53.com event-details page for the 3Q26 call (Oct 19, 2026, 9:00am ET); the 2026/2027 annual-dates PR states results are available ~6:30am ET ahead of the call ⇒ bmo. No cached IR URL existed before today — now cached. |
+| **AGNC** | **`amc` written via `--time-only`; 2026-10-19 date NOT locked** | No company 8-K/PR found for 3Q26 specifically (SEC EDGAR CIK 1423689 newest 8-K is the 07-20 Q2 release). Time rests on a clean 3/4-year pattern instead: 3Q22, 3Q23, 3Q25 press releases all state *"after market close"* (3Q24's 8-K is silent on timing but same release-day shape); all four years released on the **3rd Monday after quarter-end** (10-24 '22, 10-23 '23, 10-21 '24, 10-20 '25), and 2026-10-19 continues that exactly. Confident enough on time to close the `unknown_time` question; not confident enough on date to lock it without a same-quarter source — matches the FNB/SNA/REXR/ACI precedent of `--time-only` + dispute row `confirmed_agent`, calendar row left unconfirmed. |
+
+### Held
+
+| Symbol | Why held | Next check |
+|--------|----------|------------|
+| **AMX** | No 3Q26 event yet on the (now-fixed) Event.svc feed — newest is 2Q26 (07-21 amc). DB's 10-13 continues the Tuesday-amc 17→15→14 trend; finnhub's 10-20 is the known +7d artifact shape for this name. | 09-29, then 10-06 |
+| **REXR** | No Q3 advance PR (press-releases list checked fresh, events-webcasts page explicitly says no upcoming events). Shortest-lead due date (09-20) is now 8+ days overdue; the 4th-Thursday-2026 cadence guess (10-22) is unconfirmed and its own PR due date (09-28) also just passed. | 09-29, then 09-30 |
+| **WIT** | No board-meeting advance PR yet; per the cadence file the 9d-lead pattern puts one due ~10-06, so its absence today isn't informative. Cadence-predicted 10-15 `bmo` matches the DB row exactly; finnhub's 10-13 doesn't fit the Thursday-since-2024 pattern. | 10-06, then 10-07 |
+
+### Notes
+
+- `reference_company_cadence.md` already had detailed prior work on all six symbols (AMX, REXR, WIT held from
+  09-22 → 09-25; CCK/FITB/AGNC were first-time names) — checked it before re-researching from scratch, which
+  saved a redundant pass on the three held names and confirmed today's holds are consistent with the standing
+  reasoning rather than new information.
+- AGNC's `investors.agnc.com` news-release detail page timed out on WebFetch twice; SEC EDGAR 8-K exhibits
+  (which render reliably) were used instead for the historical timing evidence.
+- New cadence rows written for CCK, FITB, AGNC in `reference_company_cadence.md`.
 
 ## Session: 2026-09-25 (Friday) — 07:17 AM ET
 
