@@ -18,7 +18,6 @@ rediscover it.** (On 09-25 two reads went wrong because the fix lived only in an
 
 | Symbol | DB row | Status | How to read | Next check |
 |--------|--------|--------|-------------|------------|
-| **REXR** | 10-14 `amc` (time set 09-23; date unlocked, **probably wrong**) | Still no Q3 advance as of 09-28 (press-releases list and events-webcasts page both checked fresh; events page explicitly says "no upcoming events scheduled"). Leads 24–35d (3 obs) ⇒ a 10-14 release's PR was due by 09-20: now 8d overdue. 2026 quarters are 4th-Thursday amc (04-23, 07-23) → **10-22** expected, PR due 09-17 → 09-28 (also now due). | WebFetch `ir.rexfordindustrial.com/news-events/press-releases`. **First check that the newest item is ≥ 09-17**; if it isn't, the view is stale, so try the stocktitan spine `stocktitan.net/news/REXR/` (`--compressed`). PR publishes ~16:05 ET, so a morning read sees prior-day PRs. Title: *"Announces Dates for Third Quarter 2026 Earnings Release…"* | **09-29**, then 09-30. No PR by 09-30 ⇒ 10-22 is also doubtful; widen to the spine + EDGAR |
 | **AMX** | 10-13 `amc` (finnhub 10-20) | Re-checked 09-28 with the **corrected `pageSize=100` feed URL** (now re-cached — the old `pageSize=25` URL was confirmed broken, returning only 2014–2018 events). Feed reads clean: newest event is 2Q26 (07-21 amc). No 3Q26 event yet. Q3 is Tuesday amc every year (10-17 / 10-15 / 10-14); 10-13 fits the trend, 10-20 is the +7d artifact shape. | curl the Event.svc feed with a browser UA, **`pageSize=100`** (now cached correctly in `symbol_metadata` as of 09-28). Page with `pageNumber` until empty, dedupe by `EventId`, sort by `StartDate` in Python, open as utf-8. | **09-29**, then 10-06 |
 | **ACI** | 10-13 `bmo` (time via `--time-only` 09-22; date unlocked) | FQ2 ends 09-12; the last two FQ2s reported 38d after quarter-end ⇒ **10-20**. 10-13 would be the shortest FQ2 on record. Advance PR (BusinessWire, 14d lead) due ~09-29 for 10-13 / ~10-06 for 10-20. | stocktitan spine `ACI` (BW deep links 403). Title: *"Albertsons Companies Announces Second Quarter Fiscal 2026 Earnings Release and Conference Call Date."* | **09-30**, then 10-07 |
 | **FNB** | 10-15 `amc` (time via `--time-only` 09-24; date unlocked) | Q2's scheduling PR came 06-30 15:30 ET for 07-16 (16d, 1 obs) ⇒ Q3's due ~09-29 for 10-15. 3rd-Thursday amc fits. | stocktitan spine `FNB` or `fnb-online.com` newsroom (cached). Title: *"F.N.B. Corporation Schedules Third Quarter 2026 Earnings Report and Conference Call."* | **09-30**, then 10-01 |
@@ -83,6 +82,42 @@ summer archive's Appendix A.
 ---
 
 # Research Sessions (newest first)
+
+## Session: 2026-09-29 (Tuesday) — 07:14 AM ET
+
+22 surfaced (16 disputes, 6 unconfirmed). **8 confirmed on company sources (REXR, VZ, KEY, JNJ, JPM, UNH, WFC, DPZ), 14 held.**
+0 stored dates changed (snapshot was stale for REXR 10-14→10-22 and VZ 10-20→10-26; live rows already had them). 2 `Unknown` times filled (VZ, KEY bmo).
+
+### Confirmed
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| **REXR** | **2026-10-22 `amc`** (the 4th-Thursday reading was right; finnhub 10-21 / yf 10-22) | ir.rexfordindustrial.com detail/380, PR **09-28 16:05 ET**: *"release third quarter 2026 financial results after the market closes on Thursday, October 22, 2026,"* call Fri 10-23 11am ET. Lead 24d. Dispute closed. |
+| **VZ** | **2026-10-26 `bmo`** (yfinance was right; finnhub 10-20 wrong) | Verizon GlobeNewswire/verizon.com **09-28**: *"Monday, October 26, 2026,"* materials 7:00am ET, webcast 8:30am. Dispute closed. |
+| **KEY** | **2026-10-20 `bmo`** | investor.key.com 2026 call-dates PR: *"Third quarter 2026 – Tuesday, October 20th, 2026 at 8 a.m. ET,"* results before market open. |
+| **JNJ** | 2026-10-13 `bmo` | investor.jnj.com PR 08-31: call 8:30am ET Tue 10-13; release ~6:45am. |
+| **JPM** | 2026-10-13 `bmo` | jpmorganchase.com/ir PR 09-17: call 8:30am ET, results ~7:00am. |
+| **UNH** | 2026-10-13 `bmo` | unitedhealthgroup.com PR 09-15: results before open, call 8:00am ET. |
+| **WFC** | 2026-10-13 `bmo` | newsroom.wf.com *"Wells Fargo Updates 2026 Earnings Release Date Information"*: results ~7:00am ET, call 10am. |
+| **DPZ** | 2026-10-13 `bmo` | Domino's PR 09-10 16:05 ET (read via stocktitan wire text; ir.dominos.com timed out): webcast 8:30am ET, results 6:05am. |
+
+### Held
+
+| Symbol | Why | Next check |
+|--------|-----|------------|
+| **AMX** | Event.svc feed (pageSize=100, parsed with strptime — string-sorting `MM/DD/YYYY` gives garbage) newest still 2Q26; no 3Q26 event. | 10-06 |
+| **WIT** | No advance PR yet (due ~10-06). | 10-06 |
+| **ACI** | stocktitan newest 09-17, no FQ2 advance. 10-20 still the doubt. | 09-30, 10-07 |
+| **KO** | No Q3 timing PR (spine newest 09-25). ⚠ **Q2-26 reported Tue 07-28** — DB 10-20 looks early; finnhub 10-27 may be right this time. Q1/Q2 timing PRs came ~3 weeks ahead. | 09-30 |
+| **CLF, EQT** | No Q3 advance (Q2 PRs came 07-02 for 07-23 / 07-21, 19–21d lead ⇒ due ~10-01). DB 10-20 unsourced; bad-batch names (see confirmed_row_diverged). | 10-01 |
+| **RTX, LMT, PNR** | No Q3 date found. Q2-26 was Thu 07-23 (RTX, LMT), Tue 07-28 (PNR) — DB 10-20 doubtful. | 10-01 |
+| **ADC, PEGA, AGNC** | No Q3 advance found (ADC PRs ~10-01; Q2 was 07-30, so 10-20 doubtful; PEGA Q2 07-21 advance 07-07; AGNC IR/EDGAR silent). | 10-01 |
+| **MMM, GPC** | No Q3 date/time yet. GPC Q3'25 advance was 09-30 → due 09-30/10-01. | 10-01 |
+
+### Notes
+- Stale snapshot again: REXR and VZ live rows were already right; locks, not corrections.
+- WebSearch for KO/RTX/LMT/PNR returned only estimates or Q2 data — not used.
+- `direct_db_query` writes print "No results returned"; verified via SELECT that they landed.
 
 ## Session: 2026-09-28 (Monday) — 07:14 AM ET
 
@@ -170,7 +205,6 @@ off-pattern weekday (WIT Tue); none was right where checked.
 | Symbol | State | Reasoning | Next check |
 |--------|-------|-----------|------------|
 | **SNA** (date) | 10-15 `bmo`, finnhub also 10-15 | ⭐ **Fiscal-calendar shift found.** The Q2-26 8-K exhibit (EDGAR, curl) is headed *"Three Months Ended July 4, 2026 / June 28, 2025"* and cites the 10-K *"for the fiscal year ended January 3, 2026"* — fiscal 2025 was a **53-week year**, so every 2026 quarter ends one week later than 2025's. The report dates moved with it: Q1 **04-23** (vs 04-17 '25), Q2 **07-23** (vs 07-17 '25) — both 4th Thursdays, 19 days after quarter-end. **The 06-30 "07-16" cadence lock was therefore wrong by a week** (the archive's SNA line never recorded the outcome; EDGAR shows the 07-23 furnish). Q3-26 ends **10-03** → +19d = **Thu 10-22**. 10-15 would be 12d after quarter-end, shorter than any Snap-on quarter observed. Both the DB and finnhub sit on the 2025-shaped "3rd Thursday". Snap-on's only advance channel is the BusinessWire *"Snap-on Incorporated to Webcast 2026 Third Quarter Results Conference Call"* PR, **14d lead** (2025-10-02 → 10-16; 2026-07-09 → 07-23): due **10-01** if 10-15 were real, **10-08** for 10-22. Not written — a cadence argument is not a source (standing rule), however good the arithmetic. | **2026-10-02** (a silent 10-01 kills 10-15), then **10-09** |
-| **REXR** | 10-14 `amc` (finnhub 10-21) | IR press list read again: newest is still the 09-17 portfolio-sale PR — no Q3 advance. Now 4+ days past the shortest observed lead for a 10-14 release; the 4th-Thursday reading (10-22, PR due 09-17 → 09-28) is still the live alternative. finnhub moved 10-13 → 10-21 overnight, i.e. onto the +7d artifact — treat as noise. | **09-25**, daily to 09-29 |
 | **AMX** | 10-13 `amc` (finnhub 10-20) | Event.svc feed re-read (pageSize=100, sorted client-side — `sortDirection=desc` is ignored, and the feed returns the 2014 events first at pageSize=10): 61 unique events, newest still **2Q26 (07-22 call)** — no 3Q26 event. Held per the 09-22 reasoning; nothing new. | **09-29**, then 10-06 |
 | **WIT** | 10-15 `bmo` (finnhub 10-13) | First-time name. Wipro's advance is a short-lead PR (*"Wipro Limited to announce results for the first quarter ended June 30, 2026, on July 16, 2026"* — dated **07-07**, 9d lead) on wipro.com/newsroom, also on BusinessWire. Results go out *"after stock market trading hours in India"* with a 7:00pm IST / 9:30am ET call ⇒ bmo for the US session, matching the stored time. Q2 report days: Wed 10-12 '22, Wed 10-18 '23, **Thu 10-17 '24, Thu 10-16 '25** — the stored Thu 10-15 is the pattern; finnhub's Tue 10-13 is not. No Q2 FY27 PR yet (due ~10-06). The newsroom list page is JS-only to WebFetch; individual PR pages render. | **10-06**, then 10-07 |
 
