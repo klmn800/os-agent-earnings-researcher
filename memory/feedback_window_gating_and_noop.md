@@ -110,8 +110,24 @@ mechanism is read straight off the code, so it will recur whenever the dispute c
   (`get_due_unconfirmed`), and the hook emits `missed_session_warning`. **Residual gap:** a next-check on a
   row still **>14d out** with no dispute that morning still spawns nothing. E.g. 09-28, when every row
   ≤ 10-12 is confirmed and REXR's check depends on its dispute re-flagging. Keep the STATUS *Needs
-  attention* habit for those. The hook caps injection at 25 rows (`TOTAL_CEILING`), nearest dates first,
-  so on heavy days the furthest rows slip to the next day rather than vanishing.
+  attention* habit for those. ~~The hook caps injection at 25 rows, so on heavy days the furthest rows
+  slip a day rather than vanishing.~~ **⚠⚠ WRONG, found 2026-10-04:** disputes are uncapped and the
+  25-row `TOTAL_CEILING` only limits the *unconfirmed backfill* to `25 − disputes`. Disputes ran
+  28/42/34 on 09-30 → 10-02, so backfill was **zero** and the whole undisputed 10-13 → 10-17 cohort
+  (24 rows, incl. the ACI/SNA carry-overs) **never reached a session**. Sessions spent the week on
+  disputed rows 10-19 → 11-02. Proposal: `analysis/proposal_20261004_backfill_crowded_out.md`.
+  **Until it's fixed: on any morning with ≥25 disputes, the backfill is empty, so work the log header's
+  "read first" block and the carry-overs due today BEFORE the injected list.** An undisputed row isn't
+  a confirmed row: all three sources were wrong together on REXR, LMT and DOC this quarter.
+- **Lead-table score, week of 09-28 (2026-10-04 maintenance):** the 1-obs undershoot repeated: **FNB
+  16 → 20d, WIT 9 → ≥14d** (with PEP and MU, 4 of 4 one-observation leads ran long, never short). The
+  1.5× read-window rule stands, n=4. Stable multi-obs leads held: **REXR 24d** (in its 24–35 band; PR came
+  on the predicted day), **CLF 18d vs 19d**. **Wave-level fact:** October-wave advance PRs (releases
+  10-19 → 10-27) bunched on **09-28 → 10-01** at 18–29d leads, so for an unmeasured October name a
+  late-September read is the first one that can find anything. **Doubts from the prior quarter's
+  weekday went 2-for-4** (KO, LMT right; ADC, RTX wrong), FNB's 3rd-Thursday reading was wrong, and
+  REXR's (backed by an *overdue PR*) was right. **Only an overdue PR is evidence against a stored date;
+  a weekday pattern alone isn't.**
 
 **How to apply:**
 - A no-op MUST be auditable: name each symbol's next-check date so it's reasoning, not a lazy shrug. That's the guard against false "nothing to do."

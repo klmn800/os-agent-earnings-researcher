@@ -1,1 +1,3 @@
 __pycache__/
+# transient fetch artifacts (HTML/JSON blobs); helpers live in analysis/helpers/
+inbox/fetch/
