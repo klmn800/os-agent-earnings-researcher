@@ -127,6 +127,31 @@ only). Inferred times: DAL, GPC, PCG, BX, AAL, HCA (and LMT from the call time).
 
 # Research Sessions (newest first)
 
+## Session: 2026-10-05 (Monday) — 07:15 AM ET
+
+32 disputes + READ FIRST block. **4 confirmed (ACI, TXN, HIG, NSC); the rest held (no company Q3 date out yet).**
+Stocktitan spine hit 429 after the first 10 symbols (SNA ACI EQT TSCO MMM PNR PEGA GL QS SF read OK;
+TER VLTO VRT WAL NSC SLM ITW CINF HIG UHS **unread**, not absent).
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| ACI | **10-13 bmo confirmed** (call 8:30am EDT; PR 09-29, 14d lead; was 6d overdue by my 10-02 reckoning, not overdue: PR existed) | stocktitan wire text of the Albertsons PR |
+| TXN | **10-21 amc confirmed** (call Wed 10-21 3:30pm CT; PR 10-01 via PRNewswire) | stocktitan wire text; investor.ti.com timed out |
+| HIG | **10-26 amc confirmed** (~4:05pm EDT release, webcast 10-27 9am; PR 09-28) | newsroom.thehartford.com |
+| NSC | **10-22 confirmed** (call 10am ET Thu; PR 10-02). ⚠ bmo is **inferred**: PR says results "in advance of the call", no release time | Yahoo copy of the PR (dateline 10-02) |
+
+Held / no change:
+- **AMX**: Event.svc feed read 10-05, newest event still 2Q26 (07-21). **No 3Q26 event as of 10-05.** DB 10-13 still unsourced.
+- **MMM**: investors.3m.com events page says "no upcoming events", no Q3 call listed (aggregators say 10-20).
+- **SNA**: spine shows newest keyword hit is the Q2 webcast PR (07-09); **no ~10-01 webcast PR ⇒ 10-15 is dead**, 10-22 PR due ~10-08.
+- **EQT, TSCO, PNR, PEGA, GL, QS, SF**: spine read, no Q3 date PR yet. EQT/TSCO now 4d overdue vs the Q2 lead.
+- **ITW**: IR Q3 event slug 404; aggregator says 10-27 bmo ("confirmed" label, but unsourced). DB 10-23 unverified.
+- **CINF, UHS, TER, VLTO, VRT, WAL, SLM, ALK, IRDM, POOL, SCCO, WBS, BC, DECK, ARE, LEG, VFC, RHI**: no company source found (aggregators only); spine 429 for most.
+- **CDNS**: aggregators say 10-26 amc; Q2 webcast PR was 07-06 (3w lead) so Q3's is due ~10-05/06. Recheck.
+- ⚠ **VRT**: investors.vertiv.com news is a JS shell for WebFetch; WAL news page likewise. Use spine/EDGAR.
+
+Next checks: 10-06 (spine for the 429'd names, CDNS, EQT, TSCO), 10-07 (PNR, PEGA, IRDM, WBS), 10-08 (SNA).
+
 ## Session: 2026-10-02 (Friday) — 07:18 AM ET
 
 34 surfaced (24 `date_disagreement`, 6 `both`, 4 `unknown_time`). **8 confirmed on company sources (CLF, LMT, AAL, BYD, TRU, HCA, BAH, DOC); 26 held.**
