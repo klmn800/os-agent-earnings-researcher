@@ -57,9 +57,9 @@ MAINTENANCE_MODEL = 'opus'
 # (2026-09-24 -- analysis/proposal_20260920_spawn_on_due_next_checks.md)
 try:
     sys.path.insert(0, str(AGENT_DIR / 'hooks'))
-    from inject_context import HORIZON_DAYS, TOTAL_CEILING
+    from inject_context import HORIZON_DAYS, TOTAL_CEILING, build_research_queue
 except Exception:
-    HORIZON_DAYS, TOTAL_CEILING = 14, 25
+    HORIZON_DAYS, TOTAL_CEILING, build_research_queue = 14, 40, None
 
 
 def get_unresolved_disputes(limit=None):
@@ -291,13 +291,21 @@ def main():
     total_count = len(all_disputes)
     batch_count = len(batch)
 
-    # Size the session the way the hook will render it: disputes first, then
-    # (only when no --limit) unconfirmed backfill up to TOTAL_CEILING.
-    backfill_count = 0
-    if not args.limit:
+    # Size the session exactly as the hook will render it: one queue of disputes +
+    # unconfirmed rows sorted by nearest plausible date, capped at TOTAL_CEILING
+    # (option A, 2026-10-05). With --limit, disputes only.
+    backfill_count = dropped_count = 0
+    if build_research_queue is not None:
+        q_items, q_dropped, _ = build_research_queue(
+            now.strftime('%Y-%m-%d'),
+            (now + timedelta(days=HORIZON_DAYS)).strftime('%Y-%m-%d'),
+            args.limit or 0)
+        backfill_count = sum(1 for r in q_items if r[5] == 'unconfirmed')
+        batch_count = len(q_items) - backfill_count
+        dropped_count = len(q_dropped)
+    elif not args.limit:
         dispute_syms = {r[0] for r in batch}
-        extra = [r for r in due_unconfirmed if r[0] not in dispute_syms]
-        backfill_count = max(0, min(len(extra), TOTAL_CEILING - batch_count))
+        backfill_count = len([r for r in due_unconfirmed if r[0] not in dispute_syms])
     session_count = batch_count + backfill_count
 
     # Write session limit file — hook reads this to enforce the cap.
@@ -324,9 +332,13 @@ def main():
     if args.limit and batch_count < total_count:
         print("  Disputes: {} of {} (batch limit {})".format(batch_count, total_count, args.limit))
     else:
-        print("  Disputes to research: {} (all)".format(batch_count))
+        print("  Disputes to research: {}{}".format(
+            batch_count, " (all)" if batch_count == total_count else " of {} (rest beyond ceiling)".format(total_count)))
     if backfill_count:
-        print("  Unconfirmed due within {}d: {} (hook backfill)".format(HORIZON_DAYS, backfill_count))
+        print("  Unconfirmed due within {}d: {} (merged by date)".format(HORIZON_DAYS, backfill_count))
+    if dropped_count:
+        print("  Beyond the {}-row ceiling: {} (farthest-dated, listed by the hook)".format(
+            TOTAL_CEILING, dropped_count))
 
     # Show priority breakdown
     type_counts = {}
@@ -361,7 +373,11 @@ PROMPT_TEMPLATE = """# Earnings Date Research Session
 
 Today is {date}. You have {N} symbols to research.
 
-Your dispute list has been injected via context hook.
+Your research queue (disputes + unconfirmed calendar rows, merged and ordered by nearest plausible date) has been injected via context hook.
+
+## Step 0a — Read the research-log header first
+
+Before the opener, read `memory/research_log.md` from the top down to the `# Research Sessions` line. Carry-over rows whose **Next check** is today or earlier, and any **READ FIRST** block, are part of today's list even if the injected queue doesn't contain them; add them to the opener table. Use each carry-over's "How to read" cell verbatim. Don't read the sessions below the header unless a row points you there.
 
 ## Step 0 — Open the session with a table + plan
 
@@ -388,7 +404,7 @@ Column rules:
 - **Reason**: the dispute_reason string verbatim (`date_disagreement`, `both`, `unknown_time`, `unconfirmed`).
 - **IR**: `yes` if a cached IR URL is present in the dispute data, else `no`.
 
-Sort rows by priority: `date_disagreement` → `both` → `unknown_time` → `unconfirmed`. Within a group, soonest DaysOut first.
+Keep the injected order (nearest plausible date first; it already interleaves disputes and unconfirmed rows). Slot header-only rows (Step 0a) in by their date.
 
 Plan narrative: one short line per symbol or per group, explaining why I'm tackling them in that order or flagging quirks (e.g. "WSM reports tomorrow", "UEC DB date looks too early"). Keep the whole opener under ~20 lines.
 
@@ -414,9 +430,15 @@ For each symbol:
    ```
 8. If you can't find a reliable source, or do not have enough confidence to lock in a date, skip and log to memory/research_log.md.
 
-Focus on symbols with 'date_disagreement' or 'both' first (these are more likely to be wrong), then 'unknown_time' (just need timing info).
+Work the list top-down: the nearest date is the most urgent, whatever its reason. A row tagged `[NO DISPUTE ROW]` is an unconfirmed calendar row: steps 5-6 apply, and the step-7 UPDATE matches 0 rows for it (expected). Agreement among the feeds is not confirmation: all three have been wrong together.
 
 Don't use third-party services. Check for "estimated" in reference to earnings dates to see if it's confirmed or speculative. Your job is to find the authoritative source and report that.
+
+## Final step — Bookkeeping (before the summary)
+
+1. **Cadence table:** for each symbol you confirmed that has no row in `memory/reference_company_cadence.md` (check with `grep "^| SYM "`), add one: time (and its evidence), lead = advance PR date to release date (record the PR date; if you didn't see it, write "unmeasured"), cadence/quirks, and the source that worked. For a symbol that already has a row, add this quarter's outcome and lead to it.
+2. **Log header:** in `memory/research_log.md`, add a ledger line for each confirm (`| SYM | date | time | source — session |`, in date order); remove resolved rows from the carry-over table and the READ FIRST block; update the Next check of every row you held.
+3. **Session block:** log the session under `# Research Sessions` (newest first), as before.
 
 When done, print a summary of your work.
 """

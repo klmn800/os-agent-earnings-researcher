@@ -13,7 +13,8 @@ Surfaces two independent context blocks:
     - missed-session tripwire (weekdays since the newest research_log session header)
     - today's unresolved earnings date disputes (PERF_DB)
     - cached IR URLs (DATALAKE_DB.symbol_metadata)
-    - backfill of unconfirmed-but-undisputed earnings_upcoming rows (within HORIZON)
+    - unconfirmed-but-undisputed earnings_upcoming rows (within HORIZON), merged with the
+      disputes into one queue sorted by nearest plausible date (build_research_queue)
 
 Limit enforcement applies to the dispute block ONLY — mailbox notices are
 always checked, even on re-injection turns, because handoffs may arrive
@@ -46,10 +47,19 @@ SESSION_MODE_FILE = AGENT_DIR / '.session_mode'
 ARCHIVE_DIR = AGENT_DIR / 'memory' / 'archive'
 RESEARCH_LOG = AGENT_DIR / 'memory' / 'research_log.md'
 
-# Daily ceiling on combined disputes + unconfirmed backfill (when .session_limit = 0).
-# Disputes always come first (already prioritized by reason+date); remaining slots
-# are filled from earnings_upcoming where date_confirmed = 0, sorted by earnings_date ASC.
-TOTAL_CEILING = 25
+# Daily ceiling on the merged research queue (when .session_limit = 0).
+# Disputes and unconfirmed earnings_upcoming rows (due within HORIZON_DAYS) form ONE
+# list sorted by nearest plausible date; the ceiling trims the FARTHEST rows,
+# whatever their kind. Until 2026-10-05 disputes came first and unconfirmed rows only
+# filled `25 - disputes` slots, so on heavy days (28-42 disputes, 09-30 -> 10-02) the
+# backfill was zero and 83 undisputed rows dated <= 10-23 never reached a session.
+# (analysis/proposal_20261004_backfill_crowded_out.md, option A.) Sessions handled
+# 34-42 rows a morning that week, hence 40.
+TOTAL_CEILING = 40
+
+# Tie-break within the same date. 'unconfirmed' = calendar row with no dispute row.
+QUEUE_PRIORITY = {'confirmed_row_diverged': 0, 'date_disagreement': 0, 'both': 1,
+                  'unknown_time': 2, 'unconfirmed': 3}
 
 # Only surface symbols whose earnings date is within this many days of today.
 # Companies typically don't issue their "to Announce" press release more than
@@ -317,6 +327,80 @@ def build_maintenance_block(now):
 
 # -- dispute-list (unchanged behavior, just extracted) --
 
+def _plausible_date(db_date, yf_date, fh_date):
+    """Earliest date any source gives. For a dispute the stored db_date is the value
+    under suspicion, so sort on the nearest date it might really be."""
+    dates = [d for d in (db_date, yf_date, fh_date) if d]
+    return min(dates) if dates else '9999-12-31'
+
+
+def build_research_queue(today_str, horizon_str, limit=0):
+    """The day's research queue. Shared with launcher.py so the session size it
+    announces is exactly what this hook renders.
+
+    limit > 0 (batch mode): today's disputes only, by reason then date, first `limit`.
+    limit == 0 (default):   disputes + unconfirmed rows due today..horizon, deduped by
+                            symbol, sorted by (nearest plausible date, kind, symbol),
+                            capped at TOTAL_CEILING; the rest is returned as `dropped`.
+
+    Items are (symbol, db_date, db_time, yfinance_date, finnhub_date, reason) tuples;
+    reason 'unconfirmed' marks a calendar row with no dispute row.
+    Returns (items, dropped, errors).
+    """
+    errors = []
+    disputes = []
+    try:
+        conn = sqlite3.connect(str(PERF_DB), timeout=10)
+        conn.execute("PRAGMA busy_timeout = 10000")
+        # NOTE: no db_date horizon gate here (unlike the unconfirmed query below).
+        # A dispute means the stored db_date is itself the value under suspicion,
+        # so filtering on it can hide a dispute whose *true* date is imminent behind
+        # a *wrong* stored date that looks far out. The WHERE trade_date = ? clause
+        # already bounds this to today's freshly-detected disputes (no stale
+        # accumulation), and the set is count-bounded by how many disagreements
+        # exist, so the horizon added nothing but a silent-drop bug (GIS/NKE 06-11,
+        # JBL/KMX/KR 05-29 were all dropped this way). See SA P033 dispute lifecycle.
+        disputes = conn.execute("""
+            SELECT symbol, db_date, db_time, yfinance_date, finnhub_date, dispute_reason
+            FROM earnings_date_disputes
+            WHERE trade_date = ?
+              AND (resolution = 'unresolved' OR resolution IS NULL)
+            ORDER BY db_date ASC, symbol ASC
+        """, (today_str,)).fetchall()
+        conn.close()
+    except Exception as e:
+        errors.append("Error reading disputes: {}".format(e))
+
+    if limit > 0:
+        disputes.sort(key=lambda r: (QUEUE_PRIORITY.get(r[5], 9), r[1] or '9999'))
+        return disputes[:limit], [], errors
+
+    queue = list(disputes)
+    existing = {d[0] for d in disputes}
+    try:
+        conn = sqlite3.connect(str(DATALAKE_DB), timeout=10)
+        conn.execute("PRAGMA busy_timeout = 10000")
+        unconfirmed = conn.execute("""
+            SELECT symbol, earnings_date, earnings_time
+            FROM earnings_upcoming
+            WHERE (date_confirmed = 0 OR date_confirmed IS NULL)
+              AND earnings_date >= ?
+              AND earnings_date <= ?
+            ORDER BY earnings_date ASC, symbol ASC
+        """, (today_str, horizon_str)).fetchall()
+        conn.close()
+        for sym, ed, et in unconfirmed:
+            if sym not in existing:
+                queue.append((sym, ed, et, None, None, 'unconfirmed'))
+                existing.add(sym)
+    except Exception as e:
+        errors.append("Note: unconfirmed rows unavailable: {}".format(e))
+
+    queue.sort(key=lambda r: (_plausible_date(r[1], r[3], r[4]),
+                              QUEUE_PRIORITY.get(r[5], 9), r[0]))
+    return queue[:TOTAL_CEILING], queue[TOTAL_CEILING:], errors
+
+
 def build_dispute_list(now, today_str, horizon_str, limit):
     """Build the <dispute-list> string. Honors sentinel for limited-batch sessions."""
     parts = []
@@ -343,64 +427,9 @@ def build_dispute_list(now, today_str, horizon_str, limit):
         parts.append(gap)
         parts.append('')
 
-    # Get unresolved disputes, prioritized: date_disagreement > both > unknown_time
-    PRIORITY = {'date_disagreement': 0, 'both': 1, 'unknown_time': 2}
-    disputes = []
-    try:
-        conn = sqlite3.connect(str(PERF_DB), timeout=10)
-        conn.execute("PRAGMA busy_timeout = 10000")
-        # NOTE: no db_date horizon gate here (unlike the backfill query below).
-        # A dispute means the stored db_date is itself the value under suspicion,
-        # so filtering on it can hide a dispute whose *true* date is imminent behind
-        # a *wrong* stored date that looks far out. The WHERE trade_date = ? clause
-        # already bounds this to today's freshly-detected disputes (no stale
-        # accumulation), and the set is count-bounded by how many disagreements
-        # exist, so the horizon added nothing but a silent-drop bug (GIS/NKE 06-11,
-        # JBL/KMX/KR 05-29 were all dropped this way). See SA P033 dispute lifecycle.
-        rows = conn.execute("""
-            SELECT symbol, db_date, db_time, yfinance_date, finnhub_date, dispute_reason
-            FROM earnings_date_disputes
-            WHERE trade_date = ?
-              AND (resolution = 'unresolved' OR resolution IS NULL)
-            ORDER BY db_date ASC, symbol ASC
-        """, (today_str,)).fetchall()
-        conn.close()
-        rows.sort(key=lambda r: (PRIORITY.get(r[5], 9), r[1] or '9999'))
-        if limit > 0:
-            disputes = rows[:limit]
-        else:
-            disputes = rows
-    except Exception as e:
-        parts.append("Error reading disputes: {}".format(e))
-
-    # Backfill: if no .session_limit and disputes < TOTAL_CEILING, pull unconfirmed
-    # symbols from earnings_upcoming (date_confirmed = 0) sorted by soonest first.
-    backfill_count = 0
-    if limit == 0 and len(disputes) < TOTAL_CEILING:
-        remaining = TOTAL_CEILING - len(disputes)
-        existing = {d[0] for d in disputes}
-        try:
-            conn = sqlite3.connect(str(DATALAKE_DB), timeout=10)
-            conn.execute("PRAGMA busy_timeout = 10000")
-            unconfirmed = conn.execute("""
-                SELECT symbol, earnings_date, earnings_time
-                FROM earnings_upcoming
-                WHERE (date_confirmed = 0 OR date_confirmed IS NULL)
-                  AND earnings_date >= ?
-                  AND earnings_date <= ?
-                ORDER BY earnings_date ASC, symbol ASC
-            """, (today_str, horizon_str)).fetchall()
-            conn.close()
-            for sym, ed, et in unconfirmed:
-                if sym in existing:
-                    continue
-                if remaining <= 0:
-                    break
-                disputes.append((sym, ed, et, None, None, 'unconfirmed'))
-                remaining -= 1
-                backfill_count += 1
-        except Exception as e:
-            parts.append("Note: unconfirmed backfill failed: {}".format(e))
+    disputes, dropped, errors = build_research_queue(today_str, horizon_str, limit)
+    parts.extend(errors)
+    backfill_count = sum(1 for d in disputes if d[5] == 'unconfirmed')
 
     if not disputes:
         parts.append("No unresolved disputes for today.")
@@ -437,31 +466,26 @@ def build_dispute_list(now, today_str, horizon_str, limit):
     except Exception:
         pass
 
-    # Real disputes occupy disputes[:dispute_only]; unconfirmed backfill (appended
-    # after sorting) occupies the tail. They come from DIFFERENT sources and need
-    # DIFFERENT actions, so render them under separate sub-headers — merging them
-    # under one count is what made the injected set look like it "diverged" from
-    # the earnings_date_disputes table (it never matched: backfill rows have no
-    # dispute row at all). See notes_for_ben.md 06-11.
+    # Disputes and unconfirmed rows come from DIFFERENT sources and need DIFFERENT
+    # closing actions (backfill rows have no dispute row at all; see notes_for_ben.md
+    # 06-11), but since 2026-10-05 they're interleaved by date, so the kind is
+    # marked per row instead of by sub-header.
     dispute_only = len(disputes) - backfill_count
-    if backfill_count > 0:
-        parts.append("Symbols to research ({} total: {} disputes, {} unconfirmed-but-undisputed):".format(
-            len(disputes), dispute_only, backfill_count))
-    else:
-        parts.append("Symbols to research ({} disputes):".format(len(disputes)))
-    backfill_header_emitted = False
+    parts.append("Symbols to research ({} total: {} disputes, {} unconfirmed-but-undisputed), "
+                 "ordered by nearest plausible date. Work top-down:".format(
+                     len(disputes), dispute_only, backfill_count))
+    parts.append("  - rows WITHOUT a tag are disputes: close them with the earnings_date_disputes "
+                 "UPDATE (CLAUDE.md step 7).")
+    parts.append("  - rows tagged [NO DISPUTE ROW] are unconfirmed calendar rows: confirm via "
+                 "earnings_confirm.py; the dispute UPDATE matches 0 rows for these (expected).")
+    parts.append("  - a dispute sorts by the EARLIEST date any source gives (DB / yfinance / finnhub), "
+                 "so a row whose DB date is far out can sit high when a feed says sooner.")
+    parts.append("")
     for i, (sym, db_date, db_time, yf_date, fh_date, reason) in enumerate(disputes, 1):
-        if i == 1 and dispute_only > 0:
-            parts.append("")
-            parts.append("-- DISPUTES (rows in earnings_date_disputes — resolve via the UPDATE in CLAUDE.md step 7) --")
-        if not backfill_header_emitted and i > dispute_only:
-            parts.append("")
-            parts.append("-- UNCONFIRMED CALENDAR ROWS (NO dispute row — confirm via earnings_confirm.py; "
-                         "the earnings_date_disputes UPDATE matches 0 rows for these) --")
-            backfill_header_emitted = True
         company = company_names.get(sym, 'Unknown')
-        parts.append("{}. {} ({}) -- DB date: {}, time: {}, reason: {}".format(
-            i, sym, company, db_date, db_time or 'Unknown', reason))
+        tag = "  [NO DISPUTE ROW]" if reason == 'unconfirmed' else ""
+        parts.append("{}. {} ({}) -- DB date: {}, time: {}, reason: {}{}".format(
+            i, sym, company, db_date, db_time or 'Unknown', reason, tag))
         if yf_date and yf_date != db_date:
             parts.append("   yfinance: {}, finnhub: {}".format(yf_date, fh_date or 'None'))
         elif fh_date and fh_date != db_date:
@@ -473,6 +497,16 @@ def build_dispute_list(now, today_str, horizon_str, limit):
             parts.append("   Cached IR URL: None")
         if sym in ben_confirmed:
             parts.append("   *** CONFIRMED BY BEN — DO NOT OVERWRITE ***")
+
+    if dropped:
+        parts.append("")
+        parts.append("Beyond today's {}-row ceiling ({} more, the farthest-dated; they move up as nearer "
+                     "rows clear — work them only if time remains):".format(TOTAL_CEILING, len(dropped)))
+        parts.append("  " + ", ".join("{} {}{}".format(
+            d[0], _plausible_date(d[1], d[3], d[4])[5:], "*" if d[5] == 'unconfirmed' else "")
+            for d in dropped))
+        if any(d[5] == 'unconfirmed' for d in dropped):
+            parts.append("  (* = no dispute row)")
 
     parts.append('</dispute-list>')
 

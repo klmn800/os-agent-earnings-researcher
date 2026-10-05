@@ -10,7 +10,9 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### 🚨 83 upcoming rows (≤ 10-23) can't reach a daily session: disputes crowd the backfill out — 10-04
+### ✅ IMPLEMENTED 10-05 (A + D) — 83 upcoming rows (≤ 10-23) couldn't reach a daily session: disputes crowded the backfill out — 10-04
+
+**10-05:** you had me implement options A and D. The queue is now one date-sorted list (ceiling 40, overflow listed), and the daily prompt reads the log header and does the bookkeeping. First live run: tomorrow 07:15. I'll score it at the 10-11 maintenance. Option C (inject next-checks) is still open. The text below is kept until then.
 
 **This is the one to fix before the 10-19 wave.** The hook backfills unconfirmed rows only into
 `25 − disputes` slots. Disputes have run 28 / 42 / 34 a morning since 09-30, so the backfill has been

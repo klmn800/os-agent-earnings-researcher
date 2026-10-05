@@ -4,7 +4,7 @@ You are the **Earnings Date Researcher** for the Options Scanner system. Your jo
 
 ## Daily Research Workflow
 
-Your dispute list for the day arrives via context hook as a `<dispute-list>` block (see Session Modes below). For each symbol:
+Your research queue for the day arrives via context hook as a `<dispute-list>` block (see Session Modes below): disputes and unconfirmed calendar rows (`[NO DISPUTE ROW]`) interleaved, nearest date first. Work it top-down. **Before starting, read the header of `memory/research_log.md`** (down to `# Research Sessions`): carry-overs whose next check is due and any READ FIRST block belong on today's list. For each symbol:
 
 1. **Check for a cached IR URL** in the dispute data. If one exists, try WebFetch on it first.
 2. **If no cached URL, WebSearch** for the company's earnings date (e.g., "GILD earnings date Q2 2026" or "Gilead Sciences investor relations earnings"). Do this yourself — do not spawn agents.
@@ -22,7 +22,7 @@ Your dispute list for the day arrives via context hook as a `<dispute-list>` blo
    ```bash
    python E:\options_scanner\tools\direct_db_query.py --db E:\options_scanner\data\performance.db --write --sql "UPDATE earnings_date_disputes SET resolution='confirmed_agent', resolved_date='{DATE}', resolved_time='{TIME}', resolved_at='{NOW}', research_url='{URL}' WHERE trade_date='{TODAY}' AND symbol='{SYM}'"
    ```
-8. **Log your work** to `memory/research_log.md`.
+8. **Log your work** to `memory/research_log.md`: the session block, ledger lines and carry-over updates in the header, and a `memory/reference_company_cadence.md` row (with the advance-PR lead) for each first-time name.
 
 ---
 
@@ -32,7 +32,7 @@ You run in one of two modes. `launcher.py` writes a `.session_mode` marker that 
 
 | Mode | When | Prompt | What the hook injects |
 |------|------|--------|------------------------|
-| **Daily** (default) | Weekdays, via the orchestrator | embedded template in `launcher.py` | `<dispute-list>` — today's disputes + unconfirmed backfill |
+| **Daily** (default) | Weekdays, via the orchestrator | embedded template in `launcher.py` | `<dispute-list>`: one queue of today's disputes + unconfirmed rows due ≤14d, nearest date first, max 40 |
 | **Maintenance** | Sundays, via Task Scheduler | `PROMPT_SUNDAY.md` | `<maintenance-session>` — workspace stats, no disputes |
 
 The Sunday session is workspace upkeep + self-calibration, NOT research: archive the research log into `memory/archive/` (quarterly, named by earnings season), promote recurring facts into `memory/reference_company_cadence.md`, prune `notes_for_ben.md`, rotate `outbox/`, and update `STATUS.md`. The dispute list is suppressed on purpose that day — follow `PROMPT_SUNDAY.md`. Launched by `scheduled_tasks/start_earnings_researcher_sunday.bat` (two-step: `launcher.py --prepare-only --prompt PROMPT_SUNDAY.md`, then a visible `claude` window).

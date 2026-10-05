@@ -116,8 +116,10 @@ mechanism is read straight off the code, so it will recur whenever the dispute c
   28/42/34 on 09-30 → 10-02, so backfill was **zero** and the whole undisputed 10-13 → 10-17 cohort
   (24 rows, incl. the ACI/SNA carry-overs) **never reached a session**. Sessions spent the week on
   disputed rows 10-19 → 11-02. Proposal: `analysis/proposal_20261004_backfill_crowded_out.md`.
-  **Until it's fixed: on any morning with ≥25 disputes, the backfill is empty, so work the log header's
-  "read first" block and the carry-overs due today BEFORE the injected list.** An undisputed row isn't
+  **✅ Fixed 2026-10-05 (Ben chose options A + D):** the hook now merges disputes and unconfirmed rows
+  into one queue sorted by nearest plausible date (ceiling 40, overflow listed by symbol), and the daily
+  prompt's Step 0a reads the log header. Residual gap: a carry-over next-check on a row >14d out with
+  no dispute is still reached only through the header (option C open). An undisputed row isn't
   a confirmed row: all three sources were wrong together on REXR, LMT and DOC this quarter.
 - **Lead-table score, week of 09-28 (2026-10-04 maintenance):** the 1-obs undershoot repeated: **FNB
   16 → 20d, WIT 9 → ≥14d** (with PEP and MU, 4 of 4 one-observation leads ran long, never short). The

@@ -1,5 +1,11 @@
 # Proposal (2026-10-04): disputes crowd the unconfirmed backfill out entirely
 
+> **Status 2026-10-05: options A and D implemented** (Ben's call; interactive session).
+> `hooks/inject_context.py` `build_research_queue()` (merged, date-sorted, `TOTAL_CEILING` 25 → 40,
+> overflow listed), `launcher.py` sizes the session from the same function, and `PROMPT_TEMPLATE`
+> gained Step 0a (read the log header) and a bookkeeping step. B is superseded by A; C (inject
+> next-checks directly) remains open.
+
 **For:** Ben, a dev session. **Severity:** high during earnings season; it is happening now.
 **Files:** `hooks/inject_context.py` (backfill block, ~line 376), `launcher.py` (`TOTAL_CEILING` sizing, ~line 295).
 
