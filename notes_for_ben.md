@@ -204,3 +204,10 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
   company source. (The 09-08 KMX/PAYX locks above broke that policy by a different route.)
 - **June items** (dispute-list horizon bug, UEC chronic date, 06-07 table absence, weekend proposal
   implemented, 06-04 restore truncation, SEC via curl) — archive → Resolved.
+
+## 2026-10-06 session notes
+- **WBS is a phantom row.** Santander closed the Webster deal in Aug 2026 (SEC `tickers=[]`, Form 15-12G 08-31 and 09-30). The dispute row is `skipped`, but `earnings_upcoming` still carries WBS on 10-22. Worth removing so the scanner doesn't treat it as live.
+- **TSM time corrected amc → bmo** (call is 14:00 Taiwan = 02:00 ET). Same shape as the other foreign filers; worth a look if the DB defaults foreign ADRs to amc.
+- **SCHW date is inferred**: Schwab's Fall Business Update PR gives only the 10-15 event; earnings rode the update in 3 of 3 prior quarters.
+- **SNA 10-15 is dead** (no webcast PR; the Q2 one came 14d ahead). Expect 10-22; the row still says 10-15 and the scanner is 9 days out from the real date.
+- **HDB/IBN (Sat 10-17):** HDB's board meets Saturday 10-17 per reports of the NSE notice; IBN has no 2026 notice found yet. Still waiting on your policy call.

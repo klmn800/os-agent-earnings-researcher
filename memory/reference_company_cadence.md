@@ -347,6 +347,38 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | BC | Brunswick / Q3 (open) | Unknown (DB) | — | DB 10-22. Q2 reported **07-30**, so 10-22 looks early (but see ADC/RTX: the prior-quarter-weekday doubt went 2-for-4 this week). | — |
 | IRDM, WBS | Iridium / Webster (open) | Unknown | — | Both have **pending acquisitions and no calls** (Rocket Lab / Santander). Look for a bare results PR or 8-K only. Screen with `reference_ma_phantom_earnings.md`. | — |
 
+### Q3 bank / financial wave: names confirmed 10-06 (and Q3 outcomes for names that already had a row)
+
+Lead = advance PR date → release date; "unmeasured" = PR date not captured, grab it next quarter. One observation each.
+
+| Symbol | Company / quarter | Time | Lead | Notes | Source |
+|--------|-------------------|------|------|-------|--------|
+| BAC | Bank of America / Q3 | bmo | 14d (PR 09-30) | Q3 **10-14 bmo** ~6:45am ET, call 8:30. Now company-sourced; the 06-30 Q2 lock caveat stands for Q2 only. | stocktitan wire text |
+| MS | Morgan Stanley / Q3 | bmo | unmeasured | 10-14 ~7:30am ET, call 9:30. WebFetch ECONNRESETs, **curl works**. | morganstanley.com/about-us-ir |
+| STT | State Street / Q3 | bmo | 21d (PR 09-23) | 10-14 ~7:30am ET, call 11:00. | stocktitan wire text |
+| FAST | Fastenal / Q3 | bmo (inferred) | 16d (PR 09-28) | 10-14, call 9:00am CT. PR gives call time only. | stocktitan wire text |
+| PNC | PNC / Q3 | bmo | 42d (PR 09-03) | 10-15 ~6:30am ET, call 10:00. | stocktitan wire text |
+| USB | U.S. Bancorp / Q3 | bmo | 14d (PR 10-01) | 10-15, call 8am CT. Also publishes a year-ahead call schedule. | q4cdn PDF (read with `pdftotext`; WebFetch can't) |
+| BK | BNY / Q3 | bmo | annual calendar PR | 10-15 ~6:30am ET, call 11:00. | bny.com newsroom |
+| MAN | ManpowerGroup / Q3 | bmo | unmeasured | 10-15, call 8:30am ET. | investor.manpowergroup.com |
+| MRSH | Marsh / Q3 | bmo | 28d (PR 09-17) | 10-15 before the open, call 8:30am ET. Q2 was bmo too. | marsh.com PR |
+| PLD | Prologis / Q3 | bmo (inferred) | 42d (PR 09-03) | 10-15, call 9am PT / 12pm ET. PR doesn't state release time. | finviz copy of the BW PR |
+| AA | Alcoa / Q3 | amc | 30d (PR 09-15) | 10-15 after close, call 5:00pm EDT. | q4cdn PDF |
+| SCHW | Schwab / Q3 | bmo (inferred) | 28d (PR 09-17) | **Fall Business Update** 10-15 8:30am ET; PR never mentions earnings, but earnings rode the update in Q3'25, Q1'26, Q2'26 (3/3). | pressroom.aboutschwab.com |
+| TSM | TSMC / Q3 | **bmo** | annual calendar | Call 14:00 Taiwan = 02:00 ET, so the US reaction is the same day's open. **DB had amc, corrected.** Same shape as ERIC/WIT. | investor.tsmc.com |
+| CFG | Citizens / Q3 | bmo | annual schedule PR | 10-16, call 9:00am ET. | BW PR (finviz copy) |
+| MTB | M&T / Q3 | bmo | 28d (PR 09-18) | 10-16 before the open, call 8:00am ET. | BW PR (finviz copy) |
+| TRV | Travelers / Q3 | bmo | unmeasured | 10-16, call 9:00am ET. | investor.travelers.com |
+| STLD | Steel Dynamics / Q3 | amc | unmeasured | 10-19 after close, call 10-20 11:00am ET. A separate *Provides Q3 Earnings Guidance* PR carries it. | finviz copy |
+| WRB | W. R. Berkley / Q3 | amc | unmeasured | 10-19 after close, call 5:00pm ET. | q4cdn PDF |
+| ZION | Zions / Q3 | amc | annual dates PR | 10-19, call 5:30pm ET. | finviz copy |
+| ALLY | Ally / Q3 | bmo | 33d (PR 09-17) | 10-20 ~7:30am ET, call 9:00. | finviz copy |
+| CB | Chubb / Q3 | amc | unmeasured | 10-20 after close, call 10-21 8:30am ET. | finviz copy |
+| COF | Capital One / Q3 | amc | 26d (PR 09-24) | 10-20 ~4:05pm ET, call 5:00. | stocktitan wire text |
+| EWBC | East West / Q3 | amc | annual (PR 03-30) | 10-20 after close, call 5pm ET. | investor.eastwestbank.com |
+| GE | GE Aerospace / Q3 | bmo | unmeasured | 10-20, webcast 7:30am EDT. | geaerospace.com |
+| WBS | Webster / Q3 | n/a | n/a | **Delisted**: Santander closed Aug 2026, SEC `tickers=[]`, 15-12G 08-31 and 09-30. Dispute `skipped`. | SEC submissions JSON |
+
 ## Source-reachability cheat-sheet
 
 - **⚠⚠ Cintas (`CTAS`) has NO first-party IR surface (found 2026-09-02).** `investors.cintas.com` and `ir.cintas.com` are both **NXDOMAIN**; the Q4-managed host `cintas.gcs-web.com` **resolves but returns HTTP 403 "Access Denied" on every path, including `/`** (Akamai). That 403 is *honest* — it is a real refusal, not the Copart-style 200-for-everything wall — so it cannot manufacture a false positive, but nothing on it is readable. Cintas' advance PR (*"Cintas Corporation Announces Webcast for \<n\> Quarter Fiscal Year \<yr\> Results"*, ~14d lead) is **BusinessWire only** and is **not filed as an 8-K**. Read it at `stocktitan.net/news/CTAS/`.
