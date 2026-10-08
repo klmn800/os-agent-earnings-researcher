@@ -334,12 +334,12 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | MMM | 3M / Q3 (**date open**) | **bmo** (Item 2.02 10:33–11:34Z, 6–7/7), via `--time-only` 09-30 | — | DB 10-20; "10-20 9am" seen only on marketbeat. No Q3 PR as of 10-02. | stocktitan spine `MMM` |
 | VRT | Vertiv / Q3 (**date open**) | **bmo** (Item 2.02 10:00–11:00Z), via `--time-only` 09-30 | — | DB 10-21; aggregators 10-28. stocktitan 429'd 10-02. | stocktitan spine `VRT` |
 | WAL | Western Alliance / Q3 (**date open**) | **amc** (Item 2.02 20:08–20:26Z), via `--time-only` 09-30 | — | DB 10-21; aggregator "10-20 amc / 10-21 call". If the release is 10-20 amc, the DB date is a day late. | stocktitan spine `WAL` |
-| LRCX | Lam Research / FQ1 (**date open**) | **amc** (Item 2.02 20:07–20:09Z), via `--time-only` 09-30 | — | DB 10-21. | — |
+| LRCX | Lam Research / FQ1 (**date open**) | **amc** (Item 2.02 20:07–20:09Z), via `--time-only` 09-30 | — | DB 10-21. | —; **Q3'26 resolved 10-08:** PR 09-30 → 10-21 amc (21d lead), call 2pm PT |
 | UAL | United Airlines / Q3 (**date open**) | **amc** (Item 2.02 20:00Z), via `--time-only` 09-30 | — | The live row moved **10-21 → 10-20** after 09-30 (finnhub said 10-20). | — |
-| EQT | EQT Corp / Q2 + Q3 (open) | amc (DB) | **19–21d (Q2):** PR 07-02 → 07-21 | DB 10-20. At ~20d the PR was due ~09-30, and nothing had appeared by 10-02, so it's **slightly overdue**. One of the 06-30 bad-batch names (wrong by 4–7d then). **Read first on 10-05.** | stocktitan spine `EQT` |
+| EQT | EQT Corp / Q2 + Q3 (open) | amc (DB) | **19–21d (Q2):** PR 07-02 → 07-21 | DB 10-20. At ~20d the PR was due ~09-30, and nothing had appeared by 10-02, so it's **slightly overdue**. One of the 06-30 bad-batch names (wrong by 4–7d then). **Read first on 10-05.** | stocktitan spine `EQT`; **Q3'26 resolved 10-08:** PR 10-07 20:15 → 10-27 amc (20d lead); DB 10-20 was 7d early, yfinance/finnhub were right-ish |
 | TSCO | Tractor Supply / Q3 (open) | Unknown (DB) | **21d (Q2):** PR 07-02 → 07-23 | DB 10-22, which puts the PR due ~10-01. **Overdue as of 10-02 (1 day).** IR calendar empty; only marketbeat 10-22. | — |
 | PNR | Pentair / Q3 (open) | bmo (DB) | **14d (Q1):** PR 04-14 → 04-28 | DB 10-20, PR due ~10-06. Q2-26 was Tue 07-28 (a later week). | stocktitan spine `PNR` |
-| PEGA | Pegasystems / Q3 (open) | amc (DB) | **14d (Q2):** PR 07-07 → 07-21 | DB 10-20, PR due ~10-06. | stocktitan spine `PEGA` |
+| PEGA | Pegasystems / Q3 (open) | amc (DB) | **14d (Q2):** PR 07-07 → 07-21 | DB 10-20, PR due ~10-06. | stocktitan spine `PEGA`; **Q3'26 resolved 10-08:** PR 10-07 → 10-20 amc (13d lead), DB was right; finnhub +8d wrong |
 | ALK | Alaska Air / Q3 (open) | Unknown (DB) | **14d (Q2):** webcast PR ~07-08 → 07-22 | DB 10-22, PR due ~10-08. Investor Day 09-29 carried no date. | — |
 | RHI | Robert Half / Q3 (open) | amc (DB) | **~7d** (Q1 PR text; Q2 PR 07-16) | DB 10-21, PR due ~10-14. **Don't read before ~10-12.** | — |
 | VLTO | Veralto / Q3 (open) | amc (DB) | Q2 PR 07-13 (release date not logged) | DB 10-21. | — |
@@ -448,3 +448,10 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | CCI | amc | Q3'26 PR, lead unmeasured (PR date not captured) | release after close, call 4:45pm ET — 10-07 |
 | CME | bmo | Q3'26 PR 09-04 (47d) | cmegroup.com PR: release 6:00am CT, call 7:30am CT — 10-07 |
 | DHR | bmo | Q3'26 PR, lead unmeasured (PR date not captured) | materials 6:00am ET, call 8:00am ET — 10-07 |
+| EFX | bmo | Q3'26 PR 10-06 → 10-20 (14d) | release 6:30am ET, call 8:30am. DB `amc` was wrong (time corrected) — 10-08 |
+| T | bmo | Q3'26 reminder PR 08-27 → 10-21 (55d) | before NYSE open, call 8:30am ET — 10-08 |
+| LUV | amc | Q3'26 PR 10-01 → 10-21 (20d) | results after close 10-21, call 10-22 10am ET — 10-08 |
+| ELV | bmo | Q3'26 PR 10-05 → 10-21 (16d) | release 6:00am EDT, call 8:30am. Source: biopharmawatch copy of the PR (ir.elevancehealth.com not fetched) — 10-08 |
+| MOH | amc | Q3'26 PR 09-02 → 10-21 (49d) | after close, call 10-22 8:00am ET. Source: biopharmawatch copy — 10-08 |
+| PKG | amc | Q3'26 PR 09-17 → 10-21 (34d) | after close, call 10-22 9:00am ET (finviz copy of BW) — 10-08 |
+| KNX | amc | Q3'26 PR 10-01 → 10-21 (20d) | after close, call 5:30pm ET same day (finviz copy of BW) — 10-08 |
