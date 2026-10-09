@@ -85,7 +85,25 @@ This is where you get sharper, not just tidier:
 - Crucially: **did symbols you skipped (with a logged next-check date) later confirm at the date you predicted?** That's the test of your skip judgment and your lead-time table. If a skip was wrong, name why — and fix the cadence-table entry that misled you.
 - Note any process drift worth correcting (e.g. a token-heavy, low-yield session — you flagged a 151k-token / 0-confirm session on 2026-05-28). Calibration is how that stops recurring.
 
-### 7. Keep `MEMORY.md` tight
+### 7. Audit third-party-sourced confirms (did the date turn out right?)
+
+Step 6 tests your *skips*. This step tests your *confirms* that leaned on a weak source. Past dates are settled facts now, so you can check them against what actually happened.
+
+**Pool:** symbols you confirmed (from the confirmation ledger and the archives under `memory/archive/`) where the stated source was **not the company**: an aggregator or calendar site (Earnings Whispers, MarketBeat, Nasdaq, TipRanks and the like), a search-result snippet, a yfinance/finnhub agreement, or an `inferred` / `weak` / `unverified` note. Copies of a company's own press release (finviz, stocktitan, financialcontent, biopharmawatch, a wire service) count as **company-sourced**, not third-party. Leave them out. Restrict the pool to symbols whose confirmed date has **already passed**, starting with September (the most recent finished season), and widen to earlier months only if September yields too few.
+
+**Sample:** if the pool is 15 or fewer, check all of it. If larger, take a random sample of about 12 and say how you drew it. Don't pick the ones you remember being shaky.
+
+**Verify without the original source.** Find the date the company actually reported, using evidence independent of whatever you confirmed from: the dated earnings press release itself, the Item 2.02 8-K on EDGAR (the filing date and acceptance time give the date and bmo/amc; see `memory/reference_sec_via_curl.md`), or the company's results-call transcript or archive page. An aggregator's *past-results* listing doesn't count, because it may have copied the same feed that was wrong. If you can't find an independent record, mark it **unverifiable** (not "correct").
+
+**Record** a table in the weekly entry: `SYM | confirmed date/time | actual date/time | source of the actual | match / date off by N d / time wrong / unverifiable`. Then state the hit rate **with the sample size** (e.g. 9 of 11 matched, 1 date off, 1 unverifiable). Don't generalize beyond the sample: 11 symbols says little about the other 200.
+
+**Act on misses:**
+- Name why the original source misled you (stale estimate, copied feed, wrong fiscal calendar, time inferred wrongly).
+- Fix the matching `memory/reference_company_cadence.md` row and ledger line.
+- If a source *type* misled you more than once, write it up in `analysis/` and flag it in `notes_for_ben.md`. Ben decides whether the weekday prompt should stop accepting that source.
+- Don't touch DB rows from here (the dates have passed, and Ben's `date_confirmed_by = 'ben'` rows are never yours to change).
+
+### 8. Keep `MEMORY.md` tight
 
 Verify the index pointers resolve, descriptions are current, and any new files from step 2 are indexed.
 
