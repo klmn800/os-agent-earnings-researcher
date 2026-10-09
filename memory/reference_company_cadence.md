@@ -337,14 +337,14 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | LRCX | Lam Research / FQ1 (**date open**) | **amc** (Item 2.02 20:07–20:09Z), via `--time-only` 09-30 | — | DB 10-21. | —; **Q3'26 resolved 10-08:** PR 09-30 → 10-21 amc (21d lead), call 2pm PT |
 | UAL | United Airlines / Q3 (**date open**) | **amc** (Item 2.02 20:00Z), via `--time-only` 09-30 | — | The live row moved **10-21 → 10-20** after 09-30 (finnhub said 10-20). | — |
 | EQT | EQT Corp / Q2 + Q3 (open) | amc (DB) | **19–21d (Q2):** PR 07-02 → 07-21 | DB 10-20. At ~20d the PR was due ~09-30, and nothing had appeared by 10-02, so it's **slightly overdue**. One of the 06-30 bad-batch names (wrong by 4–7d then). **Read first on 10-05.** | stocktitan spine `EQT`; **Q3'26 resolved 10-08:** PR 10-07 20:15 → 10-27 amc (20d lead); DB 10-20 was 7d early, yfinance/finnhub were right-ish |
-| TSCO | Tractor Supply / Q3 (open) | Unknown (DB) | **21d (Q2):** PR 07-02 → 07-23 | DB 10-22, which puts the PR due ~10-01. **Overdue as of 10-02 (1 day).** IR calendar empty; only marketbeat 10-22. | — |
+| TSCO | Tractor Supply / Q3 (confirmed 10-22 bmo, 10-09) | bmo | **13d (Q3):** PR 10-09 → 10-22 (Q2 was 21d: PR 07-02 → 07-23) | Q3 webcast PR came **8 days after the 21d lead predicted (~10-01)**, so a lead measured on one quarter is not safe for window-gating here. *"before the market opens on Thursday, October 22"*, call 10am ET. Business Wire, read as a stocktitan copy — 10-09 | — |
 | PNR | Pentair / Q3 (open) | bmo (DB) | **14d (Q1):** PR 04-14 → 04-28 | DB 10-20, PR due ~10-06. Q2-26 was Tue 07-28 (a later week). | stocktitan spine `PNR` |
 | PEGA | Pegasystems / Q3 (open) | amc (DB) | **14d (Q2):** PR 07-07 → 07-21 | DB 10-20, PR due ~10-06. | stocktitan spine `PEGA`; **Q3'26 resolved 10-08:** PR 10-07 → 10-20 amc (13d lead), DB was right; finnhub +8d wrong |
 | ALK | Alaska Air / Q3 (open) | Unknown (DB) | **14d (Q2):** webcast PR ~07-08 → 07-22 | DB 10-22, PR due ~10-08. Investor Day 09-29 carried no date. | — ‹Q3'26: PR 10-07 → **10-20 amc** (13d), call 10-21 11:30am ET; time was Unknown — 10-09›|
 | RHI | Robert Half / Q3 (open) | amc (DB) | **~7d** (Q1 PR text; Q2 PR 07-16) | DB 10-21, PR due ~10-14. **Don't read before ~10-12.** | — |
 | VLTO | Veralto / Q3 (open) | amc (DB) | Q2 PR 07-13 (release date not logged) | DB 10-21. | — |
 | SF | Stifel / Q3 (open) | bmo (DB) | Q2 PR 07-15 (release date not logged) | DB 10-21. | — |
-| BC | Brunswick / Q3 (open) | Unknown (DB) | — | DB 10-22. Q2 reported **07-30**, so 10-22 looks early (but see ADC/RTX: the prior-quarter-weekday doubt went 2-for-4 this week). | — |
+| BC | Brunswick / Q3 (confirmed 10-29 bmo, 10-09) | bmo | **21d:** PR 10-08 → 10-29 | **The "10-22 looks early" doubt was right: the date is 10-29** (Q2 was 07-30, so Q3 follows ~13 weeks later); **yfinance and finnhub both said 10-29 and were right, the DB was wrong.** *"before the market opens on October 29"*, call 10am CT/11am ET. GlobeNewswire, read as a stocktitan copy — 10-09 | — |
 | IRDM, WBS | Iridium / Webster (open) | Unknown | — | Both have **pending acquisitions and no calls** (Rocket Lab / Santander). Look for a bare results PR or 8-K only. Screen with `reference_ma_phantom_earnings.md`. | — |
 
 ### Q3 bank / financial wave: names confirmed 10-06 (and Q3 outcomes for names that already had a row)
@@ -463,3 +463,10 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | NEE | bmo | unmeasured (PR date not captured) | NextEra "Announces Date for Release of Third-Quarter 2026" PR; stocktitan article page — 10-09 |
 | GL | amc | unmeasured (PR date not captured) | Globe Life earnings release and call PR; stocktitan article page — 10-09 |
 | QS | amc | unmeasured (PR date not captured) | QuantumScape "Announces Timing of Third Quarter 2026 Business Update" PR; stocktitan article page — 10-09 |
+| ROL | amc | Q3'26 PR 10-07 → 10-21 (14d) | *"after the market closes on October 21"*; call Thu 10-22 8:30am ET. PR Newswire, read as a stocktitan copy. DB 10-21 amc was right; finnhub's 10-28 was wrong — 10-09 |
+| POOL | bmo | Q3'26 PR 10-08 → 10-22 (14d) | *"before the market opens on October 22"*; call 10am CT / 11am ET. GlobeNewswire, read as a stocktitan copy. Time was Unknown; finnhub's 10-15 was wrong — 10-09 |
+| DXCM | amc | Q3'26 PR 10-07 → 10-29 (22d) | *"after market close on October 29"*, call 4:30pm ET. Business Wire, read as a stocktitan copy. Time was Unknown; finnhub's 10-22 was wrong — 10-09 |
+| WST | bmo | Q3'26 PR 10-08 → 10-29 (21d) | *"before the market opens on Thursday, October 29"*, call 8:00am ET. PR Newswire, stocktitan copy. **DB 10-22 was 7d early** (yfinance 10-29 was right; finnhub's 10-21 was wrong) — 10-09 |
+| MA | bmo | Q3'26 PR 10-08 → 10-29 (21d) | Call 9:00am ET; release time not stated, **bmo inferred** from the call time and DB. Business Wire, stocktitan copy. DB 10-29 was right; finnhub's 10-22 was wrong — 10-09 |
+| CARR | bmo | Q3'26 PR 10-08 → 10-29 (21d) | "Earnings advisory": call 7:30am ET; release time not stated, **bmo inferred** from the call time. PR Newswire, stocktitan copy. **DB 10-27 was 2d early** (yfinance 10-29 was right) — 10-09 |
+| AJG | amc | Q3'26 PR 10-08 → 10-29 (21d) | *"after the market closes on Thursday, October 29"*, call 5:15pm ET. PR Newswire, stocktitan copy. DB 10-29 amc was right; finnhub's 10-22 was wrong — 10-09 |
