@@ -45,23 +45,28 @@ SIDE = [
 
 
 def fetch(symbol, url=None, bare=False):
-    """One request. Returns (http_code, bytes, retry_after, ok).
-    url overrides the listing page; bare=True drops spine's headers (plain curl)."""
+    """One request. Returns (http_code, bytes, retry_after, ok, curl_err).
+    url overrides the listing page; bare=True drops spine's headers (plain curl).
+    http_code 000 means curl got no HTTP response (connection refused/reset/timeout, DNS, local
+    network); curl_err then holds curl's exit code and message so it can be told apart from a 429."""
     url = url or f"https://www.stocktitan.net/news/{symbol}/"
     with tempfile.TemporaryDirectory() as d:
         body, hdr = os.path.join(d, "b.html"), os.path.join(d, "h.txt")
-        cmd = ["curl", "-s", "-m", "40", "-D", hdr, url, "-o", body, "-w", "%{http_code}"]
+        cmd = ["curl", "-s", "-m", "40", "-D", hdr, url, "-o", body,
+               "-w", "%{http_code}|%{exitcode}|%{errormsg}"]
         if not bare:
             cmd[2:2] = ["--compressed", "-A", UA, "-H", "Accept: text/html",
                         "-H", "Accept-Language: en-US,en;q=0.9"]
         r = subprocess.run(cmd, capture_output=True, text=True)
-        code = r.stdout.strip() or "000"
+        parts = (r.stdout.strip() or "000||").split("|", 2) + ["", ""]
+        code = parts[0] or "000"
+        err = f"exit{parts[1]}:{parts[2]}".strip(":") if parts[1] not in ("", "0") else ""
         text = open(body, encoding="utf-8", errors="replace").read() if os.path.exists(body) else ""
         headers = open(hdr, encoding="utf-8", errors="replace").read() if os.path.exists(hdr) else ""
     retry = next((l.split(":", 1)[1].strip() for l in headers.splitlines()
                   if l.lower().startswith("retry-after")), "")
     ok = code == "200" and len(text) >= (5000 if not url.endswith("robots.txt") else 1)         and "Too Many Requests" not in text
-    return code, len(text), retry, ok
+    return code, len(text), retry, ok, err
 
 
 def main():
@@ -72,7 +77,7 @@ def main():
     ap.add_argument("--probe-schedule", default="30,60,120,180,300",
                     help="comma list of seconds between recovery probes; the last value repeats")
     ap.add_argument("--max-recovery", type=int, default=3600, help="give up after this many seconds")
-    ap.add_argument("--log", default="inbox/fetch/stocktitan_probe_log.csv")
+    ap.add_argument("--log", default="inbox/fetch/stocktitan_probe_log_v2.csv")
     a = ap.parse_args()
     schedule = [float(x) for x in a.probe_schedule.split(",")]
     os.makedirs(os.path.dirname(a.log) or ".", exist_ok=True)
@@ -80,17 +85,30 @@ def main():
     f = open(a.log, "a", newline="", encoding="utf-8")
     w = csv.writer(f)
     if new:
-        w.writerow(["time", "cycle", "phase", "n", "symbol", "http", "bytes", "retry_after", "ok"])
+        w.writerow(["time", "cycle", "phase", "n", "symbol", "http", "bytes", "retry_after", "ok", "curl_err"])
     syms = itertools.cycle(SYMBOLS)
     summary = []
 
+    def verdict(code, ok, err):
+        """ok / BLOCKED (an HTTP answer that is not a full page: 429, 403...) / NETFAIL (no HTTP answer at all)."""
+        return "ok" if ok else ("NETFAIL" if code == "000" else "BLOCKED")
+
+    def control(cycle, phase):
+        """After a no-response failure, check a different site so a local network drop can be told from a stocktitan drop."""
+        code, size, _, ok, err = fetch("", url="https://www.google.com/robots.txt")
+        w.writerow([datetime.now().strftime("%H:%M:%S"), cycle, "control", phase, "google", code, size, "", int(ok), err])
+        f.flush()
+        print(f"[{datetime.now():%H:%M:%S}] control google robots.txt http={code} {'ok' if ok else 'ALSO FAILED (local network?)'}", flush=True)
+
     def req(cycle, phase, n):
         s = next(syms)
-        code, size, retry, ok = fetch(s)
-        w.writerow([datetime.now().strftime("%H:%M:%S"), cycle, phase, n, s, code, size, retry, int(ok)])
+        code, size, retry, ok, err = fetch(s)
+        w.writerow([datetime.now().strftime("%H:%M:%S"), cycle, phase, n, s, code, size, retry, int(ok), err])
         f.flush()
         print(f"[{datetime.now():%H:%M:%S}] c{cycle} {phase:8s} #{n:<3d} {s:5s} http={code} bytes={size}"
-              f"{' retry-after=' + retry if retry else ''} {'ok' if ok else 'BLOCKED'}", flush=True)
+              f"{' retry-after=' + retry if retry else ''}{' curl=' + err if err else ''} {verdict(code, ok, err)}", flush=True)
+        if code == "000":
+            control(cycle, phase)
         return ok
 
     for c in range(1, a.cycles + 1):
@@ -110,11 +128,11 @@ def main():
         if c == 1:
             print("side probes (what does the block cover?)", flush=True)
             for label, url, bare in SIDE:
-                code, size, retry, ok = fetch("", url=url, bare=bare)
-                w.writerow([datetime.now().strftime("%H:%M:%S"), c, "side", label, "", code, size, retry, int(ok)])
+                code, size, retry, ok, err = fetch("", url=url, bare=bare)
+                w.writerow([datetime.now().strftime("%H:%M:%S"), c, "side", label, "", code, size, retry, int(ok), err])
                 f.flush()
                 print(f"[{datetime.now():%H:%M:%S}] side {label:22s} http={code} bytes={size}"
-                      f"{' retry-after=' + retry if retry else ''} {'ok' if ok else 'BLOCKED'}", flush=True)
+                      f"{' retry-after=' + retry if retry else ''}{' curl=' + err if err else ''} {verdict(code, ok, err)}", flush=True)
                 time.sleep(5)
         print(f"cycle {c}: blocked after {passed} passes in {t_block - t_burst:.0f}s "
               f"(spacing {a.spacing}s). Probing recovery...", flush=True)
@@ -133,7 +151,7 @@ def main():
             break
         summary.append((c, passed, recovered, f"recovered between {last_fail:.0f}s and {recovered:.0f}s"))
         print(f"cycle {c}: recovered; first 200 at {recovered:.0f}s after the block "
-              f"(last 429 at {last_fail:.0f}s).", flush=True)
+              f"(last failure at {last_fail:.0f}s).", flush=True)
 
     print("\n== SUMMARY ==")
     for c, passed, rec, note in summary:
