@@ -14,6 +14,12 @@ Each cycle has two phases, using the same curl shape and headers as spine.py:
 The next cycle's BURST then starts immediately, so its pass-count shows whether the budget fully
 refilled on recovery or only partly.
 
+SIDE PROBES (cycle 1 only, once, right after the first block): a few one-off requests that show
+what the block covers: the site root, robots.txt, a listing page with spine's headers, the same
+listing page with bare curl headers (the 403-vs-429 question), and an article page. They are
+logged with phase "side". They add a handful of requests during a block, which is why they run in
+one cycle only.
+
 Every request is appended to --log (CSV) as it happens, so a Ctrl+C or a crash loses nothing.
 Run it when no research session is using stocktitan: the probes deliberately provoke blocks.
 Caveat: probing during a block may itself extend it. To test that, run once with a sparse schedule
@@ -29,21 +35,32 @@ SYMBOLS = ["AAPL", "MSFT", "KO", "PEP", "XOM", "CVX", "JNJ", "PFE", "WMT", "HD",
            "DIS", "INTC", "CSCO", "ORCL", "ADBE", "CRM", "BA", "CAT", "GS", "MS", "V", "MA"]
 
 
-def fetch(symbol):
-    """One request. Returns (http_code, bytes, retry_after, ok)."""
+SIDE = [
+    ("root", "https://www.stocktitan.net/", False),
+    ("robots.txt", "https://www.stocktitan.net/robots.txt", False),
+    ("listing-spine-headers", "https://www.stocktitan.net/news/AAPL/", False),
+    ("listing-bare-curl", "https://www.stocktitan.net/news/AAPL/", True),
+    ("article", "https://www.stocktitan.net/news/FAF/first-american-financial-announces-third-quarter-2026-earnings-uyn3yoxy52mx.html", False),
+]
+
+
+def fetch(symbol, url=None, bare=False):
+    """One request. Returns (http_code, bytes, retry_after, ok).
+    url overrides the listing page; bare=True drops spine's headers (plain curl)."""
+    url = url or f"https://www.stocktitan.net/news/{symbol}/"
     with tempfile.TemporaryDirectory() as d:
         body, hdr = os.path.join(d, "b.html"), os.path.join(d, "h.txt")
-        r = subprocess.run(
-            ["curl", "-s", "--compressed", "-m", "40", "-A", UA,
-             "-H", "Accept: text/html", "-H", "Accept-Language: en-US,en;q=0.9",
-             "-D", hdr, f"https://www.stocktitan.net/news/{symbol}/", "-o", body,
-             "-w", "%{http_code}"], capture_output=True, text=True)
+        cmd = ["curl", "-s", "-m", "40", "-D", hdr, url, "-o", body, "-w", "%{http_code}"]
+        if not bare:
+            cmd[2:2] = ["--compressed", "-A", UA, "-H", "Accept: text/html",
+                        "-H", "Accept-Language: en-US,en;q=0.9"]
+        r = subprocess.run(cmd, capture_output=True, text=True)
         code = r.stdout.strip() or "000"
         text = open(body, encoding="utf-8", errors="replace").read() if os.path.exists(body) else ""
         headers = open(hdr, encoding="utf-8", errors="replace").read() if os.path.exists(hdr) else ""
     retry = next((l.split(":", 1)[1].strip() for l in headers.splitlines()
                   if l.lower().startswith("retry-after")), "")
-    ok = code == "200" and len(text) >= 5000 and "Too Many Requests" not in text
+    ok = code == "200" and len(text) >= (5000 if not url.endswith("robots.txt") else 1)         and "Too Many Requests" not in text
     return code, len(text), retry, ok
 
 
@@ -90,6 +107,15 @@ def main():
             print(f"cycle {c}: {passed} passed, never blocked at {a.spacing}s spacing", flush=True)
             continue
         t_block = time.time()
+        if c == 1:
+            print("side probes (what does the block cover?)", flush=True)
+            for label, url, bare in SIDE:
+                code, size, retry, ok = fetch("", url=url, bare=bare)
+                w.writerow([datetime.now().strftime("%H:%M:%S"), c, "side", label, "", code, size, retry, int(ok)])
+                f.flush()
+                print(f"[{datetime.now():%H:%M:%S}] side {label:22s} http={code} bytes={size}"
+                      f"{' retry-after=' + retry if retry else ''} {'ok' if ok else 'BLOCKED'}", flush=True)
+                time.sleep(5)
         print(f"cycle {c}: blocked after {passed} passes in {t_block - t_burst:.0f}s "
               f"(spacing {a.spacing}s). Probing recovery...", flush=True)
         probes, recovered, last_fail = 0, None, 0.0

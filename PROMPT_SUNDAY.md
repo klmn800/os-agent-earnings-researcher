@@ -85,23 +85,32 @@ This is where you get sharper, not just tidier:
 - Crucially: **did symbols you skipped (with a logged next-check date) later confirm at the date you predicted?** That's the test of your skip judgment and your lead-time table. If a skip was wrong, name why — and fix the cadence-table entry that misled you.
 - Note any process drift worth correcting (e.g. a token-heavy, low-yield session — you flagged a 151k-token / 0-confirm session on 2026-05-28). Calibration is how that stops recurring.
 
-### 7. Audit third-party-sourced confirms (did the date turn out right?)
+### 7. Audit the accuracy of confirmed dates, by source type (did the date turn out right?)
 
-Step 6 tests your *skips*. This step tests your *confirms* that leaned on a weak source. Past dates are settled facts now, so you can check them against what actually happened.
+Step 6 tests your *skips*. This step tests how accurate the *sources behind your confirms* turned out to be. It measures the sources, not your judgment in choosing them. Past dates are settled facts now, so you can check them against what actually happened.
 
-**Pool:** symbols you confirmed (from the confirmation ledger and the archives under `memory/archive/`) where the stated source was **not the company**: an aggregator or calendar site (Earnings Whispers, MarketBeat, Nasdaq, TipRanks and the like), a search-result snippet, a yfinance/finnhub agreement, or an `inferred` / `weak` / `unverified` note. Copies of a company's own press release (finviz, stocktitan, financialcontent, biopharmawatch, a wire service) count as **company-sourced**, not third-party. Leave them out. Restrict the pool to symbols whose confirmed date has **already passed**, starting with September (the most recent finished season), and widen to earlier months only if September yields too few.
+**Pool: every confirmed symbol whose confirmed date has already passed**, starting with September (the most recent finished season) and widening to earlier months only if September is too small. Include all source types, and **tag each row by the source it was confirmed from**, since that comparison is the point:
+- company IR / newsroom page fetched directly,
+- company press release read as a copy (finviz, stocktitan, financialcontent, biopharmawatch, a wire service),
+- company statement seen only through a search-result summary,
+- aggregator or calendar site (Earnings Whispers, MarketBeat, Nasdaq, TipRanks and the like),
+- date taken from yfinance/finnhub agreement,
+- time (bmo/amc) **inferred** from a call time or filing history, with the date itself sourced.
 
-**Sample:** if the pool is 15 or fewer, check all of it. If larger, take a random sample of about 12 and say how you drew it. Don't pick the ones you remember being shaky.
+**Sample:** aim for 40 or more symbols, enough to compare source types, not a handful. If the pool is larger, stratify so every source type has at least ~5 symbols where the pool allows it, draw randomly within each stratum, and say how you drew. Don't pick the ones you remember being shaky. If a source type has fewer than 5 in the whole pool, check all of them and say the count is too small to read.
 
-**Verify without the original source.** Find the date the company actually reported, using evidence independent of whatever you confirmed from: the dated earnings press release itself, the Item 2.02 8-K on EDGAR (the filing date and acceptance time give the date and bmo/amc; see `memory/reference_sec_via_curl.md`), or the company's results-call transcript or archive page. An aggregator's *past-results* listing doesn't count, because it may have copied the same feed that was wrong. If you can't find an independent record, mark it **unverifiable** (not "correct").
+**Use subagents for the lookups** (this is the one Sunday task where that is expected). Split the sample into batches of ~8-10 symbols and give each subagent a self-contained brief: the symbols, the confirmed date/time for each, and the verification rules below. Do **not** tell them which source the confirm came from, or what you expect. Collect their tables and re-check any "mismatch" yourself before you report it. Two subagents can be wrong the same way, and a mismatch is usually a lookup error before it is a real miss.
 
-**Record** a table in the weekly entry: `SYM | confirmed date/time | actual date/time | source of the actual | match / date off by N d / time wrong / unverifiable`. Then state the hit rate **with the sample size** (e.g. 9 of 11 matched, 1 date off, 1 unverifiable). Don't generalize beyond the sample: 11 symbols says little about the other 200.
+**Verification rules (no using the original source):** find the date the company actually reported using evidence independent of whatever you confirmed from: the dated earnings press release itself, the Item 2.02 8-K on EDGAR (the filing date and acceptance time give the date and bmo/amc; see `memory/reference_sec_via_curl.md`), or the company's results-call archive page. An aggregator's *past-results* page doesn't count, because it may have copied the same feed that was wrong. If no independent record is found, mark the row **unverifiable**, never "correct".
 
-**Act on misses:**
-- Name why the original source misled you (stale estimate, copied feed, wrong fiscal calendar, time inferred wrongly).
-- Fix the matching `memory/reference_company_cadence.md` row and ledger line.
-- If a source *type* misled you more than once, write it up in `analysis/` and flag it in `notes_for_ben.md`. Ben decides whether the weekday prompt should stop accepting that source.
-- Don't touch DB rows from here (the dates have passed, and Ben's `date_confirmed_by = 'ben'` rows are never yours to change).
+**Report in the console** (so Ben sees it when he opens the window), and also write it into the weekly entry:
+1. A table: `SYM | source type | confirmed date/time | actual date/time | source of the actual | match / date off by N d / time wrong / unverifiable`.
+2. An accuracy table by source type, with counts: `source type | n checked | date matched | date wrong | time wrong | unverifiable`. Always show n. Report a small n as small, and don't generalize beyond the sample.
+3. For each miss, one line on why the source misled (stale estimate, copied feed, wrong fiscal calendar, time inferred wrongly). Fix the matching `memory/reference_company_cadence.md` row and ledger line.
+4. If one source type missed repeatedly, write it up in `analysis/` and flag it in `notes_for_ben.md`. Ben decides whether the weekday prompt should stop accepting it.
+5. **End the console report with this question to Ben:** *"Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have passed by then.)"* Also put it as an open item in `notes_for_ben.md` so it survives the window closing.
+
+Don't touch DB rows from this step: the dates have passed, and `date_confirmed_by = 'ben'` rows are never yours to change.
 
 ### 8. Keep `MEMORY.md` tight
 
