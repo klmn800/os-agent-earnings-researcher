@@ -459,3 +459,7 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | TMO | bmo | Q3'26 PR 09-28 → 10-21 (23d) | before open, call 7:00am ET (earlier than usual 8:30). finviz copy of BW — 10-09 |
 | TSLA | amc | Q3'26 date in the 10-02 deliveries PR → 10-21 (19d) | after close, webcast 4:30pm CT. financialcontent copy of BW — 10-09 |
 | GM | bmo | unmeasured (call-details PR not out) | Date 10-20 from GM's Q2'26 call notice per search summary (page timed out); bmo from Q1'26 6:30am pattern. Weak: re-verify when the Q3 call PR lands — 10-09 |
+| FAF | amc | Q3'26 PR 10-07 → 10-21 (14d) | After close, call 10-22 11am ET. A search summary said no Q3 PR existed; the stocktitan spine found it, so a search "no PR" is not evidence for this name. stocktitan article page — 10-09 |
+| NEE | bmo | unmeasured (PR date not captured) | NextEra "Announces Date for Release of Third-Quarter 2026" PR; stocktitan article page — 10-09 |
+| GL | amc | unmeasured (PR date not captured) | Globe Life earnings release and call PR; stocktitan article page — 10-09 |
+| QS | amc | unmeasured (PR date not captured) | QuantumScape "Announces Timing of Third Quarter 2026 Business Update" PR; stocktitan article page — 10-09 |
