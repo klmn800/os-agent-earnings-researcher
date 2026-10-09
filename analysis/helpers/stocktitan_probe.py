@@ -94,22 +94,43 @@ def main():
         return "ok" if ok else ("NETFAIL" if code == "000" else "BLOCKED")
 
     def control(cycle, phase):
-        """After a no-response failure, check a different site so a local network drop can be told from a stocktitan drop."""
+        """Fetch a different site. True = our own network works, so a stocktitan failure is stocktitan's doing."""
         code, size, _, ok, err = fetch("", url="https://www.google.com/robots.txt")
         w.writerow([datetime.now().strftime("%H:%M:%S"), cycle, "control", phase, "google", code, size, "", int(ok), err])
         f.flush()
-        print(f"[{datetime.now():%H:%M:%S}] control google robots.txt http={code} {'ok' if ok else 'ALSO FAILED (local network?)'}", flush=True)
+        print(f"[{datetime.now():%H:%M:%S}] control google robots.txt http={code} "
+              f"{'ok' if ok else 'FAILED (local network down?) ' + err}", flush=True)
+        return ok
+
+    def wait_for_network(cycle, max_wait=1800):
+        """Local outage: poll the control every 15s until it works. Returns outage length in seconds."""
+        t0 = time.time()
+        print(f"[{datetime.now():%H:%M:%S}] LOCAL NETWORK DOWN - pausing the test until it is back", flush=True)
+        while time.time() - t0 < max_wait:
+            time.sleep(15)
+            if control(cycle, "outage-poll"):
+                break
+        secs = time.time() - t0
+        print(f"[{datetime.now():%H:%M:%S}] network back after {secs:.0f}s (request retried, not counted)", flush=True)
+        return secs
 
     def req(cycle, phase, n):
+        """One counted request. A no-response failure with a dead control is a local outage: wait it out and
+        retry; it is NOT recorded as a stocktitan block. No-response with a live control IS a stocktitan-side drop."""
         s = next(syms)
-        code, size, retry, ok, err = fetch(s)
-        w.writerow([datetime.now().strftime("%H:%M:%S"), cycle, phase, n, s, code, size, retry, int(ok), err])
-        f.flush()
-        print(f"[{datetime.now():%H:%M:%S}] c{cycle} {phase:8s} #{n:<3d} {s:5s} http={code} bytes={size}"
-              f"{' retry-after=' + retry if retry else ''}{' curl=' + err if err else ''} {verdict(code, ok, err)}", flush=True)
-        if code == "000":
-            control(cycle, phase)
-        return ok
+        for attempt in range(5):
+            code, size, retry, ok, err = fetch(s)
+            w.writerow([datetime.now().strftime("%H:%M:%S"), cycle, phase, n, s, code, size, retry, int(ok), err])
+            f.flush()
+            print(f"[{datetime.now():%H:%M:%S}] c{cycle} {phase:8s} #{n:<3d} {s:5s} http={code} bytes={size}"
+                  f"{' retry-after=' + retry if retry else ''}{' curl=' + err if err else ''} {verdict(code, ok, err)}", flush=True)
+            if code != "000":
+                return ok
+            if control(cycle, phase):
+                print("  -> control works, so this is a stocktitan-side connection drop (counts as a block)", flush=True)
+                return False
+            wait_for_network(cycle)
+        return False
 
     for c in range(1, a.cycles + 1):
         passed, n = 0, 0
