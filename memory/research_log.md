@@ -28,12 +28,12 @@ simply match nothing (fine).**
 |---------|---------------------------------------------------------------|
 | ~~10-13~~ | ~~ACI~~ confirmed 10-05 |
 | **10-14** | **ASML** only left (company sites 403/timeout 10-06; aggregators say 14 Oct 07:00 CET): BAC, FAST, MS, STT confirmed 10-06 |
-| **10-15** | **SNA** only left (carry-over below). The other 10 confirmed 10-06 (SCHW date inferred, TSM time corrected to bmo) |
+| ~~10-15~~ | ~~SNA~~ confirmed 10-09 (**actually 10-22**). The other 10 confirmed 10-06 (SCHW date inferred, TSM time corrected to bmo) |
 | ~~10-16~~ | ~~CFG, MTB, TRV~~ confirmed 10-06 |
 | **10-17** | HDB, IBN: **Saturday-dated** Indian ADRs. HDB board meets **Sat 10-17** (angelone/sahi reports of the NSE intimation, 10-06). IBN: no 2026 notice found yet. Hold the encoding for Ben's policy Q2 (`notes_for_ben.md`) |
 | ~~10-19~~ | ~~STLD, WRB, ZION~~ confirmed 10-06; ~~WAL~~ confirmed 10-07 (10-19 amc) |
-| 10-20 | ~~EFX~~ confirmed 10-08 (bmo), **GM** (no Q3 event page; aggregators say 10-20), **ISRG** (search snippet says 10-21 amc, DB 10-20; unverified), **OMC** (no Q3 date PR found). HAL, HAS, MSCI, NOC, UAL, MMM confirmed 10-07 |
-| 10-21 | ~~CCI, CME, DHR~~ confirmed 10-07; ~~ELV~~ confirmed 10-08, EQR (search says 10-28; AVB merger, may have no call), FAF (search summary: 10-21 amc, call 10-22 11am ET; no fetchable PR), IBM (10-08 search: IR page lists 10-21 *preliminary*, no PR yet), ~~KNX, LRCX, LUV, MOH, PKG, T~~ confirmed 10-08, LVS, PM (no PR), SAP (IR calendar via search: 10-21, disclosure 22:05 CET = amc; page 403), TMO, TSLA, TXN |
+| 10-20 | ~~EFX~~ confirmed 10-08 (bmo), ~~GM~~ confirmed 10-09 (weak source), **ISRG** (search snippet says 10-21 amc, DB 10-20; unverified), **OMC** (no Q3 date PR found). HAL, HAS, MSCI, NOC, UAL, MMM confirmed 10-07 |
+| 10-21 | ~~CCI, CME, DHR~~ confirmed 10-07; ~~ELV~~ confirmed 10-08, EQR (search says 10-28; AVB merger, may have no call), FAF (search summary: 10-21 amc, call 10-22 11am ET; no fetchable PR), ~~IBM~~ confirmed 10-09, ~~KNX, LRCX, LUV, MOH, PKG, T~~ confirmed 10-08, LVS, PM (no PR), SAP (IR calendar via search: 10-21, disclosure 22:05 CET = amc; page 403), ~~TMO, TSLA~~ confirmed 10-09, TXN |
 | 10-22 | CMCSA, DGX, DOV, DOW, HBAN, HON, INTC, LAZ, NDAQ, NEM, NOK, ORI, PG, PHM, SCCO (`Unknown`), SPOT, SSNC, UNP, VLO, VRSN, WST |
 | 10-23 | AXP, E, GNTX, INFY, SLB |
 
@@ -50,12 +50,11 @@ row's "How to read" is the working channel and its known traps. Use it verbatim.
 
 | Symbol | DB row | Status | How to read | Next check |
 |--------|--------|--------|-------------|------------|
-| **SNA** | 10-15 `bmo` (time sourced; date unlocked, **probably 7d early**) | 53-week fiscal 2025 ⇒ Q3 ends 10-03 ⇒ **Thu 10-22** expected. The webcast PR (14d lead) settles it: **a PR dated ~10-01 ⇒ 10-15 is real; none ⇒ 10-15 is dead, and the 10-22 PR is due 10-08.** ⚠ The 10-02 check **never ran** (crowded out). Dispute row left `unresolved` but it doesn't re-flag. **10-06 re-check: still no webcast PR (newest = Q2 07-09) ⇒ 10-15 dead; 10-22 PR due ~10-08.** | stocktitan spine `SNA`. Title: *"Snap-on Incorporated to Webcast 2026 Third Quarter Results Conference Call"* (BusinessWire). `investors.snapon.com` is NXDOMAIN. | **10-09** (10-08 spine: still no Q3 webcast PR; 10-15 now very likely dead) |
-| **AMX** | 10-13 `amc` (finnhub 10-20) | No 3Q26 event in the feed as of 10-02 (newest 2Q26, 07-21). Q3 is always Tuesday amc (10-17 / 10-15 / 10-14); 10-13 fits. The event's appearance lead is unmeasured. **Log the first day it appears.** **10-06: feed re-read (61 events), newest still 2Q26 07-22; no 3Q26 event.** | Event.svc feed, browser UA, `pageSize=100` (cached correctly since 09-28). Page with `pageNumber`, dedupe by `EventId`, parse `StartDate` with strptime (string-sorting `MM/DD/YYYY` is garbage), open as utf-8. | 10-09, daily (10-08: feed re-read, 61 events, newest still 2Q26 07-22) |
+| **AMX** | 10-13 `amc` (finnhub 10-20) | No 3Q26 event in the feed as of 10-02 (newest 2Q26, 07-21). Q3 is always Tuesday amc (10-17 / 10-15 / 10-14); 10-13 fits. The event's appearance lead is unmeasured. **Log the first day it appears.** **10-06: feed re-read (61 events), newest still 2Q26 07-22; no 3Q26 event.** | Event.svc feed, browser UA, `pageSize=100` (cached correctly since 09-28). Page with `pageNumber`, dedupe by `EventId`, parse `StartDate` with strptime (string-sorting `MM/DD/YYYY` is garbage), open as utf-8. | 10-12, daily (10-09: feed not re-read, 429s elsewhere; 10-08: feed re-read, 61 events, newest still 2Q26 07-22) |
 | **TSCO** | 10-22 `Unknown` | Q2 PR 07-02 → 07-23 (21d) ⇒ due ~10-01; none by 10-02. **Slightly overdue.** IR calendar empty. | search the IR newsroom; stocktitan `TSCO` | **10-05** |
 | **VRT, LRCX** (MMM, WAL, UAL confirmed 10-07) | 10-21 / 10-21 | **Time-only** (EDGAR furnish history, 09-30); dates unsourced. WAL: aggregator says 10-20 amc, so the DB 10-21 may be a day late. UAL's live row moved 10-21 → 10-20. 10-06: spines MMM/WAL read, no date PR (WAL's Q3'25 PR came 10-02 for 10-21, so WAL is now ~4d late). | stocktitan spines; IR newsrooms | 10-07 |
-| **PNR** | 10-20 | 14d lead ⇒ PR due ~10-06; 10-08 spine: still nothing (newest = 09-22). **PEGA confirmed 10-08.** finnhub says 10-27. | stocktitan spine `PNR` | 10-09 |
-| **ALK** | 10-22 `Unknown` | 14d lead (Q2) ⇒ due ~10-08 10-06 spine: nothing yet. | — (10-07/10-08 searches: aggregators list the Q3 call 10-23 11:30am ET; no PR; DB 10-22; yfinance/finnhub 10-20) | 10-09 |
+| **PNR** | 10-20 | 14d lead ⇒ PR due ~10-06; 10-08 spine: still nothing (newest = 09-22). **PEGA confirmed 10-08.** finnhub says 10-27. | stocktitan spine `PNR` | 10-12 (10-09 spine: still nothing, newest 09-22) |
+| **ALK** | 10-22 `Unknown` | 14d lead (Q2) ⇒ due ~10-08 10-06 spine: nothing yet. | — (10-07/10-08 searches: aggregators list the Q3 call 10-23 11:30am ET; no PR; DB 10-22; yfinance/finnhub 10-20) | ~~resolved 10-09~~ |
 | **RHI** | 10-21 `amc` | ~7d lead ⇒ due ~10-14. **Don't read before ~10-12.** | — | 10-13 |
 | **GL, QS, SF, TER, VLTO, BPOP, NSC, SLM, ITW, F, FCX, POOL, DECK, BC** | 10-21 → 10-23 (F/FCX later) | No company Q3 date as of 10-02; only aggregator estimates. VRT onward went unread on 10-02 (429). **BC:** Q2 was 07-30, so 10-22 looks early (weak signal). | stocktitan spines first | 10-05 |
 | **IRDM** | 10-22 `Unknown` | Pending Rocket Lab acquisition (close mid-2027), still a registrant that issued a Q2 PR (07-22). 10-06: no Q3 date found. Look for a bare results PR or 8-K. **WBS resolved 10-06 as `skipped`**: delisted (Santander closed Aug 2026, SEC `tickers=[]`, Form 15-12G 08-31 and 09-30), so the DB row is a phantom. **Ben: the scanner calendar still carries a WBS 10-22 row.** | EDGAR 8-K | 10-08 |
@@ -134,6 +133,8 @@ only). Inferred times: DAL, GPC, PCG, BX, AAL, HCA (and LMT from the call time).
 | GE | 2026-10-20 | bmo | geaerospace.com 3rd Quarter 2026 webcast page: Tue 10-20 7:30am EDT. bmo from the call time — 10-06 |
 | EFX | 2026-10-20 | bmo | Equifax PR 10-06 (stocktitan wire text): release 6:30am ET, call 8:30am. **Time corrected from amc**; lead 14d — 10-08 |
 | PEGA | 2026-10-20 | amc | Pega PR 10-07 (stocktitan wire text): *"after market close"*, call 10-21 8:00am EDT; lead 13d — 10-08 |
+| ALK | 2026-10-20 | amc | Alaska webcast PR 10-07 (stocktitan): after close, call 10-21 11:30am ET. **Time was Unknown**; 13d lead — 10-09 |
+| GM | 2026-10-20 | bmo | ⚠ Weak: GM Q2'26 call notice per search summary (page timed out); bmo inferred from Q1 pattern — 10-09 |
 | ABT | 2026-10-21 | bmo | abbott.mediaroom.com 09-30: *"Wednesday, Oct. 21, before the market opens,"* call 9am ET — 10-01 |
 | CSX | 2026-10-21 | amc | GlobeNewswire 09-21: *"after the market close on Wednesday, Oct. 21, 2026,"* call 4:30pm ET — 09-30 |
 | MCO | 2026-10-21 | bmo | Moody's BW 09-30 07:00 ET (financialcontent copy): *"before the start of NYSE trading on Wednesday, October 21, 2026,"* call 9am — 09-30 |
@@ -149,6 +150,9 @@ only). Inferred times: DAL, GPC, PCG, BX, AAL, HCA (and LMT from the call time).
 | MOH | 2026-10-21 | amc | Molina PR 09-02 (biopharmawatch copy): after close, call 10-22 8am ET — 10-08 |
 | PKG | 2026-10-21 | amc | PCA BW 09-17 (finviz copy): after close, call 10-22 9am ET — 10-08 |
 | KNX | 2026-10-21 | amc | Knight-Swift BW 10-01 (finviz copy): after close, call 5:30pm ET. **DB 10-21 was right** (search had said 10-22 from Earnings Whispers) — 10-08 |
+| IBM | 2026-10-21 | amc | IBM PR 10-07 (finviz copy): call 5:00pm ET; amc inferred from call time — 10-09 |
+| TMO | 2026-10-21 | bmo | TMO BW 09-28 (finviz copy): *before the market opens*, call 7am ET — 10-09 |
+| TSLA | 2026-10-21 | amc | Tesla deliveries PR 10-02 (financialcontent): *after market close*, webcast 4:30pm CT — 10-09 |
 | AAL | 2026-10-22 | bmo | GlobeNewswire 10-01: call 10-22 7:30am CT. Release time not stated; **bmo inferred** from the call time — 10-02 |
 | ARGX | 2026-10-22 | bmo | argenx HY release 07-23 financial calendar: *"October 22, 2026: Third Quarter 2026 Financial Results and Business Update"*; its releases go out 07:00 CET ⇒ bmo — 10-01 |
 | BX | 2026-10-22 | bmo | blackstone.com *"Third-Quarter 2026 Investor Call"* (search snippet; page 403s WebFetch): call 10-22 9:00am ET. bmo inferred (BX releases ahead of its call) — 10-01 |
@@ -158,6 +162,7 @@ only). Inferred times: DAL, GPC, PCG, BX, AAL, HCA (and LMT from the call time).
 | PCG | 2026-10-22 | bmo | investor.pgecorp.com PR 09-24: call 10-22 11:00am ET. Release time not stated; **bmo inferred** from Item 2.02 acceptance pattern (8/8 quarters 00:13–01:57 on the release-day date, e.g. Q2 2026-07-23 00:21) — 10-01 |
 | REXR | 2026-10-22 | amc | ir.rexfordindustrial.com detail/380, PR 09-28 16:05 ET: *"after the market closes on Thursday, October 22, 2026,"* call 10-23 11am. All 3 feeds were wrong — 09-29 |
 | NSC | 2026-10-22 | bmo | NSC PR 10-02 (Yahoo copy): call 10am ET. bmo **inferred** — 10-05 |
+| SNA | 2026-10-22 | bmo | Snap-on webcast PR 10-08 (stocktitan): release before open, call 10am ET. **DB 10-15 was 7d early**; 14d lead — 10-09 |
 | BAH | 2026-10-23 | bmo | investors.boozallen.com (BW 09-11): call Fri 10-23 8am EDT, release *"before the call"* — 10-02 |
 | VZ | 2026-10-26 | bmo | verizon.com / GNW 09-28: *"Monday, October 26, 2026,"* materials 7:00am, webcast 8:30am ET — 09-29 |
 | HIG | 2026-10-26 | amc | newsroom.thehartford.com PR 09-28: ~4:05pm EDT — 10-05 |
@@ -172,6 +177,25 @@ only). Inferred times: DAL, GPC, PCG, BX, AAL, HCA (and LMT from the call time).
 ---
 
 # Research Sessions (newest first)
+
+## Session: 2026-10-09 (Friday) — 07:21 AM ET
+
+40-row queue (25 disputes + 15 unconfirmed). **6 confirmed** (SNA, ALK, IBM, TMO, TSLA, GM), WBS still skipped (delisted), 34 held.
+Spine ran 8 symbols clean, then 429'd on the next batch of 9, so FAF/PM/NEE/LVS/EQR/SAP got searches only.
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| SNA | **10-22 bmo** (DB 10-15, finnhub/yf 10-22 were right) | webcast PR 10-08 (stocktitan), 14d lead |
+| ALK | 10-20 **amc** (time was Unknown) | webcast PR 10-07 (stocktitan), 13d lead |
+| IBM | 10-21 amc | finviz copy of PR 10-07, call 5pm ET |
+| TMO | 10-21 bmo | finviz copy of BW 09-28 |
+| TSLA | 10-21 amc | 10-02 deliveries PR (financialcontent copy) |
+| GM | 10-20 bmo | ⚠ weak: search summary of GM's Q2 call notice; investor.gm.com timed out |
+
+Held (no company Q3 date found by search; PRs expected 10-12 → 10-16): PNR (spine: nothing since 09-22), ISRG, OMC (last year's notice was 10-08, not out yet), FAF (search says 10-21 amc / call 10-22 11am from earlier schedule, no Q3 PR), NEE, LVS, PM, SAP, EQR, KMI, GL, SF, TER, VRT, ROL, POOL, WST, GD, MA, CARR, OSK, ASML, HDB/IBN (Saturday-dated, Ben's policy), AMX, IRDM, WHR, QS, VLTO, RHI (not before 10-12), AJG, DTE, BC.
+Not worked: TSCO (spine shows no Q3 PR; still overdue), INTC.
+
+Next checks: 10-12 for everything above; OMC/NEE/POOL/WST/GL/ROL first (historical notices ~10-08/10-09/10-14).
 
 ## Session: 2026-10-08 (Thursday) — 07:21 AM ET
 
