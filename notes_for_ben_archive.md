@@ -859,3 +859,69 @@ the next weekday session re-caches it.
 
 Nothing for you to do yet. I'll score the 09-28 → 10-02 sessions (a heavy week: 25 cohort rows enter the
 horizon) on the same points and report next Sunday.
+
+## Moved at the 2026-10-11 maintenance (verbatim)
+
+### ✅ IMPLEMENTED 10-05 (A + D) — 83 upcoming rows (≤ 10-23) couldn't reach a daily session: disputes crowded the backfill out — 10-04
+
+**10-05:** you had me implement options A and D. The queue is now one date-sorted list (ceiling 40, overflow listed), and the daily prompt reads the log header and does the bookkeeping. First live run: tomorrow 07:15. I'll score it at the 10-11 maintenance. Option C (inject next-checks) is still open. The text below is kept until then.
+
+**This is the one to fix before the 10-19 wave.** The hook backfills unconfirmed rows only into
+`25 − disputes` slots. Disputes have run 28 / 42 / 34 a morning since 09-30, so the backfill has been
+**empty**, and any row where the three feeds agree (so no dispute row) never reaches a session. As of tonight:
+**107 unconfirmed rows report 10-05 → 10-23 and 83 of them are invisible.** They include all of BAC, MS,
+TSM, PNC, SCHW, USB, BK, STT, ASML (10-14/15), and TSLA, IBM, INTC, TXN, T, PG, GE, GM, ISRG, … (10-20 → 10-23).
+Two carry-over checks were silently skipped too: **ACI (09-30) and SNA (10-02), both rows whose stored date
+I think is wrong.**
+
+Agreement among the feeds isn't safety. This quarter all three were wrong together on REXR, LMT and DOC
+(3 of 21 scored disputes), and SNA is probably a fourth.
+
+There's a second, smaller cause: the daily prompt template never points the session at the log header
+or the carry-overs, and it sorts `unconfirmed` last. So my "front-load these" note in the header was
+never going to be read. The Sonnet sessions did exactly what the template says.
+
+**Ask:** pick from `analysis/proposal_20261004_backfill_crowded_out.md`. **A** (one list, sorted by
+earnings date) is my preference, **B** (always backfill ≥10) is the smallest change, and **D** (two
+lines in `PROMPT_TEMPLATE`: read the header first; write cadence rows for first-time names) costs
+almost nothing and makes the stopgap reliable. **Stopgap in place:** the research-log header now opens
+with a READ FIRST block listing all 83 by date, but without D a session only finds it by habit.
+
+My 09-27 note told you the ceiling only made rows "slip a day". That was wrong: I hadn't read how the
+ceiling applies. Corrected.
+
+### ⚠ SNA 10-15 is probably a week early (→ 10-22); its check was missed — 09-24, updated 10-04
+
+If the scanner keys anything to SNA's stored 10-15, treat it as unconfirmed. Snap-on's 53-week fiscal 2025
+shifted every 2026 quarter-end by +7d, and Q3 ends 10-03, so the release should be **Thu 10-22**. The
+webcast PR (14d lead) decides it: one dated ~10-01 means 10-15 is real, none means 10-22 (PR due 10-08).
+The 10-02 read never happened (crowd-out above), so it's first on Monday's list. **ACI** is the same
+shape (stored 10-13; fiscal arithmetic says 10-20; advance overdue if 10-13 were real). Also first Monday.
+
+**REXR resolved as predicted:** PR 09-28 → **10-22 `amc`**, confirmed 09-29. All three feeds had it
+wrong (10-14 / 10-14 / 10-21). Full history in the archive.
+
+The general point for the calendar seeder still stands: after a 53-week fiscal year, every "nth weekday"
+date shifts by a week. Checking the fiscal-year-end date on the latest 10-K cover would catch it.
+
+### 👀 Sonnet daily sessions, week 1 (09-28 → 10-02, n=5): good research, no upkeep, and the prompt doesn't ask for upkeep — 10-04
+
+**Research quality is good.** 36 dates confirmed on company sources from ~65 symbols, 8–10 a morning,
+**0 wrong writes found**, one stored date corrected (FNB +4d) and one time (CLF). The two failure points
+from 09-25 are gone: AMX's feed was read correctly every day, and rate-limited reads were logged as
+*unread* rather than as absences. Two sourcing slips, both minor: a constructed BusinessWire URL went
+into DOC's `research_url` (fixed within the minute), and BX was confirmed from a search snippet of a
+company page that 403s (flagged as weak in the ledger).
+
+**Bookkeeping didn't happen:** no cadence rows after 09-28 (I backfilled 30 tonight), carry-over
+table never updated, ledger lines skipped for 09-29/09-30. But the daily template never asks for any of
+that. The Opus sessions did it unprompted, the Sonnet ones do what's written. **So I'd fix the prompt
+(proposal D above), not the model.** Lead times are what window-gating runs on, and they only accumulate
+if somebody writes them down.
+
+## 2026-10-06 session notes
+- **WBS is a phantom row.** Santander closed the Webster deal in Aug 2026 (SEC `tickers=[]`, Form 15-12G 08-31 and 09-30). The dispute row is `skipped`, but `earnings_upcoming` still carries WBS on 10-22. Worth removing so the scanner doesn't treat it as live.
+- **TSM time corrected amc → bmo** (call is 14:00 Taiwan = 02:00 ET). Same shape as the other foreign filers; worth a look if the DB defaults foreign ADRs to amc.
+- **SCHW date is inferred**: Schwab's Fall Business Update PR gives only the 10-15 event; earnings rode the update in 3 of 3 prior quarters.
+- **SNA 10-15 is dead** (no webcast PR; the Q2 one came 14d ahead). Expect 10-22; the row still says 10-15 and the scanner is 9 days out from the real date.
+- **HDB/IBN (Sat 10-17):** HDB's board meets Saturday 10-17 per reports of the NSE notice; IBN has no 2026 notice found yet. Still waiting on your policy call.

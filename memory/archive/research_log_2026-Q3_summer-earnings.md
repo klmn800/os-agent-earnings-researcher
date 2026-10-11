@@ -2,9 +2,9 @@
 
 > Summer 2026 earnings season — Q2 calendar results (plus the off-cycle fiscal quarters that
 > report in the same wave: May/Jun/Jul/Aug quarter-ends), reported ~mid-July through early
-> September 2026. Sessions **2026-07-01 → 2026-09-15**, rolled off the active `research_log.md`
+> September 2026. Sessions **2026-07-01 → 2026-09-25**, rolled off the active `research_log.md`
 > at the 2026-09-13 weekly maintenance (07-01 → 08-28; the first maintenance pass since 06-21),
-> the 2026-09-20 maintenance (09-01 → 09-03) the 2026-09-27 maintenance (09-08 → 09-11; 09-08 is a reconstructed stub) and the 2026-10-04 maintenance (09-14, 09-15, plus the 09-13 maintenance entry), each inserted ahead of the appendices. Chronological
+> the 2026-09-20 maintenance (09-01 → 09-03) the 2026-09-27 maintenance (09-08 → 09-11; 09-08 is a reconstructed stub) and the 2026-10-04 maintenance (09-14, 09-15, plus the 09-13 maintenance entry) and the 2026-10-11 maintenance (09-22 → 09-25, plus the 09-20 maintenance entry; **this closes the archive**: every calendar-Q3 session is now here), each inserted ahead of the appendices. Chronological
 > order, oldest first. Two sessions (07-02, 07-24) had lost their `## Session` headers and six
 > (07-21, 07-22, 07-27 → 07-30) had been written as condensed paragraphs inside the carry-over
 > header; all are restored below as normal session blocks, each with a bracketed note. 07-03 had
@@ -2824,6 +2824,249 @@ rotation. `analysis/` holds ~140 dated one-off scripts; left in place (memory an
   the symptom.
 
 **STATUS.md** rewritten (was stamped 06-21).
+
+---
+
+## Session: 2026-09-22 (Tuesday) — 07:13 AM ET
+
+8 surfaced (3 disputes: AMX `date_disagreement`, ACI + C `unknown_time`; 5 unconfirmed: UEC, CCL, MU, ACN, STZ).
+**6 confirmed on company sources (UEC, CCL, MU, ACN, STZ, C), 1 time-only (ACI), 1 held (AMX).** Three
+stored values were wrong and got fixed: **UEC date 09-24 → 09-29 and amc → bmo; ACN amc → bmo; STZ bmo → amc.**
+First session since 09-15 (no session 09-16 → 09-18, dispute-gated; 09-21 also did not run). Reads: 8 searches,
+7 WebFetches (1 BusinessWire 403), EDGAR submissions ×2 + 6 filings, 3 IR-host curls, 1 stocktitan spine, and
+**the AMX Q4 event feed (new channel, see Notes)**.
+
+### Confirmed / corrected
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| **UEC** | **2026-09-29 `bmo`** — ⚠ corrected from 09-24 `amc` (+5d, time flipped) | Advance PR **published this morning 09-22 07:00 ET** (via stocktitan; the exact 7d lead seen for FY26 Q2/Q3): *"issue its fiscal 2026 year-end operating and financial results **before the markets open on Tuesday, September 29, 2026**,"* call 11:00am ET. Corroborated first-party: `uraniumenergy.com/invest/events-and-webcasts` lists *"URANIUM ENERGY FY 2026 RESULTS WEBCAST — Tuesday, September 29, 2026 — 8:00AM PDT"* (curl, browser UA). The carry-over's `bmo` expectation was right; its date was not (the 09-24 row was a feed guess, and the cadence row's 10-K-eve reading was also wrong for the date). |
+| **CCL** | **2026-09-29 `bmo`** (DB right — the 09-15→09-20 feed move to 09-29 was correct) | PR Newswire **09-15 11:56 ET**, *"Carnival Corporation & plc to Hold Conference Call on Third Quarter Earnings"* (via stocktitan): call *"Tuesday, September 29, 2026, at 10 a.m. (EDT)"*, results *"expected to be released that morning."* Lead **14d** (Q2 was 12d). |
+| **MU** | **2026-09-30 `amc`** (DB right) | `investors.micron.com` PR **08-26**, *"Micron Technology to Report Fiscal Fourth Quarter Results on September 30, 2026"*: call *"2:30 p.m. Mountain time"* = 4:30pm ET ⇒ amc (no before/after phrase in the PR; the 4:30 ET call is the amc evidence, same as every prior quarter). Lead **35d** (fiscal Q3 was 28d). |
+| **ACN** | **2026-10-01 `bmo`** — ⚠ corrected from `amc` (the 09-13 re-seed flag) | `newsroom.accenture.com` **09-15**, *"Accenture to Announce Fourth-Quarter and Full-Year Fiscal 2026 Results"*: call *"8:00 a.m. EDT on Thursday, October 1, 2026,"* *"An earnings news release will be issued before the call."* Lead **16d** — exactly the cadence row's figure. |
+| **STZ** | **2026-10-06 `amc`** — ⚠ corrected from `bmo` (the 09-13 re-seed flag) | `ir.cbrands.com` detail/345, **09-10 16:30 ET**: *"Tuesday, October 6, 2026, after the close of the U.S. markets,"* call 8:00am ET **Wednesday 10-07**. Second consecutive quarter of release-after-close / call-next-morning ⇒ amc is now 2 obs. Lead **26d**. |
+| **C** | **2026-10-13 `bmo`** (`unknown_time` closed; date sourced for the first time) | Citi's own calendar PR *"Citi Third Quarter and Fourth Quarter 2025 Earnings Calls and First Quarter … Fourth Quarter 2026 Earnings Calls"* (citigroup.com, 2025): *"3Q26 – Tuesday, October 13, 2026,"* results *"via press release at approximately 8 a.m. (ET),"* webcast ~11am ET. One page covers the whole year — cached. Dispute row `confirmed_agent`. |
+| **ACI** | **`bmo` written via `--time-only`; date 10-13 NOT locked** | EDGAR CIK 1646972: **11/11 Item 2.02 8-Ks since 2024-01 accepted 07:30–08:32 ET** (07-23 11:31Z, 04-14 11:30Z, 01-07 12:30Z, 2025-10-14 11:31Z …) ⇒ bmo settled from furnish history, per the standing rule. No FQ2 advance yet (stocktitan spine newest = brand news; last year's FQ2 advance was BusinessWire **2025-09-30** for a 10-14 release = 14d). Dispute row `confirmed_agent` with the DB date recorded as-is; see Held for why the date is doubtful. |
+
+### Held
+
+| Symbol | DB date | Why skipped | Next check |
+|--------|---------|-------------|------------|
+| **AMX** | 2026-10-13 `amc` (finnhub 10-20) | ⭐ **Found the company channel**: the JS-only IR calendar is a Q4 site and its data feed is readable — `americamovil.com/feed/Event.svc/GetEventList?…` (browser UA, curl; cached as the IR URL). Every quarter since 2016 is an event titled *"AMX will report 3Q25 Financial and Operating Results on October 14th after the market close. The conference call…"* dated the **next morning** (call day). **Q3 history: 3Q23 Tue 10-17, 3Q24 Tue 10-15, 3Q25 Tue 10-14 — all Tuesday amc, 14–17 days after quarter-end**; 2Q26 was Tue 07-21 amc. ⚠ The results 6-Ks post **2 days later** (10-16, 10-17, 10-19) — do not read 6-K dates as release dates for AMX. **No 3Q26 event is listed yet.** Both candidates are Tuesdays; 10-13 (13d after q-end) continues the 17→15→14 trend, 10-20 (20d) would be the latest Q3 in the series — finnhub's +7d artifact shape. Not locked: no same-quarter source. | **2026-09-29**, then 10-06 (one curl of the feed, newest-first) |
+| **ACI** (date) | 2026-10-13 (time now bmo) | FQ2 FY26 ends **09-12** (16+12 weeks from 02-28). FQ2 FY25 ended 09-06 → reported 10-14 (**38d**); FQ2 FY24 09-07 → 10-15 (38d); FQ1 FY26 06-20 → 07-23 (33d). 38d from 09-12 = **10-20 (Tue)**; 10-13 would be 31d, shorter than any FQ2 on record. The stored 10-13 is probably a stale +364d guess. Advance PR due ~**09-29 → 10-06** at the 14d lead, BusinessWire, *"Albertsons Companies Announces Second Quarter Fiscal 2026 Earnings Release and Conference Call Date."* | **2026-09-30** |
+
+### Notes
+- **UEC would have "reported in 2 days" per the DB** — the real date is a week out. The 09-17 next-check
+  that never ran would also have found nothing (the PR came 09-22); the 7d lead held exactly, so the
+  FY-end advance channel behaves like Q2/Q3. Cadence row rewritten.
+- **Two re-seed time flags closed (ACN, STZ)**, both in the direction the cadence rows predicted. The MDT
+  shape (a feed re-seed flips a settled time) is now 4-for-4 on the Q3 cohort where it has been checked.
+- **Q4 Inc `Event.svc` feed** — first time used. Generalizable: any `*/English/investors/events/calendar/default.aspx`
+  Q4 page should have `/feed/Event.svc/GetEventList` behind it (parameters as in the cached AMX URL;
+  `eventSelection=0`, sort desc, `pageSize=100`, paginate with `pageNumber`). Promoted to
+  `reference_q4_event_feed.md`. The feed returned each event twice and ignored `eventDateFilter`.
+- WebSearch summaries were used only as pointers; every date above was read from a company page, a wire
+  reprint on stocktitan, or EDGAR. BusinessWire deep links 403 to WebFetch (ACI FQ2 FY25 advance).
+- `earnings_confirm.py --time-only` used for the first time in a daily session (ACI): wrote `bmo`, left
+  `date_confirmed=0`. Works as patched.
+- ⚠ Tooling: Bash heredocs whose body has an odd count of single quotes (a Python triple-quoted
+  string, an apostrophe) are rejected by the harness command parser before bash runs — the edit
+  script for this session had to be written with the Write tool as `.txt` (the hook refuses `.py`)
+  and run with `python <file>`.
+
+---
+
+## Session: 2026-09-23 (Wednesday) — 07:13 AM ET
+
+4 disputes (PGR, SYF `date_disagreement`; FHN `both`; REXR `unknown_time`), all four rows dated 10-14 in the
+snapshot. **3 confirmed on company sources (PGR, SYF, FHN), 1 time-only (REXR — date held).** The snapshot was
+stale for two: the live rows already read **SYF 10-20** and **FHN 10-15** before this session touched them, so
+those confirms locked the moved dates rather than correcting anything (0 dates changed today). Reads: 6
+searches, 9 WebFetches (2× 404 on guessed Progressive event URLs), EDGAR submissions ×2 + 1 exhibit,
+Progressive Q4 `Event.svc` feed ×3.
+
+### Confirmed
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| **PGR** | **2026-10-14 `bmo`** (DB right; finnhub 11-02 is the same +19d artifact as Q2's 08-03) | ⭐ **The previous month's results release is the advance channel.** *"Progressive Reports August Results"* (8-K **Item 7.01**, filed 09-18 08:38 ET, EX-99 `pgr202608ex99earningsrelea.htm`, read via curl) closes with *"Events — We plan to release September results on **Wednesday, October 14, 2026, before the market opens**."* Quarter releases since 2025-04 are all 3rd-Wednesday bmo (04-16, 07-16, 10-15 '25; 04-15, 07-15 '26; furnished 08:40–09:50 ET) and 10-14 is October's 3rd Wednesday. The Q4 `Event.svc` feed on `investors.progressive.com` renders (browser UA) but lists only the quarterly investor calls (~3 weeks after each release), not the results dates. |
+| **SYF** | **2026-10-20 `bmo`** (snapshot 10-14; live row had already moved to 10-20 — yfinance 10-20 right, finnhub 10-13 wrong) | `investors.synchrony.com` financial-news detail/588, *"Synchrony to Announce Third Quarter 2026 Financial Results on October 20, 2026"*: release *"approximately 6:00 a.m. Eastern Time,"* call 8:00am ET. First-time name; IR URL cached (financial-news list). PR date not captured — lead unmeasured. |
+| **FHN** | **2026-10-15 `bmo`** (snapshot 10-14 `Unknown`; live row already 10-15 — yfinance 10-15 right, finnhub 10-21 wrong) | `ir.firsthorizon.com` press release **09-22**, *"First Horizon Corporation to Announce Third Quarter Financial Results on October 15, 2026"*: materials *"approximately 6:30 am ET,"* call 9:30am ET. Lead **23d** (Q2 was 28d → 2 obs, 23–28d). |
+
+### Held
+
+| Symbol | State | Reasoning | Next check |
+|--------|-------|-----------|------------|
+| **REXR** | 10-14, **time set `amc` via `--time-only`; date NOT confirmed and probably wrong** | **Time** rests on the company's own advance PRs — Q3'25 *"after the market closes on Wednesday, October 15, 2025,"* Q1'26 and Q2'26 *"after the market closes on Thursday…"*; the Item 2.02 furnish stamps (20:1x–21:2x`Z`, 12/12 quarters since 2023) are consistent and were not timezone-converted. **Date:** the IR press list is current through 09-17 and carries no Q3 advance. Leads now 3 obs: Q3'25 **29d** (09-16→10-15), Q1'26 **35d** (03-19→04-23), Q2'26 **24d** (06-29→07-23). For a 10-14 release the PR was due 09-09 → 09-20 — **3+ days overdue against the shortest lead** ⇒ the PVH shape: distrust the date, don't guess the replacement. Cadence hint only: Q3 was Wed 10-18 / 10-16 / 10-15 ('23–'25), but both 2026 quarters slipped to the **4th Thursday** (04-23, 07-23) → October's is **10-22** (PR due 09-17 → 09-28). finnhub 10-13 is the −1d shape. The PR publishes ~16:05 ET (2/2), so a morning read only sees prior-day PRs. Dispute row left `unresolved` (unlike ACI on 09-22, which was marked `confirmed_agent` on a time-only fix — leaving it open keeps the row visible while the date is doubted). | **09-24**, then daily through 09-29 (one WebFetch of the press list) |
+
+### Notes
+
+- **Stale snapshot ×2 (SYF, FHN).** Both live rows had already moved to the company's dates (FHN's PR is dated
+  09-22, so the overnight feed caught it). Per [[dispute-snapshot-is-stale]] these are locks, not corrections.
+- **PGR channel:** Progressive pre-announces the quarter-end release date inside the *previous month's* results
+  release ("Events" paragraph, ~26d ahead) and files that release under **Item 7.01** — an EDGAR sweep
+  filtered on 2.02 misses it for this name. Cached IR URL moved from the home page to the
+  financial-news-releases list (JS-rendered; the EDGAR exhibit is the readable copy).
+- 10-13 → 10-16 cohort: PGR and FHN handled today; SYF moved out of it (10-20). REXR is the first cohort
+  member showing the overdue-advance signal.
+
+---
+
+## Session: 2026-09-24 (Thursday) — 07:17 AM ET
+
+8 surfaced (7 disputes: AMX, REXR, JBHT, WIT `date_disagreement`; ERIC, FNB, SNA `unknown_time`; 1 unconfirmed:
+PEP). **3 confirmed on company sources (PEP, ERIC, JBHT), 2 time-only (FNB, SNA), 3 held (AMX, REXR, WIT).**
+0 dates changed; 3 `Unknown` times filled (ERIC bmo, FNB amc, SNA bmo). Reads: 3 searches, 10 WebFetches
+(1 NXDOMAIN — `investors.snapon.com` is dead), AMX Event.svc feed ×2, stocktitan spines ×3, EDGAR
+submissions ×3 + 1 exhibit. All four finnhub dissents today are the +5/+7d shape (AMX, REXR, JBHT) or an
+off-pattern weekday (WIT Tue); none was right where checked.
+
+### Confirmed
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| **PEP** | **2026-10-08 `bmo`** (DB right) | pepsico.com newsroom, **08-25**, *"PepsiCo Announces Timing and Availability of Third-Quarter 2026 Financial Results"*: results *"Thursday, October 8, 2026"* by posting the 10-Q, release and prepared remarks *"at approximately 6:00 a.m. EDT,"* analyst Q&A 8:15am EDT. Lead **44d** (Q2 was 35d → 2 obs, 35–44d). The window-watch row said "open since ~09-03"; the PR was already three weeks old when this session first read the channel. |
+| **ERIC** | **2026-10-15 `bmo`** (`unknown_time` closed) | Ericsson financial calendar, per-quarter page `/2026/q3-2026`: *"Oct 15, 2026 07:00 (CET)"* — 07:00 Stockholm = 01:00 ET ⇒ bmo, same as every quarter. The calendar index page is JS-only to WebFetch; the per-quarter deep link renders. Cached. finnhub agrees on the date. |
+| **JBHT** | **2026-10-15 `amc`** (finnhub 10-20 wrong — the +5d shape) | `investor.jbhunt.com` home page, "Estimated Earnings Periods" table: Q3 2026 release **October 15, 2026**, quiet period *"September 26, 2026 – October 15, 2026."* The table gives no time; amc from EDGAR CIK 728535 — 8/8 Item 2.02 8-Ks since 2024-10 accepted 20:08–21:26Z on the 15th (16:0x–16:2x ET), and every quarter the release goes out ~4pm ET with a 5pm call. J.B. Hunt reports on the 15th of the month after quarter-end regardless of weekday (10-15-24 Tue, 01-16-25 Thu, 04-15-25, 07-15-25, 10-15-25, 01-15-26, 04-15-26, 07-15-26). |
+
+### Time-only (date NOT locked)
+
+| Symbol | Written | Basis | Why the date is open |
+|--------|---------|-------|----------------------|
+| **FNB** | `amc` | Q2 scheduling PR 06-30 15:30 ET (via stocktitan): *"plans to issue financial results for the second quarter of 2026 after the market close on Thursday, July 16, 2026,"* call Friday 8:30am ET; Item 2.02 furnished the **next morning** 11:30–12:36Z, 8/8 since 2024-10 — the release-day-evening / 8-K-next-morning shape. | No Q3 scheduling PR yet (newsroom + stocktitan both end 09-03). Q2's came 16d ahead ⇒ due ~09-29. 10-15 = 3rd Thursday fits (Q3'25 10-16, Q2'26 07-16). Dispute row marked `confirmed_agent` (the `unknown_time` question is answered; the ACI 09-22 precedent), calendar row left `date_confirmed=0`. |
+| **SNA** | `bmo` | Q2-26 results PR published **07-23 06:30 ET** (stocktitan timestamp), webcast 9:00am CT; Item 2.02 accepted 10:31–10:42Z on release day 6/8 (11:3xZ for the two February FY releases) — morning either way. | ⚠ **The 10-15 date is probably 7d early — see Held.** Dispute row left `unresolved` so the doubted date stays visible (REXR precedent). |
+
+### Held
+
+| Symbol | State | Reasoning | Next check |
+|--------|-------|-----------|------------|
+| **SNA** (date) | 10-15 `bmo`, finnhub also 10-15 | ⭐ **Fiscal-calendar shift found.** The Q2-26 8-K exhibit (EDGAR, curl) is headed *"Three Months Ended July 4, 2026 / June 28, 2025"* and cites the 10-K *"for the fiscal year ended January 3, 2026"* — fiscal 2025 was a **53-week year**, so every 2026 quarter ends one week later than 2025's. The report dates moved with it: Q1 **04-23** (vs 04-17 '25), Q2 **07-23** (vs 07-17 '25) — both 4th Thursdays, 19 days after quarter-end. **The 06-30 "07-16" cadence lock was therefore wrong by a week** (the archive's SNA line never recorded the outcome; EDGAR shows the 07-23 furnish). Q3-26 ends **10-03** → +19d = **Thu 10-22**. 10-15 would be 12d after quarter-end, shorter than any Snap-on quarter observed. Both the DB and finnhub sit on the 2025-shaped "3rd Thursday". Snap-on's only advance channel is the BusinessWire *"Snap-on Incorporated to Webcast 2026 Third Quarter Results Conference Call"* PR, **14d lead** (2025-10-02 → 10-16; 2026-07-09 → 07-23): due **10-01** if 10-15 were real, **10-08** for 10-22. Not written — a cadence argument is not a source (standing rule), however good the arithmetic. | **2026-10-02** (a silent 10-01 kills 10-15), then **10-09** |
+| **AMX** | 10-13 `amc` (finnhub 10-20) | Event.svc feed re-read (pageSize=100, sorted client-side — `sortDirection=desc` is ignored, and the feed returns the 2014 events first at pageSize=10): 61 unique events, newest still **2Q26 (07-22 call)** — no 3Q26 event. Held per the 09-22 reasoning; nothing new. | **09-29**, then 10-06 |
+| **WIT** | 10-15 `bmo` (finnhub 10-13) | First-time name. Wipro's advance is a short-lead PR (*"Wipro Limited to announce results for the first quarter ended June 30, 2026, on July 16, 2026"* — dated **07-07**, 9d lead) on wipro.com/newsroom, also on BusinessWire. Results go out *"after stock market trading hours in India"* with a 7:00pm IST / 9:30am ET call ⇒ bmo for the US session, matching the stored time. Q2 report days: Wed 10-12 '22, Wed 10-18 '23, **Thu 10-17 '24, Thu 10-16 '25** — the stored Thu 10-15 is the pattern; finnhub's Tue 10-13 is not. No Q2 FY27 PR yet (due ~10-06). The newsroom list page is JS-only to WebFetch; individual PR pages render. | **10-06**, then 10-07 |
+
+### Notes
+
+- **PEP was sitting confirmed-in-public for 30 days.** The window-watch row flagged it "open (~09-03)" on 09-13 and
+  09-20, and the PR had actually published 08-25. It only got read today because it entered the 14-day horizon
+  as an unconfirmed backfill row. The dispute-gated launcher (09-20 note) is the reason; the fix proposal stands.
+- **SNA is the 06-30 bad-lock batch, still paying out.** The July lock (07-16) was wrong, the outcome was never
+  logged, and the Q3 row inherited the same 3rd-Thursday assumption. The general lesson is new though: a
+  **53-week fiscal year shifts every report date in the following year by ~7d**, and a cadence row keyed to
+  "nth weekday of the month" silently breaks. Check `fiscal year ended` in the latest 10-K/8-K when a
+  company's 2026 dates all sit a week off 2025's (REXR shows the same 4th-Thursday shift — worth checking
+  whether it is the same cause). Added to notes_for_ben.
+- **finnhub as a signal today: 0 for 4.** AMX +7d, REXR +7d (after moving overnight), JBHT +5d, WIT −2d onto a
+  Tuesday. None matched a company source.
+- **Ericsson calendar:** the index page is a JS calendar; the per-quarter deep link (`/financial-calendar/2026/q3-2026`)
+  is the readable one, so the cached URL is now quarter-specific and will need bumping to `/2027/q4-2026` next time.
+- **Dead IR host:** `investors.snapon.com` NXDOMAIN; `www.snapon.com/EN/Investors` returns 200 (cached instead).
+  Not yet checked for an events list — Snap-on has no advance channel other than the webcast PR anyway.
+- **JBHT dispute pattern:** finnhub 10-20 is the third consecutive quarter it has disagreed with the IR table by
+  +5d (the Q2 dispute was the same). The IR table is authoritative and pre-lists the whole year — no need to
+  wait for anything.
+- Tooling: the AMX feed had a 0x81 byte that `json.load` with the default cp1252 codec choked on — open with
+  `encoding='utf-8'`. The `sortDirection` parameter is ignored; sort in Python.
+
+---
+
+## Session: 2026-09-25 (Friday) — 07:17 AM ET
+
+6 surfaced (5 disputes: AMX, REXR, WIT `date_disagreement`; RF, TFC `unknown_time`; 1 unconfirmed: DAL).
+**3 confirmed (RF, TFC, DAL), 3 held (AMX, REXR, WIT).** 0 dates changed; 2 `Unknown` times filled (RF bmo, TFC bmo).
+Reads: 8 searches, 9 WebFetches (Regions BusinessWire 403; ir.regions.com PR page rendered).
+
+### Confirmed
+
+| Symbol | Result | Source |
+|--------|--------|--------|
+| **RF** | **2026-10-16 `bmo`** (DB right; `unknown_time` closed) | ir.regions.com 2026 release-dates PR: *"Third Quarter 2026 Results: To be announced pre-market open on Friday, Oct. 16, 2026,"* call 10am ET. Advance PR 09-16 (BusinessWire) agrees. |
+| **TFC** | **2026-10-16 `bmo`** (`unknown_time` closed) | media.truist.com 09-18 *"Truist announces third quarter 2026 earnings call details"*: *"before the market opens on Friday, Oct. 16, 2026,"* call 8am ET. |
+| **DAL** | **2026-10-09 `bmo`** (DB right, no dispute row) | Delta *"announces webcast of September quarter 2026 financial results"*: call **10am ET Fri Oct 9** (date is company-sourced). bmo is **inferred** — the PR doesn't state a release time; Delta's usual morning release ahead of the call, and the DB already said bmo. Lead not logged (PR date not seen). |
+
+### Held
+
+| Symbol | Reasoning | Next check |
+|--------|-----------|------------|
+| **AMX** | Event.svc feed (cached URL) returned only 2014–2018 entries this time (pageSize/sort quirk?) — the calendar page lists only 2Q26. No 3Q26 event. | 2026-09-29 |
+| **REXR** | IR press list still ends 03-19 in the fetch view; events page: *"no upcoming events."* No Q3 advance found. Search shows only Q1/Q2 advance PRs. | 09-28 (10-22 case), daily |
+| **WIT** | No Q2 FY27 advance on wipro.com/investors (expected ~10-06). | 2026-10-06 |
+
+---
+
+_[Maintenance entry moved here from the active log at the 2026-10-11 maintenance, verbatim. It covers the week of 09-14 → 09-18, whose sessions sit above.]_
+
+## Weekly Maintenance — 2026-09-20 (Sunday)
+
+Second weekly pass in a row (launched 18:00 by Task Scheduler). One mailbox notice. The week's real
+finding is not in the workspace at all: **three weekday sessions silently didn't happen.**
+
+**⚠⚠ No session ran 09-16, 09-17 or 09-18.** No transcript, no log block, no dispute rows. The
+orchestrator logs show why: the lite refresh flagged `Disputes flagged: 0` each morning (5 / 7 / 7
+unconfirmed rows in scope), and the agent is spawned only `if disputes and spawn_agent`
+(`ei_lite_refresh.py:339`); `launcher.py` daily mode has the same early-exit. Every gated symbol's
+next-check had, until now, been rescued by some other symbol's dispute firing the launcher. Missed:
+**CCL (next-check 09-16), UEC (09-17 — reports 09-24)**; never surfaced: **MU** (entered the 14d horizon
+09-16) and **ACN** (09-17). No wrong write resulted. Written up in
+`analysis/proposal_20260920_spawn_on_due_next_checks.md`, top of `notes_for_ben.md`, `STATUS.md`, and
+as a standing caution in `feedback_window_gating_and_noop.md`.
+
+**Archived.** `research_log.md` **761 → 504 lines** (incl. this entry). Sessions **09-01, 09-02, 09-03** (329 lines) moved
+verbatim into `memory/archive/research_log_2026-Q3_summer-earnings.md`, chronological, ahead of the
+appendices; archive header updated (now 07-01 → 09-03). Script: `analysis/maintenance_archive_20260920.py`
+(backs up both files, asserts every moved non-blank line is present in the archive — passed). Active
+log keeps 09-08 → 09-15. Header rebuilt from the DB: 2 carry-overs (both with a missed check), window
+watch refreshed (**CCL 09-28 → 09-29 and DAL 10-08 → 10-09 moved in the feed**, unsourced), ledger
+re-verified row-by-row against `earnings_upcoming` (14 rows, all match) and **LEN pruned** (reported 09-16).
+
+**Promoted to structured memory.**
+- `reference_company_cadence.md` — five rows that the 09-14 session confirmed but never wrote back:
+  **PAYX** (resolved: lock was wrong, 09-23 Wed; lead 14d ×2; *weekday history is not a fence*),
+  **KMX** (re-sourced; lead 20d ×2; publishes after the close), **MTN** (Q4 lead 24d = 2nd obs; host is a
+  **403**, not a timeout; the advance sat unread 10 days), **CCL** (Q3 context, the feed move, absence
+  record stops at 09-15), **DAL** (feed move). Cheat-sheet: Vail moved timeout → chronic 403; McCormick
+  and `businesswire.com/newsroom` added to chronic 403; Jefferies split into "HTML shell / RSS works".
+- `feedback_earnings_confirm_bare_symbol.md` — **rewritten to lead with the patched tool** (inbox
+  notice: installed 09-16; I verified `--help` today: `--time-only`, required `--by`). Time-only fixes now
+  go through `--time-only`, not the plain UPDATE. The three pre-patch traps are kept as history. What the
+  patch can't do is stated up front: it cannot tell whether a `--date` is sourced.
+- `feedback_direct_db_query.md` — the "prompt template omits `--write`" sentence retired (verified fixed
+  in `launcher.py`); frontmatter brought to the current format; `PRAGMA` trips the write guard (seen once).
+- `feedback_window_gating_and_noop.md` — the dispute-gated-session caution + three rules (put near-term
+  next-checks in STATUS "Needs attention"; check missed next-checks first after a gap; **a gap is not an
+  absence**).
+- `MEMORY.md` — two index lines rewritten; all 20 pointers resolve, no unindexed files.
+
+**Pruned `notes_for_ben.md`:** 175 → 170 lines, but materially different — the patch item and the
+PAYX/KMX item moved verbatim to `notes_for_ben_archive.md` (new "Moved at the 2026-09-20 maintenance"
+section) and condensed into Resolved; the tool-fix item now shows two fixes landed (confirm tool,
+template `--write`) and what remains (`direct_db_query.py`, backslash paths in the template); new top
+item for the missed sessions.
+
+**Inbox/outbox.** `2026-09-16_earnings-confirm-patch-installed.md` integrated → `inbox/processed/`.
+Inbox root clean. Outbox unchanged since 08-13, largest file 128 lines — no rotation.
+
+**Calibration — this week (09-14 → 09-18: 2 sessions ran, 3 didn't).**
+- 6 unique symbols handled (JEF, UEC, CCL, MTN + the two priority carry-overs PAYX, KMX).
+  **Confirmed 4 — all four from company-issued PRs** (MTN, KMX, JEF; PAYX **corrected −6d**). Open: UEC, CCL.
+- **Skip judgment, where it could be tested: 1 for 1.** JEF was gated five sessions running (09-08 →
+  09-14) on "advance due ~09-14 at the 14d lead, publishes ~16:20 ET ⇒ read 09-15." The PR published
+  **09-14 16:30 ET** and was confirmed 09-15 — the predicted morning, to the day. It also settled the
+  dispute against finnhub and against the 10-05 third-party estimate. Two weeks running the gate has
+  fired on its predicted day (CTAS 09-09, JEF 09-14) — two cases, both off leads with ≥2 observations.
+- **UEC and CCL are untestable, not passed:** their checks never ran. I can't score those gates until
+  a session reads the channels; if either PR turns out to have published on/near its predicted day,
+  that's a hit for the lead table and a miss for the machinery.
+- **Write-side: the 09-08 error is fully unwound.** PAYX corrected from the company PR, KMX sourced, and
+  the tool patched so that route can't recur. Net cost: one wrong locked date for 5 days.
+- **Drift I can own:** (1) On 09-14 I wrote *"window-watch rows with an open window should get a spine
+  read the day they open"* after MTN's advance sat unread for 10 days — and on 09-15 I did not apply it:
+  MU (open since ~09-02), STZ, PEP and ACN got no spine read. A lesson logged and not acted on the very
+  next day. It is now in the window-watch header where Monday will see it, not only in a session note.
+  (2) 09-14's confirms weren't written back to the cadence table (09-15's JEF was) — fixed today; the
+  daily habit is "cadence row in the same session as the confirm."
+- Sessions were lean where they ran: 09-15 = 5 reads / 1 search for 3 symbols; 09-14 = 11 reads / 0 searches.
+
+**STATUS.md** rewritten.
 
 ---
 

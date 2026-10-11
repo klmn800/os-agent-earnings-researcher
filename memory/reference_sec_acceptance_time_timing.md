@@ -105,3 +105,10 @@ Cross-check derived verdicts against symbols where the DB **already** has a know
 The technique gives **time**, not date. `earnings_confirm.py --time X` (no `--date`) leaves `earnings_date` alone **but still stamps `date_confirmed=1`**, which suppresses the symbol from future dispute lists. So before writing, sanity-check each DB date against the **same quarter's year-ago 8-K**, weekday-aligned (`year_ago + 364d`); flag |diff| > 4d. On 2026-07-15 that flagged 8 of 37 (ADT +7, ARE +14, DOC +12, HST +7, MRK +7, **MSI −7**, PSN −7, SNDK −8) → wrote the time, then reset `date_confirmed=0` so they keep surfacing. **MSI is the cautionary tale**: DB 07-30 vs actual Q2 filings 2025-08-07 / 2024-08-01, and **no feed challenged it** — it would have been silently locked to a wrong date.
 
 Related: [[reference-sec-via-curl]], [[company-earnings-cadence]], [[window-gating-and-noop-sessions]], [[feedback-direct-db-query]].
+
+## Added 2026-10-11 (source-accuracy audit, 50 filings read)
+
+- **The submissions-JSON `items` field can omit 2.02.** GWRE's 2026-09-03 results 8-K is listed as `5.02,9.01` only, but the document contains Item 2.02. If a quarter's 2.02 looks absent, open the 8-Ks filed that day before concluding anything.
+- **Filed after 17:30 ET ⇒ `filingDate` is the next business day.** PEP was accepted 10-07 17:57 for a 10-08 6:00am release, so its filingDate is 10-08. GOLD was accepted 17:55 on its own amc release day. An acceptance outside 06:00–09:30 / 16:00–16:50 means you need the release text; the clock alone can't classify it.
+- **Two 2.02 filings in one quarter happen in financing quarters** (GME 08-31 preliminary + 09-08 complete). History-based timing breaks there too: GME's complete results came at 09:02 ET after 8/9 amc quarters. See the GME cadence row.
+

@@ -10,62 +10,48 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### ✅ IMPLEMENTED 10-05 (A + D) — 83 upcoming rows (≤ 10-23) couldn't reach a daily session: disputes crowded the backfill out — 10-04
+### ❓ Source-accuracy audit, first run: 48 of 50 past confirms fully right. Run it again next Sunday? — 10-11
 
-**10-05:** you had me implement options A and D. The queue is now one date-sorted list (ceiling 40, overflow listed), and the daily prompt reads the log header and does the bookkeeping. First live run: tomorrow 07:15. I'll score it at the 10-11 maintenance. Option C (inject next-checks) is still open. The text below is kept until then.
+I checked **every** agent confirm dated 09-01 → 10-09 (n = 50; no sampling) against the company's own
+Item 2.02 8-K / results release on EDGAR. **Dates 49/50, times 49/50, 0 unverifiable.** Full table:
+`analysis/source_audit_20261011.md`.
 
-**This is the one to fix before the 10-19 wave.** The hook backfills unconfirmed rows only into
-`25 − disputes` slots. Disputes have run 28 / 42 / 34 a morning since 09-30, so the backfill has been
-**empty**, and any row where the three feeds agree (so no dispute row) never reaches a session. As of tonight:
-**107 unconfirmed rows report 10-05 → 10-23 and 83 of them are invisible.** They include all of BAC, MS,
-TSM, PNC, SCHW, USB, BK, STT, ASML (10-14/15), and TSLA, IBM, INTC, TXN, T, PG, GE, GM, ISRG, … (10-20 → 10-23).
-Two carry-over checks were silently skipped too: **ACI (09-30) and SNA (10-02), both rows whose stored date
-I think is wrong.**
+| Source type | n | date right | date wrong | time wrong |
+|---|---|---|---|---|
+| Company IR / feed, direct | 38 | 37 | 1 (DELL) | 1 (GME) |
+| Company PR read as a copy | 11 | 11 | 0 | 0 |
+| Search summary only | 1 | 1 | 0 | 0 |
+| Aggregator, feed agreement | 0 | — | — | — |
 
-Agreement among the feeds isn't safety. This quarter all three were wrong together on REXR, LMT and DOC
-(3 of 21 scored disputes), and SNA is probably a fourth.
+The two misses aren't about who hosted the source. **DELL:** Dell's own events page said 09-03 when I
+read it 21 days ahead, and the release then moved to 09-01. **GME:** the date was company-sourced, but
+the amc time was inferred from filing history, and GameStop released at 9:00 AM in a financing quarter.
+Both cadence rows are fixed. No source type missed repeatedly, so I'm not asking you to ban anything.
+The sample can't rank the weak types: September had almost no search-summary or aggregator confirms.
+Those are October dates (BX, GM, CME, MSCI, SCHW), and next week's pool reaches them.
 
-There's a second, smaller cause: the daily prompt template never points the session at the log header
-or the carry-overs, and it sorts `unconfirmed` last. So my "front-load these" note in the header was
-never going to be read. The Sonnet sessions did exactly what the template says.
+**Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have passed by then.)**
 
-**Ask:** pick from `analysis/proposal_20261004_backfill_crowded_out.md`. **A** (one list, sorted by
-earnings date) is my preference, **B** (always backfill ≥10) is the smallest change, and **D** (two
-lines in `PROMPT_TEMPLATE`: read the header first; write cadence rows for first-time names) costs
-almost nothing and makes the stopgap reliable. **Stopgap in place:** the research-log header now opens
-with a READ FIRST block listing all 83 by date, but without D a session only finds it by habit.
+### ⚠ BK (BNY) has no calendar row any more, and its 10-15 confirm landed nowhere — 10-11
 
-My 09-27 note told you the ceiling only made rows "slip a day". That was wrong: I hadn't read how the
-ceiling applies. Corrected.
+`earnings_upcoming` has no BK row, and `earnings_date_sources` stops at 10-02 (`no_data`). The 10-06
+session confirmed **BK 10-15 bmo** from bny.com, but there was no row for it to write to. It's in my
+ledger only. WBS disappeared the same way (that one is right: it's delisted). If BK left the universe
+on purpose, ignore this. If not, the scanner will miss BNY's 10-15 print.
 
-### ⚠ SNA 10-15 is probably a week early (→ 10-22); its check was missed — 09-24, updated 10-04
+### 📈 Daily queue: A + D worked in week 1, but disputes now outnumber the ceiling 3:1 — 10-11
 
-If the scanner keys anything to SNA's stored 10-15, treat it as unconfirmed. Snap-on's 53-week fiscal 2025
-shifted every 2026 quarter-end by +7d, and Q3 ends 10-03, so the release should be **Thu 10-22**. The
-webcast PR (14d lead) decides it: one dated ~10-01 means 10-15 is real, none means 10-22 (PR due 10-08).
-The 10-02 read never happened (crowd-out above), so it's first on Monday's list. **ACI** is the same
-shape (stored 10-13; fiscal arithmetic says 10-20; advance overdue if 10-13 were real). Also first Monday.
+**Scored on 10-06 → 10-09 (the first four runs):** each queue was 40 rows, mixed disputes + unconfirmed
+by date. **70 dates confirmed** across the week (4 / 27 / 10 / 10 / 19), and the 83 invisible rows from
+10-04 are down to **46 unconfirmed ≤ 10-23**. **D works:** every session wrote cadence rows
+for its first-time names. The only gap was 10-05 (TXN, HIG, NSC), which ran on the old prompt; I backfilled
+those. The ledger matched the DB with **0 mismatches**.
 
-**REXR resolved as predicted:** PR 09-28 → **10-22 `amc`**, confirmed 09-29. All three feeds had it
-wrong (10-14 / 10-14 / 10-21). Full history in the archive.
-
-The general point for the calendar seeder still stands: after a 53-week fiscal year, every "nth weekday"
-date shifts by a week. Checking the fiscal-year-end date on the latest 10-K cover would catch it.
-
-### 👀 Sonnet daily sessions, week 1 (09-28 → 10-02, n=5): good research, no upkeep, and the prompt doesn't ask for upkeep — 10-04
-
-**Research quality is good.** 36 dates confirmed on company sources from ~65 symbols, 8–10 a morning,
-**0 wrong writes found**, one stored date corrected (FNB +4d) and one time (CLF). The two failure points
-from 09-25 are gone: AMX's feed was read correctly every day, and rate-limited reads were logged as
-*unread* rather than as absences. Two sourcing slips, both minor: a constructed BusinessWire URL went
-into DOC's `research_url` (fixed within the minute), and BX was confirmed from a search snippet of a
-company page that 403s (flagged as weak in the ledger).
-
-**Bookkeeping didn't happen:** no cadence rows after 09-28 (I backfilled 30 tonight), carry-over
-table never updated, ledger lines skipped for 09-29/09-30. But the daily template never asks for any of
-that. The Opus sessions did it unprompted, the Sonnet ones do what's written. **So I'd fix the prompt
-(proposal D above), not the model.** Lead times are what window-gating runs on, and they only accumulate
-if somebody writes them down.
+**New pressure:** disputes per morning went **32 → 51 → 82 → 108 → 112**. Nearest-first is the right
+order, so the overflow is the far-dated rows, which is fine for now. Around 10-19, though, a 40-row
+queue will carry rows dated only 3–4 days out. Option C (inject next-checks) is still open. If you want
+a second lever before the 10-27 → 10-29 peak (~200 unconfirmed rows on those three days), raising the ceiling for
+near-dated rows only is the cheap one.
 
 ### ⚠ Re-seeded times contradict established ones: 9 of the 10 rows are fixed, but the class isn't — 09-13, updated 09-27
 
@@ -130,9 +116,9 @@ _History in the archive: "AES is a phantom again…", "EA is a phantom…", "MKT
    SQM `amc` on its 22:00 ET release date). Pick one and I'll apply it consistently. UEC's fiscal
    year-end has the same shape domestically (10-K the prior evening, webcast next morning).
    **⚠ Live now:** HDB and IBN (Indian bank ADRs) are dated **Saturday 10-17** in the DB (HDB `bmo`,
-   IBN `amc`), 13 days out. A Saturday release reaches the US market Monday 10-19 at the open, so either
-   encoding needs a date change. I'll read their dates this week and hold the write until you pick a
-   rule. (Today they're invisible to sessions anyway: see the crowd-out item.)
+   IBN `amc`), **6 days out as of 10-11**. A Saturday release reaches the US market Monday 10-19 at the open, so either
+   encoding needs a date change. HDB's board meets Sat 10-17 (reports of the NSE notice); IBN still has no notice. I'm holding
+   both writes until you pick a rule.
 3. **Sites that block every client (ITUB — `itau.com.br` 403s everything):** may an SEC 6-K filename
    cluster stand in for the date, or do I keep holding?
 
@@ -160,6 +146,11 @@ _History in the archive: "EXPD: candidate for `dmh`", "WDS (Woodside)…", "Two 
 Unchanged since 06-21: no advance PR, no scheduling 8-K; the date lives only on a JS-rendered Q4 events
 page. If its events JSON endpoint can be found I can self-serve; otherwise I'll hold and ask for a paste.
 
+### Minor: from the 10-06 session: TSM's time and SCHW's inferred date
+
+- **TSM time corrected amc → bmo** (call 14:00 Taiwan = 02:00 ET). Worth a look if the DB defaults foreign ADRs to amc.
+- **SCHW 10-15 is inferred**: Schwab's Fall Business Update PR gives only the event, and earnings rode the update in 3 of 3 prior quarters. Next week's audit will score it.
+
 ### Minor: stray `memory/for_*.md` mailbox duplicates — still present, deletion still blocked for me
 
 `rm memory/for_{market_analyst,system_analyst,trading_advisor}.md` — the canonical copies live in `outbox/`.
@@ -168,6 +159,14 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
 
 ## Resolved (condensed — full text in the archive)
 
+- **10-11: Backfill crowd-out (A + D, implemented 10-05): fixed.** Scored in the 📈 item above; full
+  original text archived.
+- **10-11: SNA called right, ACI called wrong.** SNA reports **10-22** (webcast PR 10-08, confirmed
+  10-09), so the stored 10-15 was a week early as flagged. **ACI's stored 10-13 was right**: the PR
+  existed from 09-29, and my 38-days-after-quarter-end arithmetic said 10-20. That arithmetic is no
+  longer used as evidence. Also from the 10-06 notes: **WBS's phantom row is gone** from the calendar.
+- **10-11: Sonnet week-1 item: superseded.** D fixed the bookkeeping gap. The 10-06 → 10-09 sessions kept
+  the ledger and cadence rows current.
 - **10-04: REXR's stored 10-14 was wrong, as flagged.** The company PR (09-28) says **10-22 `amc`**,
   confirmed 09-29. The other half of that item (SNA) stays open.
 - **09-24 — Sessions no longer need a dispute to spawn (your A + C from the 09-20 proposal).** Verified in
@@ -204,10 +203,3 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
   company source. (The 09-08 KMX/PAYX locks above broke that policy by a different route.)
 - **June items** (dispute-list horizon bug, UEC chronic date, 06-07 table absence, weekend proposal
   implemented, 06-04 restore truncation, SEC via curl) — archive → Resolved.
-
-## 2026-10-06 session notes
-- **WBS is a phantom row.** Santander closed the Webster deal in Aug 2026 (SEC `tickers=[]`, Form 15-12G 08-31 and 09-30). The dispute row is `skipped`, but `earnings_upcoming` still carries WBS on 10-22. Worth removing so the scanner doesn't treat it as live.
-- **TSM time corrected amc → bmo** (call is 14:00 Taiwan = 02:00 ET). Same shape as the other foreign filers; worth a look if the DB defaults foreign ADRs to amc.
-- **SCHW date is inferred**: Schwab's Fall Business Update PR gives only the 10-15 event; earnings rode the update in 3 of 3 prior quarters.
-- **SNA 10-15 is dead** (no webcast PR; the Q2 one came 14d ahead). Expect 10-22; the row still says 10-15 and the scanner is 9 days out from the real date.
-- **HDB/IBN (Sat 10-17):** HDB's board meets Saturday 10-17 per reports of the NSE notice; IBN has no 2026 notice found yet. Still waiting on your policy call.
