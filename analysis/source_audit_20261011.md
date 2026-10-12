@@ -136,3 +136,22 @@ CME, MSCI, SCHW, plus ELV/MOH via biopharmawatch), which next week's audit will 
 ## Not done here
 
 No DB rows touched. These dates have passed, and `date_confirmed_by='ben'` rows are never mine.
+
+## Next runs (agreed with Ben 10-11)
+
+Ben said yes to a second audit and suggested going **back in time** rather than forward. Plan:
+
+- **10-18: go back.** Target the weak source types that had n ≈ 0 in this run:
+  1. **07-14 session: 29 bmo/amc times set from Item 2.02 acceptance times** using the blanket UTC→ET
+     conversion that the 07-31 note (`reference_sec_acceptance_time_timing.md`) proved unreliable. The list is in the
+     summer archive's 07-14 session block (~line 238 → 290). Check each against the ET `Accepted` field and the
+     release text. *Time only*: these were timing writes.
+  2. **06-30 session: 10 convergence/cadence locks** (feed agreement, no company source). Names are in
+     `notes_for_ben_archive.md` ("06-30 session leaned hard on cadence/convergence locks"). RTX, LMT, CLF and EQT
+     are already known wrong; check all 10 anyway and score the type.
+  3. The ~10 summer-ledger confirms (Appendix A, dates 06 → 08) whose time was **inferred**.
+  Same rules and blind briefs as this run. **Give each subagent its own scratch subfolder**: in this run two
+  batches collided in a shared `scratchpad/audit/` folder (no wrong result, but one batch silently fetched nothing at first).
+- **10-25: go forward.** October dates passed by then. That covers the weak October confirms (BX, GM, CME, MSCI:
+  search summaries; ELV, MOH: biopharmawatch copies; SCHW: inferred date) plus the big inferred-time set (FAST,
+  PLD, HAL, MMM, LRCX, IBM, AAL, PCG, HCA, NSC, …).

@@ -10,8 +10,9 @@
 
 ## Needs attention this week (10-12 → 10-16)
 
-1. **❓ Ben: run the source-accuracy audit again next Sunday?** First run: 48 of 50 past confirms fully right
-   (dates 49/50, times 49/50). Details in `notes_for_ben.md` (top item) and `analysis/source_audit_20261011.md`.
+1. **Next Sunday (10-18): source audit #2 goes back in time** (Ben, 10-11). It covers the 29 times set on 07-14 with
+   the unreliable UTC→ET conversion, the 10 convergence locks from 06-30, and ~10 summer inferred times. 10-25 then audits
+   the weak October confirms. Plan: `analysis/source_audit_20261011.md` → "Next runs".
 2. **⚠ Ben: BK has no `earnings_upcoming` row.** It was confirmed 10-15 bmo on 10-06, but the row is gone (last
    snapshot 10-02). If that wasn't deliberate, the scanner will miss BNY's 10-15 print.
 3. **ASML reports Wed 10-14 and has no company-sourced read.** Monday's first item.

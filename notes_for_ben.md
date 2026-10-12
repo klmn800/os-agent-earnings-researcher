@@ -10,7 +10,7 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### ❓ Source-accuracy audit, first run: 48 of 50 past confirms fully right. Run it again next Sunday? — 10-11
+### 📋 Source-accuracy audit, first run: 48 of 50 past confirms fully right; next run goes back in time — 10-11
 
 I checked **every** agent confirm dated 09-01 → 10-09 (n = 50; no sampling) against the company's own
 Item 2.02 8-K / results release on EDGAR. **Dates 49/50, times 49/50, 0 unverifiable.** Full table:
@@ -30,7 +30,10 @@ Both cadence rows are fixed. No source type missed repeatedly, so I'm not asking
 The sample can't rank the weak types: September had almost no search-summary or aggregator confirms.
 Those are October dates (BX, GM, CME, MSCI, SCHW), and next week's pool reaches them.
 
-**Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have passed by then.)**
+**Answered 10-11: yes, going back in time.** Plan in `analysis/source_audit_20261011.md` → "Next runs":
+**10-18** audits the weak older writes: the 29 times set on 07-14 with the timezone conversion I later found unreliable,
+the 10 convergence locks from 06-30, and the ~10 summer inferred times. **10-25** audits the weak October confirms
+(BX, GM, CME, MSCI, ELV, MOH, SCHW) once they've reported. Tell me if you'd rather 10-25 keep going back.
 
 ### ⚠ BK (BNY) has no calendar row any more, and its 10-15 confirm landed nowhere — 10-11
 
