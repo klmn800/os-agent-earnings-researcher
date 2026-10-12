@@ -473,3 +473,17 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | MA | bmo | Q3'26 PR 10-08 → 10-29 (21d) | Call 9:00am ET; release time not stated, **bmo inferred** from the call time and DB. Business Wire, stocktitan copy. DB 10-29 was right; finnhub's 10-22 was wrong — 10-09 |
 | CARR | bmo | Q3'26 PR 10-08 → 10-29 (21d) | "Earnings advisory": call 7:30am ET; release time not stated, **bmo inferred** from the call time. PR Newswire, stocktitan copy. **DB 10-27 was 2d early** (yfinance 10-29 was right) — 10-09 |
 | AJG | amc | Q3'26 PR 10-08 → 10-29 (21d) | *"after the market closes on Thursday, October 29"*, call 5:15pm ET. PR Newswire, stocktitan copy. DB 10-29 amc was right; finnhub's 10-22 was wrong — 10-09 |
+| ASML | bmo | 20-F financial calendar (FY2025) lists Q3'26 results 2026-10-14; PR lead unmeasured | Releases ~07:00 CET (= bmo US) historically; **time inferred**, not read from a Q3 page. asml.com / investor.asml.com 403 to WebFetch; sec.gov 6-K (Q2, 07-15) does not carry the Q3 date — 10-12 |
+| GD | bmo | Q3'26 PR 10-09 → 10-30 (21d) | *"Friday, October 30, beginning at 9 a.m. EDT"* call; release time not stated, **bmo inferred** from the call time. PR Newswire, stocktitan copy — 10-12 |
+| BPOP | bmo | Q3'26 PR 10-01 → 10-22 (21d) | *"before the market opens on Thursday, October 22"*, call 11am ET. Business Wire, stocktitan copy — 10-12 |
+| DGX | bmo | Q3'26 PR 09-22 → 10-22 (30d) | *"before the market opens"*, call 8:30am ET. Stocktitan copy — 10-12 |
+| DOV | bmo | Q3'26 PR 09-16 → 10-22 (36d) | Release ~7:00am ET (6:00 CT), call 9:30am ET. PRN, stocktitan copy — 10-12 |
+| HBAN | bmo | Q3'26 PR 09-30 → 10-22 (22d) | *"prior to the market opening"*, call 9am ET — 10-12 |
+| HON | bmo | Q3'26 PR 09-24 → 10-22 (28d) | *"before the opening of the Nasdaq Stock Market"*, call 8:30am EDT. Now "Honeywell Technologies" — 10-12 |
+| LAZ | bmo | Q3'26 PR 10-01 → 10-22 (21d) | *"Thursday morning"*, call 8:00am ET; **bmo inferred** from "morning" — 10-12 |
+| NDAQ | bmo | Q3'26 PR 10-01 → 10-22 (21d) | Release ~7:00am ET, call 8:00am ET. GlobeNewswire, stocktitan copy — 10-12 |
+| NEM | **amc** | Q3'26 PR 09-24 → 10-22 (28d) | *"after North American markets close"*, call 5:30pm EDT. **Time corrected from bmo** (DB was wrong) — 10-12 |
+| ORI | bmo | Q3'26 PR 10-08 → 10-22 (14d) | Call 8:30am ET; release time not stated, **bmo inferred** from the call time + DB — 10-12 |
+| PG | bmo | Q3'26 (FQ1 26/27) PR 09-24 → 10-22 (28d) | *"P&G to Webcast Discussion of First Quarter 26/27 Earnings"*, 8:30am ET call; release time not stated, **bmo inferred** — 10-12 |
+| RNG | amc | Q3'26 PR 10-08 → 10-22 (14d) | *"after market close on October 22"*, call 2pm PT / 5pm ET. PRN, stocktitan copy — 10-12 |
+| SAP | amc | IR events page, advance calendar | Q3'26: 10-21 disclosure 22:05 CEST (= 16:05 ET), call 23:00 CEST. Read via search result of sap.com/investors events page (page itself 403s) — 10-12 |
