@@ -345,7 +345,7 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | PEGA | Pegasystems / Q3 (open) | amc (DB) | **14d (Q2):** PR 07-07 → 07-21 | DB 10-20, PR due ~10-06. | stocktitan spine `PEGA`; **Q3'26 resolved 10-08:** PR 10-07 → 10-20 amc (13d lead), DB was right; finnhub +8d wrong |
 | ALK | Alaska Air / Q3 (open) | Unknown (DB) | **14d (Q2):** webcast PR ~07-08 → 07-22 | DB 10-22, PR due ~10-08. Investor Day 09-29 carried no date. | — ‹Q3'26: PR 10-07 → **10-20 amc** (13d), call 10-21 11:30am ET; time was Unknown — 10-09›|
 | RHI | Robert Half / Q3 (open) | amc (DB) | **~7d** (Q1 PR text; Q2 PR 07-16) | DB 10-21, PR due ~10-14. **Don't read before ~10-12.** | — |
-| VLTO | Veralto / Q3 (open) | amc (DB) | Q2 PR 07-13 (release date not logged) | DB 10-21. | — |
+| VLTO | Veralto / Q3 | amc | Q3'26 PR 10-12 → 10-29 (17d) | *"after market close on Thursday, October 29"*, call Fri 10-30 7:30am ET. **DB 10-21 was 8d early**; yfinance/finnhub 10-29 right (stocktitan article page) | 10-13 |
 | SF | Stifel / Q3 (open) | bmo (DB) | Q2 PR 07-15 (release date not logged) | DB 10-21. | — |
 | BC | Brunswick / Q3 (confirmed 10-29 bmo, 10-09) | bmo | **21d:** PR 10-08 → 10-29 | **The "10-22 looks early" doubt was right: the date is 10-29** (Q2 was 07-30, so Q3 follows ~13 weeks later); **yfinance and finnhub both said 10-29 and were right, the DB was wrong.** *"before the market opens on October 29"*, call 10am CT/11am ET. GlobeNewswire, read as a stocktitan copy — 10-09 | — |
 | IRDM, WBS | Iridium / Webster (open) | Unknown | — | Both have **pending acquisitions and no calls** (Rocket Lab / Santander). Look for a bare results PR or 8-K only. Screen with `reference_ma_phantom_earnings.md`. | — |
@@ -487,3 +487,21 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | PG | bmo | Q3'26 (FQ1 26/27) PR 09-24 → 10-22 (28d) | *"P&G to Webcast Discussion of First Quarter 26/27 Earnings"*, 8:30am ET call; release time not stated, **bmo inferred** — 10-12 |
 | RNG | amc | Q3'26 PR 10-08 → 10-22 (14d) | *"after market close on October 22"*, call 2pm PT / 5pm ET. PRN, stocktitan copy — 10-12 |
 | SAP | amc | IR events page, advance calendar | Q3'26: 10-21 disclosure 22:05 CEST (= 16:05 ET), call 23:00 CEST. Read via search result of sap.com/investors events page (page itself 403s) — 10-12 |
+| META | amc | Q3'26 PR 10-12 → 10-21 (9d) | *"after market close on Wednesday, October 21st"*, call 4:30pm ET. PRN via stocktitan page; yfinance 10-21 right, finnhub 10-28 wrong — 10-13 |
+| DECK | amc | Q2 FY27 PR 10-12 → 10-22 (10d) | Call ~4:30pm ET; release time not stated, **amc inferred** from call time + prior quarter. Time was Unknown — 10-13 |
+| CMCSA | bmo | Q3'26 BW PR 09-15 → 10-22 (37d) | Press release *"earlier that morning"*, call 8:30am ET. Found by search (businesswire), not the spine — 10-13 |
+| NOK | bmo | annual financial calendar PR 2025-12-01 → 10-22 (lead n/a) | Interim report 22 Oct; Nokia releases ~08:00 EEST = ~01:00 ET, so **bmo inferred** from history. Per-quarter PR lead unmeasured — 10-13 |
+| PHM | bmo | Q3'26 PR 08-27 → 10-22 (56d) | *Before the market opens*, call 8:30am ET (finviz/barchart copy via search) — 10-13 |
+| E | bmo | annual financial calendar PR 2025-12-10 → 10-23 (lead n/a) | Board 10-22, results + call 10-23; **bmo inferred** from an Italian site (pre-Piazza Affari open) — 10-13 |
+| WDC | amc | Q1 FY27 PR 10-08 → 10-22 (14d) | *"after the market closes"*, call 1:30pm PT / 4:30pm ET — 10-13 |
+| RITM | bmo | Q3'26 PR 10-12 → 10-23 (11d) | *"before the market opens"*, call 8am ET. yfinance 10-23 right; DB 10-29 and finnhub 11-03 wrong — 10-13 |
+| AXP | bmo | Q3'26 webcast PR 09-23 → 10-23 (30d) | Release ~7:00am ET, call 8:30am ET — 10-13 |
+| SPOT | bmo | Q3'26 PR 09-24 → 10-22 (28d) | *"before market open"*, Q&A 8:00am ET — 10-13 |
+| SSNC | amc | Q3'26 PR 10-06 → 10-22 (16d) | *"after the close of the market"*, call 5:00pm ET — 10-13 |
+| UNP | bmo | Q3'26 PR 09-24 → 10-22 (28d) | Release 7:45am ET, call 8:45am — 10-13 |
+| VLO | bmo | Q3'26 PR 09-08 → 10-22 (44d) | Release *"the morning before the call"* (10am ET); bmo inferred (Q2/Q1 releases 06:30) — 10-13 |
+| VRSN | amc | Q3'26 PR 10-01 → 10-22 (21d) | Release ~4:05pm ET, call 4:30pm — 10-13 |
+| GNTX | bmo | Q3'26 PR 10-01 → 10-23 (22d) | *"before the market opens"*, call 9:30am ET — 10-13 |
+| CDNS | amc | Q3'26 PR 10-05 → 10-26 (21d) | Webcast 2pm PT / 5pm ET; release time not stated, **amc inferred**. Time was Unknown — 10-13 |
+| BRO | amc | Q3'26 PR 10-01 → 10-26 (25d) | *"after market close"*, call 10-27 8am ET — 10-13 |
+| CINF | amc | Q3'26 PR 10-07 → 10-26 (19d) | *"after the close"*, call 10-27 11am ET — 10-13 |
