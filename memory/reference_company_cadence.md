@@ -341,7 +341,7 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | TXN | Texas Instruments / Q3 (confirmed 10-21 amc, 10-05) | amc (call 3:30pm CT) | **20d (Q3):** PR 10-01 → 10-21 (PRNewswire) | `investor.ti.com` timed out 10-05; read the stocktitan wire text. Row added at the 10-11 maintenance (10-05 ran on the old prompt, so no row was written) | stocktitan spine `TXN` |
 | HIG | The Hartford / Q3 (confirmed 10-26 amc, 10-05) | amc (~4:05pm EDT release, webcast next day 9am) | **28d (Q3):** PR 09-28 → 10-26 | `newsroom.thehartford.com` read directly. Row added 10-11 maintenance | newsroom.thehartford.com |
 | NSC | Norfolk Southern / Q3 (confirmed 10-22, 10-05) | bmo **inferred** (PR says results "in advance of" the 10am ET call, no release time) | **20d (Q3):** PR 10-02 → 10-22 | Read as a Yahoo copy of the PR (dateline 10-02). Row added 10-11 maintenance | stocktitan spine `NSC`; Yahoo copy |
-| PNR | Pentair / Q3 (open) | bmo (DB) | **14d (Q1):** PR 04-14 → 04-28 | DB 10-20, PR due ~10-06. Q2-26 was Tue 07-28 (a later week). | stocktitan spine `PNR` |
+| PNR | Pentair / Q3 (open) | bmo (DB) | **14d (Q1):** PR 04-14 → 04-28 | **Q3'26: PR 10-14 06:50 ET → Tue 10-27 (13d), bmo, call 9:00am ET.** DB 10-20 was 7d early; finnhub 10-27 right. Q3'25 PR was 10-07 for 10-21 (14d). Q2-26 was Tue 07-28 (a later week). | stocktitan spine `PNR` |
 | PEGA | Pegasystems / Q3 (open) | amc (DB) | **14d (Q2):** PR 07-07 → 07-21 | DB 10-20, PR due ~10-06. | stocktitan spine `PEGA`; **Q3'26 resolved 10-08:** PR 10-07 → 10-20 amc (13d lead), DB was right; finnhub +8d wrong |
 | ALK | Alaska Air / Q3 (open) | Unknown (DB) | **14d (Q2):** webcast PR ~07-08 → 07-22 | DB 10-22, PR due ~10-08. Investor Day 09-29 carried no date. | — ‹Q3'26: PR 10-07 → **10-20 amc** (13d), call 10-21 11:30am ET; time was Unknown — 10-09›|
 | RHI | Robert Half / Q3 (open) | amc (DB) | **~7d** (Q1 PR text; Q2 PR 07-16) | DB 10-21, PR due ~10-14. **Don't read before ~10-12.** | — |
@@ -505,3 +505,14 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | CDNS | amc | Q3'26 PR 10-05 → 10-26 (21d) | Webcast 2pm PT / 5pm ET; release time not stated, **amc inferred**. Time was Unknown — 10-13 |
 | BRO | amc | Q3'26 PR 10-01 → 10-26 (25d) | *"after market close"*, call 10-27 8am ET — 10-13 |
 | CINF | amc | Q3'26 PR 10-07 → 10-26 (19d) | *"after the close"*, call 10-27 11am ET — 10-13 |
+| TER | amc | Q3'26 PR 10-13 → 10-27 (14d) | Release 4:30pm ET "or later", call Wed 10-28 8:30am. DB 10-21 was 6d early; yfinance/finnhub 10-27 right (stocktitan page) — 10-14 |
+| SLM | amc | Q3'26 PR 10-13 → 10-22 (9d) | After close, call 5:30pm ET. DB right; finnhub 10-28 wrong (stocktitan page) — 10-14 |
+| SLB | bmo | Q3'26 PR 09-28 → 10-23 (25d) | Release 7:00am ET, call 9:30am ET (Business Wire via stocktitan) — 10-14 |
+| NUE | amc | Q3'26 guidance PR 09-17 → 10-26 (39d) | *"after the markets close on Monday, October 26"*, call Tue 10-27 10am ET. Call invite PR 10-13 — 10-14 |
+| PII | bmo | Q3'26 PR 10-06 → 10-27 (21d) | Call 8am CT (9am ET) Tue 10-27; release time not stated, **bmo inferred** from the call time. **DB 10-26 was 1d early** — 10-14 |
+| PSA | amc | Q3'26 PR 10-05 → 10-26 (21d) | *"after the market close"*, call Tue 10-27 11am CT — 10-14 |
+| WELL | amc | Q3'26 PR 09-23 → 10-26 (33d) | After NYSE close Mon, call Tue 10-27 9am ET — 10-14 |
+| ATI | bmo | Q3'26 PR 10-13 → 10-29 (16d) | Release 6:30am CT, call 7:30am CT. Finnhub 11-03 wrong, yfinance 10-29 right — 10-14 |
+| FLS | amc | Q3'26 PR 10-13 → 10-28 (15d) | After close, call Thu 10-29 8:30am ET. DB 10-27 was 1d early — 10-14 |
+| HUBB | bmo | Q3'26 PR 10-13 → 10-27 (14d) | *"prior to the opening of the market"*, call 10am ET. DB right; finnhub 11-03 wrong — 10-14 |
+| JBLU | bmo | Q3'26 PR 10-13 → 10-27 (14d) | Call 10am ET Tue 10-27; release time not stated, **bmo inferred**. DB right; finnhub 11-03 wrong — 10-14 |
