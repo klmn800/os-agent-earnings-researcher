@@ -516,3 +516,18 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | FLS | amc | Q3'26 PR 10-13 → 10-28 (15d) | After close, call Thu 10-29 8:30am ET. DB 10-27 was 1d early — 10-14 |
 | HUBB | bmo | Q3'26 PR 10-13 → 10-27 (14d) | *"prior to the opening of the market"*, call 10am ET. DB right; finnhub 11-03 wrong — 10-14 |
 | JBLU | bmo | Q3'26 PR 10-13 → 10-27 (14d) | Call 10am ET Tue 10-27; release time not stated, **bmo inferred**. DB right; finnhub 11-03 wrong — 10-14 |
+| KMI | amc | Q3'26 PR 10-14 → 10-21 (7d) | *"after market close"*, webcast 4:30pm ET. DB right (dispute row had listed 10-28) — 10-15 |
+| LVS | amc | Q3'26 PR 10-14 → 10-21 (7d) | Release after close, call ~1:30pm PT. Wednesday pattern held — 10-15 |
+| PM | bmo | Q3'26 PR 10-14 → 10-21 (7d) | Release ~7:00am ET, webcast 9:00am — 10-15 |
+| SF | bmo | Q3'26 PR 10-14 → 10-21 (7d) | Before the open, call 9:30am ET. Finnhub 10-28 wrong — 10-15 |
+| VRT | bmo | Q3'26 PR 10-14 → 10-28 (14d) | Before the open, call 11am ET. **DB 10-21 was 7d early** (yfinance/finnhub right) — 10-15 |
+| EXE | amc | Q3'26 PR 10-14 → 10-27 (13d) | After close, call 10-28 9am EDT. Q3'25 notice was also 10-15; finnhub 11-03 wrong — 10-15 |
+| ACGL | amc | Q3'26 PR 09-28 → 10-27 (29d) | After close, call 10-28 10am ET — 10-15 |
+| AMT | bmo | Q3'26 PR 09-29 → 10-27 (28d) | Release 7:00am ET, call 8:30am. Time was Unknown — 10-15 |
+| CSGP | amc | Q3'26 PR 10-01 → 10-27 (26d) | After close, call 5:00pm EDT. Time was Unknown — 10-15 |
+| MRP | bmo | Q3'26 PR 10-06/07 → 10-27 (~20d) | Before the open, call 10am ET. Time was Unknown — 10-15 |
+| VTR | amc | Q3'26 PR 09-25 → 10-27 (32d) | After NYSE close, call 10-28 10am ET. Time was Unknown — 10-15 |
+| KHC | bmo | Q3'26 PR 10-12 → 11-04 (23d) | Before the open, Q&A 9am ET. DB right; finnhub 10-27 wrong — 10-15 |
+| KMB | bmo | Prelim-results PR 10-15 → 11-05 (21d) | Release ~6:30am ET, Q&A 8am. **DB 11-03 was 2d early**, finnhub 10-27 wrong. Date came in the 10-15 8-K (prelim Q3, Kenvue deal) — 10-15 |
+| NVST | amc | Q3'26 PR 10-06 → 11-04 (29d) | Call 2pm PT = 5pm ET; amc **inferred** from the call time — 10-15 |
+| NVS | bmo | unmeasured | novartis.com events page: Oct 27, no time shown. **bmo inferred** (Novartis historically releases ~07:00 CET) — 10-15 |
