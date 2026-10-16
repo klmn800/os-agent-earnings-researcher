@@ -344,7 +344,7 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | PNR | Pentair / Q3 (open) | bmo (DB) | **14d (Q1):** PR 04-14 → 04-28 | **Q3'26: PR 10-14 06:50 ET → Tue 10-27 (13d), bmo, call 9:00am ET.** DB 10-20 was 7d early; finnhub 10-27 right. Q3'25 PR was 10-07 for 10-21 (14d). Q2-26 was Tue 07-28 (a later week). | stocktitan spine `PNR` |
 | PEGA | Pegasystems / Q3 (open) | amc (DB) | **14d (Q2):** PR 07-07 → 07-21 | DB 10-20, PR due ~10-06. | stocktitan spine `PEGA`; **Q3'26 resolved 10-08:** PR 10-07 → 10-20 amc (13d lead), DB was right; finnhub +8d wrong |
 | ALK | Alaska Air / Q3 (open) | Unknown (DB) | **14d (Q2):** webcast PR ~07-08 → 07-22 | DB 10-22, PR due ~10-08. Investor Day 09-29 carried no date. | — ‹Q3'26: PR 10-07 → **10-20 amc** (13d), call 10-21 11:30am ET; time was Unknown — 10-09›|
-| RHI | Robert Half / Q3 (open) | amc (DB) | **~7d** (Q1 PR text; Q2 PR 07-16) | DB 10-21, PR due ~10-14. **Don't read before ~10-12.** | — |
+| RHI | Robert Half / Q3 | amc | **7d** (Q3'26 PR 10-15 → 10-22) | Release ~4:05pm ET, call 5pm. **DB 10-21 was 1d early**; yfinance right, finnhub 10-27 wrong. IR financial-news page shows only the title; the body is at `/investor-center/press-releases/2026-10-15` — 10-16 |
 | VLTO | Veralto / Q3 | amc | Q3'26 PR 10-12 → 10-29 (17d) | *"after market close on Thursday, October 29"*, call Fri 10-30 7:30am ET. **DB 10-21 was 8d early**; yfinance/finnhub 10-29 right (stocktitan article page) | 10-13 |
 | SF | Stifel / Q3 (open) | bmo (DB) | Q2 PR 07-15 (release date not logged) | DB 10-21. | — |
 | BC | Brunswick / Q3 (confirmed 10-29 bmo, 10-09) | bmo | **21d:** PR 10-08 → 10-29 | **The "10-22 looks early" doubt was right: the date is 10-29** (Q2 was 07-30, so Q3 follows ~13 weeks later); **yfinance and finnhub both said 10-29 and were right, the DB was wrong.** *"before the market opens on October 29"*, call 10am CT/11am ET. GlobeNewswire, read as a stocktitan copy — 10-09 | — |
@@ -531,3 +531,22 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | KMB | bmo | Prelim-results PR 10-15 → 11-05 (21d) | Release ~6:30am ET, Q&A 8am. **DB 11-03 was 2d early**, finnhub 10-27 wrong. Date came in the 10-15 8-K (prelim Q3, Kenvue deal) — 10-15 |
 | NVST | amc | Q3'26 PR 10-06 → 11-04 (29d) | Call 2pm PT = 5pm ET; amc **inferred** from the call time — 10-15 |
 | NVS | bmo | unmeasured | novartis.com events page: Oct 27, no time shown. **bmo inferred** (Novartis historically releases ~07:00 CET) — 10-15 |
+| GILD | amc | PR 10-15 → 10-29 (14d) | Release after close, webcast 4:30pm ET. Time was Unknown. Finnhub 10-22 wrong. Q3'25 lead was 21d — 10-16 |
+| ITW | bmo | PR 10-15 → 10-27 (12d) | Release 7:00am CDT, webcast 9:00am CDT. DB 10-23 in the dispute was wrong; yfinance/finnhub 10-27 right — 10-16 |
+| MDLZ | amc | PR 10-15 → 10-29 (14d) | Release 4:05pm ET, call 5pm. yfinance 10-29 right; DB 10-27 and finnhub 11-03 wrong — 10-16 |
+| EXEL | amc | PR 10-15 → 10-29 (14d) | After close, call 5pm ET. yfinance right; DB 10-27 and finnhub 11-03 wrong — 10-16 |
+| MAT | amc | PR 10-15 → 11-05 (21d) | Release ~4:05pm ET, webcast 5pm. yfinance 11-05 right; DB 10-29 and finnhub 10-27 wrong. Time not labelled, amc from 4:05pm — 10-16 |
+| BA | bmo | PR 09-30 → 10-27 (27d) | Call 10:30am ET; release time not stated, **bmo inferred** (DB bmo) — 10-16 |
+| ECL | bmo | PR 09-22 → 10-27 (35d) | Results before the open, webcast 1:00pm ET — 10-16 |
+| HLT | bmo | PR 09-30 → 10-27 (27d) | Before the open, call 9am ET — 10-16 |
+| HOOD | amc | PR 10-01 → 10-27 (26d) | After close, call 5pm ET — 10-16 |
+| IQV | bmo | PR 09-29 → 10-27 (28d) | Before the open, call 9am ET — 10-16 |
+| JCI | bmo | PR 10-01 → 10-27 (26d) | Fiscal Q4. Call 8:30am ET; release time not stated, **bmo inferred**. **Time corrected from amc** — 10-16 |
+| NXPI | amc | PR 10-06 → 10-27 (21d) | After the Nasdaq close, call 4:30pm ET — 10-16 |
+| ENPH | amc | PR 10-06 → 10-27 (21d) | Call 4:30pm ET; amc **inferred** from the call time — 10-16 |
+| FFIV | amc | PR 10-06/08 → 10-27 (19-21d) | Fiscal Q4. Following the close, call 4:30pm ET — 10-16 |
+| FE | amc | PR 10-02 → 10-27 (25d) | After close, call 10-28 9am EDT — 10-16 |
+| EXR | amc | PR 10-02 → 10-27 (25d) | After close, call 10-28 1pm ET — 10-16 |
+| CZR | amc | PR 10-02 → 10-27 (25d) | After close; **no earnings call** — 10-16 |
+| BXP | amc | PR 09-29 → 10-27 (28d) | After the NYSE close, call 10-28 10am ET — 10-16 |
+| NOV | amc | PR 09-16 → 10-27 (41d) | After close, call 10-28 10am CT — 10-16 |
