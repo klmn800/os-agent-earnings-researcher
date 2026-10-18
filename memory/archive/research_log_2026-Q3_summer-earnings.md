@@ -4,7 +4,7 @@
 > report in the same wave: May/Jun/Jul/Aug quarter-ends), reported ~mid-July through early
 > September 2026. Sessions **2026-07-01 → 2026-09-25**, rolled off the active `research_log.md`
 > at the 2026-09-13 weekly maintenance (07-01 → 08-28; the first maintenance pass since 06-21),
-> the 2026-09-20 maintenance (09-01 → 09-03) the 2026-09-27 maintenance (09-08 → 09-11; 09-08 is a reconstructed stub) and the 2026-10-04 maintenance (09-14, 09-15, plus the 09-13 maintenance entry) and the 2026-10-11 maintenance (09-22 → 09-25, plus the 09-20 maintenance entry; **this closes the archive**: every calendar-Q3 session is now here), each inserted ahead of the appendices. Chronological
+> the 2026-09-20 maintenance (09-01 → 09-03) the 2026-09-27 maintenance (09-08 → 09-11; 09-08 is a reconstructed stub) and the 2026-10-04 maintenance (09-14, 09-15, plus the 09-13 maintenance entry) and the 2026-10-11 maintenance (09-22 → 09-25, plus the 09-20 maintenance entry; **this closes the archive**. Correction 10-18: the 09-28 → 09-30 sessions are calendar-Q3 days but researched the fall wave, so they went to the fall archive), each inserted ahead of the appendices. Chronological
 > order, oldest first. Two sessions (07-02, 07-24) had lost their `## Session` headers and six
 > (07-21, 07-22, 07-27 → 07-30) had been written as condensed paragraphs inside the carry-over
 > header; all are restored below as normal session blocks, each with a bracketed note. 07-03 had

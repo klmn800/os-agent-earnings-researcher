@@ -42,6 +42,15 @@ nonsense path converts the method from "usually right" to "verified sound here."
 as CAH's live-but-dead feed (HTTP 200, one item from Nov 2024): a response that passes a
 naive check while carrying no information.
 
+**6. A morning call time does not date the release (audit 2026-10-18).**
+When the PR gives only a call time ("call Tue 8:30am, release prior"), the release can be the **evening before**:
+AMTM (08-10 amc for an 08-11 8:30am call) and UUUU (08-05 amc for an 08-06 9am MT call) both did, and the
+"same-morning ⇒ bmo" inference got the date *and* the time wrong. In AMTM's case it moved a correct DB date. Summer
+score for call-time-only inferences: **9/12 times right**. Rule: with a morning call and no stated release time, the
+time is **unknown and the date is D or D−1**. Settle it from the PR's own wording or the prior quarter's release
+(8-K Accepted ET + dateline). Never move a DB date onto the call day on this inference alone. (EQT 06-30 is the same
+trap seen from the aggregator side: "before open" there meant the next-morning call.)
+
 ## Cadence table
 
 | Symbol | Company / fiscal qtr | Time | Lead (PR→release) | Cadence + quirks | Best source last time |
@@ -309,7 +318,7 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | VZ | Verizon / Q3 | bmo (materials 7:00am, webcast 8:30am ET) | **28d:** PR 09-28 → 10-26 | ✅ **Mon 10-26** `bmo` (09-29). yfinance right; DB + finnhub 10-20 wrong. | verizon.com newsroom / GlobeNewswire |
 | KEY | KeyCorp / Q3 | bmo (call 8am ET) | n/a: annual call-dates PR pre-lists the year | ✅ 10-20 `bmo` (09-29): *"Third quarter 2026 – Tuesday, October 20th, 2026 at 8 a.m. ET."* Read the 2027 version when it appears. | investor.key.com |
 | KO | Coca-Cola / Q3 | bmo (*"before the NYSE opens,"* call 8:30am) | **28d:** PR 09-29 10:00 → 10-27 | ✅ **10-27** `bmo` (09-30). ⚠ **finnhub's +7d was RIGHT here** (DB + yfinance 10-20 wrong). Q1/Q2 timing PRs also ran ~3 weeks. **Cached URL was the Q2 PR**: replace it every quarter. | investors.coca-colacompany.com news detail (detail/1173 for Q3) |
-| RTX | RTX / Q3 | bmo (*"prior to the stock market opening,"* call 8:30am) | **21d:** PR 09-29 → 10-20 | ✅ 10-20 `bmo` (09-30). The 09-29 doubt ("Q2 was Thursday, so 10-20 is doubtful") was **wrong**. | rtx.com news |
+| RTX | RTX / Q3 | bmo (*"prior to the stock market opening,"* call 8:30am) | **21d:** PR 09-29 → 10-20 | ✅ 10-20 `bmo` (09-30). The 09-29 doubt ("Q2 was Thursday, so 10-20 is doubtful") was **wrong**. | rtx.com news ‹audit 10-18› Q2-26 actual **Thu 07-23** bmo (8-K acc. 06:51, call 7:30am); the 06-30 lock (07-28) was 5d late. |
 | MCO | Moody's / Q3 | bmo (*"before the start of NYSE trading,"* call 9:00am) | **21d:** BW 09-30 07:00 → 10-21 | ✅ 10-21 `bmo` (09-30). ⚠ The `ir.moodys.com` news-details URL returned the **Q4-25** release when fetched (stale), so don't trust it. | financialcontent copy of the BW release |
 | NLY | Annaly / Q3 | amc (call next morning 9:00am) | **21d:** BW 09-29 → 10-20 | ✅ 10-20 `amc` (09-30). yfinance right; DB 10-21 and finnhub 10-28 wrong. businesswire.com 403s. | financialcontent copy |
 | GPC | Genuine Parts / Q3 | **bmo inferred**: the PR states only the date + 8:30am call; Item 2.02 6/6 at 11:21–12:09Z (07:2x ET) | **21d:** PR 09-29 → 10-20 (Q3'25 advance was 09-30) | ✅ 10-20 (09-30). finnhub 10-15 wrong. | genpt.com news |
@@ -319,11 +328,11 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | ADC | Agree Realty / Q3 | amc (call next morning 9am) | **20d:** BW 09-30 16:05 → 10-20 | ✅ 10-20 `amc` (10-01). The 09-29 doubt ("Q2 was 07-30, so 10-20 is doubtful") was **wrong**. finnhub 10-27 wrong. | financialcontent copy of the BW release |
 | BX | Blackstone / Q3 | **bmo inferred** (call 9:00am ET; BX releases ahead of the call) | unmeasured | ✅ 10-22 (10-01). ⚠ **Weak: read from a search snippet only.** blackstone.com 403s WebFetch and curl, and the stocktitan spine didn't have it. Treat it like LW: re-read if anything moves. | blackstone.com (403), search snippet |
 | BKR | Baker Hughes / Q3 | amc (*"press release at 5 p.m. ET,"* webcast next day 9:30am) | **29d:** GNW 09-28 → 10-27 | ✅ **10-27** `amc` (10-01). yfinance right; DB 10-22 and finnhub 10-21 wrong. **Cached URL was the Q2 PR**: replaced with the Q3 event page. | marketscreener / GNW copy |
-| CNP | CenterPoint / Q3 | bmo (*"same day before the market opens,"* call 8am ET) | **28d:** GNW 09-29 16:30 → 10-27 | ✅ **10-27** `bmo` (10-01). DB 10-22 wrong; yfinance + finnhub right. | GlobeNewswire |
+| CNP | CenterPoint / Q3 | bmo (*"same day before the market opens,"* call 8am ET) | **28d:** GNW 09-29 16:30 → 10-27 | ✅ **10-27** `bmo` (10-01). DB 10-22 wrong; yfinance + finnhub right. | GlobeNewswire ⚠ ‹audit 10-18› **Q2-26 was bmo, not the amc written 07-09**: release 8-K acc. 07-28 06:15 ET, call 8:00am ET. The summer write had flipped a correct DB `bmo` to `amc` off a call time that did not match the actual 8am call. CNP is **bmo**; trust the fall row. |
 | CBRE | CBRE Group / Q3 | bmo (~6:55am ET, call 8:30am) | **24d:** PR 09-28 → 10-22 | ✅ 10-22 `bmo` (10-01). **Cached detail/267 was the Q2 PR**: now detail/269. | ir.cbre.com news detail |
 | ARGX | argenx / Q3 | bmo (releases 07:00 CET) | n/a: the H1 release (07-23) carries the year's *"Expected financial calendar"* | ✅ 10-22 `bmo` (10-01). Read the FY release (~late Feb) for 2027's dates. | argenx results release |
 | PCG | PG&E / Q3 | **bmo inferred**: Item 2.02 8/8 quarters at 00:13–01:57 on the release-day date | **28d:** PR 09-24 → 10-22 | ✅ 10-22 (10-01). The PR gives the 11:00am ET call only. | investor.pgecorp.com |
-| CLF | Cleveland-Cliffs / Q2 + Q3 | **bmo** (before open, call 8:30am ET); ⚠ the DB had **amc** | **18–19d (2 obs):** Q2 07-02 → 07-21, **Q3 10-01 → 10-19** | ✅ 10-19 `bmo` (10-02), **time corrected**. One of the 06-30 bad-batch names; this time the DB date was right. | clevelandcliffs.com news detail/703 |
+| CLF | Cleveland-Cliffs / Q2 + Q3 | **bmo** (before open, call 8:30am ET); ⚠ the DB had **amc** | **18–19d (2 obs):** Q2 07-02 → 07-21, **Q3 10-01 → 10-19** | ✅ 10-19 `bmo` (10-02), **time corrected**. One of the 06-30 bad-batch names; this time the DB date was right. | clevelandcliffs.com news detail/703 ‹audit 10-18› Q2-26 actual **Thu 07-23** bmo (8-K acc. 06:27), so the 06-30 lock (07-27) was 4d late. |
 | LMT | Lockheed Martin / Q2 + Q3 | bmo (call 8:30am ET; bmo from the call time) | **~21–22d:** Q2 07-01 → 07-23; Q3 PR ~10-01 → 10-22 (exact date not logged) | ✅ **Thu 10-22** `bmo` (10-02). All three sources were wrong (DB/yf 10-20, finnhub 10-27); the live row had already moved. investors.lockheedmartin.com 403s curl; a news.lockheedmartin.com slug guess 404'd. | investors.lockheedmartin.com 3Q26 PR |
 | AAL | American Airlines / Q3 | **bmo inferred** (call 7:30am CT) | **21d:** GNW 10-01 → 10-22 | ✅ 10-22 (10-02). | GlobeNewswire |
 | BYD | Boyd Gaming / Q3 | amc (results shortly after 4pm, call 5pm ET) | **21d:** PR 10-01 → 10-22 | ✅ 10-22 `amc` (10-02). finnhub 10-27 wrong. | investors.boydgaming.com |
@@ -333,7 +342,7 @@ JNJ 43d, BAH 42d, DPZ 33d, CSX 30d, plus the annual-calendar names (C, RF, FITB,
 | DOC | Healthpeak / Q3 | amc (after NYSE close, call next day 10am ET) | **32d:** BW 10-01 → 11-02 (Q3'25's advance was 2025-09-25) | ✅ **Mon 11-02** `amc` (10-02). All three sources were wrong (DB/yf 10-22, finnhub 10-21). ⚠ The session first wrote a **guessed** BusinessWire URL into `research_url` and fixed it within the minute. Never construct a URL. | financialcontent copy of the BW release |
 | MMM | 3M / Q3 (**date open**) | **bmo** (Item 2.02 10:33–11:34Z, 6–7/7), via `--time-only` 09-30 | — | DB 10-20; "10-20 9am" seen only on marketbeat. No Q3 PR as of 10-02. | stocktitan spine `MMM` |
 | VRT | Vertiv / Q3 (**date open**) | **bmo** (Item 2.02 10:00–11:00Z), via `--time-only` 09-30 | — | DB 10-21; aggregators 10-28. stocktitan 429'd 10-02. | stocktitan spine `VRT` |
-| WAL | Western Alliance / Q3 (**date open**) | **amc** (Item 2.02 20:08–20:26Z), via `--time-only` 09-30 | — | DB 10-21; aggregator "10-20 amc / 10-21 call". If the release is 10-20 amc, the DB date is a day late. | stocktitan spine `WAL` |
+| WAL | Western Alliance / Q2 + Q3 | **amc** (Item 2.02 ~16:16 ET; release after close, call next day 12pm ET) | **13d (Q3):** PR 10-06 → 10-19 | Q2-26 was **Tue 07-21** amc (8-K 0001628280-26-049001, acc. 07-21 16:16): the 06-30 "3rd-Thu 07-16" cadence lock was **5d early** and nothing caught it. Q3-26: **Mon 10-19** amc (confirmed 10-07). Weekday is not stable (Tue, Mon), so no day-of-week rule. ‹audit 10-18› | stocktitan spine `WAL` (PR text) |
 | LRCX | Lam Research / FQ1 (**date open**) | **amc** (Item 2.02 20:07–20:09Z), via `--time-only` 09-30 | — | DB 10-21. | —; **Q3'26 resolved 10-08:** PR 09-30 → 10-21 amc (21d lead), call 2pm PT |
 | UAL | United Airlines / Q3 (**date open**) | **amc** (Item 2.02 20:00Z), via `--time-only` 09-30 | — | The live row moved **10-21 → 10-20** after 09-30 (finnhub said 10-20). | — |
 | EQT | EQT Corp / Q2 + Q3 (open) | amc (DB) | **19–21d (Q2):** PR 07-02 → 07-21 | DB 10-20. At ~20d the PR was due ~09-30, and nothing had appeared by 10-02, so it's **slightly overdue**. One of the 06-30 bad-batch names (wrong by 4–7d then). **Read first on 10-05.** | stocktitan spine `EQT`; **Q3'26 resolved 10-08:** PR 10-07 20:15 → 10-27 amc (20d lead); DB 10-20 was 7d early, yfinance/finnhub were right-ish |
@@ -381,6 +390,11 @@ Lead = advance PR date → release date; "unmeasured" = PR date not captured, gr
 | EWBC | East West / Q3 | amc | annual (PR 03-30) | 10-20 after close, call 5pm ET. | investor.eastwestbank.com |
 | GE | GE Aerospace / Q3 | bmo | unmeasured | 10-20, webcast 7:30am EDT. | geaerospace.com |
 | WBS | Webster / Q3 | n/a | n/a | **Delisted**: Santander closed Aug 2026, SEC `tickers=[]`, 15-12G 08-31 and 09-30. Dispute `skipped`. | SEC submissions JSON |
+| PPL | PPL Corp / Q2 | bmo (8-K acc. 07:50 ET; 10-Q ~12:13) | — | Q2-26 reported **Fri 08-07** bmo (Ex-99.1 "ALLENTOWN … Aug. 7, 2026"). The DB 07-30 got stamped confirmed by a 07-15 time-only write (pre-patch tool) and was **8d early**; feeds had pointed later on 07-10/07-13. Fall row 11-04 Unknown, unsourced. ‹audit 10-18› | EDGAR 8-K |
+| FLY | Firefly Aerospace / Q2 | amc (8-K acc. 16:08 ET, call 5pm ET same day) | — | Q2-26 reported **Tue 08-11** amc. The DB 08-04 got stamped confirmed by a 07-15 time-only write and was **7d early**. 2025 IPO, so no year-ago date to sanity-check against. Fall row 11-10 Unknown. ‹audit 10-18› | EDGAR 8-K |
+| UGI | UGI Corp / fiscal Q3 | **amc** (BW wire 17:30 ET; call next morning 9am ET) | — | ⚠⚠ **UGI files its Item 2.02 8-K the NEXT MORNING (08-06 08:35 ET for an 08-05 evening release)**, so its filing history reads as a clean bmo signature. That is how the 07-15 SEC-pattern write got `bmo` wrong. **Never take UGI's time from 8-K acceptance**; use the release dateline + call day. Fall row 11-18 amc is consistent. ‹audit 10-18› | BW wire copy; Ex-99.1 dateline |
+| AMTM | Amentum / fiscal Q3 | **amc** (8-K acc. 16:42 ET; call 8:30am ET **next day**) | — | ⚠ Q3-FY26 released **Mon 08-10** amc, call Tue 08-11 8:30am. On 07-22 I read "call 08-11 8:30am, release prior" as same-morning and **moved the correct DB 08-10 to 08-11 bmo**. Amentum releases the evening before a morning call. Fall row 11-23 Unknown. ‹audit 10-18› | EDGAR 8-K Ex-99.1 |
+| UUUU | Energy Fuels / Q2 | **amc** (PRN wire 4:15pm ET; 10-Q acc. 16:03) | — | ⚠ Q2-26 released **Wed 08-05** amc, the evening before a Thu 08-06 9am MT call. The 07-24 confirm inferred "08-06 bmo" from the call (the PR stated no release time) and was wrong on both date and time. **No Item 2.02 8-K** (results only in the wire PR + 10-Q). Fall row 11-02 Unknown. ‹audit 10-18› | PRN wire copy; 10-Q acceptance |
 
 ## Source-reachability cheat-sheet
 

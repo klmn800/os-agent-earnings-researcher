@@ -10,32 +10,35 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### 📋 Source-accuracy audit, first run: 48 of 50 past confirms fully right; next run goes back in time — 10-11
+### 📋 Source-accuracy audit #2 (back in time): feed/cadence locks were wrong on half the dates — 10-18
 
-I checked **every** agent confirm dated 09-01 → 10-09 (n = 50; no sampling) against the company's own
-Item 2.02 8-K / results release on EDGAR. **Dates 49/50, times 49/50, 0 unverifiable.** Full table:
-`analysis/source_audit_20261011.md`.
+**❓ Open question for you: do you want me to run another source-accuracy audit next Sunday? (Next time: the October
+dates that have passed by then.)**
+
+I checked all 58 summer writes that rested on a weak source type (a census, no sampling) against EDGAR and the dated
+releases. I re-read every mismatch myself. Full table: `analysis/source_audit_20261018.md`.
 
 | Source type | n | date right | date wrong | time wrong |
 |---|---|---|---|---|
-| Company IR / feed, direct | 38 | 37 | 1 (DELL) | 1 (GME) |
-| Company PR read as a copy | 11 | 11 | 0 | 0 |
-| Search summary only | 1 | 1 | 0 | 0 |
-| Aggregator, feed agreement | 0 | — | — | — |
+| Feed agreement + cadence lock (06-30) | 12 | 6 | **6** (by 4–7 d) | 0 |
+| Time from SEC filing history (07-15 batch) | 29 | 27 (dates unsourced) | 2 | 1 (UGI) |
+| Time inferred from the call time | 12 | 10 | 2 | **3** (CNP, AMTM, UUUU) |
+| Time from a home-market clock (foreign) | 5 | 5 | 0 | 0 |
 
-The two misses aren't about who hosted the source. **DELL:** Dell's own events page said 09-03 when I
-read it 21 days ahead, and the release then moved to 09-01. **GME:** the date was company-sourced, but
-the amc time was inferred from filing history, and GameStop released at 9:00 AM in a financing quarter.
-Both cadence rows are fixed. No source type missed repeatedly, so I'm not asking you to ban anything.
-The sample can't rank the weak types: September had almost no search-summary or aggregator confirms.
-Those are October dates (BX, GM, CME, MSCI, SCHW), and next week's pool reaches them.
+- **Feed/cadence locks: 6 of 12 dates wrong.** Four were already known (RTX, LMT, CLF, EQT). **SNA and WAL** are new
+  (nothing ever flagged WAL). No lock without a company source has been the policy since July, so I'm not asking you to
+  ban anything new. This just measures the cost.
+- **"Morning call ⇒ bmo" failed 3 times in 12.** AMTM and UUUU released the **evening before** a morning call. In AMTM's
+  case I moved a correct DB date onto the call day. **Possible prompt tweak (your call):** in the daily template, treat a
+  PR that gives only a morning call time as "release time unknown, date D or D−1" unless the PR or the prior quarter
+  settles it. It's already a standing rule in my memory (cadence rule 6).
+- **SEC filing history held for time (28/29)** despite the conversion bug. The one miss: UGI files its 8-K the next morning.
+- PPL and FLY dates (+8, +7) were locked by the pre-patch tool's time-only side effect, a cause your 09-16 patch closed.
+- **No DB rows touched**, since these dates have passed. Cadence rows fixed for the misses.
 
-**Answered 10-11: yes, going back in time.** Plan in `analysis/source_audit_20261011.md` → "Next runs":
-**10-18** audits the weak older writes: the 29 times set on 07-14 with the timezone conversion I later found unreliable,
-the 10 convergence locks from 06-30, and the ~10 summer inferred times. **10-25** audits the weak October confirms
-(BX, GM, CME, MSCI, ELV, MOH, SCHW) once they've reported. Tell me if you'd rather 10-25 keep going back.
+**10-11 run:** dates 49/50, times 49/50 on September's mostly company-sourced confirms (`analysis/source_audit_20261011.md`).
 
-### ⚠ BK (BNY) has no calendar row any more, and its 10-15 confirm landed nowhere — 10-11
+### ⚠ BK (BNY) has no calendar row any more, and its 10-15 confirm landed nowhere — 10-11 (still true 10-18)
 
 `earnings_upcoming` has no BK row, and `earnings_date_sources` stops at 10-02 (`no_data`). The 10-06
 session confirmed **BK 10-15 bmo** from bny.com, but there was no row for it to write to. It's in my
@@ -118,10 +121,9 @@ _History in the archive: "AES is a phantom again…", "EA is a phantom…", "MKT
    Both encode the same overnight gap. I've been writing the company's published date (WDS `bmo`;
    SQM `amc` on its 22:00 ET release date). Pick one and I'll apply it consistently. UEC's fiscal
    year-end has the same shape domestically (10-K the prior evening, webcast next morning).
-   **⚠ Live now:** HDB and IBN (Indian bank ADRs) are dated **Saturday 10-17** in the DB (HDB `bmo`,
-   IBN `amc`), **6 days out as of 10-11**. A Saturday release reaches the US market Monday 10-19 at the open, so either
-   encoding needs a date change. HDB's board meets Sat 10-17 (reports of the NSE notice); IBN still has no notice. I'm holding
-   both writes until you pick a rule.
+   **⚠ Overdue now:** HDB and IBN (Indian bank ADRs) are still dated **Saturday 10-17** in the DB (HDB `bmo`,
+   IBN `amc`), both unconfirmed, so the date has passed. A Saturday release reaches the US market **Monday 10-19 at the
+   open**, so either rule changes the date: D−1 amc ⇒ 10-16 amc, D bmo ⇒ 10-19 bmo. I'm still holding both writes for your rule.
 3. **Sites that block every client (ITUB — `itau.com.br` 403s everything):** may an SEC 6-K filename
    cluster stand in for the date, or do I keep holding?
 
@@ -152,9 +154,11 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
 ### Minor: from the 10-06 session: TSM's time and SCHW's inferred date
 
 - **TSM time corrected amc → bmo** (call 14:00 Taiwan = 02:00 ET). Worth a look if the DB defaults foreign ADRs to amc.
-- **SCHW 10-15 is inferred**: Schwab's Fall Business Update PR gives only the event, and earnings rode the update in 3 of 3 prior quarters. Next week's audit will score it.
+- **SCHW 10-15 is inferred** (has now reported; the 10-25 audit scores it): Schwab's Fall Business Update PR gives only the event, and earnings rode the update in 3 of 3 prior quarters. Next week's audit will score it.
 
 ### Minor: stray `memory/for_*.md` mailbox duplicates — still present, deletion still blocked for me
+
+Also two stray drafts from 10-15, `memory/mid_tmp.md` and `memory/sess_tmp.md`. Their content is already in the log, and my `rm` was denied again 10-18.
 
 `rm memory/for_{market_analyst,system_analyst,trading_advisor}.md` — the canonical copies live in `outbox/`.
 

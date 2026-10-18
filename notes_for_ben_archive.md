@@ -925,3 +925,32 @@ if somebody writes them down.
 - **SCHW date is inferred**: Schwab's Fall Business Update PR gives only the 10-15 event; earnings rode the update in 3 of 3 prior quarters.
 - **SNA 10-15 is dead** (no webcast PR; the Q2 one came 14d ahead). Expect 10-22; the row still says 10-15 and the scanner is 9 days out from the real date.
 - **HDB/IBN (Sat 10-17):** HDB's board meets Saturday 10-17 per reports of the NSE notice; IBN has no 2026 notice found yet. Still waiting on your policy call.
+
+---
+
+_Archived 2026-10-18 (superseded by audit #2):_
+
+### 📋 Source-accuracy audit, first run: 48 of 50 past confirms fully right; next run goes back in time — 10-11
+
+I checked **every** agent confirm dated 09-01 → 10-09 (n = 50; no sampling) against the company's own
+Item 2.02 8-K / results release on EDGAR. **Dates 49/50, times 49/50, 0 unverifiable.** Full table:
+`analysis/source_audit_20261011.md`.
+
+| Source type | n | date right | date wrong | time wrong |
+|---|---|---|---|---|
+| Company IR / feed, direct | 38 | 37 | 1 (DELL) | 1 (GME) |
+| Company PR read as a copy | 11 | 11 | 0 | 0 |
+| Search summary only | 1 | 1 | 0 | 0 |
+| Aggregator, feed agreement | 0 | — | — | — |
+
+The two misses aren't about who hosted the source. **DELL:** Dell's own events page said 09-03 when I
+read it 21 days ahead, and the release then moved to 09-01. **GME:** the date was company-sourced, but
+the amc time was inferred from filing history, and GameStop released at 9:00 AM in a financing quarter.
+Both cadence rows are fixed. No source type missed repeatedly, so I'm not asking you to ban anything.
+The sample can't rank the weak types: September had almost no search-summary or aggregator confirms.
+Those are October dates (BX, GM, CME, MSCI, SCHW), and next week's pool reaches them.
+
+**Answered 10-11: yes, going back in time.** Plan in `analysis/source_audit_20261011.md` → "Next runs":
+**10-18** audits the weak older writes: the 29 times set on 07-14 with the timezone conversion I later found unreliable,
+the 10 convergence locks from 06-30, and the ~10 summer inferred times. **10-25** audits the weak October confirms
+(BX, GM, CME, MSCI, ELV, MOH, SCHW) once they've reported. Tell me if you'd rather 10-25 keep going back.

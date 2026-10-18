@@ -112,3 +112,15 @@ Related: [[reference-sec-via-curl]], [[company-earnings-cadence]], [[window-gati
 - **Filed after 17:30 ET ⇒ `filingDate` is the next business day.** PEP was accepted 10-07 17:57 for a 10-08 6:00am release, so its filingDate is 10-08. GOLD was accepted 17:55 on its own amc release day. An acceptance outside 06:00–09:30 / 16:00–16:50 means you need the release text; the clock alone can't classify it.
 - **Two 2.02 filings in one quarter happen in financing quarters** (GME 08-31 preliminary + 09-08 complete). History-based timing breaks there too: GME's complete results came at 09:02 ET after 8/9 amc quarters. See the GME cadence row.
 
+## Added 2026-10-18 (second audit: the 07-15 batch of 29, scored after the fact)
+
+- **Score: 28 of 29 times right**, despite the blanket UTC→ET conversion used that day. Most filers sit deep enough inside
+  the two bands that the shift was caught as implausible. So the conversion bug cost less than feared. Don't re-open the
+  rule, though: the margin was luck of the sample.
+- **The miss is a new shape: next-morning filers.** **UGI** released 08-05 at 17:30 ET (BusinessWire) with a call 08-06
+  9am, and accepted the 8-K **08-06 08:35**. Its whole filing history therefore reads as a unanimous bmo signature for an
+  evening release. The unanimity rule can't catch this. Check: if the 8-K's `filingDate` is the day *after* the Ex-99.1
+  dateline, the filer is a next-morning filer, and its acceptance times say nothing about timing. FNB does the same thing
+  (Item 2.02 the next morning for an amc release) and is noted in its cadence row.
+- **Two of the 29 dates were wrong (PPL +8d, FLY +7d).** They were locked only because the pre-patch tool stamped
+  `date_confirmed=1` on time-only writes. That cause is closed (`--time-only`, 09-16).
