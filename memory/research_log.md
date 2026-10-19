@@ -12,7 +12,7 @@
 ## Still unconfirmed (rebuilt 2026-10-19 after the session)
 
 Kept as a checklist so nothing falls off between sessions (the hook injects one date-sorted queue,
-ceiling 40). 21 rows closed 10-19; what's left is waiting on a company PR or Ben's policy call. **Nearest date first.**
+ceiling 40). 23 rows closed 10-19; what's left is waiting on a company PR or Ben's policy call. **Nearest date first.**
 
 | Reports | Unconfirmed (`?` = time Unknown) | Notes |
 |---------|-----------------------------------|-------|
@@ -20,7 +20,7 @@ ceiling 40). 21 rows closed 10-19; what's left is waiting on a company PR or Ben
 | 10-20 | ISRG | No PR found 1 day out (last PR 09-08). Search shows only calendar estimates (10-20/10-21) |
 | 10-22 | DOW, IRDM?, SCCO? | |
 | 10-23 | INFY | 10-23 per news coverage of the board filing (not primary); **time likely bmo** (results ~3:45pm IST = 06:15 ET), DB says amc |
-| 10-27 | CNC, GLW, PCAR, PYPL, ST, UPS | No PR yet (calendar estimates only). 21 of the 10-27 batch closed today |
+| 10-27 | CNC, GLW, PCAR, PYPL | No PR yet (calendar estimates only). 17 of the 10-27 batch closed today |
 | 10-28..11-05 | DVA, EBAY?, BMRN, MKTX, ROKU, CC?, COKE?, SW?, DTE, WHR, OSK | No PR yet. MKTX: under ICE acquisition, see cadence row |
 
 ## Open Carry-Overs: researched, unresolved, with next-check dates
@@ -38,7 +38,7 @@ Spine = `analysis/helpers/spine.py` (paces itself to stocktitan's 10-per-300s li
 | DVA | 10-28 | Search 10-19 nothing. Q3'25 notice was 10-13 for 10-29 (now 6 days overdue) | spine; investors.davita.com | 10-20 |
 | MKTX, EBAY | 10-28..11-05 | Search 10-19 nothing. MKTX Q3'25 PR was 10-16; **MKTX is under ICE acquisition, so the date may not come**. EBAY has no date (Q2 was 08-05) | spine | 10-20 |
 | CNC, GLW | 10-27 | Spine + search 10-19: no Q3 date PR (calendar estimates only: CNC 10-27 8:30am per AJ Bell, GLW 10-28) | spine; search | 10-20 |
-| PCAR, PYPL, ST, UPS | 10-27 | Search 10-19: no company PR (PCAR/PYPL/UPS: calendars say 10-27 bmo; ST: Q3'25 notice was 10-14 for 10-28 amc, now overdue) | spine; search | 10-20 |
+| PCAR, PYPL | 10-27 | Spine + search 10-19: no company PR (calendars say 10-27 bmo) | spine; search | 10-20 |
 | **INFY** | 10-23 `amc` | News coverage (upstox/kotakneo/angelone) cites the board filing: meeting 10-22/23, results Fri 10-23. Q2 FY27 times unconfirmed; Q1 FY27 pattern: results ~3:45pm IST (= bmo ET). infosys.com 403s | NSE/BSE filing or infosys.com event page | 10-20 |
 | BMRN | 10-26 | Search 10-19 nothing (Q3'25 notice was 10-22 for 10-27). Finnhub says 11-03 | spine | 10-21 |
 | **IRDM** | 10-22 `Unknown` | Spine + search 10-19: nothing. **Q2 PR said no conference calls** (pending Rocket Lab deal), so no date PR may ever come; Q3'25 notice was 10-02 for 10-23 | EDGAR 8-K; spine | 10-20 |
@@ -202,6 +202,7 @@ Inferred times are marked in each row. Format: `SYM | date | time | source — s
 | CZR | 2026-10-27 | amc | Caesars PR 10-02 (stocktitan page): after close, no call — 10-16 |
 | BXP | 2026-10-27 | amc | BXP BW 09-29 (stocktitan page): after NYSE close, call 10-28 10am ET — 10-16 |
 | NOV | 2026-10-27 | amc | NOV PR 09-16 (stocktitan page): after close, call 10-28 10am CT — 10-16 |
+| ST | 2026-10-27 | amc | Sensata BW 10-14 (stocktitan page): at or about 4:05pm ET, call 5pm ET; 13d lead — 10-19 |
 | SHW | 2026-10-27 | bmo | Sherwin-Williams PR 10-01 (search summary of finviz copy): *prior to market open*, call 10am ET — 10-19 |
 | SOFI | 2026-10-27 | bmo | SoFi PR 09-29 (q4cdn PDF via search): results ~7am ET, call 8am ET — 10-19 |
 | SPGI | 2026-10-27 | bmo | S&P Global PR 09-29 (press.spglobal.com): ~7:15am ET, call 8:30am — 10-19 |
@@ -215,6 +216,7 @@ Inferred times are marked in each row. Format: `SYM | date | time | source — s
 | STAG | 2026-10-27 | amc | STAG PR 10-01 (search summary of finviz copy): after close, call 10-28 10am ET — 10-19 |
 | STX | 2026-10-27 | amc | Seagate BW 10-13 (search summary of finviz copy): after close, call 5pm ET; 14d lead — 10-19 |
 | UHS | 2026-10-27 | amc | UHS PR 10-09 *date and time change* (search summary of finviz copy): after close 10-27, call 10-28 8am ET. Original 10-05 PR said 10-26 — 10-19 |
+| UPS | 2026-10-27 | bmo | UPS BW 10-13 (stocktitan page): ~6:00am ET, call 8:30am; 14d lead — 10-19 |
 | V | 2026-10-27 | amc | Visa PR 10-08 (investor.visa.com via search): results after close, webcast 5pm ET — 10-19 |
 | WM | 2026-10-27 | amc | WM BW 09-24 (search): after the close, call 10-28 10am ET — 10-19 |
 | VRT | 2026-10-28 | bmo | Vertiv PR 10-14 (stocktitan page): before market open, call 11am ET. **DB 10-21 was 7d early** — 10-15 |
@@ -245,11 +247,11 @@ Inferred times are marked in each row. Format: `SYM | date | time | source — s
 
 ## Session: 2026-10-19 (Monday) — 07:21 AM ET
 
-40-row queue (15 disputes + 25 unconfirmed). **21 confirmed:** OMC (10-22 amc), SPCX (10-20, time Unknown → amc), AMX (10-20 amc), XOM (10-30, Unknown → bmo), NVT (10-30, Unknown → bmo, inferred), ARE (10-26, Unknown → amc), and 15 of the 10-27 batch: OKE, PPG, RRC, STAG, STX, UHS, V, WM amc; FCX, RCL, RGEN, SHW, SOFI, SPGI, XYL bmo.
-Method: one background spine over all 40 (SCCO 404'd a 5th time) plus ~35 WebSearches, one per name, read through finviz/stocktitan/placera copies and the company's own pages (ir.spacex.com, investor.exxonmobil.com, press.spglobal.com, investor.visa.com). The spine found nothing the searches missed.
+40-row queue (15 disputes + 25 unconfirmed). **23 confirmed:** ST (10-27 amc) and UPS (10-27 bmo) came from the spine after the searches missed them. OMC (10-22 amc), SPCX (10-20, time Unknown → amc), AMX (10-20 amc), XOM (10-30, Unknown → bmo), NVT (10-30, Unknown → bmo, inferred), ARE (10-26, Unknown → amc), and 17 of the 10-27 batch (ST, UPS added): OKE, PPG, RRC, STAG, STX, UHS, V, WM amc; FCX, RCL, RGEN, SHW, SOFI, SPGI, XYL bmo.
+Method: one background spine over all 40 (SCCO 404'd a 5th time) plus ~35 WebSearches, one per name, read through finviz/stocktitan/placera copies and the company's own pages (ir.spacex.com, investor.exxonmobil.com, press.spglobal.com, investor.visa.com). The spine caught ST and UPS, which the searches missed; it found nothing else new.
 Date corrections: none. Every confirmed date matched the DB; finnhub was wrong for OMC (10-20). UHS moved its release 10-26 → 10-27 on 10-09 (the first PR is still what some calendars show).
 Time inferences: NVT bmo (call 9am only), RCL bmo (call 10am only). AMX: 3Q26 call-invitation PDF is on the company's q4cdn (release 10-20 after close, call 10-21), but the Event.svc feed still has no 3Q26 event, and WebFetch can't read the PDF, so the text came from a search summary of it.
-Not resolved: ISRG, DOW, SCCO, IRDM, INFY, CNC, GLW, PCAR, PYPL, ST, UPS (no company PR found), DVA, EBAY, BMRN, MKTX, ROKU, CC, COKE, SW (no PR). INFY: still only news coverage of the board filing. MKTX: under ICE acquisition, don't expect a date. HDB/IBN held for Ben's policy Q2. WHR, DTE, OSK not scanned (next check 10-20).
+Not resolved: ISRG, DOW, SCCO, IRDM, INFY, CNC, GLW, PCAR, PYPL (no company PR found), DVA, EBAY, BMRN, MKTX, ROKU, CC, COKE, SW (no PR). INFY: still only news coverage of the board filing. MKTX: under ICE acquisition, don't expect a date. HDB/IBN held for Ben's policy Q2. WHR, DTE, OSK not scanned (next check 10-20).
 Process note: `earnings_confirm.py` prints "date unchanged, time unchanged" for rows the DB already had right; that is still a fresh `agent` confirmation. `direct_db_query.py --write` prints "No results returned" on success.
 
 ## Session: 2026-10-16 (Friday) — 07:21 AM ET

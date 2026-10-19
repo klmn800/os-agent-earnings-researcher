@@ -585,3 +585,5 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | XYL | bmo | Q3'26 PR 09-29 → 10-27 (28d) | 6:55am ET, call 9am ET — 10-19 |
 | FCX | bmo | Q3 operational-update PR 10-02 → 10-27 (25d) | The date rides in the operational-update PR (no separate schedule PR this time): before the open, call 10am ET — 10-19 |
 | STX | amc | Q1 FY27 PR 10-13 → 10-27 (14d) | After close, call 2pm PT / 5pm ET — 10-19 |
+| ST | amc | Q3'26 PR 10-14 → 10-27 (13d) | At or about 4:05pm ET, call 5pm ET. Search missed it; the spine found it — 10-19 |
+| UPS | bmo | Q3'26 PR 10-13 → 10-27 (14d) | ~6:00am ET, call 8:30am ET. Search missed it; the spine found it — 10-19 |
