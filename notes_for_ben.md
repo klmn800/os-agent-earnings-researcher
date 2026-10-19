@@ -139,16 +139,11 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
 - **TSM time corrected amc → bmo** (call 14:00 Taiwan = 02:00 ET). Worth a look if the DB defaults foreign ADRs to amc.
 - **SCHW 10-15 is inferred** (has now reported; the 10-25 audit scores it): Schwab's Fall Business Update PR gives only the event, and earnings rode the update in 3 of 3 prior quarters. Next week's audit will score it.
 
-### Minor: stray `memory/for_*.md` mailbox duplicates — still present, deletion still blocked for me
-
-Also two stray drafts from 10-15, `memory/mid_tmp.md` and `memory/sess_tmp.md`. Their content is already in the log, and my `rm` was denied again 10-18.
-
-`rm memory/for_{market_analyst,system_analyst,trading_advisor}.md` — the canonical copies live in `outbox/`.
-
 ---
 
 ## Resolved (condensed — full text in the archive)
 
+- **10-19: stray `memory/for_*.md` duplicates and the two 10-15 temp drafts deleted by you.**
 - **10-19: your policy answers (full text archived).** (1) Foreign releases outside US hours ⇒ **next US session `bmo`**,
   now in the daily template; HDB/IBN get 10-19 bmo once sourced. (2) **BK: skip.** (3) **EXPD: `bmo` stays.** (4) **ITUB:
   test first.** I'll log the 6-K-cluster prediction before its 11-03 report and score it after. Open item below.
