@@ -564,3 +564,24 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | CZR | amc | PR 10-02 → 10-27 (25d) | After close; **no earnings call** — 10-16 |
 | BXP | amc | PR 09-29 → 10-27 (28d) | After the NYSE close, call 10-28 10am ET — 10-16 |
 | NOV | amc | PR 09-16 → 10-27 (41d) | After close, call 10-28 10am CT — 10-16 |
+| OMC | amc | Q3'26 PR 10-16 → 10-22 (6d) | After NYSE close, call 4:30pm ET. DB right; finnhub 10-20 wrong. Cached omc.com URL 404-prone; placera copy read — 10-19 |
+| SPCX | amc | Q3'26 PR 10-16 → 10-20 (4d) | ir.spacex.com: after close, audio webcast 4:30pm ET (X livestream). **Time was Unknown.** Calendars (Nov 3/5) wrong — 10-19 |
+| AMX | amc | no PR; 3Q26 call-invitation PDF (q4cdn) → 10-20 | Release 10-20 after US close, call 10-21 9am Mexico City. Event.svc feed STILL has no 3Q26 event on 10-19 (PDF text came via search summary; WebFetch can't read it) — 10-19 |
+| XOM | bmo | Q3'26 PR 10-16 → 10-30 (14d) | Release 5:30am CT, call 8:30am CT. **Time was Unknown.** investor.exxonmobil.com detail/1212 — 10-19 |
+| NVT | bmo | Q3'26 GNW 10-16 → 10-30 (14d) | Call 9:00am ET; bmo **inferred** (release time not stated). Read via quiverquant copy — 10-19 |
+| ARE | amc | Q3'26 PR 08-25 → 10-26 (62d) | After close, call 10-27 2pm ET. **Time was Unknown.** Checkable 2 months early — 10-19 |
+| OKE | amc | Q3'26 PR 10-05 → 10-27 (22d) | After close, call 10-28 11am ET — 10-19 |
+| PPG | amc | Q3'26 BW 09-28 → 10-27 (29d) | After close, call 10-28 8am ET — 10-19 |
+| RCL | bmo | Q3'26 PR ~10-08 → 10-27 (~19d) | Call 10am ET; bmo **inferred** (release time not stated) — 10-19 |
+| RGEN | bmo | Q3'26 PR 10-13 → 10-27 (14d) | Before the open, call 8am ET — 10-19 |
+| RRC | amc | Q3'26 PR 10-06 → 10-27 (21d) | After NYSE close, call 10-28 9am ET — 10-19 |
+| SHW | bmo | Q3'26 PR 10-01 → 10-27 (26d) | Before the open, call 10am ET — 10-19 |
+| SOFI | bmo | Q3'26 PR 09-29 → 10-27 (28d) | ~7am ET, call 8am ET — 10-19 |
+| SPGI | bmo | Q3'26 PR 09-29 → 10-27 (28d) | ~7:15am ET, call 8:30am ET (press.spglobal.com) — 10-19 |
+| STAG | amc | Q3'26 PR 10-01 → 10-27 (26d) | After close, call 10-28 10am ET — 10-19 |
+| UHS | amc | Q3'26 PR 10-05 (10-26) **moved** 10-09 → 10-27 (18d) | ⚠ First PR said 10-26 / call 10-27 9:30am; revised to avoid healthcare-call conflicts: after close 10-27, call 10-28 8am ET — 10-19 |
+| V | amc | Q3'26 PR 10-08 → 10-27 (19d) | After close, webcast 5pm ET (investor.visa.com) — 10-19 |
+| WM | amc | Q3'26 BW 09-24 → 10-27 (33d) | After close, call 10-28 10am ET — 10-19 |
+| XYL | bmo | Q3'26 PR 09-29 → 10-27 (28d) | 6:55am ET, call 9am ET — 10-19 |
+| FCX | bmo | Q3 operational-update PR 10-02 → 10-27 (25d) | The date rides in the operational-update PR (no separate schedule PR this time): before the open, call 10am ET — 10-19 |
+| STX | amc | Q1 FY27 PR 10-13 → 10-27 (14d) | After close, call 2pm PT / 5pm ET — 10-19 |
