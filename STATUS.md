@@ -4,21 +4,21 @@
 > weekly maintenance session (`PROMPT_SUNDAY.md`). Glance here for current
 > state without reading the full research log.
 
-**Last updated:** 2026-10-18 (weekly maintenance)
+**Last updated:** 2026-10-19 (Ben's policy answers applied on top of the 10-18 maintenance)
 
 ---
 
 ## Needs attention this week (10-19 → 10-23)
 
-1. **❓ Ben: another source audit next Sunday (10-25)?** It would cover the October dates that have passed by then
-   (GM, MSCI, CME, ELV, MOH, BX, SCHW, ASML …). This week's results are below; the question is in `notes_for_ben.md`.
-2. **⚠ Ben: HDB / IBN are past-dated.** Both are still unconfirmed at Saturday 10-17. Either rule moves the date (10-16 amc
-   or 10-19 bmo); I'm holding for your policy Q2 answer.
-3. **⚠ Ben: BK still has no `earnings_upcoming` row** (BNY reported 10-15; my confirm is in the archive only).
-4. **Monday's first reads:** AMX (10-20, still no 3Q26 event in its feed), ISRG (10-20, no PR 4 days out), OMC (row moved to
-   10-22 with no source), DOW / IRDM / SCCO (10-22), INFY (10-23, time probably bmo, DB says amc).
-5. **Possible prompt tweak (Ben's call):** a PR that gives only a *morning call time* doesn't date the release. Details in
-   `notes_for_ben.md` → audit #2.
+**Ben's 10-19 answers applied:** foreign off-hours releases ⇒ next US session `bmo` (now in the daily template); BK skipped;
+EXPD stays `bmo`; ITUB 6-K proxy to be tested before use; audit again **10-25**; morning-call rule added to the prompt.
+Dev items (carry times forward, diverged-row priority, `no_earnings_event` flag) were sent to the `options-scanner-90` session.
+
+1. **HDB / IBN:** write **10-19 bmo** once Saturday's releases are sourced (Monday's first item).
+2. **Monday's other first reads:** AMX (10-20, still no 3Q26 event in its feed), ISRG (10-20, no PR 4 days out), OMC (row
+   moved to 10-22 with no source), DOW / IRDM / SCCO (10-22), INFY (10-23, time probably bmo, DB says amc).
+3. **ITUB (11-03):** log the 6-K-cluster date prediction before it reports; score it after.
+4. **10-25 Sunday:** source audit #3, forward (October dates passed by then).
 
 ## Open Carry-Overs
 
@@ -33,7 +33,8 @@
 | CNC, FCX, GLW | 10-27 | No Q3 date PR | 10-19 |
 | DVA, NVT, XOM, MKTX, EBAY | 10-28 → 11-05 | No PR (DVA overdue vs Q3'25 lead) | 10-19 |
 | WHR, DTE, OSK | 10-28/29 | No PR; WHR's Q3'25 notice came 10-20 | 10-20 |
-| HDB, IBN | Sat 10-17 (past) | Policy call (Ben) | on Ben's answer |
+| HDB, IBN | Sat 10-17 (past) | Rule set 10-19 (next US session bmo) ⇒ 10-19 bmo once sourced | 10-19 |
+| ITUB | 11-03 amc | 6-K-cluster test: predict, don't confirm, then score | before 11-02 |
 
 **Confirmed-but-upcoming:** 160 rows (10-19 → Nov), **160/160 match the DB, 0 mismatches** (checked 10-18). Weakest still
 ahead: MSCI, GM (10-20, search summaries), CME (10-21), ELV, MOH (10-21, biopharmawatch copies), BX (10-22, search snippet).

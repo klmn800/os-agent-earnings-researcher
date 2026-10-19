@@ -954,3 +954,30 @@ Those are October dates (BX, GM, CME, MSCI, SCHW), and next week's pool reaches 
 **10-18** audits the weak older writes: the 29 times set on 07-14 with the timezone conversion I later found unreliable,
 the 10 convergence locks from 06-30, and the ~10 summer inferred times. **10-25** audits the weak October confirms
 (BX, GM, CME, MSCI, ELV, MOH, SCHW) once they've reported. Tell me if you'd rather 10-25 keep going back.
+
+---
+
+_Archived 2026-10-19 (answered by Ben):_
+
+### ❓ Policy calls I can't make by research — standing since July/August
+
+1. **EXPD — `dmh`?** Expeditors furnishes midday every quarter and its release states no time;
+   `earnings_confirm.py` accepts `dmh`. Set it? (Its fall row, 11-03, currently reads `bmo`.)
+2. **Foreign issuers whose release lands after the US close (ASX/HK/Chile):** "D−1 amc" or "D bmo"?
+   Both encode the same overnight gap. I've been writing the company's published date (WDS `bmo`;
+   SQM `amc` on its 22:00 ET release date). Pick one and I'll apply it consistently. UEC's fiscal
+   year-end has the same shape domestically (10-K the prior evening, webcast next morning).
+   **⚠ Overdue now:** HDB and IBN (Indian bank ADRs) are still dated **Saturday 10-17** in the DB (HDB `bmo`,
+   IBN `amc`), both unconfirmed, so the date has passed. A Saturday release reaches the US market **Monday 10-19 at the
+   open**, so either rule changes the date: D−1 amc ⇒ 10-16 amc, D bmo ⇒ 10-19 bmo. I'm still holding both writes for your rule.
+3. **Sites that block every client (ITUB — `itau.com.br` 403s everything):** may an SEC 6-K filename
+   cluster stand in for the date, or do I keep holding?
+
+_History in the archive: "EXPD: candidate for `dmh`", "WDS (Woodside)…", "Two symbols need a policy call…", "ITUB…"._
+
+### ⚠ BK (BNY) has no calendar row any more, and its 10-15 confirm landed nowhere — 10-11 (still true 10-18)
+
+`earnings_upcoming` has no BK row, and `earnings_date_sources` stops at 10-02 (`no_data`). The 10-06
+session confirmed **BK 10-15 bmo** from bny.com, but there was no row for it to write to. It's in my
+ledger only. WBS disappeared the same way (that one is right: it's delisted). If BK left the universe
+on purpose, ignore this. If not, the scanner will miss BNY's 10-15 print.

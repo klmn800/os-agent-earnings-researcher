@@ -12,8 +12,8 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ### 📋 Source-accuracy audit #2 (back in time): feed/cadence locks were wrong on half the dates — 10-18
 
-**❓ Open question for you: do you want me to run another source-accuracy audit next Sunday? (Next time: the October
-dates that have passed by then.)**
+**Answered 10-19: yes, audit again 10-25** (October dates passed by then). **Morning-call tweak: done**, added to the
+`launcher.py` daily template and CLAUDE.md step 4 on 10-19.
 
 I checked all 58 summer writes that rested on a weak source type (a census, no sampling) against EDGAR and the dated
 releases. I re-read every mismatch myself. Full table: `analysis/source_audit_20261018.md`.
@@ -29,7 +29,7 @@ releases. I re-read every mismatch myself. Full table: `analysis/source_audit_20
   (nothing ever flagged WAL). No lock without a company source has been the policy since July, so I'm not asking you to
   ban anything new. This just measures the cost.
 - **"Morning call ⇒ bmo" failed 3 times in 12.** AMTM and UUUU released the **evening before** a morning call. In AMTM's
-  case I moved a correct DB date onto the call day. **Possible prompt tweak (your call):** in the daily template, treat a
+  case I moved a correct DB date onto the call day. **Prompt tweak (done 10-19):** the daily template now treats a
   PR that gives only a morning call time as "release time unknown, date D or D−1" unless the PR or the prior quarter
   settles it. It's already a standing rule in my memory (cadence rule 6).
 - **SEC filing history held for time (28/29)** despite the conversion bug. The one miss: UGI files its 8-K the next morning.
@@ -38,12 +38,11 @@ releases. I re-read every mismatch myself. Full table: `analysis/source_audit_20
 
 **10-11 run:** dates 49/50, times 49/50 on September's mostly company-sourced confirms (`analysis/source_audit_20261011.md`).
 
-### ⚠ BK (BNY) has no calendar row any more, and its 10-15 confirm landed nowhere — 10-11 (still true 10-18)
+### 🧪 ITUB: testing the SEC 6-K cluster as a date source before you decide — 10-19
 
-`earnings_upcoming` has no BK row, and `earnings_date_sources` stops at 10-02 (`no_data`). The 10-06
-session confirmed **BK 10-15 bmo** from bny.com, but there was no row for it to write to. It's in my
-ledger only. WBS disappeared the same way (that one is right: it's delisted). If BK left the universe
-on purpose, ignore this. If not, the scanner will miss BNY's 10-15 print.
+Per your 10-19 answer: before ITUB's next report (DB 11-03 `amc`), I'll write down the date the 6-K filing cluster
+predicts, without confirming it, and score it against the actual release and call after. If it doesn't match, the method
+is dead and ITUB stays held every quarter.
 
 ### 📈 Daily queue: A + D worked in week 1, but disputes now outnumber the ceiling 3:1 — 10-11
 
@@ -113,25 +112,9 @@ generator and the calendar respect. A periodic ticker-vs-SEC `company_tickers.js
 would also have caught IAC→PPLI automatically.
 _History in the archive: "AES is a phantom again…", "EA is a phantom…", "MKTX was dated TODAY…", "Data-quality: symbols the dispute system can't self-assess…"._
 
-### ❓ Policy calls I can't make by research — standing since July/August
-
-1. **EXPD — `dmh`?** Expeditors furnishes midday every quarter and its release states no time;
-   `earnings_confirm.py` accepts `dmh`. Set it? (Its fall row, 11-03, currently reads `bmo`.)
-2. **Foreign issuers whose release lands after the US close (ASX/HK/Chile):** "D−1 amc" or "D bmo"?
-   Both encode the same overnight gap. I've been writing the company's published date (WDS `bmo`;
-   SQM `amc` on its 22:00 ET release date). Pick one and I'll apply it consistently. UEC's fiscal
-   year-end has the same shape domestically (10-K the prior evening, webcast next morning).
-   **⚠ Overdue now:** HDB and IBN (Indian bank ADRs) are still dated **Saturday 10-17** in the DB (HDB `bmo`,
-   IBN `amc`), both unconfirmed, so the date has passed. A Saturday release reaches the US market **Monday 10-19 at the
-   open**, so either rule changes the date: D−1 amc ⇒ 10-16 amc, D bmo ⇒ 10-19 bmo. I'm still holding both writes for your rule.
-3. **Sites that block every client (ITUB — `itau.com.br` 403s everything):** may an SEC 6-K filename
-   cluster stand in for the date, or do I keep holding?
-
-_History in the archive: "EXPD: candidate for `dmh`", "WDS (Woodside)…", "Two symbols need a policy call…", "ITUB…"._
-
 ### 💡 Proposals for a dev session (no urgency; each has a fuller write-up in the archive or `analysis/`)
 
-- **Hook: give `confirmed_row_diverged` top priority** and show the signed delta — see
+- **(Sent to dev session 10-19)** Hook: give `confirmed_row_diverged` top priority and show the signed delta — see
   `analysis/proposal_20260913_hook_diverged_priority_status_tripwire.md` (with two other small items;
   its item 3 predates the patch — the line to add to the prompt is now *"time-only ⇒ `--time-only`"*,
   not the plain UPDATE).
@@ -166,6 +149,11 @@ Also two stray drafts from 10-15, `memory/mid_tmp.md` and `memory/sess_tmp.md`. 
 
 ## Resolved (condensed — full text in the archive)
 
+- **10-19: your policy answers (full text archived).** (1) Foreign releases outside US hours ⇒ **next US session `bmo`**,
+  now in the daily template; HDB/IBN get 10-19 bmo once sourced. (2) **BK: skip.** (3) **EXPD: `bmo` stays.** (4) **ITUB:
+  test first.** I'll log the 6-K-cluster prediction before its 11-03 report and score it after. Open item below.
+  (5) Audit again 10-25. (6) Morning-call rule is in the prompt. Proposals **7, 8, 10** (carry times forward, diverged-row
+  priority, `no_earnings_event` flag) were sent to the `options-scanner-90` dev session on 10-19.
 - **10-11: Backfill crowd-out (A + D, implemented 10-05): fixed.** Scored in the 📈 item above; full
   original text archived.
 - **10-11: SNA called right, ACI called wrong.** SNA reports **10-22** (webcast PR 10-08, confirmed

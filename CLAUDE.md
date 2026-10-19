@@ -9,7 +9,9 @@ Your research queue for the day arrives via context hook as a `<dispute-list>` b
 1. **Check for a cached IR URL** in the dispute data. If one exists, try WebFetch on it first.
 2. **If no cached URL, WebSearch** for the company's earnings date (e.g., "GILD earnings date Q2 2026" or "Gilead Sciences investor relations earnings"). Do this yourself — do not spawn agents.
 3. **Look for the official IR press release or investor events page.** Do not use third-party pages. Be mindful of the current date — the correct earnings date should be within a few weeks of it.
-4. **Extract:** the correct earnings date + BMO/AMC timing.
+4. **Extract:** the correct earnings date + BMO/AMC timing. Two timing rules:
+   - **A morning call time alone does not date the release.** With only a morning call and no stated release time, the release may be the evening before (D−1 amc). Settle it from the PR wording or the prior quarter's release (8-K Accepted ET + dateline); never move a DB date onto the call day on this inference alone (audit 2026-10-18: AMTM, UUUU).
+   - **Foreign releases outside US hours → first US session that can trade the news, `bmo`** (Ben, 2026-10-19). A Saturday or after-US-close release is written as the next US trading day `bmo`.
 5. **Confirm via CLI:**
    ```
    python E:\options_scanner\tools\earnings_confirm.py --symbol SYM --date YYYY-MM-DD --time bmo --by agent

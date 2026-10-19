@@ -43,6 +43,8 @@ Spine = `analysis/helpers/spine.py` (paces itself to stocktitan's 10-per-300s li
 | BMRN | 10-26 | Search 10-19 nothing (Q3'25 notice was 10-22 for 10-27). Finnhub says 11-03 | spine | 10-21 |
 | **IRDM** | 10-22 `Unknown` | Spine + search 10-19: nothing. **Q2 PR said no conference calls** (pending Rocket Lab deal), so no date PR may ever come; Q3'25 notice was 10-02 for 10-23 | EDGAR 8-K; spine | 10-20 |
 | ROKU, CC, COKE, SW | 10-28..11-05 | Search 10-19 nothing (COKE Q2 notice was 07-22 for 08-05; CC Q2 07-23 for 08-04; SW Q2 reported 07-29) | spine; search | 10-21 |
+| **HDB, IBN** | Sat 10-17 (past) | **Ben 10-19: next US session `bmo`** ⇒ write **10-19 bmo** once the release is sourced (HDB board met Sat 10-17 per secondary coverage; IBN no notice found) | company release / exchange filing | 10-19 |
+| **ITUB** | 11-03 `amc` | **Ben 10-19: test the 6-K cluster first.** Before 11-03, log the date the SEC 6-K filing cluster predicts, *don't confirm*; after the report, score it vs the actual release/call. Only a match makes the method usable | EDGAR 6-K list; itau.com.br 403s everything | before 11-02 |
 | WBS | — | **Skipped (delisted)**, but the scanner calendar may still carry it. Ben's item | — | — |
 
 ## Upcoming Confirmed: locked dates (don't re-research)
