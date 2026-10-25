@@ -981,3 +981,54 @@ _History in the archive: "EXPD: candidate for `dmh`", "WDS (Woodside)…", "Two 
 session confirmed **BK 10-15 bmo** from bny.com, but there was no row for it to write to. It's in my
 ledger only. WBS disappeared the same way (that one is right: it's delisted). If BK left the universe
 on purpose, ignore this. If not, the scanner will miss BNY's 10-15 print.
+
+---
+
+## Archived 2026-10-25 (verbatim from notes_for_ben.md)
+
+### 📋 Source-accuracy audit #2 (back in time): feed/cadence locks were wrong on half the dates — 10-18
+
+**Answered 10-19: yes, audit again 10-25** (October dates passed by then). **Morning-call tweak: done**, added to the
+`launcher.py` daily template and CLAUDE.md step 4 on 10-19.
+
+I checked all 58 summer writes that rested on a weak source type (a census, no sampling) against EDGAR and the dated
+releases. I re-read every mismatch myself. Full table: `analysis/source_audit_20261018.md`.
+
+| Source type | n | date right | date wrong | time wrong |
+|---|---|---|---|---|
+| Feed agreement + cadence lock (06-30) | 12 | 6 | **6** (by 4–7 d) | 0 |
+| Time from SEC filing history (07-15 batch) | 29 | 27 (dates unsourced) | 2 | 1 (UGI) |
+| Time inferred from the call time | 12 | 10 | 2 | **3** (CNP, AMTM, UUUU) |
+| Time from a home-market clock (foreign) | 5 | 5 | 0 | 0 |
+
+- **Feed/cadence locks: 6 of 12 dates wrong.** Four were already known (RTX, LMT, CLF, EQT). **SNA and WAL** are new
+  (nothing ever flagged WAL). No lock without a company source has been the policy since July, so I'm not asking you to
+  ban anything new. This just measures the cost.
+- **"Morning call ⇒ bmo" failed 3 times in 12.** AMTM and UUUU released the **evening before** a morning call. In AMTM's
+  case I moved a correct DB date onto the call day. **Prompt tweak (done 10-19):** the daily template now treats a
+  PR that gives only a morning call time as "release time unknown, date D or D−1" unless the PR or the prior quarter
+  settles it. It's already a standing rule in my memory (cadence rule 6).
+- **SEC filing history held for time (28/29)** despite the conversion bug. The one miss: UGI files its 8-K the next morning.
+- PPL and FLY dates (+8, +7) were locked by the pre-patch tool's time-only side effect, a cause your 09-16 patch closed.
+- **No DB rows touched**, since these dates have passed. Cadence rows fixed for the misses.
+
+**10-11 run:** dates 49/50, times 49/50 on September's mostly company-sourced confirms (`analysis/source_audit_20261011.md`).
+
+### 📈 Daily queue: A + D worked in week 1, but disputes now outnumber the ceiling 3:1 — 10-11
+
+**Scored on 10-06 → 10-09 (the first four runs):** each queue was 40 rows, mixed disputes + unconfirmed
+by date. **70 dates confirmed** across the week (4 / 27 / 10 / 10 / 19), and the 83 invisible rows from
+10-04 are down to **46 unconfirmed ≤ 10-23**. **D works:** every session wrote cadence rows
+for its first-time names. The only gap was 10-05 (TXN, HIG, NSC), which ran on the old prompt; I backfilled
+those. The ledger matched the DB with **0 mismatches**.
+
+**New pressure:** disputes per morning went **32 → 51 → 82 → 108 → 112**. Nearest-first is the right
+order, so the overflow is the far-dated rows, which is fine for now. Around 10-19, though, a 40-row
+queue will carry rows dated only 3–4 days out. Option C (inject next-checks) is still open. If you want
+a second lever before the 10-27 → 10-29 peak (~200 unconfirmed rows on those three days), raising the ceiling for
+near-dated rows only is the cheap one.
+
+### Minor: from the 10-06 session: TSM's time and SCHW's inferred date
+
+- **TSM time corrected amc → bmo** (call 14:00 Taiwan = 02:00 ET). Worth a look if the DB defaults foreign ADRs to amc.
+- **SCHW 10-15 is inferred** (has now reported; the 10-25 audit scores it): Schwab's Fall Business Update PR gives only the event, and earnings rode the update in 3 of 3 prior quarters. Next week's audit will score it.

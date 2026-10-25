@@ -10,53 +10,49 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### 📋 Source-accuracy audit #2 (back in time): feed/cadence locks were wrong on half the dates — 10-18
+### ❓ Simple Mode has switched off my weekday sessions. Intended for the trial? — 10-25
 
-**Answered 10-19: yes, audit again 10-25** (October dates passed by then). **Morning-call tweak: done**, added to the
-`launcher.py` daily template and CLAUDE.md step 4 on 10-19.
+Simple Mode (trial from 10-20) skips orchestrator Phase 1. That is where Earnings Intelligence spawns me, so **no weekday
+session ran 10-20 → 10-23**. The Friday 5.3 Earnings Refresh is skipped too. The last confirm in `earnings_upcoming` was
+10-19 07:42. Only this Sunday session still fires. I'm assuming that's deliberate (you no longer use the scanner day to
+day) and changing nothing. Consequences, in case they matter:
+- **~40 unconfirmed rows for 10-26 → 11-05 stay unresearched**, including the 10-27 → 10-29 peak. The 80 confirmed rows
+  in that window are locked and still match the DB.
+- **The ITUB 6-K test (11-03) can't run**, because it needs a weekday session before 11-02. It slips to next quarter
+  unless I do it on Sunday 11-01. Say if you want that.
+- Past-dated rows that were never confirmed (HDB, IBN, ISRG, DOW, IRDM, SCCO, INFY) are parked. EDGAR shows **IRDM and
+  SCCO reported 10-20, 2 days before their DB dates**, in case anything downstream reads `earnings_events`.
 
-I checked all 58 summer writes that rested on a weak source type (a census, no sampling) against EDGAR and the dated
-releases. I re-read every mismatch myself. Full table: `analysis/source_audit_20261018.md`.
+**Question:** should weekday research stay off for the rest of the trial, or would you like the researcher launched on
+its own (e.g. a Task Scheduler entry like the Sunday one)?
 
-| Source type | n | date right | date wrong | time wrong |
+### 📋 Source-accuracy audit #3 (October confirms): 44 of 44 right — 10-25
+
+Answers your 10-19 "audit again 10-25". There were 134 passed October confirms. I sampled 43 at random within source type,
+plus SCHW (whose inferred date I had promised to score), and had blind subagents check them against EDGAR 8-K/6-K
+acceptance times and dated releases. Report: `analysis/source_audit_20261025.md`.
+
+| Source type | n | date right | time right | unverifiable |
 |---|---|---|---|---|
-| Feed agreement + cadence lock (06-30) | 12 | 6 | **6** (by 4–7 d) | 0 |
-| Time from SEC filing history (07-15 batch) | 29 | 27 (dates unsourced) | 2 | 1 (UGI) |
-| Time inferred from the call time | 12 | 10 | 2 | **3** (CNP, AMTM, UUUU) |
-| Time from a home-market clock (foreign) | 5 | 5 | 0 | 0 |
+| Company IR / newsroom page | 10 | 10 | 10 | 0 |
+| PR read as a copy | 10 | 10 | 10 | 0 |
+| Search summary only (of company text) | 11 | 11 | 11 | 0 |
+| Time inferred (call / clock / filing history) | 13 | 13 | 13 | 0 |
+| Aggregator / feed agreement | 0 | — | — | — |
 
-- **Feed/cadence locks: 6 of 12 dates wrong.** Four were already known (RTX, LMT, CLF, EQT). **SNA and WAL** are new
-  (nothing ever flagged WAL). No lock without a company source has been the policy since July, so I'm not asking you to
-  ban anything new. This just measures the cost.
-- **"Morning call ⇒ bmo" failed 3 times in 12.** AMTM and UUUU released the **evening before** a morning call. In AMTM's
-  case I moved a correct DB date onto the call day. **Prompt tweak (done 10-19):** the daily template now treats a
-  PR that gives only a morning call time as "release time unknown, date D or D−1" unless the PR or the prior quarter
-  settles it. It's already a standing rule in my memory (cadence rule 6).
-- **SEC filing history held for time (28/29)** despite the conversion bug. The one miss: UGI files its 8-K the next morning.
-- PPL and FLY dates (+8, +7) were locked by the pre-patch tool's time-only side effect, a cause your 09-16 patch closed.
-- **No DB rows touched**, since these dates have passed. Cadence rows fixed for the misses.
-
-**10-11 run:** dates 49/50, times 49/50 on September's mostly company-sourced confirms (`analysis/source_audit_20261011.md`).
+- **No misses**, so I have nothing to propose dropping. The samples are small (10 to 13 per type), so read this as "no
+  high miss rate", not "never wrong". The summer's call-time inferences were 9/12. October's were 13/13, likely thanks to
+  the morning-call rule, but that isn't tested.
+- SCHW 10-15 bmo held (Business Wire 7:30am). Its 8-K always lands ~16:17, which would mislead a filing-time check.
+- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that
+  have passed by then.)* With no weekday sessions writing new confirms, next week's pool would be only the ~45 locked
+  rows dated 10-26 → 10-30.
 
 ### 🧪 ITUB: testing the SEC 6-K cluster as a date source before you decide — 10-19
 
 Per your 10-19 answer: before ITUB's next report (DB 11-03 `amc`), I'll write down the date the 6-K filing cluster
 predicts, without confirming it, and score it against the actual release and call after. If it doesn't match, the method
 is dead and ITUB stays held every quarter.
-
-### 📈 Daily queue: A + D worked in week 1, but disputes now outnumber the ceiling 3:1 — 10-11
-
-**Scored on 10-06 → 10-09 (the first four runs):** each queue was 40 rows, mixed disputes + unconfirmed
-by date. **70 dates confirmed** across the week (4 / 27 / 10 / 10 / 19), and the 83 invisible rows from
-10-04 are down to **46 unconfirmed ≤ 10-23**. **D works:** every session wrote cadence rows
-for its first-time names. The only gap was 10-05 (TXN, HIG, NSC), which ran on the old prompt; I backfilled
-those. The ledger matched the DB with **0 mismatches**.
-
-**New pressure:** disputes per morning went **32 → 51 → 82 → 108 → 112**. Nearest-first is the right
-order, so the overflow is the far-dated rows, which is fine for now. Around 10-19, though, a 40-row
-queue will carry rows dated only 3–4 days out. Option C (inject next-checks) is still open. If you want
-a second lever before the 10-27 → 10-29 peak (~200 unconfirmed rows on those three days), raising the ceiling for
-near-dated rows only is the cheap one.
 
 ### ⚠ Re-seeded times contradict established ones: 9 of the 10 rows are fixed, but the class isn't — 09-13, updated 09-27
 
@@ -134,15 +130,13 @@ _History in the archive: "AES is a phantom again…", "EA is a phantom…", "MKT
 Unchanged since 06-21: no advance PR, no scheduling 8-K; the date lives only on a JS-rendered Q4 events
 page. If its events JSON endpoint can be found I can self-serve; otherwise I'll hold and ask for a paste.
 
-### Minor: from the 10-06 session: TSM's time and SCHW's inferred date
-
-- **TSM time corrected amc → bmo** (call 14:00 Taiwan = 02:00 ET). Worth a look if the DB defaults foreign ADRs to amc.
-- **SCHW 10-15 is inferred** (has now reported; the 10-25 audit scores it): Schwab's Fall Business Update PR gives only the event, and earnings rode the update in 3 of 3 prior quarters. Next week's audit will score it.
-
 ---
 
 ## Resolved (condensed — full text in the archive)
 
+- **10-25: audit #2 (summer weak sources) and the 10-11 daily-queue item archived.** Audit #2 led to the morning-call
+  rule (in the prompt since 10-19). The queue item was overtaken: no weekday sessions run under Simple Mode.
+- **10-25: SCHW's inferred 10-15 date held; TSM's bmo correction held** (6-K accepted 06:40 ET), as audit #3 found.
 - **10-19: stray `memory/for_*.md` duplicates and the two 10-15 temp drafts deleted by you.**
 - **10-19: your policy answers (full text archived).** (1) Foreign releases outside US hours ⇒ **next US session `bmo`**,
   now in the daily template; HDB/IBN get 10-19 bmo once sourced. (2) **BK: skip.** (3) **EXPD: `bmo` stays.** (4) **ITUB:

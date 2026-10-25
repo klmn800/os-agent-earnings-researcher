@@ -376,7 +376,7 @@ Lead = advance PR date → release date; "unmeasured" = PR date not captured, gr
 | MRSH | Marsh / Q3 | bmo | 28d (PR 09-17) | 10-15 before the open, call 8:30am ET. Q2 was bmo too. | marsh.com PR |
 | PLD | Prologis / Q3 | bmo (inferred) | 42d (PR 09-03) | 10-15, call 9am PT / 12pm ET. PR doesn't state release time. | finviz copy of the BW PR |
 | AA | Alcoa / Q3 | amc | 30d (PR 09-15) | 10-15 after close, call 5:00pm EDT. | q4cdn PDF |
-| SCHW | Schwab / Q3 | bmo (inferred) | 28d (PR 09-17) | **Fall Business Update** 10-15 8:30am ET; PR never mentions earnings, but earnings rode the update in Q3'25, Q1'26, Q2'26 (3/3). | pressroom.aboutschwab.com |
+| SCHW | Schwab / Q3 | bmo (inferred) | 28d (PR 09-17) | ✅ **Held: 10-15 bmo** (BW 7:30am, audit 10-25). **Fall Business Update** 10-15 8:30am ET; PR never mentions earnings, but earnings rode the update in Q3'25, Q1'26, Q2'26 (3/3). | pressroom.aboutschwab.com |
 | TSM | TSMC / Q3 | **bmo** | annual calendar | Call 14:00 Taiwan = 02:00 ET, so the US reaction is the same day's open. **DB had amc, corrected.** Same shape as ERIC/WIT. | investor.tsmc.com |
 | CFG | Citizens / Q3 | bmo | annual schedule PR | 10-16, call 9:00am ET. | BW PR (finviz copy) |
 | MTB | M&T / Q3 | bmo | 28d (PR 09-18) | 10-16 before the open, call 8:00am ET. | BW PR (finviz copy) |
@@ -587,3 +587,10 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | STX | amc | Q1 FY27 PR 10-13 → 10-27 (14d) | After close, call 2pm PT / 5pm ET — 10-19 |
 | ST | amc | Q3'26 PR 10-14 → 10-27 (13d) | At or about 4:05pm ET, call 5pm ET. Search missed it; the spine found it — 10-19 |
 | UPS | bmo | Q3'26 PR 10-13 → 10-27 (14d) | ~6:00am ET, call 8:30am ET. Search missed it; the spine found it — 10-19 |
+| SCCO | amc (likely) | **no advance PR caught**; release dated 2 days **before** the call | Q3'26 ex-99.1 dated **10-20**, 8-K accepted 10-21 09:20 ET (next-morning filer), call 10-22 11am ET. **DB 10-22 was the CALL date, 2d late.** Next quarter: expect release = call − 2d. Stocktitan listing 404s; read EDGAR (CIK 1001838) — audit 10-25 |
+| IRDM | bmo | **none** (no call while the Rocket Lab deal is pending) | Q3'26 8-K Item 2.02 accepted **10-20 07:01 ET**; DB 10-22 Unknown was 2d late. With no call there is no advance PR: only EDGAR shows it, after the fact — audit 10-25 |
+| ISRG | amc | no advance PR caught in 2026-Q3 | Q3'26 8-K accepted 10-20 16:05 ET; DB 10-20 amc held although no date PR was found 1 day out (overdue-PR doubt wrong) — audit 10-25 |
+| DOW | bmo | no Q3 date PR caught | Q3'26 8-K accepted 10-22 06:57 ET; DB 10-22 bmo held — audit 10-25 |
+| INFY | bmo (predicted; DB amc) | — | Q2 FY27 results 6-K accepted 10-23 11:45 ET (after the open, so it doesn't time the release). Date held; my bmo call (~3:45pm IST = 06:15 ET) is still **unverified** — audit 10-25 |
+| SCHW | bmo ✅ | 28d (Fall Business Update PR 09-17) | Q3'26 confirmed **10-15 bmo**: BW release 7:30am, Business Update 8:30am ET. ⚠ Schwab furnishes its Item 2.02 8-K at **~16:17 ET every quarter** (10/10 since 2024-07), so the 8-K time never times the release. The update-day inference is now 4/4 — audit 10-25 |
+| PCG, DHR | bmo | — | **Evening-before 8-K filers:** Item 2.02 accepted after 17:30 ET (PCG 10-21 21:04, DHR 10-20 17:43), EDGAR filing date = next day, release dated next day with a same-morning call. Don't read the acceptance as D−1 amc — audit 10-25 |

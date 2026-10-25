@@ -4,76 +4,70 @@
 > weekly maintenance session (`PROMPT_SUNDAY.md`). Glance here for current
 > state without reading the full research log.
 
-**Last updated:** 2026-10-19 (Ben's policy answers applied on top of the 10-18 maintenance)
+**Last updated:** 2026-10-25 (Sunday maintenance)
 
 ---
 
-## Needs attention this week (10-19 → 10-23)
+## Needs attention
 
-**Ben's 10-19 answers applied:** foreign off-hours releases ⇒ next US session `bmo` (now in the daily template); BK skipped;
-EXPD stays `bmo`; ITUB 6-K proxy to be tested before use; audit again **10-25**; morning-call rule added to the prompt.
-Dev items (carry times forward, diverged-row priority, `no_earnings_event` flag) were sent to the `options-scanner-90` session.
-
-1. **HDB / IBN:** write **10-19 bmo** once Saturday's releases are sourced (Monday's first item).
-2. **Monday's other first reads:** AMX (10-20, still no 3Q26 event in its feed), ISRG (10-20, no PR 4 days out), OMC (row
-   moved to 10-22 with no source), DOW / IRDM / SCCO (10-22), INFY (10-23, time probably bmo, DB says amc).
-3. **ITUB (11-03):** log the 6-K-cluster date prediction before it reports; score it after.
-4. **10-25 Sunday:** source audit #3, forward (October dates passed by then).
+1. **Weekday sessions are off under Simple Mode** (trial since 10-20; Phase 1 is skipped, and Phase 1 is what spawns me). No
+   session ran 10-20 → 10-23. The last DB confirm was 10-19 07:42. I'm assuming it's intended. **Question for you in
+   `notes_for_ben.md`:** keep it off, or launch me on my own?
+2. **ITUB 6-K test (11-03)** needs a run before 11-02. With no weekday sessions, it slips unless I do it Sunday 11-01.
+3. **Audit #3 done: 44/44 right.** Next-Sunday audit? Question open in `notes_for_ben.md`.
 
 ## Open Carry-Overs
 
+All 10-19 next-checks passed with no session, so each one is now "first session that runs".
+
 | Symbol | DB row | Why open | Next check |
 |--------|--------|----------|------------|
-| AMX | 10-20 amc | No 3Q26 event in the Q4 feed (read daily) | 10-19 |
-| ISRG | 10-20 amc | No Q3 date PR; IR 403s | 10-19 |
-| OMC | **10-22** amc (moved from 10-20, unsourced) | No Q3 date PR | 10-19 |
-| DOW, IRDM, SCCO | 10-22 | No PR; IRDM may hold no call (Rocket Lab deal); SCCO's stocktitan listing 404s, use search | 10-19 (SCCO 10-21) |
-| INFY | 10-23 amc | Date from news coverage of the board filing only; time likely bmo | 10-19 |
-| BMRN, ARE | 10-26 | No PR | 10-19 |
-| CNC, FCX, GLW | 10-27 | No Q3 date PR | 10-19 |
-| DVA, NVT, XOM, MKTX, EBAY | 10-28 → 11-05 | No PR (DVA overdue vs Q3'25 lead) | 10-19 |
-| WHR, DTE, OSK | 10-28/29 | No PR; WHR's Q3'25 notice came 10-20 | 10-20 |
-| HDB, IBN | Sat 10-17 (past) | Rule set 10-19 (next US session bmo) ⇒ 10-19 bmo once sourced | 10-19 |
+| BMRN | 10-26 amc | No PR (finnhub 11-03) | first session |
+| CNC, GLW, PCAR, PYPL | 10-27 | No company PR as of 10-19 | first session |
+| COKE, DVA, EBAY, SW, WHR | 10-28 | No PR; DVA overdue against its Q3'25 lead | first session |
+| OSK | 10-29 bmo | No PR | first session |
 | ITUB | 11-03 amc | 6-K-cluster test: predict, don't confirm, then score | before 11-02 |
+| CC, DTE, MKTX, ROKU | 11-05 | No PR; MKTX under ICE acquisition | first session |
+| *parked (past)* | HDB, IBN, ISRG, DOW, IRDM, SCCO, INFY | Reported with no session running. EDGAR: IRDM and SCCO came **10-20**, 2d before their DB rows | only if asked |
 
-**Confirmed-but-upcoming:** 160 rows (10-19 → Nov), **160/160 match the DB, 0 mismatches** (checked 10-18). Weakest still
-ahead: MSCI, GM (10-20, search summaries), CME (10-21), ELV, MOH (10-21, biopharmawatch copies), BX (10-22, search snippet).
+**Confirmed-but-upcoming:** 80 rows (10-26 → 11-05). **80/80 match the DB** (checked 10-25). Inferred times still ahead:
+NVT (10-30 bmo, 9am call only) and RCL (10-27 bmo, 10am call only).
 
 ---
 
-## Last Week's Calibration (10-12 → 10-16)
+## Last Week's Calibration (10-19 → 10-23)
 
 | Metric | Value |
 |--------|-------|
-| Sessions | **5 of 5** |
-| Dates confirmed | **80** (14 / 19 / 12 / 15 / 20), 40% of the 200 queue rows |
-| Stored dates corrected | PNR +7d, MAT +7d, KMB +2d, RHI +1d, PII +1d, FLS +1d |
-| Times corrected / filled | NEM bmo → amc, JCI amc → bmo; DECK, CDNS, GILD Unknown → amc |
-| Wrong writes found this week | 0 among last week's writes. The audit found 12 old summer misses (below) |
+| Sessions | **1 of 5** (10-19; Simple Mode from 10-20) |
+| Dates confirmed | **23** of a 40-row queue (58%) |
+| Stored dates corrected | none |
+| Times filled | SPCX, ARE Unknown → amc; XOM, NVT Unknown → bmo |
+| Wrong writes found | 0 (audit #3, 44 of the October writes) |
 
-**Skip/doubt judgment:** TER, PNR, KMI and RHI predictions held. "Overdue PR" doubts on GILD and MDLZ were wrong (dates
-held). Running tally **3 right / 3 wrong**, so an overdue PR means look again, not that the date is wrong.
-**Rule-6 check on last week:** BA and JCI were timed from a morning call alone. Both are safe: EDGAR shows same-morning releases for 5 straight quarters.
+**Skip judgment:** of the parked rows that reported unseen, ISRG and DOW held their DB dates. IRDM (no call, no PR) and SCCO
+(DB had the call date) both came 2 days early, on 10-20. Overdue-PR doubts now stand at **3 right / 4 wrong** (ISRG's
+doubt was wrong), so an overdue PR means look again, nothing more.
 
-### Source audit #2: summer writes on weak sources (n = 58, census, all mismatches re-checked)
+### Source audit #3: October confirms, stratified random sample (n = 44, all checked against EDGAR or dated releases)
 
 | Source type | n | date right | time right |
 |---|---|---|---|
-| Feed agreement + cadence lock | 12 | **6** | 12 |
-| Time from SEC filing history | 29 | 27 (unsourced) | 28 |
-| Time inferred from call time | 12 | 10 | **9** |
-| Time from home-market clock | 5 | 5 | 5 |
+| Company IR / newsroom page | 10 | 10 | 10 |
+| PR read as a copy | 10 | 10 | 10 |
+| Search summary (of company text) | 11 | 11 | 11 |
+| Time inferred, date sourced | 13 | 13 | 13 |
 
-Report: `analysis/source_audit_20261018.md`. (Audit #1, 10-11: September's company-sourced confirms, dates 49/50, times 49/50.)
+Report: `analysis/source_audit_20261025.md`. Earlier audits: #1 (10-11, September, 49/50) and #2 (10-18, summer weak types,
+feed/cadence locks 6/12 dates, call-time inferences 9/12 times).
 
 ---
 
-## Maintenance Bookkeeping (10-18)
+## Maintenance Bookkeeping (10-25)
 
-- **Archived:** sessions 09-28 → 10-02 + the 09-27 maintenance entry → new **fall archive**; 31 reported ledger rows → its
-  Appendix A. Active log 787 → ~565 lines.
-- **Memory:** cadence rule 6; rows PPL, FLY, UGI, AMTM, UUUU added, WAL rewritten, CNP/CLF/RTX annotated; SEC timing note
-  extended; MEMORY.md pointers all resolve.
-- **notes_for_ben:** audit #1 archived, audit #2 + question added; HDB/IBN, BK, SCHW updated. `rm` of two temp drafts denied
-  (listed for Ben).
+- **Archived:** sessions 10-05 → 10-09 and the 10-04 maintenance entry → fall archive; the 103 ledger rows dated 10-19 →
+  10-23 → its Appendix A. Active log 600 → ~330 lines.
+- **Memory:** cadence rows SCCO, IRDM, ISRG, DOW, INFY, SCHW, PCG/DHR (evening-before 8-K filers). MEMORY.md: all
+  pointers resolve.
+- **notes_for_ben:** audit #2 and the daily-queue item archived; Simple Mode question and audit #3 added; SCHW closed.
 - **Inbox** root clean. **Outbox** ≤ 128 lines, no rotation.
