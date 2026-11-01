@@ -1032,3 +1032,25 @@ near-dated rows only is the cheap one.
 
 - **TSM time corrected amc → bmo** (call 14:00 Taiwan = 02:00 ET). Worth a look if the DB defaults foreign ADRs to amc.
 - **SCHW 10-15 is inferred** (has now reported; the 10-25 audit scores it): Schwab's Fall Business Update PR gives only the event, and earnings rode the update in 3 of 3 prior quarters. Next week's audit will score it.
+
+### 📋 Source-accuracy audit #3 (October confirms): 44 of 44 right — 10-25
+
+Answers your 10-19 "audit again 10-25". There were 134 passed October confirms. I sampled 43 at random within source type,
+plus SCHW (whose inferred date I had promised to score), and had blind subagents check them against EDGAR 8-K/6-K
+acceptance times and dated releases. Report: `analysis/source_audit_20261025.md`.
+
+| Source type | n | date right | time right | unverifiable |
+|---|---|---|---|---|
+| Company IR / newsroom page | 10 | 10 | 10 | 0 |
+| PR read as a copy | 10 | 10 | 10 | 0 |
+| Search summary only (of company text) | 11 | 11 | 11 | 0 |
+| Time inferred (call / clock / filing history) | 13 | 13 | 13 | 0 |
+| Aggregator / feed agreement | 0 | — | — | — |
+
+- **No misses**, so I have nothing to propose dropping. The samples are small (10 to 13 per type), so read this as "no
+  high miss rate", not "never wrong". The summer's call-time inferences were 9/12. October's were 13/13, likely thanks to
+  the morning-call rule, but that isn't tested.
+- SCHW 10-15 bmo held (Business Wire 7:30am). Its 8-K always lands ~16:17, which would mislead a filing-time check.
+- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that
+  have passed by then.)* With no weekday sessions writing new confirms, next week's pool would be only the ~45 locked
+  rows dated 10-26 → 10-30.

@@ -10,49 +10,44 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### ❓ Simple Mode has switched off my weekday sessions. Intended for the trial? — 10-25
+### ❓ With Simple Mode permanent, do you want me running on weekdays at all? — 10-25, updated 11-01
 
-Simple Mode (trial from 10-20) skips orchestrator Phase 1. That is where Earnings Intelligence spawns me, so **no weekday
-session ran 10-20 → 10-23**. The Friday 5.3 Earnings Refresh is skipped too. The last confirm in `earnings_upcoming` was
-10-19 07:42. Only this Sunday session still fires. I'm assuming that's deliberate (you no longer use the scanner day to
-day) and changing nothing. Consequences, in case they matter:
-- **~40 unconfirmed rows for 10-26 → 11-05 stay unresearched**, including the 10-27 → 10-29 peak. The 80 confirmed rows
-  in that window are locked and still match the DB.
-- **The ITUB 6-K test (11-03) can't run**, because it needs a weekday session before 11-02. It slips to next quarter
-  unless I do it on Sunday 11-01. Say if you want that.
-- Past-dated rows that were never confirmed (HDB, IBN, ISRG, DOW, IRDM, SCCO, INFY) are parked. EDGAR shows **IRDM and
-  SCCO reported 10-20, 2 days before their DB dates**, in case anything downstream reads `earnings_events`.
+You made Simple Mode the default on 10-28. It skips Phase 1 (which spawns me) and the Friday 5.3 Earnings Refresh, so nothing has
+written to `earnings_upcoming` since 10-19. Earnings Signals is also disabled, so I don't know of anything that reads it now.
+- **249 unconfirmed rows for 11-02 → 11-06 are unresearched**, and 172 past-dated rows sit unconfirmed.
+- **What that costs, roughly:** an EDGAR screen of those 172 found about 4% of dates wrong (6 of 146) and 5 wrong sessions, plus
+  33 rows with no time. It's a coarse filing-date check, and those dates had feed updates until 10-19. Dates will drift further
+  once the frozen feed runs into next quarter. Details in the 11-01 log entry.
+- **My recommendation:** if nothing trades off this calendar now, leave me off on weekdays. If you start using it again, a
+  separate Task Scheduler entry like the Sunday one would do it, and the 5.3 refresh needs to come back too. Researching on top
+  of a frozen table isn't useful.
 
-**Question:** should weekday research stay off for the rest of the trial, or would you like the researcher launched on
-its own (e.g. a Task Scheduler entry like the Sunday one)?
+**Question:** keep weekday research off, or launch me on my own?
 
-### 📋 Source-accuracy audit #3 (October confirms): 44 of 44 right — 10-25
+### 📋 Source-accuracy audit #4 (10-26 → 10-30 confirms): 41 of 42 right — 11-01
 
-Answers your 10-19 "audit again 10-25". There were 134 passed October confirms. I sampled 43 at random within source type,
-plus SCHW (whose inferred date I had promised to score), and had blind subagents check them against EDGAR 8-K/6-K
-acceptance times and dated releases. Report: `analysis/source_audit_20261025.md`.
+42 rows drawn from 75, blind subagents, EDGAR 8-K/6-K times and dated releases. Report: `analysis/source_audit_20261101.md`.
 
 | Source type | n | date right | time right | unverifiable |
 |---|---|---|---|---|
-| Company IR / newsroom page | 10 | 10 | 10 | 0 |
-| PR read as a copy | 10 | 10 | 10 | 0 |
-| Search summary only (of company text) | 11 | 11 | 11 | 0 |
-| Time inferred (call / clock / filing history) | 13 | 13 | 13 | 0 |
+| Company IR / newsroom page | 7 | 7 | 7 | 0 |
+| PR read as a copy | 12 | 12 | 12 | 0 |
+| Search summary (of company text) | 10 | 10 | 10 | 0 |
+| Time inferred, date sourced | 13 | 12 | 12 | 0 |
 | Aggregator / feed agreement | 0 | — | — | — |
 
-- **No misses**, so I have nothing to propose dropping. The samples are small (10 to 13 per type), so read this as "no
-  high miss rate", not "never wrong". The summer's call-time inferences were 9/12. October's were 13/13, likely thanks to
-  the morning-call rule, but that isn't tested.
-- SCHW 10-15 bmo held (Business Wire 7:30am). Its 8-K always lands ~16:17, which would mislead a filing-time check.
-- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that
-  have passed by then.)* With no weekday sessions writing new confirms, next week's pool would be only the ~45 locked
-  rows dated 10-26 → 10-30.
+- **The miss: JBLU** was logged 10-27 bmo and actually reported **10-26 amc**. A 10am call and a PR with no release time led me
+  there. Five straight same-morning quarters would have endorsed the same wrong answer. The DB row stays as is, per the audit rule.
+- One miss in one type, small n. Nothing to propose dropping.
+- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have
+  passed by then.)* With no new confirms, next week's pool is only 5 rows (DOC, KHC, NVST, MAT, KMB), too few to read, so I'd stop here.
 
-### 🧪 ITUB: testing the SEC 6-K cluster as a date source before you decide — 10-19
+### 🧪 ITUB: prediction logged, but the 6-K cluster can't do what we hoped — 10-19, updated 11-01
 
-Per your 10-19 answer: before ITUB's next report (DB 11-03 `amc`), I'll write down the date the 6-K filing cluster
-predicts, without confirming it, and score it against the actual release and call after. If it doesn't match, the method
-is dead and ITUB stays held every quarter.
+Logged tonight, before the report: **release Tue 11-03 after the B3 close, first cluster 6-K Wed 11-04**. Not confirmed in the
+DB. I'll score it 11-08. A warning ahead of the score: in the three quarters I read, the cluster began the day *after* the
+release, so it can't date one in advance. The prediction really rests on a weekday pattern, so a hit won't prove much. I expect
+to recommend keeping ITUB held every quarter.
 
 ### ⚠ Re-seeded times contradict established ones: 9 of the 10 rows are fixed, but the class isn't — 09-13, updated 09-27
 
@@ -134,6 +129,7 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
 
 ## Resolved (condensed — full text in the archive)
 
+- **11-01: audit #3 (44/44 October confirms right) archived.**
 - **10-25: audit #2 (summer weak sources) and the 10-11 daily-queue item archived.** Audit #2 led to the morning-call
   rule (in the prompt since 10-19). The queue item was overtaken: no weekday sessions run under Simple Mode.
 - **10-25: SCHW's inferred 10-15 date held; TSM's bmo correction held** (6-K accepted 06:40 ET), as audit #3 found.

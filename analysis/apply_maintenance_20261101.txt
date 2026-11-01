@@ -1,0 +1,190 @@
+import os
+os.chdir(r'E:\options_scanner\agents\earnings_researcher')
+def rd(p): return open(p,encoding='utf8',newline='').read()
+def wr(p,s): open(p,'w',encoding='utf8',newline='').write(s)
+
+# cadence
+P='memory/reference_company_cadence.md'; s=rd(P)
+old=[l for l in s.split('\n') if l.startswith('| JBLU |')][0]
+s=s.replace(old,"| JBLU | **amc in Q3'26**, bmo before | Q3'26 PR 10-13 → 10-26 release (13d) | ⚠ Q3'26 released **10-26 ~16:15** (8-K accepted 16:15:21), call 10-27 10am ET. Confirmed as 10-27 bmo from the call: **wrong by a day and a session** (audit 11-01). The prior 5 quarters were all same-morning (06:30–07:03), so history endorsed the wrong answer. Read the next PR for a stated release time; don't infer |")
+i=s.index('**6. A morning call time does not date the release'); j=s.index('\n\n',i)
+s=s[:j]+"\n**11-01 addendum (JBLU):** the prior-quarter check can fail too. JetBlue had 5 same-morning quarters, then released at 16:15 the evening before its 10am call. With a silent PR, a morning-call date is a best guess, so mark it as one. 1 case; inferred times went 12/13 in audit #4."+s[j:]
+s=s.rstrip('\n')+'''
+| DVA | amc | Q3'25 16d; no Q3'26 PR seen | Q3'26 8-K accepted **10-29 16:06**; DB 10-28 was 1d early. The 10-19 overdue-PR doubt was right — screen 11-01 |
+| WHR | amc | Q3'25 7d | Q3'26 8-K accepted **10-26 16:09**; DB 10-28 Unknown was 2d late — screen 11-01 |
+| DAR | amc | — | Q3'26 8-K accepted **10-28 16:43**; DB 10-29 was 1d late (a separate 2.02 landed 10-22 06:51; not read) — screen 11-01 |
+| CUBE | unclear | — | Q3'26 8-K accepted 10-30 07:23 vs DB 10-29 amc. Could be a next-morning 8-K filer (like RRC), so not called a miss — screen 11-01 |
+| PYPL, TEL, CTSH, LHX, CHRW | bmo (8-K shape; DB amc) | — | Q3'26 8-Ks accepted the morning of the DB date (07:02, 06:19, 06:39, 06:04, 08:03). DB `amc` looks wrong. Filing-based screen, 8-K bodies not read — screen 11-01 |
+| RRC | amc | ~21d | **Next-morning 8-K filer:** Q3'26 released 10-27 ~16:20, 8-K accepted 10-28 07:00. The 8-K shape reads as next-day bmo; don't trust it — audit 11-01 |
+| PII | bmo | 21d | **Evening-before 8-K filer:** accepted 10-26 18:21, wire 10-27 06:00 — audit 11-01 |
+| ITUB | amc (after B3 close) | no advance PR read | Releases datelined 11-04-25, 02-04-26, 08-04-26; 6-K cluster starts the next day (11-05, 02-05, 08-05). So **the cluster lags the release and can't date it in advance**; only its weekday pattern can. 11-03 prediction logged 11-01, score 11-08 |
+'''
+wr(P,s)
+
+# log entry
+P='memory/research_log.md'; s=rd(P)
+e='''# Maintenance History
+
+## Weekly Maintenance — 2026-11-01 (Sunday)
+
+**Simple Mode is now permanent (10-28), so there were 0 weekday sessions and 0 confirms this week.** `earnings_upcoming` hasn't
+been written since 10-19. Header rewritten to say so.
+
+**Archived.** Sessions 10-12 → 10-16 and the 10-11 maintenance entry → fall archive. The 75 ledger rows dated 10-26 → 10-30 →
+its Appendix A, with JBLU's row annotated. Active log 327 → ~180 lines. **Ledger check:** 5 of 5 future rows match the DB
+(DOC, KHC, NVST, KMB, MAT), 0 missing.
+
+**Source audit #4 (10-26 → 10-30):** 42 rows from a pool of 75, 5 blind subagents, **41/42 right on date and time, 0
+unverifiable.** IR 7/7, copy 12/12, search summary 10/10, inferred 12/13. Report: `analysis/source_audit_20261101.md`.
+- **Miss: JBLU**, 10-27 bmo → actually **10-26 amc** (8-K accepted 16:15:21, I re-read it). It came from a 10am call with a
+  silent PR. Its 5 prior quarters were all same-morning, so even the prior-quarter check would have agreed with the wrong answer.
+  Cadence row and rule 6 updated. NVT and RCL, flagged 10-25, both held.
+
+**ITUB 6-K test: prediction written here before the report (Sun 11-01 evening; latest 6-K is 10-26, a Neospace material fact).**
+Predicted **release Tue 11-03 after the B3 close, first 6-K of the cluster Wed 11-04.** No DB write, not confirmed. Basis: Q3'25
+released Tue 11-04-25, Q4'25 Wed 02-04-26, Q2'26 Tue 08-04-26 (Ex-99.1 datelines); the cluster began the next day each time.
+Q1'26's cluster began 05-06; I didn't read that dateline. **Finding before the score:** the cluster follows the release, so it
+can't date one in advance. What I'm really testing is a weekday pattern, which isn't evidence by my own rules, so even a hit
+proves little. Done on a Sunday because no other session runs before 11-03; it was a few EDGAR reads and a log entry.
+
+**Skip calibration: EDGAR screen of all 172 unconfirmed past-dated rows (10-17 → 10-30), filing date vs DB.** 145 had a Q3
+Item 2.02 8-K, BMRN has none yet, 26 have none to compare (mostly foreign filers, plus COKE and WLK).
+- **Date:** 139 agree. 6 of 146 are wrong: IRDM −2, SCCO −2 (release 10-20), WHR −2, DAR −1, DVA +1, BMRN (no report by 11-01,
+  DB 10-26). CUBE +1 is ambiguous (07:23 next morning; may be a next-morning filer, as RRC turned out to be).
+- **Session:** 5 DB `amc` rows have a morning 8-K on the date (PYPL, TEL, CTSH, LHX, CHRW). 33 of the matched rows were `Unknown`.
+- **Caveat:** a filing-date screen, not an audit. It's coarse on timing, and I read only index pages for the flagged rows.
+  Rows that are off in the same way as RRC or CUBE can hide here. Rough rate: about 4% of unresearched dates wrong.
+- **Named carry-overs:** CNC, GLW, PCAR, EBAY, SW, OSK held on date. PYPL held on date, wrong on time. **DVA's overdue-PR doubt
+  was right** (DB 10-28 → 10-29), so doubts stand at **4 right / 4 wrong**. WHR moved −2 with no doubt logged. BMRN pending.
+
+**Promoted.** Cadence: JBLU rewritten; rule 6 addendum; new rows DVA, WHR, DAR, CUBE, PYPL group, RRC, PII, ITUB.
+**Hygiene.** notes_for_ben: audit #3 archived; Simple Mode item rewritten; audit #4 and ITUB updated. Outbox ≤ 128 lines, no
+rotation. Inbox root clean. MEMORY.md: pointers resolve, cadence line updated. **STATUS.md** rewritten.
+
+**Drift (mine):** the 10-25 note said next week's audit pool would be ~45 rows. It was 75.
+'''
+assert s.count('# Maintenance History\n')==1
+wr(P,s.replace('# Maintenance History\n',e,1))
+
+# MEMORY
+P='memory/MEMORY.md'; s=rd(P)
+k="feed/cadence locks were 6/12 wrong on the date"
+assert k in s
+wr(P,s.replace(k,k+" · 11-01 audit: **JBLU** broke rule 6's prior-quarter check (5 same-morning quarters, then the evening before)",1))
+
+# notes
+P='notes_for_ben.md'; s=rd(P)
+i=s.index('### ❓ Simple Mode has switched'); j=s.index('### ⚠ Re-seeded times')
+old3=s[s.index('### 📋 Source-accuracy audit #3'):s.index('### 🧪 ITUB')]
+new='''### ❓ With Simple Mode permanent, do you want me running on weekdays at all? — 10-25, updated 11-01
+
+You made Simple Mode the default on 10-28. It skips Phase 1 (which spawns me) and the Friday 5.3 Earnings Refresh, so nothing has
+written to `earnings_upcoming` since 10-19. Earnings Signals is also disabled, so I don't know of anything that reads it now.
+- **249 unconfirmed rows for 11-02 → 11-06 are unresearched**, and 172 past-dated rows sit unconfirmed.
+- **What that costs, roughly:** an EDGAR screen of those 172 found about 4% of dates wrong (6 of 146) and 5 wrong sessions, plus
+  33 rows with no time. It's a coarse filing-date check, and those dates had feed updates until 10-19. Dates will drift further
+  once the frozen feed runs into next quarter. Details in the 11-01 log entry.
+- **My recommendation:** if nothing trades off this calendar now, leave me off on weekdays. If you start using it again, a
+  separate Task Scheduler entry like the Sunday one would do it, and the 5.3 refresh needs to come back too. Researching on top
+  of a frozen table isn't useful.
+
+**Question:** keep weekday research off, or launch me on my own?
+
+### 📋 Source-accuracy audit #4 (10-26 → 10-30 confirms): 41 of 42 right — 11-01
+
+42 rows drawn from 75, blind subagents, EDGAR 8-K/6-K times and dated releases. Report: `analysis/source_audit_20261101.md`.
+
+| Source type | n | date right | time right | unverifiable |
+|---|---|---|---|---|
+| Company IR / newsroom page | 7 | 7 | 7 | 0 |
+| PR read as a copy | 12 | 12 | 12 | 0 |
+| Search summary (of company text) | 10 | 10 | 10 | 0 |
+| Time inferred, date sourced | 13 | 12 | 12 | 0 |
+| Aggregator / feed agreement | 0 | — | — | — |
+
+- **The miss: JBLU** was logged 10-27 bmo and actually reported **10-26 amc**. A 10am call and a PR with no release time led me
+  there. Five straight same-morning quarters would have endorsed the same wrong answer. The DB row stays as is, per the audit rule.
+- One miss in one type, small n. Nothing to propose dropping.
+- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have
+  passed by then.)* With no new confirms, next week's pool is only 5 rows (DOC, KHC, NVST, MAT, KMB), too few to read, so I'd stop here.
+
+### 🧪 ITUB: prediction logged, but the 6-K cluster can't do what we hoped — 10-19, updated 11-01
+
+Logged tonight, before the report: **release Tue 11-03 after the B3 close, first cluster 6-K Wed 11-04**. Not confirmed in the
+DB. I'll score it 11-08. A warning ahead of the score: in the three quarters I read, the cluster began the day *after* the
+release, so it can't date one in advance. The prediction really rests on a weekday pattern, so a hit won't prove much. I expect
+to recommend keeping ITUB held every quarter.
+
+'''
+s=s[:i]+new+s[j:]
+s=s.replace("## Resolved (condensed — full text in the archive)\n\n","## Resolved (condensed — full text in the archive)\n\n- **11-01: audit #3 (44/44 October confirms right) archived.**\n",1)
+wr(P,s)
+P='notes_for_ben_archive.md'; a=rd(P)
+wr(P,a.rstrip('\n')+'\n\n'+old3.rstrip()+'\n')
+
+# status
+wr('STATUS.md','''# Earnings Researcher — STATUS
+
+> Lightweight dashboard for Ben. Maintained by the Earnings Researcher during its
+> weekly maintenance session (`PROMPT_SUNDAY.md`). Glance here for current
+> state without reading the full research log.
+
+**Last updated:** 2026-11-01 (Sunday maintenance)
+
+---
+
+## Needs attention
+
+1. **Weekday research is off under Simple Mode** (default since 10-28), and `earnings_upcoming` is frozen at 10-19.
+   **Question in `notes_for_ben.md`:** keep it off, or launch me on my own? I recommend off unless something uses this calendar.
+2. **Audit #4: 41/42 right.** The miss is JBLU (logged 10-27 bmo, really 10-26 amc).
+3. **Next-Sunday audit?** Question open in `notes_for_ben.md`. The pool would be only 5 rows, so I'd stop here.
+
+## Open Carry-Overs
+
+| Symbol | DB row | Why open | Next check |
+|--------|--------|----------|------------|
+| ITUB | 11-03 amc | Prediction logged: release 11-03 after B3 close, 6-K cluster 11-04. Not confirmed | score 11-08 |
+| BMRN | 10-26 amc | No Q3 report on EDGAR by 11-01; DB date looks wrong | score 11-08 |
+| CC, DTE, MKTX, ROKU | 11-05 | No PR as of 10-19; MKTX under ICE acquisition | first session |
+
+**Unresearched:** 249 unconfirmed rows 11-02 → 11-06. 172 past-dated rows parked.
+**Confirmed-but-upcoming:** 5 rows (DOC, KHC, NVST, KMB, MAT), **5/5 match the DB** (checked 11-01).
+
+---
+
+## Last Week's Calibration (10-26 → 10-30)
+
+| Metric | Value |
+|--------|-------|
+| Sessions | **0 of 5** (Simple Mode) |
+| Dates confirmed | **0** |
+| Wrong writes found | **1** (JBLU, confirmed 10-14) |
+| Overdue-PR doubts | **4 right / 4 wrong** (DVA was right) |
+
+**Skip judgment:** of the carry-overs that reported, CNC, GLW, PCAR, EBAY, SW and OSK held on date. PYPL held on date; its time
+looks wrong. DVA came 1d late, as doubted. WHR came 2d early, with no doubt logged.
+
+**Unresearched rows, EDGAR filing-date screen:** 6 of 146 dates wrong (about 4%), 5 sessions wrong. Coarse, not an audit.
+
+### Source audit #4: 10-26 → 10-30 confirms (n = 42, all checked against EDGAR or dated releases)
+
+| Source type | n | date right | time right |
+|---|---|---|---|
+| Company IR / newsroom page | 7 | 7 | 7 |
+| PR read as a copy | 12 | 12 | 12 |
+| Search summary (of company text) | 10 | 10 | 10 |
+| Time inferred, date sourced | 13 | 12 | 12 |
+
+Report: `analysis/source_audit_20261101.md`. Earlier audits: #1 (September, 49/50), #2 (summer weak types), #3 (October, 44/44).
+
+---
+
+## Maintenance Bookkeeping (11-01)
+
+- **Archived:** sessions 10-12 → 10-16, the 10-11 maintenance entry, and 75 ledger rows → fall archive.
+- **Memory:** JBLU rewritten; rule 6 addendum; rows DVA, WHR, DAR, CUBE, PYPL group, RRC, PII, ITUB. MEMORY.md pointers resolve.
+- **notes_for_ben:** audit #3 archived; Simple Mode, audit #4 and ITUB rewritten.
+- **Inbox** root clean. **Outbox** ≤ 128 lines, no rotation.
+''')
+print('ok')

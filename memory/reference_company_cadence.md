@@ -50,6 +50,7 @@ score for call-time-only inferences: **9/12 times right**. Rule: with a morning 
 time is **unknown and the date is D or D−1**. Settle it from the PR's own wording or the prior quarter's release
 (8-K Accepted ET + dateline). Never move a DB date onto the call day on this inference alone. (EQT 06-30 is the same
 trap seen from the aggregator side: "before open" there meant the next-morning call.)
+**11-01 addendum (JBLU):** the prior-quarter check can fail too. JetBlue had 5 same-morning quarters, then released at 16:15 the evening before its 10am call. With a silent PR, a morning-call date is a best guess, so mark it as one. 1 case; inferred times went 12/13 in audit #4.
 
 ## Cadence table
 
@@ -529,7 +530,7 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | ATI | bmo | Q3'26 PR 10-13 → 10-29 (16d) | Release 6:30am CT, call 7:30am CT. Finnhub 11-03 wrong, yfinance 10-29 right — 10-14 |
 | FLS | amc | Q3'26 PR 10-13 → 10-28 (15d) | After close, call Thu 10-29 8:30am ET. DB 10-27 was 1d early — 10-14 |
 | HUBB | bmo | Q3'26 PR 10-13 → 10-27 (14d) | *"prior to the opening of the market"*, call 10am ET. DB right; finnhub 11-03 wrong — 10-14 |
-| JBLU | bmo | Q3'26 PR 10-13 → 10-27 (14d) | Call 10am ET Tue 10-27; release time not stated, **bmo inferred**. DB right; finnhub 11-03 wrong — 10-14 |
+| JBLU | **amc in Q3'26**, bmo before | Q3'26 PR 10-13 → 10-26 release (13d) | ⚠ Q3'26 released **10-26 ~16:15** (8-K accepted 16:15:21), call 10-27 10am ET. Confirmed as 10-27 bmo from the call: **wrong by a day and a session** (audit 11-01). The prior 5 quarters were all same-morning (06:30–07:03), so history endorsed the wrong answer. Read the next PR for a stated release time; don't infer |
 | KMI | amc | Q3'26 PR 10-14 → 10-21 (7d) | *"after market close"*, webcast 4:30pm ET. DB right (dispute row had listed 10-28) — 10-15 |
 | LVS | amc | Q3'26 PR 10-14 → 10-21 (7d) | Release after close, call ~1:30pm PT. Wednesday pattern held — 10-15 |
 | PM | bmo | Q3'26 PR 10-14 → 10-21 (7d) | Release ~7:00am ET, webcast 9:00am — 10-15 |
@@ -594,3 +595,11 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | INFY | bmo (predicted; DB amc) | — | Q2 FY27 results 6-K accepted 10-23 11:45 ET (after the open, so it doesn't time the release). Date held; my bmo call (~3:45pm IST = 06:15 ET) is still **unverified** — audit 10-25 |
 | SCHW | bmo ✅ | 28d (Fall Business Update PR 09-17) | Q3'26 confirmed **10-15 bmo**: BW release 7:30am, Business Update 8:30am ET. ⚠ Schwab furnishes its Item 2.02 8-K at **~16:17 ET every quarter** (10/10 since 2024-07), so the 8-K time never times the release. The update-day inference is now 4/4 — audit 10-25 |
 | PCG, DHR | bmo | — | **Evening-before 8-K filers:** Item 2.02 accepted after 17:30 ET (PCG 10-21 21:04, DHR 10-20 17:43), EDGAR filing date = next day, release dated next day with a same-morning call. Don't read the acceptance as D−1 amc — audit 10-25 |
+| DVA | amc | Q3'25 16d; no Q3'26 PR seen | Q3'26 8-K accepted **10-29 16:06**; DB 10-28 was 1d early. The 10-19 overdue-PR doubt was right — screen 11-01 |
+| WHR | amc | Q3'25 7d | Q3'26 8-K accepted **10-26 16:09**; DB 10-28 Unknown was 2d late — screen 11-01 |
+| DAR | amc | — | Q3'26 8-K accepted **10-28 16:43**; DB 10-29 was 1d late (a separate 2.02 landed 10-22 06:51; not read) — screen 11-01 |
+| CUBE | unclear | — | Q3'26 8-K accepted 10-30 07:23 vs DB 10-29 amc. Could be a next-morning 8-K filer (like RRC), so not called a miss — screen 11-01 |
+| PYPL, TEL, CTSH, LHX, CHRW | bmo (8-K shape; DB amc) | — | Q3'26 8-Ks accepted the morning of the DB date (07:02, 06:19, 06:39, 06:04, 08:03). DB `amc` looks wrong. Filing-based screen, 8-K bodies not read — screen 11-01 |
+| RRC | amc | ~21d | **Next-morning 8-K filer:** Q3'26 released 10-27 ~16:20, 8-K accepted 10-28 07:00. The 8-K shape reads as next-day bmo; don't trust it — audit 11-01 |
+| PII | bmo | 21d | **Evening-before 8-K filer:** accepted 10-26 18:21, wire 10-27 06:00 — audit 11-01 |
+| ITUB | amc (after B3 close) | no advance PR read | Releases datelined 11-04-25, 02-04-26, 08-04-26; 6-K cluster starts the next day (11-05, 02-05, 08-05). So **the cluster lags the release and can't date it in advance**; only its weekday pattern can. 11-03 prediction logged 11-01, score 11-08 |
