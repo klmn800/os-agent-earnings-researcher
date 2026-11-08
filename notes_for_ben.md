@@ -10,44 +10,39 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### ❓ With Simple Mode permanent, do you want me running on weekdays at all? — 10-25, updated 11-01
+### ❓ With Simple Mode permanent, do you want me running on weekdays at all? — 10-25, updated 11-08
 
-You made Simple Mode the default on 10-28. It skips Phase 1 (which spawns me) and the Friday 5.3 Earnings Refresh, so nothing has
-written to `earnings_upcoming` since 10-19. Earnings Signals is also disabled, so I don't know of anything that reads it now.
-- **249 unconfirmed rows for 11-02 → 11-06 are unresearched**, and 172 past-dated rows sit unconfirmed.
-- **What that costs, roughly:** an EDGAR screen of those 172 found about 4% of dates wrong (6 of 146) and 5 wrong sessions, plus
-  33 rows with no time. It's a coarse filing-date check, and those dates had feed updates until 10-19. Dates will drift further
-  once the frozen feed runs into next quarter. Details in the 11-01 log entry.
-- **My recommendation:** if nothing trades off this calendar now, leave me off on weekdays. If you start using it again, a
-  separate Task Scheduler entry like the Sunday one would do it, and the 5.3 refresh needs to come back too. Researching on top
-  of a frozen table isn't useful.
+Still no weekday session since 10-19, and nothing has written to `earnings_upcoming` since then (Phase 1 and the Friday 5.3
+refresh are both skipped). This week the frozen calendar drifted noticeably:
+- **11-02 → 11-06, EDGAR screen of all 249 unresearched rows:** 221 had a Q3 Item 2.02 8-K. **27 of those dates were wrong
+  (about 12%)**, up from about 4% the week before. Several were off by a week or more: MKTX −13, CART −7, RKT −7, DASH −6, DV −6,
+  KVUE −6, BMRN +7. Another 16 had the wrong session, and 75 had no time at all. I spot-checked the large misses against the
+  Ex-99.1 datelines, and they're real.
+- **ROKU was acquired by Fox (closed 11-06).** It reported 11-02, three days before its row.
+- 143 rows ahead (11-09 → 01-11) carry dates from the 10-19 feed. They'll keep getting worse.
+
+**My recommendation is unchanged:** if nothing trades off this calendar, leave me off. If something does use it, the fix is
+the 5.3 refresh first, then a weekday launch. Researching on a frozen table isn't useful.
 
 **Question:** keep weekday research off, or launch me on my own?
 
-### 📋 Source-accuracy audit #4 (10-26 → 10-30 confirms): 41 of 42 right — 11-01
+### 📋 Source-accuracy audit #5: 42 of 42 dates right, 41 of 42 times right, no misses — 11-08
 
-42 rows drawn from 75, blind subagents, EDGAR 8-K/6-K times and dated releases. Report: `analysis/source_audit_20261101.md`.
+Only 5 confirms had newly passed (no weekday sessions), so I widened the pool to every passed confirm no earlier audit had
+checked (129 rows), drew 42 stratified at random, and ran 5 blind subagents. Report: `analysis/source_audit_20261108.md`.
 
 | Source type | n | date right | time right | unverifiable |
 |---|---|---|---|---|
-| Company IR / newsroom page | 7 | 7 | 7 | 0 |
-| PR read as a copy | 12 | 12 | 12 | 0 |
-| Search summary (of company text) | 10 | 10 | 10 | 0 |
-| Time inferred, date sourced | 13 | 12 | 12 | 0 |
-| Aggregator / feed agreement | 0 | — | — | — |
+| Company IR / newsroom page | 12 | 12 | 11 | 1 (C's time) |
+| PR read as a copy | 22 | 22 | 22 | 0 |
+| Time inferred, date sourced | 8 | 8 | 8 | 0 |
+| Search summary / aggregator / feed | 0 | — | — | — |
 
-- **The miss: JBLU** was logged 10-27 bmo and actually reported **10-26 amc**. A 10am call and a PR with no release time led me
-  there. Five straight same-morning quarters would have endorsed the same wrong answer. The DB row stays as is, per the audit rule.
-- One miss in one type, small n. Nothing to propose dropping.
+- **C** isn't a miss. Its 8-K landed at 10:09 ET, after the open, so nothing primary proves the ~8am release Citi's calendar gave.
+- Audits #3 → #5 have checked 130 October-wave confirms: 129 right, 1 miss (JBLU), 1 unverifiable. Small n per type, so no ranking.
 - **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have
-  passed by then.)* With no new confirms, next week's pool is only 5 rows (DOC, KHC, NVST, MAT, KMB), too few to read, so I'd stop here.
-
-### 🧪 ITUB: prediction logged, but the 6-K cluster can't do what we hoped — 10-19, updated 11-01
-
-Logged tonight, before the report: **release Tue 11-03 after the B3 close, first cluster 6-K Wed 11-04**. Not confirmed in the
-DB. I'll score it 11-08. A warning ahead of the score: in the three quarters I read, the cluster began the day *after* the
-release, so it can't date one in advance. The prediction really rests on a weekday pattern, so a hit won't prove much. I expect
-to recommend keeping ITUB held every quarter.
+  passed by then.)* My honest read: with no weekday confirms, there are no new passed dates. The rest of the pool is ~87 rows of
+  the same October wave, so another draw would mostly re-measure the same thing. I'd skip it until weekday sessions resume.
 
 ### ⚠ Re-seeded times contradict established ones: 9 of the 10 rows are fixed, but the class isn't — 09-13, updated 09-27
 
@@ -101,6 +96,8 @@ to be real (08-12), so this is a *screen*, not a verdict — I'll run the pre-fl
 The ask is unchanged: a `symbol_metadata` flag (`no_earnings_event` / `inactive`) that the dispute
 generator and the calendar respect. A periodic ticker-vs-SEC `company_tickers.json` reconciliation
 would also have caught IAC→PPLI automatically.
+**11-08 update:** ROKU joins the list (Fox merger closed 11-06). MKTX reported Q3 on 10-23, 13 days early, while still
+under the ICE deal: early twice now. KVUE reported 10-30 (6 days early). Same ask.
 _History in the archive: "AES is a phantom again…", "EA is a phantom…", "MKTX was dated TODAY…", "Data-quality: symbols the dispute system can't self-assess…"._
 
 ### 💡 Proposals for a dev session (no urgency; each has a fuller write-up in the archive or `analysis/`)
@@ -129,6 +126,9 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
 
 ## Resolved (condensed — full text in the archive)
 
+- **11-08: audit #4 (41/42, JBLU miss) archived.**
+- **11-08: ITUB 6-K test scored: hit, as predicted 11-01** (release datelined São Paulo 11-03, cluster from 11-04). As I warned
+  beforehand, that tests a weekday pattern, not a source. Recommendation: keep ITUB held every quarter until a company date is read.
 - **11-01: audit #3 (44/44 October confirms right) archived.**
 - **10-25: audit #2 (summer weak sources) and the 10-11 daily-queue item archived.** Audit #2 led to the morning-call
   rule (in the prompt since 10-19). The queue item was overtaken: no weekday sessions run under Simple Mode.

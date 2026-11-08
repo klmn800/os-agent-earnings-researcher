@@ -3,7 +3,7 @@
 > Fall 2026 earnings season — Q3 calendar results (plus off-cycle fiscal quarters reporting in the same wave), reported ~late September
 > through mid-November 2026. Opened at the 2026-10-18 maintenance with sessions **2026-09-28 → 2026-10-02** (09-28 → 09-30 are
 > calendar-Q3 days, filed here because they researched the fall wave) and the 2026-09-27 maintenance entry; sessions
-> **2026-10-05 → 10-09** and the 10-04 maintenance entry added 2026-10-25; **10-12 → 10-16** and the 10-11 maintenance entry added 2026-11-01. Chronological order,
+> **2026-10-05 → 10-09** and the 10-04 maintenance entry added 2026-10-25; **10-12 → 10-16** and the 10-11 maintenance entry added 2026-11-01; the **10-19** session (the last weekday session before Simple Mode) and the 10-18 maintenance entry added 2026-11-08. Chronological order,
 > oldest first. Appendix A keeps ledger rows verbatim as they are pruned (the record later source audits draw from).
 
 ---
@@ -358,6 +358,15 @@ Time inferences: BA bmo (call 10:30am only), JCI bmo (call 8:30am only), ENPH am
 Not resolved: see carry-overs and the unconfirmed table. AMX feed still has no 3Q26 event. HDB/IBN held for Ben's policy Q2. DTE, WHR, OSK, SCCO not scanned this session (spine was not run on them).
 Process note: a PreToolUse hook blocks writing .py files, so bookkeeping edits were done with Edit/sed/append on the markdown files.
 
+## Session: 2026-10-19 (Monday) — 07:21 AM ET
+
+40-row queue (15 disputes + 25 unconfirmed). **23 confirmed:** ST (10-27 amc) and UPS (10-27 bmo) came from the spine after the searches missed them. OMC (10-22 amc), SPCX (10-20, time Unknown → amc), AMX (10-20 amc), XOM (10-30, Unknown → bmo), NVT (10-30, Unknown → bmo, inferred), ARE (10-26, Unknown → amc), and 17 of the 10-27 batch (ST, UPS added): OKE, PPG, RRC, STAG, STX, UHS, V, WM amc; FCX, RCL, RGEN, SHW, SOFI, SPGI, XYL bmo.
+Method: one background spine over all 40 (SCCO 404'd a 5th time) plus ~35 WebSearches, one per name, read through finviz/stocktitan/placera copies and the company's own pages (ir.spacex.com, investor.exxonmobil.com, press.spglobal.com, investor.visa.com). The spine caught ST and UPS, which the searches missed; it found nothing else new.
+Date corrections: none. Every confirmed date matched the DB; finnhub was wrong for OMC (10-20). UHS moved its release 10-26 → 10-27 on 10-09 (the first PR is still what some calendars show).
+Time inferences: NVT bmo (call 9am only), RCL bmo (call 10am only). AMX: 3Q26 call-invitation PDF is on the company's q4cdn (release 10-20 after close, call 10-21), but the Event.svc feed still has no 3Q26 event, and WebFetch can't read the PDF, so the text came from a search summary of it.
+Not resolved: ISRG, DOW, SCCO, IRDM, INFY, CNC, GLW, PCAR, PYPL (no company PR found), DVA, EBAY, BMRN, MKTX, ROKU, CC, COKE, SW (no PR). INFY: still only news coverage of the board filing. MKTX: under ICE acquisition, don't expect a date. HDB/IBN held for Ben's policy Q2. WHR, DTE, OSK not scanned (next check 10-20).
+Process note: `earnings_confirm.py` prints "date unchanged, time unchanged" for rows the DB already had right; that is still a fresh `agent` confirmation. `direct_db_query.py --write` prints "No results returned" on success.
+
 ## Weekly Maintenance — 2026-09-27 (Sunday)
 
 Third weekly pass in a row (Task Scheduler, 18:00, Opus). No mailbox notices. Found the 09-25 session
@@ -556,6 +565,42 @@ NSC** (10-05 ran on the old prompt). Every 10-06 → 10-09 first-time name alrea
 **Housekeeping.** `notes_for_ben.md`: crowd-out, SNA/ACI and Sonnet items → archive (resolved/superseded); new items:
 audit + question, BK, queue pressure; HDB/IBN now 6 days out. MEMORY.md: all pointers resolve; two lines updated.
 Outbox ≤ 128 lines, no rotation. Inbox root clean. **STATUS.md** rewritten.
+
+## Weekly Maintenance — 2026-10-18 (Sunday)
+
+**Archived.** Sessions 09-28 → 10-02 and the 09-27 maintenance entry → new `archive/research_log_2026-Q4_fall-earnings.md`
+(fall season). 09-28 → 09-30 are calendar-Q3 days but researched the fall wave, so they went there. I corrected the summer
+archive header, which had claimed every calendar-Q3 session. The 31 ledger rows dated 10-13 → 10-16 were pruned, moved
+verbatim to the fall archive's Appendix A (the 10-25 audit pool). Active log 787 → ~565 lines, keeping 10-05 → 10-16 in full.
+
+**Ledger check (mechanical, vs `earnings_upcoming`):** 160 of 160 future rows match on date and time, and 0 DB-confirmed rows
+≥ 10-19 are missing from the ledger. BK still has no calendar row. OMC's unconfirmed row moved 10-20 → 10-22 since Friday, with no source.
+
+**Source audit #2 (back in time):** 58 summer writes, a census of three weak types; blind subagents; all 12 mismatches re-checked
+by me on EDGAR. Report: `analysis/source_audit_20261018.md`.
+- Feed/cadence locks (06-30, n=12): **dates 6/12**, times 12/12. New misses: **SNA** (+7), **WAL** (+5, never flagged).
+- SEC filing-history times (07-15, n=29): **times 28/29** (UGI: next-morning 8-K filer). Unsourced dates 27/29 (PPL +8, FLY +7).
+- Call-time-only inferences (n=12): **times 9/12**. AMTM and UUUU released the evening before a morning call (date −1 too);
+  CNP flipped a correct bmo to amc.
+- Home-market clocks (n=5): 5/5.
+
+**Promoted.** Cadence rule 6 (a morning call doesn't date the release). New rows: PPL, FLY, UGI, AMTM, UUUU. Rewritten: WAL.
+Annotated: CNP, CLF, RTX. SEC timing note: next-morning filers + the 28/29 score. MEMORY.md lines updated; all 21 pointers resolve.
+
+**Calibration, week 10-12 → 10-16.** 5/5 sessions, **80 confirms** (14 / 19 / 12 / 15 / 20) from 200 queue rows (40%).
+Date corrections: PNR +7, MAT +7, KMB +2, RHI +1, PII +1, FLS +1. Times: NEM bmo → amc, JCI amc → bmo; DECK, CDNS, GILD Unknown → amc.
+- **Calls that held:** TER (finnhub's 10-27 over DB 10-21: right), PNR (overdue PR ⇒ doubt DB 10-20: right, 10-27),
+  KMI and RHI (~7d lead ⇒ PR ~10-14/15: right, though RHI's date was 10-22 not the DB's 10-21).
+- **Calls that didn't:** "overdue PR" for GILD and MDLZ, whose stored dates held. Overdue-PR doubts now stand at 3 right
+  (EQT, WAL, PNR) and 3 wrong (TSCO, GILD, MDLZ), so an overdue PR is a reason to look, not evidence the date is wrong.
+- **Rule-6 exposure in last week's writes:** BA (bmo, 10:30am call only) and JCI (bmo, 8:30am call only). Both are safe:
+  EDGAR shows same-morning releases (BA 07:30–07:40, JCI 06:57–07:02) on the release day for 5 straight quarters.
+  ENPH (4:30pm call ⇒ amc) and NVST (5pm) are afternoon calls, so the rule doesn't apply.
+- **Pending:** AMX (still no 3Q26 event as of 10-16), ISRG (10-20), OMC (now 10-22), SCCO, HDB/IBN (now past-dated, Ben's rule).
+
+**Hygiene.** notes_for_ben: audit #1 item archived, replaced by audit #2 + the next-Sunday question; HDB/IBN marked overdue; BK still
+open. `rm` of the two 10-15 temp drafts (`memory/mid_tmp.md`, `sess_tmp.md`) was denied, so they're listed for Ben with the
+`for_*.md` strays. Inbox root clean. Outbox ≤ 128 lines, no rotation. **STATUS.md** rewritten.
 
 ## Appendix A — Upcoming-Confirmed ledger rows pruned after reporting (verbatim)
 
@@ -777,3 +822,13 @@ _Pruned 2026-10-25: dates 10-19 → 10-23 (the pool for source audit #3, with th
 | GD | 2026-10-30 | bmo | GD PR 10-09 (stocktitan PRN copy): call Fri 10-30 9am EDT; bmo **inferred** from call time — 10-12 |
 | XOM | 2026-10-30 | bmo | investor.exxonmobil.com detail/1212 (PR 10-16): release 5:30am CT, call 8:30am CT; 14d lead. **Time was Unknown** — 10-19 |
 | NVT | 2026-10-30 | bmo | nVent GNW 10-16 (quiverquant copy): call 9:00am ET; bmo **inferred** (release time not stated). **Time was Unknown** — 10-19 |
+
+_Pruned 2026-11-08: dates 11-02 → 11-05, the last fall ledger rows (source audit #5 checked all five: 5/5 right)._
+
+| Symbol | Date | Time | Source — session |
+|--------|------|------|------------------|
+| DOC | 2026-11-02 | amc | Healthpeak BW 10-01 (financialcontent copy): after NYSE close Mon 11-02, call 11-03 10am ET. Snapshot 10-22 was stale — 10-02 |
+| KHC | 2026-11-04 | bmo | Kraft Heinz BW 10-12 (finviz copy): before the open, Q&A 9am ET. DB right; finnhub 10-27 wrong — 10-15 |
+| NVST | 2026-11-04 | amc | Envista PRN 10-06 (finviz copy): call 2pm PT / 5pm ET; amc **inferred** from the call time — 10-15 |
+| MAT | 2026-11-05 | amc | Mattel PR 10-15 (stocktitan page): ~4:05pm ET, webcast 5pm; 21d lead. **DB 10-29 was 7d early** — 10-16 |
+| KMB | 2026-11-05 | bmo | Kimberly-Clark 8-K ex99.1 10-15 (sec.gov): *final Q3 results Thursday Nov 5*, ~6:30am ET, Q&A 8am. **DB 11-03 was 2d early** — 10-15 |

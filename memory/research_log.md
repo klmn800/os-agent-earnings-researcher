@@ -9,27 +9,28 @@
 > Per-symbol cadence/lead-times live in `memory/reference_company_cadence.md`. **Grep it by symbol
 > (`^| SYM `); don't read it whole (~220 KB).**
 
-## ⚠ READ FIRST (updated 2026-11-01): no weekday sessions, and that is now permanent unless Ben changes it
+## ⚠ READ FIRST (updated 2026-11-08): no weekday sessions since 10-19, and the calendar is frozen
 
-Ben made **Simple Mode the default on 2026-10-28** (`docs/simple_mode/README.md`), after the 10-20 → 10-27 trial. It skips
-orchestrator Phase 1, which is where this agent gets spawned, and the Friday 5.3 Earnings Refresh. So **no weekday session has
-run since 10-19**, and `earnings_upcoming` has not been written since 10-19 (last confirm 07:42, last `updated_at` 07:22).
-Earnings Signals is also disabled. Only this Sunday session fires. Whether I should run on my own is an open question in
-`notes_for_ben.md`. If a weekday session does run, start with the rows below and ignore anything past-dated.
+Ben made **Simple Mode the default on 2026-10-28** (`docs/simple_mode/README.md`). It skips orchestrator Phase 1 (which
+spawns this agent) and the Friday 5.3 Earnings Refresh, so `earnings_upcoming` has not been written since 10-19 07:22.
+Only the Sunday session runs. Whether I should run on weekdays is an open question in `notes_for_ben.md`. **If a weekday
+session does run:** the frozen rows are drifting (11-08 EDGAR screen: 27 of 221 dates for 11-02 → 11-06 were wrong, about
+12%, up from about 4% the week before), so treat every unconfirmed date as an estimate and check EDGAR first.
 
-## Still unconfirmed (rebuilt 2026-11-01 from `earnings_upcoming`, `date_confirmed = 0`)
+## Still unconfirmed (rebuilt 2026-11-08 from `earnings_upcoming`, `date_confirmed = 0`)
 
-- **Past-dated, parked:** 172 rows dated 10-17 → 10-30. Nothing to trade ahead of, so don't research them unless Ben asks for a
-  backfill. EDGAR screen of all 172: see the 11-01 maintenance entry.
-- **Ahead, 11-02 → 11-06:** 249 rows, none researched. Named carry-overs are below.
+- **Past-dated, parked:** 421 rows dated 10-17 → 11-06. Don't research them unless Ben asks for a backfill. EDGAR screens:
+  10-17 → 10-30 in the 11-01 entry, 11-02 → 11-06 in the 11-08 entry (`analysis/edgar_screen.py`).
+- **Ahead:** 143 rows, 11-09 → 2027-01-11, none researched. Their dates come from a feed last refreshed 10-19.
 
 ## Open Carry-Overs: researched, unresolved, with next-check dates
 
-| Symbol | DB row | Status at 11-01 | How to read | Next check |
+All six named carry-overs reported and were scored 11-08 (see that entry): ITUB's prediction hit; DTE held; BMRN (+7 vs DB),
+CC (−3), MKTX (−13) and ROKU (−3) didn't. **ROKU was acquired by Fox (closed 11-06)**, so any later ROKU row is a phantom.
+
+| Symbol | DB row | Status at 11-08 | How to read | Next check |
 |--------|--------|-----------------|-------------|------------|
-| **ITUB** | 11-03 amc | **Prediction logged 11-01, before the report: release Tue 11-03 after the B3 close, 6-K cluster from Wed 11-04.** Not confirmed. See the 11-01 entry | EDGAR 6-K list | score **11-08** |
-| BMRN | 10-26 amc | No Q3 Item 2.02 on EDGAR by 11-01 (only the 10-06 off-cycle one). DB date looks wrong; finnhub said 11-03 | EDGAR | score 11-08 |
-| CC, DTE, MKTX, ROKU | 11-05 | No PR as of 10-19. MKTX under ICE acquisition | spine; search | first session |
+| ITUB | next quarter | Weekday pattern 4/4 (release Tue/Wed early in month 2), still not a source. Hold until a company date is read | EDGAR 6-K list | Q4 wave (early Feb) |
 | WBS | — | Skipped (delisted). Ben's item | — | — |
 
 Spine = `analysis/helpers/spine.py` (paces itself to stocktitan's 10-per-300s limit; run big lists with `run_in_background`;
@@ -37,32 +38,60 @@ Spine = `analysis/helpers/spine.py` (paces itself to stocktitan's 10-per-300s li
 
 ## Upcoming Confirmed: locked dates (don't re-research)
 
-One line per confirmed symbol whose date is still ahead (≥ 11-02). Pruned 11-01: the 75 rows dated 10-26 → 10-30, moved verbatim
-to the fall archive's Appendix A (source audit #4 drew from them; JBLU's row there carries the correction).
-Format: `SYM | date | time | source — session`.
-
-| Symbol | Date | Time | Source — session |
-|--------|------|------|------------------|
-| DOC | 2026-11-02 | amc | Healthpeak BW 10-01 (financialcontent copy): after NYSE close Mon 11-02, call 11-03 10am ET. Snapshot 10-22 was stale — 10-02 |
-| KHC | 2026-11-04 | bmo | Kraft Heinz BW 10-12 (finviz copy): before the open, Q&A 9am ET. DB right; finnhub 10-27 wrong — 10-15 |
-| NVST | 2026-11-04 | amc | Envista PRN 10-06 (finviz copy): call 2pm PT / 5pm ET; amc **inferred** from the call time — 10-15 |
-| MAT | 2026-11-05 | amc | Mattel PR 10-15 (stocktitan page): ~4:05pm ET, webcast 5pm; 21d lead. **DB 10-29 was 7d early** — 10-16 |
-| KMB | 2026-11-05 | bmo | Kimberly-Clark 8-K ex99.1 10-15 (sec.gov): *final Q3 results Thursday Nov 5*, ~6:30am ET, Q&A 8am. **DB 11-03 was 2d early** — 10-15 |
+**Empty.** No confirmed row is dated ≥ 11-09. The last five (DOC, KHC, NVST, MAT, KMB, 11-02 → 11-05) were pruned 11-08 to the
+fall archive's Appendix A; source audit #5 found all five right. Format when rows return: `SYM | date | time | source — session`.
 
 ---
 
 # Research Sessions (newest first)
 
-## Session: 2026-10-19 (Monday) — 07:21 AM ET
-
-40-row queue (15 disputes + 25 unconfirmed). **23 confirmed:** ST (10-27 amc) and UPS (10-27 bmo) came from the spine after the searches missed them. OMC (10-22 amc), SPCX (10-20, time Unknown → amc), AMX (10-20 amc), XOM (10-30, Unknown → bmo), NVT (10-30, Unknown → bmo, inferred), ARE (10-26, Unknown → amc), and 17 of the 10-27 batch (ST, UPS added): OKE, PPG, RRC, STAG, STX, UHS, V, WM amc; FCX, RCL, RGEN, SHW, SOFI, SPGI, XYL bmo.
-Method: one background spine over all 40 (SCCO 404'd a 5th time) plus ~35 WebSearches, one per name, read through finviz/stocktitan/placera copies and the company's own pages (ir.spacex.com, investor.exxonmobil.com, press.spglobal.com, investor.visa.com). The spine caught ST and UPS, which the searches missed; it found nothing else new.
-Date corrections: none. Every confirmed date matched the DB; finnhub was wrong for OMC (10-20). UHS moved its release 10-26 → 10-27 on 10-09 (the first PR is still what some calendars show).
-Time inferences: NVT bmo (call 9am only), RCL bmo (call 10am only). AMX: 3Q26 call-invitation PDF is on the company's q4cdn (release 10-20 after close, call 10-21), but the Event.svc feed still has no 3Q26 event, and WebFetch can't read the PDF, so the text came from a search summary of it.
-Not resolved: ISRG, DOW, SCCO, IRDM, INFY, CNC, GLW, PCAR, PYPL (no company PR found), DVA, EBAY, BMRN, MKTX, ROKU, CC, COKE, SW (no PR). INFY: still only news coverage of the board filing. MKTX: under ICE acquisition, don't expect a date. HDB/IBN held for Ben's policy Q2. WHR, DTE, OSK not scanned (next check 10-20).
-Process note: `earnings_confirm.py` prints "date unchanged, time unchanged" for rows the DB already had right; that is still a fresh `agent` confirmation. `direct_db_query.py --write` prints "No results returned" on success.
+_No weekday sessions since 10-19 (Simple Mode). The 10-19 session is in the fall archive._
 
 # Maintenance History
+
+## Weekly Maintenance — 2026-11-08 (Sunday)
+
+**Still Simple Mode: 0 weekday sessions, 0 confirms this week.** `earnings_upcoming` last written 10-19 07:22. No answer yet
+from Ben on the weekday question or the next-audit question.
+
+**Archived.** The 10-19 session (the last weekday session) and the 10-18 maintenance entry → fall archive. The last 5 ledger rows
+(DOC, KHC, NVST, MAT, KMB, 11-02 → 11-05) → its Appendix A. The ledger is now empty. Active log 181 → ~140 lines. Header rebuilt
+from `earnings_upcoming`: 421 past-dated unconfirmed rows parked, 143 ahead (11-09 → 01-11), all on 10-19 feed dates.
+
+**Carry-overs scored (EDGAR index pages, ET Accepted times):**
+- **ITUB: prediction hit.** Release datelined *São Paulo, November 3, 2026* (board approved the financials 11-03 15:00 local);
+  first cluster 6-K Wed 11-04 07:00 ET. As written beforehand, that tests a weekday pattern, not a source. Keep it held.
+- **DTE held** (11-05 bmo, 06:53). **BMRN** 11-02 amc (16:07; DB 10-26 was 7d early, finnhub 11-03 1d late). **CC** 11-02 amc
+  (16:33; DB 11-05 Unknown). **MKTX** 10-23 bmo (06:30; DB 11-05, 13d late, under the pending ICE deal). **ROKU** 11-02 amc
+  (16:09; DB 11-05), and **acquired by Fox, merger closed 11-06**.
+- Overdue-PR doubts: none were logged for these six, so the tally stays 4 right / 4 wrong.
+
+**Skip calibration: EDGAR screen of all 249 unresearched rows dated 11-02 → 11-06** (new reusable `analysis/edgar_screen.py`;
+output `analysis/edgar_screen_20261108_1102-1106.tsv`). 221 had a Q3 Item 2.02 8-K, 27 had none (mostly foreign filers), 1 no CIK.
+- **Date: 194 of 221 agree (88%), 27 wrong (12%)**, up from 6 of 146 (about 4%) the week before. Big misses: MKTX −13, CART −7,
+  RKT −7, DASH −6, DV −6, KVUE −6, BMRN +7; ±1–3d for the rest. I read the Ex-99.1 datelines for DASH, CART, RKT, DV, KVUE, GPN,
+  LYV, BRKR and FOX, and each is a real Q3 release on the EDGAR date. CG (17:47 8-K) and SRE (10:53 8-K) are ambiguous filing-
+  time cases; I haven't classed them either way.
+- **Session:** 16 rows had a stored bmo/amc contradicted by the 8-K time (FOX/FOXA, ON, WMB, YUMC, COR, EMR, APD, BDX, ROK, U,
+  XRAY, BEN, plus DASH, CART, DKNG with a date miss). 75 matched rows had `Unknown` time.
+- **Reading:** the drift is what a frozen feed does as stale estimates come due. The same caveat as last week applies: it's a filing-
+  date screen, coarse on timing, and next-morning or late filers can hide in it.
+
+**Source audit #5** (5 new + earlier un-drawn rows, pool 129, n = 42, 5 blind subagents): **42/42 dates right, 41/42 times right,
+0 wrong, 1 unverifiable** (C: 8-K at 10:09 ET can't prove the ~8am release). IR 12, copy 22, inferred 8 (census). Edge cases FNB
+(next-morning filer), PKG (18:07 filer, release 10-21), ERIC (late 6-K, 03:00 ET webcast) all called right. Report:
+`analysis/source_audit_20261108.md`. Audits #3 → #5: 129 of 130 October confirms right.
+
+**Promoted.** Cadence: BMRN, MKTX, ITUB annotated; new rows CC, DTE, ROKU; C ("8-K doesn't time the release").
+`reference_ma_phantom_earnings.md`: ROKU (closed into Fox) and MKTX (early twice under a pending deal).
+**Hygiene.** notes_for_ben: weekday item updated with the 12% screen; audit #4 → archive, replaced by #5 + the next-audit
+question; ITUB → Resolved; phantoms + ROKU. Outbox ≤ 128 lines, no rotation. Inbox root clean. MEMORY.md: every pointer
+resolves, nothing unindexed. **STATUS.md** rewritten.
+
+**Drift (mine):** (1) On 10-19 I told myself MKTX was "under ICE acquisition, don't expect a date". It reported 13 days before the
+DB, the same early-under-a-deal shape it showed in Q2. My own phantom memory already said so. (2) Last week I recommended against
+another audit with only 5 rows in the pool. The prompt still asked, so I widened it per its own rule. It found nothing new, which
+is the diminishing return I'd predicted. I'm saying so in the note rather than either skipping it or overselling it.
 
 ## Weekly Maintenance — 2026-11-01 (Sunday)
 
@@ -142,39 +171,3 @@ filer; update-day inference 4/4), and PCG/DHR (evening-before filers). The SCHW 
 **Hygiene.** notes_for_ben: audit #2 and the 10-11 queue item archived; audit #3, Simple Mode and the next-audit question
 added; SCHW minor item closed. Outbox ≤ 128 lines, no rotation. Inbox root clean (`inbox/fetch/` holds 240-odd scratch
 downloads, which is harmless). MEMORY.md: every pointer resolves and nothing is unindexed. **STATUS.md** rewritten.
-
-## Weekly Maintenance — 2026-10-18 (Sunday)
-
-**Archived.** Sessions 09-28 → 10-02 and the 09-27 maintenance entry → new `archive/research_log_2026-Q4_fall-earnings.md`
-(fall season). 09-28 → 09-30 are calendar-Q3 days but researched the fall wave, so they went there. I corrected the summer
-archive header, which had claimed every calendar-Q3 session. The 31 ledger rows dated 10-13 → 10-16 were pruned, moved
-verbatim to the fall archive's Appendix A (the 10-25 audit pool). Active log 787 → ~565 lines, keeping 10-05 → 10-16 in full.
-
-**Ledger check (mechanical, vs `earnings_upcoming`):** 160 of 160 future rows match on date and time, and 0 DB-confirmed rows
-≥ 10-19 are missing from the ledger. BK still has no calendar row. OMC's unconfirmed row moved 10-20 → 10-22 since Friday, with no source.
-
-**Source audit #2 (back in time):** 58 summer writes, a census of three weak types; blind subagents; all 12 mismatches re-checked
-by me on EDGAR. Report: `analysis/source_audit_20261018.md`.
-- Feed/cadence locks (06-30, n=12): **dates 6/12**, times 12/12. New misses: **SNA** (+7), **WAL** (+5, never flagged).
-- SEC filing-history times (07-15, n=29): **times 28/29** (UGI: next-morning 8-K filer). Unsourced dates 27/29 (PPL +8, FLY +7).
-- Call-time-only inferences (n=12): **times 9/12**. AMTM and UUUU released the evening before a morning call (date −1 too);
-  CNP flipped a correct bmo to amc.
-- Home-market clocks (n=5): 5/5.
-
-**Promoted.** Cadence rule 6 (a morning call doesn't date the release). New rows: PPL, FLY, UGI, AMTM, UUUU. Rewritten: WAL.
-Annotated: CNP, CLF, RTX. SEC timing note: next-morning filers + the 28/29 score. MEMORY.md lines updated; all 21 pointers resolve.
-
-**Calibration, week 10-12 → 10-16.** 5/5 sessions, **80 confirms** (14 / 19 / 12 / 15 / 20) from 200 queue rows (40%).
-Date corrections: PNR +7, MAT +7, KMB +2, RHI +1, PII +1, FLS +1. Times: NEM bmo → amc, JCI amc → bmo; DECK, CDNS, GILD Unknown → amc.
-- **Calls that held:** TER (finnhub's 10-27 over DB 10-21: right), PNR (overdue PR ⇒ doubt DB 10-20: right, 10-27),
-  KMI and RHI (~7d lead ⇒ PR ~10-14/15: right, though RHI's date was 10-22 not the DB's 10-21).
-- **Calls that didn't:** "overdue PR" for GILD and MDLZ, whose stored dates held. Overdue-PR doubts now stand at 3 right
-  (EQT, WAL, PNR) and 3 wrong (TSCO, GILD, MDLZ), so an overdue PR is a reason to look, not evidence the date is wrong.
-- **Rule-6 exposure in last week's writes:** BA (bmo, 10:30am call only) and JCI (bmo, 8:30am call only). Both are safe:
-  EDGAR shows same-morning releases (BA 07:30–07:40, JCI 06:57–07:02) on the release day for 5 straight quarters.
-  ENPH (4:30pm call ⇒ amc) and NVST (5pm) are afternoon calls, so the rule doesn't apply.
-- **Pending:** AMX (still no 3Q26 event as of 10-16), ISRG (10-20), OMC (now 10-22), SCCO, HDB/IBN (now past-dated, Ben's rule).
-
-**Hygiene.** notes_for_ben: audit #1 item archived, replaced by audit #2 + the next-Sunday question; HDB/IBN marked overdue; BK still
-open. `rm` of the two 10-15 temp drafts (`memory/mid_tmp.md`, `sess_tmp.md`) was denied, so they're listed for Ben with the
-`for_*.md` strays. Inbox root clean. Outbox ≤ 128 lines, no rotation. **STATUS.md** rewritten.

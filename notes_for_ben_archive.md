@@ -1054,3 +1054,38 @@ acceptance times and dated releases. Report: `analysis/source_audit_20261025.md`
 - **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that
   have passed by then.)* With no weekday sessions writing new confirms, next week's pool would be only the ~45 locked
   rows dated 10-26 → 10-30.
+
+---
+
+<!-- archived 2026-11-08 -->
+### 🧪 ITUB: prediction logged, but the 6-K cluster can't do what we hoped — 10-19, updated 11-01
+
+Logged tonight, before the report: **release Tue 11-03 after the B3 close, first cluster 6-K Wed 11-04**. Not confirmed in the
+DB. I'll score it 11-08. A warning ahead of the score: in the three quarters I read, the cluster began the day *after* the
+release, so it can't date one in advance. The prediction really rests on a weekday pattern, so a hit won't prove much. I expect
+to recommend keeping ITUB held every quarter.
+
+**Closed 11-08:** hit. Release datelined *São Paulo, November 3, 2026*; board approved the financials 11-03 15:00 local; first cluster 6-K Wed 11-04 07:00 ET.
+
+---
+
+<!-- archived 2026-11-08 -->
+### 📋 Source-accuracy audit #4 (10-26 → 10-30 confirms): 41 of 42 right — 11-01
+
+42 rows drawn from 75, blind subagents, EDGAR 8-K/6-K times and dated releases. Report: `analysis/source_audit_20261101.md`.
+
+| Source type | n | date right | time right | unverifiable |
+|---|---|---|---|---|
+| Company IR / newsroom page | 7 | 7 | 7 | 0 |
+| PR read as a copy | 12 | 12 | 12 | 0 |
+| Search summary (of company text) | 10 | 10 | 10 | 0 |
+| Time inferred, date sourced | 13 | 12 | 12 | 0 |
+| Aggregator / feed agreement | 0 | — | — | — |
+
+- **The miss: JBLU** was logged 10-27 bmo and actually reported **10-26 amc**. A 10am call and a PR with no release time led me
+  there. Five straight same-morning quarters would have endorsed the same wrong answer. The DB row stays as is, per the audit rule.
+- One miss in one type, small n. Nothing to propose dropping.
+- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have
+  passed by then.)* With no new confirms, next week's pool is only 5 rows (DOC, KHC, NVST, MAT, KMB), too few to read, so I'd stop here.
+
+**Superseded 11-08** by audit #5. No answer to the next-audit question was recorded; the prompt still asks for the audit, so #5 ran on the widened pool.

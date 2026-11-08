@@ -72,3 +72,12 @@ An acquisition agreement alone does **not** kill the next earnings call — it's
 **⚠ 2026-08-04: "all regulatory approvals obtained" is the sharpest available warning.** EA's 07-30 8-K said exactly that, and its very next periodic report went out with no event. When an 8-K item 8.01 announces regulatory clearance, treat the *next* quarter's date as suspect by default — that is the point at which a company stops behaving like a going concern with public shareholders to brief. **TECH is the live test of this**: its advance PR is ~21d overdue with the Merck KGaA merger active, and as of 08-04 its DB date is the next day with no call announced. If TECH's Q4 lands inside the 10-K with no call, that is three-for-three on this pattern.
 
 Related: [[sec-8k-acceptance-time-as-timing-source]], [[cadence-364d-weekday-aligned-corroborator]] (both silently return confident answers for a company that has stopped reporting), [[company-earnings-cadence]], [[window-gating-and-noop-sessions]], [[feedback_direct_db_query]].
+
+## 2026-11-08: ROKU closes into Fox; MKTX reports early again under a pending deal
+
+- **ROKU:** Q3'26 released 11-02 amc (8-K 16:09 ET) while the DB said 11-05. **The Fox Corporation merger closed 11-06** (8-K
+  items 2.01/3.01/5.01; Roku LLC now has Fox as sole member). Any ROKU row after this is a phantom: screen it out, never confirm it.
+- **MKTX (second time):** still under the pending ICE deal, it reported Q3 on **10-23 bmo** (8-K 06:30 ET), 13 days before the
+  DB's 11-05. In Q2 it reported 6 weekdays early. So "acquisition pending" doesn't mean "no event". For MKTX it has meant
+  "earlier than the calendar" twice in a row. Check EDGAR from ~3 weeks after quarter end.
+- Found by the Sunday EDGAR screen, not by a weekday session (none ran under Simple Mode).
