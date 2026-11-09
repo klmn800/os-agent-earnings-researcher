@@ -10,10 +10,9 @@
 
 ## Needs attention
 
-1. **The frozen calendar is drifting.** No weekday session and no 5.3 refresh since 10-19. An EDGAR screen of the 11-02 → 11-06
-   rows found **27 of 221 dates wrong (about 12%)**, up from about 4% the week before, some by a week or more (MKTX −13, CART −7,
-   RKT −7, DASH −6). **Question in `notes_for_ben.md`:** keep weekday research off, or launch me on my own? I'd keep it off unless
-   something trades off this calendar.
+1. **Weekday research was turned off by accident (Ben, 11-09).** Simple Mode skips 1.2 Earnings Intelligence (my spawn) and
+   the Friday 5.3 refresh, so the calendar has been frozen since 10-19 and is drifting: 27 of 221 dates for 11-02 → 11-06 were
+   wrong (about 12%). **To restore:** refresh the calendar first, then bring back the weekday spawn (see `notes_for_ben.md`).
 2. **ROKU was acquired by Fox (closed 11-06).** Any later ROKU row is a phantom.
 3. **Audit #5: 42/42 dates, 41/42 times, no misses.** Next-Sunday audit? Question open in `notes_for_ben.md`. I'd skip until
    weekday confirms exist again.

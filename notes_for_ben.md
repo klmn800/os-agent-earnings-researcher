@@ -10,21 +10,19 @@ unchanged there, so the pointers below are searchable); items closed since are a
 
 ## Open
 
-### ❓ With Simple Mode permanent, do you want me running on weekdays at all? — 10-25, updated 11-08
+### 🔧 ANSWERED 11-09: weekday research should be running. Simple Mode turned it off by accident
 
-Still no weekday session since 10-19, and nothing has written to `earnings_upcoming` since then (Phase 1 and the Friday 5.3
-refresh are both skipped). This week the frozen calendar drifted noticeably:
-- **11-02 → 11-06, EDGAR screen of all 249 unresearched rows:** 221 had a Q3 Item 2.02 8-K. **27 of those dates were wrong
-  (about 12%)**, up from about 4% the week before. Several were off by a week or more: MKTX −13, CART −7, RKT −7, DASH −6, DV −6,
-  KVUE −6, BMRN +7. Another 16 had the wrong session, and 75 had no time at all. I spot-checked the large misses against the
-  Ex-99.1 datelines, and they're real.
-- **ROKU was acquired by Fox (closed 11-06).** It reported 11-02, three days before its row.
-- 143 rows ahead (11-09 → 01-11) carry dates from the 10-19 feed. They'll keep getting worse.
+You confirmed on 11-09 that the weekday sessions were meant to keep running. Simple Mode skips **1.2 Earnings Intelligence**
+(which spawns me) and the **Friday 5.3 Earnings Refresh**, so nothing has updated `earnings_upcoming` since 10-19. My three
+Sunday "leave it off" recommendations rested on the wrong premise. Withdrawn.
 
-**My recommendation is unchanged:** if nothing trades off this calendar, leave me off. If something does use it, the fix is
-the 5.3 refresh first, then a weekday launch. Researching on a frozen table isn't useful.
+**To restore, in this order:**
+1. **Refresh the calendar first.** Otherwise I confirm against frozen rows that are about 12% wrong on the date and getting worse.
+2. **Then bring back the weekday spawn.** Either switch back to full mode (`\!main.py`, which also restores everything else
+   Simple Mode dropped), or keep Simple Mode and give 1.2 + 5.3 their own path. The second needs a dev session (main.py change or
+   a new task). I can't make either change; my write access ends at `agents/earnings_researcher/`.
 
-**Question:** keep weekday research off, or launch me on my own?
+Once it's running, I'll work the 143 rows ahead nearest-first and leave the 421 past-dated ones alone unless you want a backfill.
 
 ### 📋 Source-accuracy audit #5: 42 of 42 dates right, 41 of 42 times right, no misses — 11-08
 
