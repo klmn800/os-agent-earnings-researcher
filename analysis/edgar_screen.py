@@ -6,7 +6,8 @@ convert the submissions-JSON time: it mixes UTC and ET), and classify the releas
 
 Coarse by design: next-morning 8-K filers (UGI, RRC) fake a bmo; evening-before filers
 (after 17:30 ET -> next-day filingDate, PCG/DHR) are read as next-day bmo. Flags are for
-reading, not verdicts.
+reading, not verdicts. Since 11-15, a date mismatch triggers a read of the Item 2.02 sentence
+("On <date>, X issued..."); when it names an earlier day, the row is re-dated to it (session "amc?").
 
 Usage: python analysis/edgar_screen.py 2026-11-02 2026-11-06 > inbox/fetch/screen.tsv
 """
@@ -39,6 +40,24 @@ def session_of(acc):
     return acc.date(), "intraday"
 
 
+MONTHS = "January February March April May June July August September October November December".split()
+
+
+def item202_date(cik, acc, doc):
+    """Date stated in the Item 2.02 sentence ("On November 11, 2026, X issued/announced/reported..."), or None.
+    Catches next-morning filers (STLD, TER, NOV, CTVA, TTEK): filing date D+1, release D."""
+    try:
+        t = get(f"https://www.sec.gov/Archives/edgar/data/{cik}/{acc.replace('-', '')}/{doc}").decode("utf-8", "ignore")
+    except Exception:  # noqa: BLE001
+        return None
+    t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", t)).replace("&nbsp;", " ").replace("&#160;", " ")
+    i = t.find("2.02")
+    m = re.search(r"On (" + "|".join(MONTHS) + r") (\d{1,2}) ?, (\d{4})", t[i:i + 1500] if i >= 0 else "")
+    if not m:
+        return None
+    return date(int(m.group(3)), MONTHS.index(m.group(1)) + 1, int(m.group(2)))
+
+
 def main(start, end):
     con = sqlite3.connect(DB)
     rows = con.execute(
@@ -61,7 +80,7 @@ def main(start, end):
                 continue
             fd = date.fromisoformat(sub["filingDate"][i])
             if abs((fd - dbd).days) <= 21 and (best is None or abs((fd - dbd).days) < abs((best[0] - dbd).days)):
-                best = (fd, sub["accessionNumber"][i])
+                best = (fd, sub["accessionNumber"][i], sub["primaryDocument"][i])
         time.sleep(0.12)
         if not best:
             kinds = {f for f, fd in zip(sub["form"], sub["filingDate"]) if fd >= start}
@@ -78,6 +97,14 @@ def main(start, end):
         rd, ses = session_of(acc)
         delta = (rd - dbd).days
         flag = []
+        if delta:
+            stated = item202_date(c, a, best[2])
+            time.sleep(0.12)
+            if stated and stated != rd:
+                flag.append(f"item2.02_says_{stated}")
+                if stated < acc.date():  # filed after the stated release day: next-morning/late filer
+                    rd, ses = stated, ("amc?" if acc.hour < 12 else "unknown")
+                    delta = (rd - dbd).days
         if delta:
             flag.append(f"DATE{delta:+d}")
         s0 = ses.split("(")[0]

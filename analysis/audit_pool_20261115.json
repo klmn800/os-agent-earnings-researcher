@@ -1,0 +1,895 @@
+{
+ "pool": [
+  {
+   "sym": "WFC",
+   "date": "2026-10-13",
+   "time": "bmo",
+   "src": "newsroom.wf.com *\"Wells Fargo Updates 2026 Earnings Release Date Information\"*: results ~7:00am, call 10am ET \u2014 09-29",
+   "stratum": "IR"
+  },
+  {
+   "sym": "STT",
+   "date": "2026-10-14",
+   "time": "bmo",
+   "src": "State Street PR 09-23 (stocktitan wire text): release ~7:30am ET, call 11:00am \u2014 10-06",
+   "stratum": "copy"
+  },
+  {
+   "sym": "WIT",
+   "date": "2026-10-15",
+   "time": "bmo",
+   "src": "wipro.com events page: *\"Results for the Second quarter ending September 30, 2026, will be announced on October 15, 2026, Thursday after stock market trading hours in India\"* (= US morning) \u2014 10-01",
+   "stratum": "IR"
+  },
+  {
+   "sym": "AA",
+   "date": "2026-10-15",
+   "time": "amc",
+   "src": "q4cdn 3Q26-EarningsAnnouncement.pdf (PR 09-15): after NYSE close, call 5:00pm EDT \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "BK",
+   "date": "2026-10-15",
+   "time": "bmo",
+   "src": "bny.com 2026 earnings-calls PR: release ~6:30am ET, call 11:00am \u2014 10-06. \u26a0 **No `earnings_upcoming` row exists** (dropped after 10-02); see notes_for_ben",
+   "stratum": "IR"
+  },
+  {
+   "sym": "MAN",
+   "date": "2026-10-15",
+   "time": "bmo",
+   "src": "investor.manpowergroup.com *Announce 3rd Quarter 2026 Earnings Results*: before the open \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "PNC",
+   "date": "2026-10-15",
+   "time": "bmo",
+   "src": "PNC PR 09-03 (stocktitan wire text): release ~6:30am ET, call 10:00am \u2014 10-06",
+   "stratum": "copy"
+  },
+  {
+   "sym": "MTB",
+   "date": "2026-10-16",
+   "time": "bmo",
+   "src": "M&T PR 09-18 (finviz copy): before the open Fri 10-16, call 8:00am ET \u2014 10-06",
+   "stratum": "copy"
+  },
+  {
+   "sym": "TRV",
+   "date": "2026-10-16",
+   "time": "bmo",
+   "src": "investor.travelers.com *Schedules Conference Call \u2026 Q3 2026*: release before the 9:00am ET call \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "AGNC",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "AGNC PR 09-30 20:01Z (via stocktitan): *\"after market close on October 19, 2026,\"* call 10-20 8:30am ET \u2014 10-01",
+   "stratum": "copy"
+  },
+  {
+   "sym": "STLD",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "Steel Dynamics Q3 guidance PR (finviz copy): after the close, call 10-20 11:00am ET. Cached IR URL was the Q2 PR \u2014 replaced \u2014 10-06",
+   "stratum": "copy"
+  },
+  {
+   "sym": "WRB",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "q4cdn WRB PR: after the close, call 5:00pm ET \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "ZION",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "Zions *2026 Earnings Release Dates* PR: call 5:30pm ET \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "WAL",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "Western Alliance PR 10-06 (stocktitan wire text): *\"after the market closes on Monday, October 19, 2026,\"* call 10-20 12:00pm ET \u2014 10-07",
+   "stratum": "copy"
+  },
+  {
+   "sym": "UAL",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "United webcast PR 09-30 (stocktitan wire text): *\"after market close on Tuesday, October 20,\"* call 10-21 10:30am ET \u2014 10-07",
+   "stratum": "copy"
+  },
+  {
+   "sym": "HAS",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "Hasbro BW PR 09-29 (finviz copy): *\"before the market open on Tuesday, October 20, 2026,\"* call 8:30am ET \u2014 10-07",
+   "stratum": "copy"
+  },
+  {
+   "sym": "NOC",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "Northrop date PR (finviz copy): *\"prior to the market opening\"*, webcast 9:30am ET \u2014 10-07",
+   "stratum": "copy"
+  },
+  {
+   "sym": "ADC",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "Agree BusinessWire 09-30 16:05 ET (financialcontent copy): *\"after the market closes on Tuesday, October 20, 2026,\"* call 10-21 9am \u2014 10-01",
+   "stratum": "copy"
+  },
+  {
+   "sym": "KEY",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "investor.key.com 2026 call-dates PR: *\"Tuesday, October 20th, 2026 at 8 a.m. ET,\"* results before open \u2014 09-29",
+   "stratum": "IR"
+  },
+  {
+   "sym": "RTX",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "rtx.com PR 09-29: *\"Tuesday, October 20, prior to the stock market opening,\"* call 8:30am \u2014 09-30",
+   "stratum": "IR"
+  },
+  {
+   "sym": "SYF",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "`investors.synchrony.com` detail/588: release ~6:00am ET, call 8:00am ET. Snapshot 10-14 was already stale \u2014 09-23",
+   "stratum": "IR"
+  },
+  {
+   "sym": "CB",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "Chubb PR (finviz copy): release after the close, call Wed 10-21 8:30am \u2014 10-06",
+   "stratum": "copy"
+  },
+  {
+   "sym": "EWBC",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "investor.eastwestbank.com dates PR (03-30): after the close, call 5pm ET \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "EFX",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "Equifax PR 10-06 (stocktitan wire text): release 6:30am ET, call 8:30am. **Time corrected from amc**; lead 14d \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "PEGA",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "Pega PR 10-07 (stocktitan wire text): *\"after market close\"*, call 10-21 8:00am EDT; lead 13d \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "SPCX",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "ir.spacex.com PR 10-16: *after market close on Tuesday, October 20, 2026*, webcast 4:30pm ET; 4d lead. **Time was Unknown**; calendars (11-03/11-05) wrong \u2014 10-19",
+   "stratum": "IR"
+  },
+  {
+   "sym": "CSX",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "GlobeNewswire 09-21: *\"after the market close on Wednesday, Oct. 21, 2026,\"* call 4:30pm ET \u2014 09-30",
+   "stratum": "copy"
+  },
+  {
+   "sym": "MCO",
+   "date": "2026-10-21",
+   "time": "bmo",
+   "src": "Moody's BW 09-30 07:00 ET (financialcontent copy): *\"before the start of NYSE trading on Wednesday, October 21, 2026,\"* call 9am \u2014 09-30",
+   "stratum": "copy"
+  },
+  {
+   "sym": "WH",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "investor.wyndhamhotels.com detail/430 (09-23): ~4:30pm ET 10-21, call 10-22 8:30am \u2014 09-30",
+   "stratum": "IR"
+  },
+  {
+   "sym": "CCI",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Crown Castle PR (finviz copy): *\"after the market closes on Wednesday, October 21, 2026,\"* call 4:45pm ET \u2014 10-07",
+   "stratum": "copy"
+  },
+  {
+   "sym": "TXN",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "TI PR 10-01 (PRNewswire via stocktitan): call 3:30pm CT \u2014 10-05",
+   "stratum": "copy"
+  },
+  {
+   "sym": "T",
+   "date": "2026-10-21",
+   "time": "bmo",
+   "src": "AT&T PR 08-27 (finviz copy): *\"before the New York Stock Exchange opens,\"* call 8:30am ET \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "ELV",
+   "date": "2026-10-21",
+   "time": "bmo",
+   "src": "Elevance PR 10-05 (biopharmawatch copy; ir.elevancehealth.com not fetched): 6:00am EDT, call 8:30am \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "LUV",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Southwest PR 10-01 (finviz copy): after close, call 10-22 10am ET \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "KNX",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Knight-Swift BW 10-01 (finviz copy): after close, call 5:30pm ET. **DB 10-21 was right** (search had said 10-22 from Earnings Whispers) \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "TSLA",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Tesla deliveries PR 10-02 (financialcontent): *after market close*, webcast 4:30pm CT \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "ROL",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Rollins PRN 10-07 (stocktitan copy): *\"after the market closes on October 21\"*, call 10-22 8:30am ET. DB right; finnhub 10-28 wrong \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "NEE",
+   "date": "2026-10-21",
+   "time": "bmo",
+   "src": "NextEra *Announces Date for Release of Third-Quarter 2026* PR (stocktitan wire text); PR date not captured \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "GL",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Globe Life *Announces Third Quarter 2026 Earnings Release and Conference Call* PR (stocktitan wire text); PR date not captured \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "QS",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "QuantumScape *Announces Timing of Third Quarter 2026 Business Update* PR (stocktitan wire text); PR date not captured \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "META",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Meta PRN 10-12 (stocktitan page): *\"after market close on Wednesday, October 21st\"*, call 4:30pm ET; 9d lead. DB/yfinance right, finnhub 10-28 wrong \u2014 10-13",
+   "stratum": "copy"
+  },
+  {
+   "sym": "KMI",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Kinder Morgan PR 10-14 (stocktitan page): *after market close*, webcast 4:30pm ET; 7d lead \u2014 10-15",
+   "stratum": "copy"
+  },
+  {
+   "sym": "LVS",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Sands PR 10-14 (stocktitan page): after close, call ~1:30pm PT; 7d lead \u2014 10-15",
+   "stratum": "copy"
+  },
+  {
+   "sym": "PM",
+   "date": "2026-10-21",
+   "time": "bmo",
+   "src": "PMI PR 10-14 (stocktitan page): release ~7:00am ET, webcast 9am; 7d lead \u2014 10-15",
+   "stratum": "copy"
+  },
+  {
+   "sym": "SLM",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "Sallie Mae PR 10-13 (stocktitan page): after close, call 5:30pm ET; 9d lead. DB right, finnhub 10-28 wrong \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "ARGX",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "argenx HY release 07-23 financial calendar: *\"October 22, 2026: Third Quarter 2026 Financial Results and Business Update\"*; its releases go out 07:00 CET \u21d2 bmo \u2014 10-01",
+   "stratum": "IR"
+  },
+  {
+   "sym": "REXR",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "ir.rexfordindustrial.com detail/380, PR 09-28 16:05 ET: *\"after the market closes on Thursday, October 22, 2026,\"* call 10-23 11am. All 3 feeds were wrong \u2014 09-29",
+   "stratum": "IR"
+  },
+  {
+   "sym": "SNA",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Snap-on webcast PR 10-08 (stocktitan): release before open, call 10am ET. **DB 10-15 was 7d early**; 14d lead \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "POOL",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Pool GlobeNewswire 10-08 (stocktitan copy): *\"before the market opens on October 22\"*, call 11am ET; 14d lead. Time was Unknown; finnhub 10-15 wrong \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "TSCO",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Tractor Supply Business Wire 10-09 (stocktitan copy): *\"before the market opens on Thursday, October 22\"*, call 10am ET; 13d lead. Time was Unknown \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "BPOP",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Popular BW 10-01 (stocktitan copy): *before the market opens*, call 11am ET \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "DGX",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Quest PR 09-22 (stocktitan): *before the market opens*, call 8:30am ET \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "DOV",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Dover PRN 09-16 (stocktitan): ~7:00am ET, call 9:30am \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "HON",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Honeywell PR 09-24 (stocktitan): *before the opening of the Nasdaq Stock Market*, call 8:30am \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "NDAQ",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Nasdaq GNW 10-01 (stocktitan): ~7:00am ET, call 8am \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "NEM",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "Newmont PR 09-24 (stocktitan): *after North American markets close*, call 5:30pm EDT. **Time corrected from bmo** \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "RNG",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "RingCentral PRN 10-08 (stocktitan): *after market close*, call 5pm ET \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "SSNC",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "SS&C PR 10-06 (stocktitan page): *after the close*, call 5:00pm ET \u2014 10-13",
+   "stratum": "copy"
+  },
+  {
+   "sym": "UNP",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Union Pacific PR 09-24 (stocktitan page): release 7:45am ET, call 8:45am \u2014 10-13",
+   "stratum": "copy"
+  },
+  {
+   "sym": "RHI",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "Robert Half PR 10-15 (roberthalf.com press-releases/2026-10-15): ~4:05pm ET, call 5pm. **DB 10-21 was 1d early**; 7d lead \u2014 10-16",
+   "stratum": "IR"
+  },
+  {
+   "sym": "OMC",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "Omnicom PR 10-16 (placera copy): *after the NYSE close*, call 4:30pm ET; 6d lead. DB right; finnhub 10-20 wrong \u2014 10-19",
+   "stratum": "copy"
+  },
+  {
+   "sym": "SLB",
+   "date": "2026-10-23",
+   "time": "bmo",
+   "src": "SLB BW 09-28 (stocktitan page): release 7:00am ET, call 9:30am; 25d lead \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "PSA",
+   "date": "2026-10-26",
+   "time": "amc",
+   "src": "Public Storage PR 10-05 (stocktitan page): *after the market close*, call 10-27 12pm ET \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "TER",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "Teradyne PR 10-13 16:30 ET (stocktitan page): ~4:30pm ET, call 10-28 8:30am. **DB 10-21 was 6d early** \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "HUBB",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "Hubbell GNW 10-13 (stocktitan page): *prior to the opening of the market*, call 10am ET. DB right; finnhub 11-03 wrong \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "BKR",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "Baker Hughes GlobeNewswire 09-28: *\"press release at 5 p.m. Eastern Time on Tuesday, Oct. 27, 2026,\"* webcast 10-28 9:30am \u2014 10-01",
+   "stratum": "copy"
+  },
+  {
+   "sym": "ACGL",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "Arch BW 09-28 (finviz copy): *after the close*, call 10-28 10am ET \u2014 10-15",
+   "stratum": "copy"
+  },
+  {
+   "sym": "CSGP",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "CoStar BW 10-01 (finviz copy): *following the market close*, call 5pm EDT. Time was Unknown \u2014 10-15",
+   "stratum": "copy"
+  },
+  {
+   "sym": "EXE",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "Expand Energy PR 10-14 (stocktitan page): after close, call 10-28 9am EDT; 13d lead. Finnhub 11-03 wrong \u2014 10-15",
+   "stratum": "copy"
+  },
+  {
+   "sym": "MRP",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "Millrose PR 10-06/07 (stocktitan page): *before the market opens*, call 10am ET. Time was Unknown \u2014 10-15",
+   "stratum": "copy"
+  },
+  {
+   "sym": "HLT",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "Hilton PR 09-30 (stocktitan page): before the open, call 9am ET \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "IQV",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "IQVIA PR 09-29 (stocktitan page): before the open, call 9am ET \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "NXPI",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "NXP PR 10-06 (stocktitan page): after the Nasdaq close, call 4:30pm EDT \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "FE",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "FirstEnergy PRN 10-02 (stocktitan page): after close, call 10-28 9am EDT \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "CZR",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "Caesars PR 10-02 (stocktitan page): after close, no call \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "NOV",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "NOV PR 09-16 (stocktitan page): after close, call 10-28 10am CT \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "ST",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "Sensata BW 10-14 (stocktitan page): at or about 4:05pm ET, call 5pm ET; 13d lead \u2014 10-19",
+   "stratum": "copy"
+  },
+  {
+   "sym": "XYL",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "Xylem PR 09-29 (finviz copy): 6:55am ET, call 9am \u2014 10-19",
+   "stratum": "copy"
+  },
+  {
+   "sym": "RGEN",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "Repligen PR 10-13 (finviz copy): *before the market opens*, call 8am ET; 14d lead \u2014 10-19",
+   "stratum": "copy"
+  },
+  {
+   "sym": "FCX",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "Freeport Q3 operational-update PR 10-02 (stocktitan page): *before the market opens on Tuesday, October 27*, call 10am ET \u2014 10-19",
+   "stratum": "copy"
+  },
+  {
+   "sym": "UPS",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "UPS BW 10-13 (stocktitan page): ~6:00am ET, call 8:30am; 14d lead \u2014 10-19",
+   "stratum": "copy"
+  },
+  {
+   "sym": "VRT",
+   "date": "2026-10-28",
+   "time": "bmo",
+   "src": "Vertiv PR 10-14 (stocktitan page): before market open, call 11am ET. **DB 10-21 was 7d early** \u2014 10-15",
+   "stratum": "copy"
+  },
+  {
+   "sym": "FLS",
+   "date": "2026-10-28",
+   "time": "amc",
+   "src": "Flowserve BW 10-13 (stocktitan page): after close, call 10-29 8:30am ET. DB 10-27 was 1d early \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "ATI",
+   "date": "2026-10-29",
+   "time": "bmo",
+   "src": "ATI PR 10-13 (stocktitan page): release 6:30am CT, call 7:30am CT. DB 10-27 was 2d early; finnhub 11-03 wrong \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "WST",
+   "date": "2026-10-29",
+   "time": "bmo",
+   "src": "West PRN 10-08 (stocktitan copy): *\"before the market opens on Thursday, October 29\"*, call 8am ET; 21d lead. **DB 10-22 was 7d early** \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "VLTO",
+   "date": "2026-10-29",
+   "time": "amc",
+   "src": "Veralto PR 10-12 (stocktitan page): *after market close on Thursday, October 29*, call 10-30 7:30am ET. **DB 10-21 was 8d early** \u2014 10-13",
+   "stratum": "copy"
+  },
+  {
+   "sym": "AJG",
+   "date": "2026-10-29",
+   "time": "amc",
+   "src": "Gallagher PRN 10-08 (stocktitan copy): *\"after the market closes on Thursday, October 29\"*, call 5:15pm ET; 21d lead. DB right; finnhub 10-22 wrong \u2014 10-09",
+   "stratum": "copy"
+  }
+ ],
+ "draw": [
+  {
+   "sym": "MAN",
+   "date": "2026-10-15",
+   "time": "bmo",
+   "src": "investor.manpowergroup.com *Announce 3rd Quarter 2026 Earnings Results*: before the open \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "ARGX",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "argenx HY release 07-23 financial calendar: *\"October 22, 2026: Third Quarter 2026 Financial Results and Business Update\"*; its releases go out 07:00 CET \u21d2 bmo \u2014 10-01",
+   "stratum": "IR"
+  },
+  {
+   "sym": "RHI",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "Robert Half PR 10-15 (roberthalf.com press-releases/2026-10-15): ~4:05pm ET, call 5pm. **DB 10-21 was 1d early**; 7d lead \u2014 10-16",
+   "stratum": "IR"
+  },
+  {
+   "sym": "AGNC",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "AGNC PR 09-30 20:01Z (via stocktitan): *\"after market close on October 19, 2026,\"* call 10-20 8:30am ET \u2014 10-01",
+   "stratum": "copy"
+  },
+  {
+   "sym": "WAL",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "Western Alliance PR 10-06 (stocktitan wire text): *\"after the market closes on Monday, October 19, 2026,\"* call 10-20 12:00pm ET \u2014 10-07",
+   "stratum": "copy"
+  },
+  {
+   "sym": "UAL",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "United webcast PR 09-30 (stocktitan wire text): *\"after market close on Tuesday, October 20,\"* call 10-21 10:30am ET \u2014 10-07",
+   "stratum": "copy"
+  },
+  {
+   "sym": "PEGA",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "Pega PR 10-07 (stocktitan wire text): *\"after market close\"*, call 10-21 8:00am EDT; lead 13d \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "KNX",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Knight-Swift BW 10-01 (finviz copy): after close, call 5:30pm ET. **DB 10-21 was right** (search had said 10-22 from Earnings Whispers) \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "TRV",
+   "date": "2026-10-16",
+   "time": "bmo",
+   "src": "investor.travelers.com *Schedules Conference Call \u2026 Q3 2026*: release before the 9:00am ET call \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "BPOP",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Popular BW 10-01 (stocktitan copy): *before the market opens*, call 11am ET \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "EFX",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "Equifax PR 10-06 (stocktitan wire text): release 6:30am ET, call 8:30am. **Time corrected from amc**; lead 14d \u2014 10-08",
+   "stratum": "copy"
+  },
+  {
+   "sym": "ZION",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "Zions *2026 Earnings Release Dates* PR: call 5:30pm ET \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "REXR",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "ir.rexfordindustrial.com detail/380, PR 09-28 16:05 ET: *\"after the market closes on Thursday, October 22, 2026,\"* call 10-23 11am. All 3 feeds were wrong \u2014 09-29",
+   "stratum": "IR"
+  },
+  {
+   "sym": "ROL",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Rollins PRN 10-07 (stocktitan copy): *\"after the market closes on October 21\"*, call 10-22 8:30am ET. DB right; finnhub 10-28 wrong \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "NOV",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "NOV PR 09-16 (stocktitan page): after close, call 10-28 10am CT \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "WIT",
+   "date": "2026-10-15",
+   "time": "bmo",
+   "src": "wipro.com events page: *\"Results for the Second quarter ending September 30, 2026, will be announced on October 15, 2026, Thursday after stock market trading hours in India\"* (= US morning) \u2014 10-01",
+   "stratum": "IR"
+  },
+  {
+   "sym": "BK",
+   "date": "2026-10-15",
+   "time": "bmo",
+   "src": "bny.com 2026 earnings-calls PR: release ~6:30am ET, call 11:00am \u2014 10-06. \u26a0 **No `earnings_upcoming` row exists** (dropped after 10-02); see notes_for_ben",
+   "stratum": "IR"
+  },
+  {
+   "sym": "WRB",
+   "date": "2026-10-19",
+   "time": "amc",
+   "src": "q4cdn WRB PR: after the close, call 5:00pm ET \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "CCI",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "Crown Castle PR (finviz copy): *\"after the market closes on Wednesday, October 21, 2026,\"* call 4:45pm ET \u2014 10-07",
+   "stratum": "copy"
+  },
+  {
+   "sym": "OMC",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "Omnicom PR 10-16 (placera copy): *after the NYSE close*, call 4:30pm ET; 6d lead. DB right; finnhub 10-20 wrong \u2014 10-19",
+   "stratum": "copy"
+  },
+  {
+   "sym": "SPCX",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "ir.spacex.com PR 10-16: *after market close on Tuesday, October 20, 2026*, webcast 4:30pm ET; 4d lead. **Time was Unknown**; calendars (11-03/11-05) wrong \u2014 10-19",
+   "stratum": "IR"
+  },
+  {
+   "sym": "HUBB",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "Hubbell GNW 10-13 (stocktitan page): *prior to the opening of the market*, call 10am ET. DB right; finnhub 11-03 wrong \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "MTB",
+   "date": "2026-10-16",
+   "time": "bmo",
+   "src": "M&T PR 09-18 (finviz copy): before the open Fri 10-16, call 8:00am ET \u2014 10-06",
+   "stratum": "copy"
+  },
+  {
+   "sym": "SYF",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "`investors.synchrony.com` detail/588: release ~6:00am ET, call 8:00am ET. Snapshot 10-14 was already stale \u2014 09-23",
+   "stratum": "IR"
+  },
+  {
+   "sym": "RNG",
+   "date": "2026-10-22",
+   "time": "amc",
+   "src": "RingCentral PRN 10-08 (stocktitan): *after market close*, call 5pm ET \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "RTX",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "rtx.com PR 09-29: *\"Tuesday, October 20, prior to the stock market opening,\"* call 8:30am \u2014 09-30",
+   "stratum": "IR"
+  },
+  {
+   "sym": "NDAQ",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Nasdaq GNW 10-01 (stocktitan): ~7:00am ET, call 8am \u2014 10-12",
+   "stratum": "copy"
+  },
+  {
+   "sym": "CB",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "Chubb PR (finviz copy): release after the close, call Wed 10-21 8:30am \u2014 10-06",
+   "stratum": "copy"
+  },
+  {
+   "sym": "WFC",
+   "date": "2026-10-13",
+   "time": "bmo",
+   "src": "newsroom.wf.com *\"Wells Fargo Updates 2026 Earnings Release Date Information\"*: results ~7:00am, call 10am ET \u2014 09-29",
+   "stratum": "IR"
+  },
+  {
+   "sym": "WH",
+   "date": "2026-10-21",
+   "time": "amc",
+   "src": "investor.wyndhamhotels.com detail/430 (09-23): ~4:30pm ET 10-21, call 10-22 8:30am \u2014 09-30",
+   "stratum": "IR"
+  },
+  {
+   "sym": "XYL",
+   "date": "2026-10-27",
+   "time": "bmo",
+   "src": "Xylem PR 09-29 (finviz copy): 6:55am ET, call 9am \u2014 10-19",
+   "stratum": "copy"
+  },
+  {
+   "sym": "AA",
+   "date": "2026-10-15",
+   "time": "amc",
+   "src": "q4cdn 3Q26-EarningsAnnouncement.pdf (PR 09-15): after NYSE close, call 5:00pm EDT \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "EWBC",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "investor.eastwestbank.com dates PR (03-30): after the close, call 5pm ET \u2014 10-06",
+   "stratum": "IR"
+  },
+  {
+   "sym": "ADC",
+   "date": "2026-10-20",
+   "time": "amc",
+   "src": "Agree BusinessWire 09-30 16:05 ET (financialcontent copy): *\"after the market closes on Tuesday, October 20, 2026,\"* call 10-21 9am \u2014 10-01",
+   "stratum": "copy"
+  },
+  {
+   "sym": "FE",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "FirstEnergy PRN 10-02 (stocktitan page): after close, call 10-28 9am EDT \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "CZR",
+   "date": "2026-10-27",
+   "time": "amc",
+   "src": "Caesars PR 10-02 (stocktitan page): after close, no call \u2014 10-16",
+   "stratum": "copy"
+  },
+  {
+   "sym": "KEY",
+   "date": "2026-10-20",
+   "time": "bmo",
+   "src": "investor.key.com 2026 call-dates PR: *\"Tuesday, October 20th, 2026 at 8 a.m. ET,\"* results before open \u2014 09-29",
+   "stratum": "IR"
+  },
+  {
+   "sym": "SNA",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Snap-on webcast PR 10-08 (stocktitan): release before open, call 10am ET. **DB 10-15 was 7d early**; 14d lead \u2014 10-09",
+   "stratum": "copy"
+  },
+  {
+   "sym": "PSA",
+   "date": "2026-10-26",
+   "time": "amc",
+   "src": "Public Storage PR 10-05 (stocktitan page): *after the market close*, call 10-27 12pm ET \u2014 10-14",
+   "stratum": "copy"
+  },
+  {
+   "sym": "TSCO",
+   "date": "2026-10-22",
+   "time": "bmo",
+   "src": "Tractor Supply Business Wire 10-09 (stocktitan copy): *\"before the market opens on Thursday, October 22\"*, call 10am ET; 13d lead. Time was Unknown \u2014 10-09",
+   "stratum": "copy"
+  }
+ ]
+}

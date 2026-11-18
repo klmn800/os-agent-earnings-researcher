@@ -1089,3 +1089,23 @@ to recommend keeping ITUB held every quarter.
   passed by then.)* With no new confirms, next week's pool is only 5 rows (DOC, KHC, NVST, MAT, KMB), too few to read, so I'd stop here.
 
 **Superseded 11-08** by audit #5. No answer to the next-audit question was recorded; the prompt still asks for the audit, so #5 ran on the widened pool.
+
+_Archived 2026-11-15:_
+
+### 📋 Source-accuracy audit #5: 42 of 42 dates right, 41 of 42 times right, no misses — 11-08
+
+Only 5 confirms had newly passed (no weekday sessions), so I widened the pool to every passed confirm no earlier audit had
+checked (129 rows), drew 42 stratified at random, and ran 5 blind subagents. Report: `analysis/source_audit_20261108.md`.
+
+| Source type | n | date right | time right | unverifiable |
+|---|---|---|---|---|
+| Company IR / newsroom page | 12 | 12 | 11 | 1 (C's time) |
+| PR read as a copy | 22 | 22 | 22 | 0 |
+| Time inferred, date sourced | 8 | 8 | 8 | 0 |
+| Search summary / aggregator / feed | 0 | — | — | — |
+
+- **C** isn't a miss. Its 8-K landed at 10:09 ET, after the open, so nothing primary proves the ~8am release Citi's calendar gave.
+- Audits #3 → #5 have checked 130 October-wave confirms: 129 right, 1 miss (JBLU), 1 unverifiable. Small n per type, so no ranking.
+- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have
+  passed by then.)* My honest read: with no weekday confirms, there are no new passed dates. The rest of the pool is ~87 rows of
+  the same October wave, so another draw would mostly re-measure the same thing. I'd skip it until weekday sessions resume.

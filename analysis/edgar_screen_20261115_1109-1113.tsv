@@ -1,0 +1,40 @@
+symbol	db_date	db_time	edgar_accepted_et	rel_date	rel_session	date_delta	flag
+B	2026-11-09	bmo					no_2.02 (424B3,6-K)
+CEG	2026-11-09	Unknown	2026-11-09 06:53	2026-11-09	bmo	+0	db_time_unknown
+CELH	2026-11-09	bmo	2026-11-05 06:03	2026-11-05	bmo	-4	DATE-4
+CNH	2026-11-09	bmo					no_2.02 (10-Q,4,8-K)
+FERG	2026-11-09	Unknown	2026-11-09 06:50	2026-11-09	bmo	+0	db_time_unknown
+FIVN	2026-11-09	amc	2026-11-05 16:11	2026-11-05	amc	-4	DATE-4
+KKR	2026-11-09	bmo	2026-11-09 06:51	2026-11-09	bmo	+0	ok
+LCID	2026-11-09	amc	2026-11-09 16:08	2026-11-09	amc	+0	ok
+LINE	2026-11-09	Unknown	2026-11-09 16:17	2026-11-09	amc	+0	db_time_unknown
+OGN	2026-11-09	Unknown					no_2.02 (4)
+OXY	2026-11-09	amc	2026-11-09 16:13	2026-11-09	amc	+0	ok
+PINS	2026-11-09	Unknown	2026-10-29 16:07	2026-10-29	amc	-11	DATE-11 db_time_unknown
+QRVO	2026-11-09	Unknown					no_cik
+RBA	2026-11-09	Unknown	2026-11-09 08:02	2026-11-09	bmo	+0	db_time_unknown
+RKLB	2026-11-09	Unknown	2026-11-09 16:06	2026-11-09	amc	+0	db_time_unknown
+SGI	2026-11-09	bmo	2026-11-09 06:37	2026-11-09	bmo	+0	ok
+TECH	2026-11-09	Unknown					no_2.02 (10-Q/A)
+TTWO	2026-11-09	Unknown	2026-11-09 16:10	2026-11-09	amc	+0	db_time_unknown
+FLY	2026-11-10	Unknown	2026-11-10 16:08	2026-11-10	amc	+0	db_time_unknown
+LUNR	2026-11-10	Unknown	2026-11-12 07:32	2026-11-12	bmo	+2	DATE+2 db_time_unknown
+OKLO	2026-11-10	Unknown					no_2.02 (144,3,4,8-K,SCHEDULE 13G)
+PBR	2026-11-10	Unknown					no_2.02 (6-K,SCHEDULE 13G/A)
+SARO	2026-11-10	Unknown	2026-11-05 16:20	2026-11-05	amc	-5	DATE-5 db_time_unknown
+SE	2026-11-10	Unknown					no_2.02 (144,4,6-K)
+CTVA	2026-11-11	amc	2026-11-12 08:34	2026-11-12	bmo	+1	DATE+1 SESSION
+FNV	2026-11-11	Unknown					no_2.02 (6-K)
+GRAL	2026-11-11	Unknown	2026-11-04 16:05	2026-11-04	amc	-7	DATE-7 db_time_unknown
+LEGN	2026-11-11	bmo					no_2.02 (4,6-K)
+PTC	2026-11-11	amc	2026-11-04 16:03	2026-11-04	amc	-7	DATE-7
+TTEK	2026-11-11	amc	2026-11-12 06:08	2026-11-12	bmo	+1	DATE+1 SESSION
+AMAT	2026-11-12	amc	2026-11-12 16:02	2026-11-12	amc	+0	ok
+BN	2026-11-12	Unknown					no_2.02 (13F-HR,6-K)
+CSCO	2026-11-12	Unknown	2026-11-12 16:06	2026-11-12	amc	+0	db_time_unknown
+EC	2026-11-12	Unknown					no_2.02 (424B2,424B3,6-K,8-A12B,FWP)
+JD	2026-11-12	Unknown					no_2.02 (6-K)
+NU	2026-11-12	Unknown					no_2.02 (144,3/A,6-K)
+SMFG	2026-11-12	Unknown					no_2.02 (13F-HR,13F-HR/A,4,6-K,6-K/A)
+MFG	2026-11-13	Unknown					no_2.02 (13F-HR,6-K,SCHEDULE 13G,SCHEDULE 13G/A)
+MUFG	2026-11-13	Unknown					no_2.02 (6-K)

@@ -9,26 +9,28 @@
 > Per-symbol cadence/lead-times live in `memory/reference_company_cadence.md`. **Grep it by symbol
 > (`^| SYM `); don't read it whole (~220 KB).**
 
-## ⚠ READ FIRST (updated 2026-11-08): no weekday sessions since 10-19, and the calendar is frozen
+## ⚠ READ FIRST (updated 2026-11-15): no weekday sessions since 10-19, and the calendar is still frozen
 
-Ben made **Simple Mode the default on 2026-10-28** (`docs/simple_mode/README.md`). It skips orchestrator Phase 1 (which
-spawns this agent) and the Friday 5.3 Earnings Refresh, so `earnings_upcoming` has not been written since 10-19 07:22.
-Only the Sunday session runs. Whether I should run on weekdays is an open question in `notes_for_ben.md`. **If a weekday
-session does run:** the frozen rows are drifting (11-08 EDGAR screen: 27 of 221 dates for 11-02 → 11-06 were wrong, about
-12%, up from about 4% the week before), so treat every unconfirmed date as an estimate and check EDGAR first.
+Ben confirmed on 11-09 that weekday sessions **should** run (`memory/project_weekday_research_expected.md`). Simple Mode
+turned them off by accident: it skips orchestrator Phase 1 (1.2 Earnings Intelligence, which spawns me) and the Friday 5.3
+Earnings Refresh. As of 11-18 the orchestrator still logs "Simple Mode - skipping Phase 1" daily, and `earnings_upcoming`
+was last written 10-19 07:22. Restore steps are in `notes_for_ben.md`. **When a weekday session does run:** the frozen rows
+are badly stale. In the 11-15 EDGAR screen, 7 of 22 comparable dates for 11-09 → 11-13 were wrong (about 32%, up from 12%
+and 4% in the two weeks before). Treat every unconfirmed date as an estimate and check EDGAR first. `edgar_screen.py` now
+reads the Item 2.02 sentence, so next-morning filers no longer show up as false misses.
 
-## Still unconfirmed (rebuilt 2026-11-08 from `earnings_upcoming`, `date_confirmed = 0`)
+## Still unconfirmed (rebuilt 2026-11-15 from `earnings_upcoming`, `date_confirmed = 0`)
 
-- **Past-dated, parked:** 421 rows dated 10-17 → 11-06. Don't research them unless Ben asks for a backfill. EDGAR screens:
-  10-17 → 10-30 in the 11-01 entry, 11-02 → 11-06 in the 11-08 entry (`analysis/edgar_screen.py`).
-- **Ahead:** 143 rows, 11-09 → 2027-01-11, none researched. Their dates come from a feed last refreshed 10-19.
+- **Past-dated, parked:** 460 rows dated 10-17 → 11-13. Don't research them unless Ben asks for a backfill. EDGAR screens:
+  10-17 → 10-30 (11-01 entry), 11-02 → 11-06 (11-08 entry), 11-09 → 11-13 (11-15 entry).
+- **Ahead:** 104 rows, 11-16 → 2027-01-11 (49 of them due by 11-27), none researched. Their dates come from a feed last refreshed 10-19.
 
 ## Open Carry-Overs: researched, unresolved, with next-check dates
 
 All six named carry-overs reported and were scored 11-08 (see that entry): ITUB's prediction hit; DTE held; BMRN (+7 vs DB),
 CC (−3), MKTX (−13) and ROKU (−3) didn't. **ROKU was acquired by Fox (closed 11-06)**, so any later ROKU row is a phantom.
 
-| Symbol | DB row | Status at 11-08 | How to read | Next check |
+| Symbol | DB row | Status at 11-15 (unchanged since 11-08) | How to read | Next check |
 |--------|--------|-----------------|-------------|------------|
 | ITUB | next quarter | Weekday pattern 4/4 (release Tue/Wed early in month 2), still not a source. Hold until a company date is read | EDGAR 6-K list | Q4 wave (early Feb) |
 | WBS | — | Skipped (delisted). Ben's item | — | — |
@@ -48,6 +50,50 @@ fall archive's Appendix A; source audit #5 found all five right. Format when row
 _No weekday sessions since 10-19 (Simple Mode). The 10-19 session is in the fall archive._
 
 # Maintenance History
+
+## Weekly Maintenance — 2026-11-15 (Sunday; the window stayed open and the work finished 11-18)
+
+**Still Simple Mode: 0 weekday sessions, 0 confirms, no dispute rows since 10-19.** The orchestrator skipped Phase 1 on every
+weekday 11-09 → 11-13 and again 11-16 → 11-18. `earnings_upcoming` is still at 10-19 07:22. Ben's 11-09 answer (weekday
+research should run) is recorded; the restore is his to make.
+
+**Archived.** The 10-25 maintenance entry → fall archive (header updated). No sessions or ledger rows to move; the ledger is
+still empty. Active log ~132 lines. Header rebuilt: 460 past-dated unconfirmed rows parked, 104 ahead (11-16 → 01-11).
+
+**Skip calibration: EDGAR screen of the 39 unresearched rows dated 11-09 → 11-13** (`analysis/edgar_screen_20261115_1109-1113.tsv`).
+22 had a comparable Item 2.02 8-K. 17 had none: mostly foreign filers (B, PBR, SE, FNV, LEGN, BN, EC, JD, NU, SMFG, MFG, MUFG)
+plus CNH, OGN, OKLO and TECH (10-Q/A only); QRVO has no CIK.
+- **Date: 15 of 22 right, 7 wrong (about 32%).** PINS −11, GRAL −7, PTC −7, SARO −5, CELH −4, FIVN −4, LUNR +2. These are
+  filing dates only; I didn't read the datelines. LUNR could also be a next-morning filer for 11-11.
+- CTVA and TTEK flagged D+1 / session at first. Both are **next-morning filers**: the Item 2.02 sentence says 11-11, the DB
+  date, so they are right.
+- **Times:** 8 of the 15 matched rows were `Unknown` (CEG, FERG, LINE, RBA, RKLB, TTWO, FLY, CSCO); none contradicted a stored bmo/amc.
+- **Reading:** the drift keeps climbing (4% → 12% → 32%) as more of the 10-19 feed's estimates come due. Coarse screen, same
+  caveats as before. The 49 rows due by 11-27 will be worse, not better.
+- **QRVO with no CIK** needs a rename or merger check before anyone researches it. Not done today (weekday work).
+
+**Source audit #6: closes the October census.** Pool = every passed confirm no earlier audit checked: 87 rows (copy 70,
+IR 17). Drew IR as a census plus 23 copy rows (seed 20261115) for 5 blind subagents, then screened the other 47 on EDGAR
+(`analysis/edgar_screen_confirmed.py`). **Subagents: 40/40 right on date and time, 0 unverifiable, 0 mismatches. Screen:
+47/47 dates.** STLD and TER flagged and were next-morning filers (Item 2.02 sentence read). **All 214 October-wave ledger
+rows have now been checked once. One miss (JBLU), one unverifiable time (C).** Report: `analysis/source_audit_20261115.md`.
+Nothing is left to draw until weekday confirms resume.
+
+**Promoted.** Cadence: next-morning-filer notes on NOV, STLD, TER; new rows CTVA, TTEK (next-morning filers), PINS, GRAL,
+PTC, SARO, FIVN, LUNR (Q3 dates from the screen); CELH annotated (Q3 4d earlier than DB); BK = EDGAR ticker BNY; WIT 6-K
+~5 days late; CB 8-K at 17:24; CZR pending Fertitta deal (phantom pre-flight). **Tool:** `edgar_screen.py` now reads the
+Item 2.02 date sentence on any date mismatch and re-dates next-morning filers. Tested on 11-11: CTVA and TTEK re-dated,
+GRAL and PTC kept as misses.
+**Hygiene.** notes_for_ben: audit #5 → archive, #6 + the next-audit question; weekday item updated (32%, still off 11-18).
+Outbox ≤ 128 lines, no rotation. Inbox root clean (scratch in `inbox/fetch/`). MEMORY.md: pointers resolve, cadence line
+updated. **STATUS.md** rewritten.
+
+**Drift (mine):** (1) I ran the two screens chained in one background job. When the window paused, I thought it had died
+and started a second copy, so both wrote the same files. The output checks out clean (no duplicate or malformed rows), but I
+can't prove the two never overlapped. Next time: one job per file, and wait for the completion notice. (2) In the
+draft audit report I wrote a "±2" approximate totals table and named SCHW as the extra row without checking. I replaced both
+with exact sums from the reports before committing. (3) Last week I said I'd skip this audit. I ran it anyway, because it
+closes the census for less than the cost of one more sample. Now the pool is empty, so the skip recommendation holds for real.
 
 ## Weekly Maintenance — 2026-11-08 (Sunday)
 
@@ -130,44 +176,3 @@ Item 2.02 8-K, BMRN has none yet, 26 have none to compare (mostly foreign filers
 rotation. Inbox root clean. MEMORY.md: pointers resolve, cadence line updated. **STATUS.md** rewritten.
 
 **Drift (mine):** the 10-25 note said next week's audit pool would be ~45 rows. It was 75.
-
-## Weekly Maintenance — 2026-10-25 (Sunday)
-
-**Weekday sessions stopped after 10-19.** Ben's Simple Mode trial began 10-20. It skips orchestrator Phase 1, which is where
-the Earnings Intelligence step spawns me, and it skips the Friday 5.3 Earnings Refresh. The orchestrator logs for 10-20 →
-10-23 show "Simple Mode - skipping Phase 1". The last DB confirm was 10-19 07:42. This was deliberate on Ben's side, not an
-outage. I put a READ FIRST block in the header and raised it in `notes_for_ben.md` as a question.
-
-**Archived.** Sessions 10-05 → 10-09 and the 10-04 maintenance entry went to the fall archive (chronological; header
-updated). The 103 ledger rows dated 10-19 → 10-23 went verbatim to its Appendix A. The active log went from 600 to ~290
-lines, keeping 10-12 → 10-19 in full. Header rebuilt from `earnings_upcoming`: the past-dated unconfirmed rows (HDB, IBN,
-ISRG, DOW, IRDM, SCCO, INFY) are parked, and every other next-check is reset to "first session".
-
-**Ledger check (mechanical):** 80 of 80 future rows (10-26 → 11-05) match the DB on date and time. 0 DB-confirmed rows
-are missing from the ledger.
-
-**Source audit #3 (October, forward):** 134-row pool, 43 drawn by stratified random sampling plus SCHW, 5 blind subagents.
-Report: `analysis/source_audit_20261025.md`.
-- **44 of 44 match on date and time, 0 unverifiable.** IR direct 10/10, PR copy 10/10, search summary 11/11, inferred time
-  13/13. Aggregator and feed-agreement sources: n = 0 in the pool (policy since July).
-- In the summer, call-time inferences were 9/12. In October they were 13/13. That probably reflects rule 6, but it isn't
-  tested; October was mostly large caps with fixed habits. Small n for each type, so I'm not generalizing.
-- New evidence rule (in the cadence table): an **evening-before 8-K** (PCG 21:04, DHR 17:43, accepted after 17:30) carries
-  the next day's EDGAR filing date and a same-morning release, so it is D bmo, not D−1 amc. **SCHW files at ~16:17 every
-  quarter**, so its 8-K never times the release.
-
-**Calibration, week 10-19 → 10-23.** **1 of 5 sessions** (10-19 only; Simple Mode). **23 confirms** from a 40-row queue (58%).
-No date corrections. Times: SPCX, ARE Unknown → amc; XOM, NVT Unknown → bmo (NVT inferred).
-- **Parked rows that reported unseen** (EDGAR): ISRG 10-20 amc and DOW 10-22 bmo held. **IRDM reported 10-20 bmo** (DB 10-22,
-  2d late; no call, so no advance PR, as noted). **SCCO released 10-20** (DB 10-22 was the call date). INFY's date held; my
-  bmo time call is still unverified (the 6-K landed 11:45 ET).
-- **Overdue-PR doubts: 3 right, 4 wrong** (ISRG's "no PR 1 day out" doubt was wrong). It stays a reason to look, not evidence.
-- Rule-6 exposure in the 10-19 writes: NVT (9am call) and RCL (10am call) were bmo from the call time alone. Both dates are
-  still ahead (10-27/10-30). If a session runs before then, check their prior-quarter 8-K times.
-
-**Promoted.** Cadence rows SCCO (release = call − 2d), IRDM (no-call quarters: EDGAR only), ISRG, DOW, INFY, SCHW (late 8-K
-filer; update-day inference 4/4), and PCG/DHR (evening-before filers). The SCHW Q3 row is marked as held.
-
-**Hygiene.** notes_for_ben: audit #2 and the 10-11 queue item archived; audit #3, Simple Mode and the next-audit question
-added; SCHW minor item closed. Outbox ≤ 128 lines, no rotation. Inbox root clean (`inbox/fetch/` holds 240-odd scratch
-downloads, which is harmless). MEMORY.md: every pointer resolves and nothing is unindexed. **STATUS.md** rewritten.

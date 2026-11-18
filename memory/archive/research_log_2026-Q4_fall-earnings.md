@@ -3,7 +3,7 @@
 > Fall 2026 earnings season — Q3 calendar results (plus off-cycle fiscal quarters reporting in the same wave), reported ~late September
 > through mid-November 2026. Opened at the 2026-10-18 maintenance with sessions **2026-09-28 → 2026-10-02** (09-28 → 09-30 are
 > calendar-Q3 days, filed here because they researched the fall wave) and the 2026-09-27 maintenance entry; sessions
-> **2026-10-05 → 10-09** and the 10-04 maintenance entry added 2026-10-25; **10-12 → 10-16** and the 10-11 maintenance entry added 2026-11-01; the **10-19** session (the last weekday session before Simple Mode) and the 10-18 maintenance entry added 2026-11-08. Chronological order,
+> **2026-10-05 → 10-09** and the 10-04 maintenance entry added 2026-10-25; **10-12 → 10-16** and the 10-11 maintenance entry added 2026-11-01; the **10-19** session (the last weekday session before Simple Mode) and the 10-18 maintenance entry added 2026-11-08; the 10-25 maintenance entry added 2026-11-15. Chronological order,
 > oldest first. Appendix A keeps ledger rows verbatim as they are pruned (the record later source audits draw from).
 
 ---
@@ -601,6 +601,47 @@ Date corrections: PNR +7, MAT +7, KMB +2, RHI +1, PII +1, FLS +1. Times: NEM bmo
 **Hygiene.** notes_for_ben: audit #1 item archived, replaced by audit #2 + the next-Sunday question; HDB/IBN marked overdue; BK still
 open. `rm` of the two 10-15 temp drafts (`memory/mid_tmp.md`, `sess_tmp.md`) was denied, so they're listed for Ben with the
 `for_*.md` strays. Inbox root clean. Outbox ≤ 128 lines, no rotation. **STATUS.md** rewritten.
+
+## Weekly Maintenance — 2026-10-25 (Sunday)
+
+**Weekday sessions stopped after 10-19.** Ben's Simple Mode trial began 10-20. It skips orchestrator Phase 1, which is where
+the Earnings Intelligence step spawns me, and it skips the Friday 5.3 Earnings Refresh. The orchestrator logs for 10-20 →
+10-23 show "Simple Mode - skipping Phase 1". The last DB confirm was 10-19 07:42. This was deliberate on Ben's side, not an
+outage. I put a READ FIRST block in the header and raised it in `notes_for_ben.md` as a question.
+
+**Archived.** Sessions 10-05 → 10-09 and the 10-04 maintenance entry went to the fall archive (chronological; header
+updated). The 103 ledger rows dated 10-19 → 10-23 went verbatim to its Appendix A. The active log went from 600 to ~290
+lines, keeping 10-12 → 10-19 in full. Header rebuilt from `earnings_upcoming`: the past-dated unconfirmed rows (HDB, IBN,
+ISRG, DOW, IRDM, SCCO, INFY) are parked, and every other next-check is reset to "first session".
+
+**Ledger check (mechanical):** 80 of 80 future rows (10-26 → 11-05) match the DB on date and time. 0 DB-confirmed rows
+are missing from the ledger.
+
+**Source audit #3 (October, forward):** 134-row pool, 43 drawn by stratified random sampling plus SCHW, 5 blind subagents.
+Report: `analysis/source_audit_20261025.md`.
+- **44 of 44 match on date and time, 0 unverifiable.** IR direct 10/10, PR copy 10/10, search summary 11/11, inferred time
+  13/13. Aggregator and feed-agreement sources: n = 0 in the pool (policy since July).
+- In the summer, call-time inferences were 9/12. In October they were 13/13. That probably reflects rule 6, but it isn't
+  tested; October was mostly large caps with fixed habits. Small n for each type, so I'm not generalizing.
+- New evidence rule (in the cadence table): an **evening-before 8-K** (PCG 21:04, DHR 17:43, accepted after 17:30) carries
+  the next day's EDGAR filing date and a same-morning release, so it is D bmo, not D−1 amc. **SCHW files at ~16:17 every
+  quarter**, so its 8-K never times the release.
+
+**Calibration, week 10-19 → 10-23.** **1 of 5 sessions** (10-19 only; Simple Mode). **23 confirms** from a 40-row queue (58%).
+No date corrections. Times: SPCX, ARE Unknown → amc; XOM, NVT Unknown → bmo (NVT inferred).
+- **Parked rows that reported unseen** (EDGAR): ISRG 10-20 amc and DOW 10-22 bmo held. **IRDM reported 10-20 bmo** (DB 10-22,
+  2d late; no call, so no advance PR, as noted). **SCCO released 10-20** (DB 10-22 was the call date). INFY's date held; my
+  bmo time call is still unverified (the 6-K landed 11:45 ET).
+- **Overdue-PR doubts: 3 right, 4 wrong** (ISRG's "no PR 1 day out" doubt was wrong). It stays a reason to look, not evidence.
+- Rule-6 exposure in the 10-19 writes: NVT (9am call) and RCL (10am call) were bmo from the call time alone. Both dates are
+  still ahead (10-27/10-30). If a session runs before then, check their prior-quarter 8-K times.
+
+**Promoted.** Cadence rows SCCO (release = call − 2d), IRDM (no-call quarters: EDGAR only), ISRG, DOW, INFY, SCHW (late 8-K
+filer; update-day inference 4/4), and PCG/DHR (evening-before filers). The SCHW Q3 row is marked as held.
+
+**Hygiene.** notes_for_ben: audit #2 and the 10-11 queue item archived; audit #3, Simple Mode and the next-audit question
+added; SCHW minor item closed. Outbox ≤ 128 lines, no rotation. Inbox root clean (`inbox/fetch/` holds 240-odd scratch
+downloads, which is harmless). MEMORY.md: every pointer resolves and nothing is unindexed. **STATUS.md** rewritten.
 
 ## Appendix A — Upcoming-Confirmed ledger rows pruned after reporting (verbatim)
 

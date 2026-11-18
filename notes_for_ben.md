@@ -22,25 +22,28 @@ Sunday "leave it off" recommendations rested on the wrong premise. Withdrawn.
    Simple Mode dropped), or keep Simple Mode and give 1.2 + 5.3 their own path. The second needs a dev session (main.py change or
    a new task). I can't make either change; my write access ends at `agents/earnings_researcher/`.
 
-Once it's running, I'll work the 143 rows ahead nearest-first and leave the 421 past-dated ones alone unless you want a backfill.
+**11-15 update: still off.** Phase 1 was skipped every weekday 11-09 → 11-13 and again 11-16 → 11-18, and the calendar is
+still at 10-19. The drift is accelerating: in the EDGAR screen, 7 of 22 comparable dates for 11-09 → 11-13 were wrong (about
+32%, after 12% and 4% the two weeks before). PINS was 11 days off, GRAL and PTC 7. That makes step 1 (refresh first) matter
+more each week.
 
-### 📋 Source-accuracy audit #5: 42 of 42 dates right, 41 of 42 times right, no misses — 11-08
+Once it's running, I'll work the 104 rows ahead nearest-first and leave the 421 past-dated ones alone unless you want a backfill.
 
-Only 5 confirms had newly passed (no weekday sessions), so I widened the pool to every passed confirm no earlier audit had
-checked (129 rows), drew 42 stratified at random, and ran 5 blind subagents. Report: `analysis/source_audit_20261108.md`.
+### 📋 Source-accuracy audit #6: the October census is closed. 40 of 40 right, plus 47 of 47 on an EDGAR screen — 11-15
 
-| Source type | n | date right | time right | unverifiable |
-|---|---|---|---|---|
-| Company IR / newsroom page | 12 | 12 | 11 | 1 (C's time) |
-| PR read as a copy | 22 | 22 | 22 | 0 |
-| Time inferred, date sourced | 8 | 8 | 8 | 0 |
-| Search summary / aggregator / feed | 0 | — | — | — |
+No confirms had newly passed (still no weekday sessions), so the pool was the 87 October confirms no earlier audit had
+checked: IR 17 (taken as a census), copy 70 (23 drawn at random). Five blind subagents found **40 of 40 right on date and
+time, 0 unverifiable**. I screened the other 47 on EDGAR: **47 of 47 dates right**. Report: `analysis/source_audit_20261115.md`.
 
-- **C** isn't a miss. Its 8-K landed at 10:09 ET, after the open, so nothing primary proves the ~8am release Citi's calendar gave.
-- Audits #3 → #5 have checked 130 October-wave confirms: 129 right, 1 miss (JBLU), 1 unverifiable. Small n per type, so no ranking.
-- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have
-  passed by then.)* My honest read: with no weekday confirms, there are no new passed dates. The rest of the pool is ~87 rows of
-  the same October wave, so another draw would mostly re-measure the same thing. I'd skip it until weekday sessions resume.
+- **Every October-wave confirm (214 ledger rows) has now been checked once: 1 miss (JBLU, a call-time inference), 1
+  unverifiable time (C).** IR pages and PR copies: no date misses in 160 checks. That holds for this wave's mostly large-cap
+  names; it doesn't rank sources in general.
+- Filing quirks it surfaced (now in the cadence table): NOV, STLD and TER file the 8-K the next morning; WIT's 6-Ks come
+  ~5 days late; BK is listed as BNY on EDGAR.
+- **Open question:** *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that
+  have passed by then.)* Honest read: there are none left. The October pool is fully checked and nothing new is confirmed,
+  so next Sunday's audit would have an empty pool. I'll run one again on the first Sunday after weekday confirms resume
+  and some of them have passed, unless you say otherwise.
 
 ### ⚠ Re-seeded times contradict established ones: 9 of the 10 rows are fixed, but the class isn't — 09-13, updated 09-27
 
@@ -124,6 +127,7 @@ page. If its events JSON endpoint can be found I can self-serve; otherwise I'll 
 
 ## Resolved (condensed — full text in the archive)
 
+- **11-15: audit #5 (42/42 dates, 41/42 times) archived.**
 - **11-08: audit #4 (41/42, JBLU miss) archived.**
 - **11-08: ITUB 6-K test scored: hit, as predicted 11-01** (release datelined São Paulo 11-03, cluster from 11-04). As I warned
   beforehand, that tests a weekday pattern, not a source. Recommendation: keep ITUB held every quarter until a company date is read.
