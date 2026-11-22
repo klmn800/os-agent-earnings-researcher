@@ -9,29 +9,31 @@
 > Per-symbol cadence/lead-times live in `memory/reference_company_cadence.md`. **Grep it by symbol
 > (`^| SYM `); don't read it whole (~220 KB).**
 
-## ⚠ READ FIRST (updated 2026-11-15): no weekday sessions since 10-19, and the calendar is still frozen
+## ⚠ READ FIRST (updated 2026-11-22): the Earnings Module is coming; the calendar is still frozen at 10-19
 
-Ben confirmed on 11-09 that weekday sessions **should** run (`memory/project_weekday_research_expected.md`). Simple Mode
-turned them off by accident: it skips orchestrator Phase 1 (1.2 Earnings Intelligence, which spawns me) and the Friday 5.3
-Earnings Refresh. As of 11-18 the orchestrator still logs "Simple Mode - skipping Phase 1" daily, and `earnings_upcoming`
-was last written 10-19 07:22. Restore steps are in `notes_for_ben.md`. **When a weekday session does run:** the frozen rows
-are badly stale. In the 11-15 EDGAR screen, 7 of 22 comparable dates for 11-09 → 11-13 were wrong (about 32%, up from 12%
-and 4% in the two weeks before). Treat every unconfirmed date as an estimate and check EDGAR first. `edgar_screen.py` now
-reads the Item 2.02 sentence, so next-morning filers no longer show up as false misses.
+Ben confirmed 11-09 that weekday sessions **should** run (`memory/project_weekday_research_expected.md`). The fix is the
+**Earnings Module** (dev session 11-18, PRD 0015): a separate `\!Earnings Module` task, weekdays 06:00. It refreshes the full
+calendar first when the last refresh is >6 days old, then runs a lite yfinance/Finnhub re-check that writes disputes, then
+spawns me. It goes live once Ben registers the task. As of 11-22 it hadn't run: `earnings_upcoming` was last written
+10-19 07:22, and there are no dispute rows after 10-19. **The 10-20 → first-run gap is an outage, not a skip pattern.**
+**On the first live session:** check that the morning refresh actually ran (`MAX(updated_at)` = today) before trusting any
+row. If it didn't, every unconfirmed date is a 10-19 estimate. EDGAR screens put those at 4% → 12% → 32% → 26% wrong
+(weeks of 10-17 → 11-20). Check EDGAR first. **MDT** (DB 11-17) and **CPRT** (DB 11-19) passed with no release filed.
+Find their real dates first.
 
-## Still unconfirmed (rebuilt 2026-11-15 from `earnings_upcoming`, `date_confirmed = 0`)
+## Still unconfirmed (rebuilt 2026-11-22 from `earnings_upcoming`, `date_confirmed = 0`)
 
-- **Past-dated, parked:** 460 rows dated 10-17 → 11-13. Don't research them unless Ben asks for a backfill. EDGAR screens:
-  10-17 → 10-30 (11-01 entry), 11-02 → 11-06 (11-08 entry), 11-09 → 11-13 (11-15 entry).
-- **Ahead:** 104 rows, 11-16 → 2027-01-11 (49 of them due by 11-27), none researched. Their dates come from a feed last refreshed 10-19.
+- **Past-dated, parked:** 489 rows dated 10-17 → 11-20. Don't research them unless Ben asks for a backfill. EDGAR screens:
+  10-17 → 10-30 (11-01 entry, archived), 11-02 → 11-06 (11-08), 11-09 → 11-13 (11-15), 11-16 → 11-20 (11-22).
+  Exception: MDT and CPRT haven't reported yet (carry-overs below).
+- **Ahead:** 75 rows, 11-23 → 2027-01-11 (20 of them due by 11-27), none researched. Their dates come from the 10-19 feed.
 
 ## Open Carry-Overs: researched, unresolved, with next-check dates
 
-All six named carry-overs reported and were scored 11-08 (see that entry): ITUB's prediction hit; DTE held; BMRN (+7 vs DB),
-CC (−3), MKTX (−13) and ROKU (−3) didn't. **ROKU was acquired by Fox (closed 11-06)**, so any later ROKU row is a phantom.
-
-| Symbol | DB row | Status at 11-15 (unchanged since 11-08) | How to read | Next check |
+| Symbol | DB row | Status at 11-22 | How to read | Next check |
 |--------|--------|-----------------|-------------|------------|
+| MDT | 11-17 `Unknown` | DB date passed, **no Item 2.02 by 11-22** (last 09-01). The stored date is wrong. Time is bmo every quarter (6:45 ET release) | IR advance PR "Medtronic to announce…", EDGAR | **First weekday session** (≥ 11-23) |
+| CPRT | 11-19 `Unknown` | DB date passed, **no Item 2.02 by 11-22** (last 09-10). No reachable IR surface (cadence row) | EDGAR 8-K list, wire copy | **First weekday session** (≥ 11-23) |
 | ITUB | next quarter | Weekday pattern 4/4 (release Tue/Wed early in month 2), still not a source. Hold until a company date is read | EDGAR 6-K list | Q4 wave (early Feb) |
 | WBS | — | Skipped (delisted). Ben's item | — | — |
 
@@ -40,7 +42,7 @@ Spine = `analysis/helpers/spine.py` (paces itself to stocktitan's 10-per-300s li
 
 ## Upcoming Confirmed: locked dates (don't re-research)
 
-**Empty.** No confirmed row is dated ≥ 11-09. The last five (DOC, KHC, NVST, MAT, KMB, 11-02 → 11-05) were pruned 11-08 to the
+**Empty.** No confirmed row is dated ≥ 11-09 (still true 11-22). The last five (DOC, KHC, NVST, MAT, KMB, 11-02 → 11-05) were pruned 11-08 to the
 fall archive's Appendix A; source audit #5 found all five right. Format when rows return: `SYM | date | time | source — session`.
 
 ---
@@ -50,6 +52,41 @@ fall archive's Appendix A; source audit #5 found all five right. Format when row
 _No weekday sessions since 10-19 (Simple Mode). The 10-19 session is in the fall archive._
 
 # Maintenance History
+
+## Weekly Maintenance — 2026-11-22 (Sunday)
+
+**Still no weekday sessions: 0 sessions, 0 confirms, no dispute rows since 10-19.** The 11-18 inbox note explains why the
+fix hasn't landed: the Earnings Module (PRD 0015) restores refresh, then lite check, then my spawn on its own 06:00 weekday
+task, once Ben registers it. `earnings_upcoming` is still at 10-19 07:22. Note recorded in
+`memory/project_weekday_research_expected.md` and filed to `inbox/processed/`.
+
+**Archived.** The 11-01 maintenance entry → fall archive (header updated). The ledger is still empty, with nothing to move.
+Header rebuilt: 489 past-dated unconfirmed rows parked, 75 ahead (11-23 → 01-11); MDT and CPRT added as carry-overs.
+
+**Skip calibration: EDGAR screen of the 29 unresearched rows dated 11-16 → 11-20** (`analysis/edgar_screen_20261122_1116-1120.tsv`).
+19 had a comparable Item 2.02 8-K. 8 are foreign 6-K filers (XP, XPEV, AS, SQM, BIDU, PDD, WIX, GLOB). 2 have filed nothing.
+- **Date: 14 of 19 right, 5 wrong (26%).** ACM −1, PANW −1, BRBR +1, VVV +1, WSM +1. I read the Item 2.02 sentence for all
+  five. Each says the EDGAR date, so none is a next-morning-filer artifact. UGI flagged D+1 but is a next-morning filer
+  (sentence says 11-18), so it held. The misses are all ±1d this week. Last week's were 2 to 11 days.
+- **Not yet reported: MDT (DB 11-17), CPRT (DB 11-19).** No Item 2.02 by Sunday. Both stored dates are wrong, but the size
+  of the miss is unknown. Not counted in the 5. Carried over to the first weekday session.
+- **Times:** 3 of the 8 rows with a stored bmo/amc were contradicted (TSN amc → bmo 07:41; DIS amc → bmo 06:30; VVV amc →
+  bmo 07:03). TSN's cadence row has said bmo for 8 quarters, so this is the re-seeded-time class again (open item in
+  notes_for_ben). 11 matched rows were `Unknown`.
+- **Reading:** 26% vs 32% last week is not an improvement I can claim. n is 19 vs 22, and both are coarse filing-date
+  screens. The frozen feed keeps getting a quarter of the dates wrong.
+
+**Source audit #7: not run. The pool is empty.** The rule is "every confirmed symbol whose date has passed". There have been
+no confirms since 10-19, and all 214 October-wave confirms were checked by audits #3 → #6. Spawning subagents with nothing
+to check would only produce a form. The next-audit question is in notes_for_ben.
+
+**Promoted.** Cadence: new rows ACM, BRBR, VVV, DIS; annotated TSN (re-seeded amc), WSM, PANW, UGI (next-morning filer again),
+MDT and CPRT (unreported past DB date).
+**Hygiene.** notes_for_ben: weekday item → Earnings Module status; audit item updated. Outbox ≤ 128 lines, no rotation. Inbox
+root clean after filing the 11-18 note. MEMORY.md: pointers resolve, weekday line updated. **STATUS.md** rewritten.
+
+**Drift (mine):** nothing significant. One small thing: my first scratch script read `inbox/tickers_20260825.json`, which
+was filed to `inbox/processed/` weeks ago. It failed loudly, so no harm. Using the processed path from now on.
 
 ## Weekly Maintenance — 2026-11-15 (Sunday; the window stayed open and the work finished 11-18)
 
@@ -138,41 +175,3 @@ resolves, nothing unindexed. **STATUS.md** rewritten.
 DB, the same early-under-a-deal shape it showed in Q2. My own phantom memory already said so. (2) Last week I recommended against
 another audit with only 5 rows in the pool. The prompt still asked, so I widened it per its own rule. It found nothing new, which
 is the diminishing return I'd predicted. I'm saying so in the note rather than either skipping it or overselling it.
-
-## Weekly Maintenance — 2026-11-01 (Sunday)
-
-**Simple Mode is now permanent (10-28), so there were 0 weekday sessions and 0 confirms this week.** `earnings_upcoming` hasn't
-been written since 10-19. Header rewritten to say so.
-
-**Archived.** Sessions 10-12 → 10-16 and the 10-11 maintenance entry → fall archive. The 75 ledger rows dated 10-26 → 10-30 →
-its Appendix A, with JBLU's row annotated. Active log 327 → ~180 lines. **Ledger check:** 5 of 5 future rows match the DB
-(DOC, KHC, NVST, KMB, MAT), 0 missing.
-
-**Source audit #4 (10-26 → 10-30):** 42 rows from a pool of 75, 5 blind subagents, **41/42 right on date and time, 0
-unverifiable.** IR 7/7, copy 12/12, search summary 10/10, inferred 12/13. Report: `analysis/source_audit_20261101.md`.
-- **Miss: JBLU**, 10-27 bmo → actually **10-26 amc** (8-K accepted 16:15:21, I re-read it). It came from a 10am call with a
-  silent PR. Its 5 prior quarters were all same-morning, so even the prior-quarter check would have agreed with the wrong answer.
-  Cadence row and rule 6 updated. NVT and RCL, flagged 10-25, both held.
-
-**ITUB 6-K test: prediction written here before the report (Sun 11-01 evening; latest 6-K is 10-26, a Neospace material fact).**
-Predicted **release Tue 11-03 after the B3 close, first 6-K of the cluster Wed 11-04.** No DB write, not confirmed. Basis: Q3'25
-released Tue 11-04-25, Q4'25 Wed 02-04-26, Q2'26 Tue 08-04-26 (Ex-99.1 datelines); the cluster began the next day each time.
-Q1'26's cluster began 05-06; I didn't read that dateline. **Finding before the score:** the cluster follows the release, so it
-can't date one in advance. What I'm really testing is a weekday pattern, which isn't evidence by my own rules, so even a hit
-proves little. Done on a Sunday because no other session runs before 11-03; it was a few EDGAR reads and a log entry.
-
-**Skip calibration: EDGAR screen of all 172 unconfirmed past-dated rows (10-17 → 10-30), filing date vs DB.** 145 had a Q3
-Item 2.02 8-K, BMRN has none yet, 26 have none to compare (mostly foreign filers, plus COKE and WLK).
-- **Date:** 139 agree. 6 of 146 are wrong: IRDM −2, SCCO −2 (release 10-20), WHR −2, DAR −1, DVA +1, BMRN (no report by 11-01,
-  DB 10-26). CUBE +1 is ambiguous (07:23 next morning; may be a next-morning filer, as RRC turned out to be).
-- **Session:** 5 DB `amc` rows have a morning 8-K on the date (PYPL, TEL, CTSH, LHX, CHRW). 33 of the matched rows were `Unknown`.
-- **Caveat:** a filing-date screen, not an audit. It's coarse on timing, and I read only index pages for the flagged rows.
-  Rows that are off in the same way as RRC or CUBE can hide here. Rough rate: about 4% of unresearched dates wrong.
-- **Named carry-overs:** CNC, GLW, PCAR, EBAY, SW, OSK held on date. PYPL held on date, wrong on time. **DVA's overdue-PR doubt
-  was right** (DB 10-28 → 10-29), so doubts stand at **4 right / 4 wrong**. WHR moved −2 with no doubt logged. BMRN pending.
-
-**Promoted.** Cadence: JBLU rewritten; rule 6 addendum; new rows DVA, WHR, DAR, CUBE, PYPL group, RRC, PII, ITUB.
-**Hygiene.** notes_for_ben: audit #3 archived; Simple Mode item rewritten; audit #4 and ITUB updated. Outbox ≤ 128 lines, no
-rotation. Inbox root clean. MEMORY.md: pointers resolve, cadence line updated. **STATUS.md** rewritten.
-
-**Drift (mine):** the 10-25 note said next week's audit pool would be ~45 rows. It was 75.

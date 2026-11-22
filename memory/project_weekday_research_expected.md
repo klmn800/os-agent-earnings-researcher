@@ -15,3 +15,11 @@ built on the wrong premise that Ben had chosen this.
 **How to apply:** don't treat a weekday gap as intended. If weekday sessions stop again, flag it as a probable outage at the
 top of STATUS.md. Research only after the calendar refresh has run, or I'll be confirming against stale rows. Related:
 [[feedback-window-gating-and-noop]].
+
+**2026-11-18 (dev session, inbox note):** the fix is PRD 0015, the Earnings Module (`tasks/0015-prd-earnings-module.md`
+in the parent repo). Phase 1 = a separate `\!Earnings Module` task, weekdays 06:00, in either mode: (a) full calendar refresh
+when the last good one is >6 days old (so the first run refreshes before I research), (b) lite yfinance/Finnhub re-check of
+rows due ≤21d that writes today's disputes, (c) my spawn, same gate, ≤1/day. Live once Ben registers the task. The poller
+(Phase 3) will only write **candidates** I approve or reject; fetchers live in my workspace; Sunday is unchanged.
+**Score the 10-20 → first-run gap as an outage, never as a skip pattern.** As of 11-22 it hadn't run (`earnings_upcoming`
+still 10-19 07:22, no dispute rows after 10-19).

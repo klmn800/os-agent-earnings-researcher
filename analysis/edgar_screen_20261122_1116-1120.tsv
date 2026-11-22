@@ -1,0 +1,30 @@
+symbol	db_date	db_time	edgar_accepted_et	rel_date	rel_session	date_delta	flag
+TSN	2026-11-16	amc	2026-11-16 07:41	2026-11-16	bmo	+0	SESSION
+XP	2026-11-16	Unknown					no_2.02 (6-K)
+XPEV	2026-11-16	Unknown					no_2.02 (6-K)
+ACM	2026-11-17	amc	2026-11-16 16:11	2026-11-16	amc	-1	DATE-1
+AS	2026-11-17	bmo					no_2.02 (6-K)
+BRBR	2026-11-17	Unknown	2026-11-18 07:01	2026-11-18	bmo	+1	DATE+1 db_time_unknown
+DIS	2026-11-17	amc	2026-11-17 06:30	2026-11-17	bmo	+0	SESSION
+HD	2026-11-17	Unknown	2026-11-17 06:18	2026-11-17	bmo	+0	db_time_unknown
+MDT	2026-11-17	Unknown					no_2.02 (nothing filed)
+NVDA	2026-11-17	amc	2026-11-17 16:20	2026-11-17	amc	+0	ok
+SQM	2026-11-17	Unknown					no_2.02 (6-K)
+BIDU	2026-11-18	bmo					no_2.02 (6-K)
+LOW	2026-11-18	bmo	2026-11-18 08:45	2026-11-18	bmo	+0	ok
+P	2026-11-18	Unknown	2026-11-18 16:06	2026-11-18	amc	+0	db_time_unknown
+PDD	2026-11-18	bmo					no_2.02 (6-K)
+TGT	2026-11-18	Unknown	2026-11-18 06:46	2026-11-18	bmo	+0	db_time_unknown
+TJX	2026-11-18	Unknown	2026-11-18 09:19	2026-11-18	bmo	+0	db_time_unknown
+UGI	2026-11-18	amc	2026-11-19 07:45	2026-11-18	amc?	+0	item2.02_says_2026-11-18
+VVV	2026-11-18	amc	2026-11-19 07:03	2026-11-19	bmo	+1	DATE+1 SESSION
+WIX	2026-11-18	bmo					no_2.02 (6-K)
+WSM	2026-11-18	bmo	2026-11-19 08:02	2026-11-19	bmo	+1	DATE+1
+BBWI	2026-11-19	Unknown	2026-11-19 07:12	2026-11-19	bmo	+0	db_time_unknown
+CPRT	2026-11-19	Unknown					no_2.02 (nothing filed)
+GAP	2026-11-19	Unknown	2026-11-19 16:17	2026-11-19	amc	+0	db_time_unknown
+GLOB	2026-11-19	amc					no_2.02 (6-K,SCHEDULE 13G,SCHEDULE 13G/A)
+PANW	2026-11-19	Unknown	2026-11-18 16:37	2026-11-18	amc	-1	DATE-1 db_time_unknown
+ROST	2026-11-19	Unknown	2026-11-19 16:02	2026-11-19	amc	+0	db_time_unknown
+WMT	2026-11-19	Unknown	2026-11-19 06:58	2026-11-19	bmo	+0	db_time_unknown
+BJ	2026-11-20	Unknown	2026-11-20 07:01	2026-11-20	bmo	+0	db_time_unknown

@@ -27,7 +27,14 @@ still at 10-19. The drift is accelerating: in the EDGAR screen, 7 of 22 comparab
 32%, after 12% and 4% the two weeks before). PINS was 11 days off, GRAL and PTC 7. That makes step 1 (refresh first) matter
 more each week.
 
-Once it's running, I'll work the 104 rows ahead nearest-first and leave the 421 past-dated ones alone unless you want a backfill.
+**11-22 update: the fix is designed but not live yet.** The 11-18 dev note (Earnings Module, PRD 0015) covers both steps
+in the right order on its own `\!Earnings Module` task: refresh when stale, then lite check, then my spawn. **It waits on
+you registering that task.** Through 11-20 nothing ran: the calendar is still at 10-19 and there are no dispute rows after
+10-19. That week's EDGAR screen: **5 of 19 comparable dates wrong (26%)**, all ±1d (ACM, PANW, BRBR, VVV, WSM). 3 of 8
+stored times were wrong (TSN, DIS, VVV all `amc` → bmo). **MDT (11-17) and CPRT (11-19) passed without reporting**, so
+those dates are wrong by an unknown amount. They're first on my list once sessions run.
+
+Once it's running, I'll work the 75 rows ahead nearest-first and leave the 489 past-dated ones alone unless you want a backfill.
 
 ### 📋 Source-accuracy audit #6: the October census is closed. 40 of 40 right, plus 47 of 47 on an EDGAR screen — 11-15
 
@@ -44,6 +51,9 @@ time, 0 unverifiable**. I screened the other 47 on EDGAR: **47 of 47 dates right
   have passed by then.)* Honest read: there are none left. The October pool is fully checked and nothing new is confirmed,
   so next Sunday's audit would have an empty pool. I'll run one again on the first Sunday after weekday confirms resume
   and some of them have passed, unless you say otherwise.
+- **11-22: audit #7 not run, as predicted.** The pool was empty (0 confirms since 10-19). Same question, still open:
+  *Do you want me to run another source-accuracy audit next Sunday? (Next time: the October dates that have passed by
+  then.)* No October confirms are left, so a "yes" means the first Sunday that has passed Earnings Module confirms.
 
 ### ⚠ Re-seeded times contradict established ones: 9 of the 10 rows are fixed, but the class isn't — 09-13, updated 09-27
 

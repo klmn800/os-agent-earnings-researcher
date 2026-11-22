@@ -3,7 +3,7 @@
 > Fall 2026 earnings season — Q3 calendar results (plus off-cycle fiscal quarters reporting in the same wave), reported ~late September
 > through mid-November 2026. Opened at the 2026-10-18 maintenance with sessions **2026-09-28 → 2026-10-02** (09-28 → 09-30 are
 > calendar-Q3 days, filed here because they researched the fall wave) and the 2026-09-27 maintenance entry; sessions
-> **2026-10-05 → 10-09** and the 10-04 maintenance entry added 2026-10-25; **10-12 → 10-16** and the 10-11 maintenance entry added 2026-11-01; the **10-19** session (the last weekday session before Simple Mode) and the 10-18 maintenance entry added 2026-11-08; the 10-25 maintenance entry added 2026-11-15. Chronological order,
+> **2026-10-05 → 10-09** and the 10-04 maintenance entry added 2026-10-25; **10-12 → 10-16** and the 10-11 maintenance entry added 2026-11-01; the **10-19** session (the last weekday session before Simple Mode) and the 10-18 maintenance entry added 2026-11-08; the 10-25 maintenance entry added 2026-11-15; the 11-01 maintenance entry added 2026-11-22. Chronological order,
 > oldest first. Appendix A keeps ledger rows verbatim as they are pruned (the record later source audits draw from).
 
 ---
@@ -642,6 +642,44 @@ filer; update-day inference 4/4), and PCG/DHR (evening-before filers). The SCHW 
 **Hygiene.** notes_for_ben: audit #2 and the 10-11 queue item archived; audit #3, Simple Mode and the next-audit question
 added; SCHW minor item closed. Outbox ≤ 128 lines, no rotation. Inbox root clean (`inbox/fetch/` holds 240-odd scratch
 downloads, which is harmless). MEMORY.md: every pointer resolves and nothing is unindexed. **STATUS.md** rewritten.
+
+## Weekly Maintenance — 2026-11-01 (Sunday)
+
+**Simple Mode is now permanent (10-28), so there were 0 weekday sessions and 0 confirms this week.** `earnings_upcoming` hasn't
+been written since 10-19. Header rewritten to say so.
+
+**Archived.** Sessions 10-12 → 10-16 and the 10-11 maintenance entry → fall archive. The 75 ledger rows dated 10-26 → 10-30 →
+its Appendix A, with JBLU's row annotated. Active log 327 → ~180 lines. **Ledger check:** 5 of 5 future rows match the DB
+(DOC, KHC, NVST, KMB, MAT), 0 missing.
+
+**Source audit #4 (10-26 → 10-30):** 42 rows from a pool of 75, 5 blind subagents, **41/42 right on date and time, 0
+unverifiable.** IR 7/7, copy 12/12, search summary 10/10, inferred 12/13. Report: `analysis/source_audit_20261101.md`.
+- **Miss: JBLU**, 10-27 bmo → actually **10-26 amc** (8-K accepted 16:15:21, I re-read it). It came from a 10am call with a
+  silent PR. Its 5 prior quarters were all same-morning, so even the prior-quarter check would have agreed with the wrong answer.
+  Cadence row and rule 6 updated. NVT and RCL, flagged 10-25, both held.
+
+**ITUB 6-K test: prediction written here before the report (Sun 11-01 evening; latest 6-K is 10-26, a Neospace material fact).**
+Predicted **release Tue 11-03 after the B3 close, first 6-K of the cluster Wed 11-04.** No DB write, not confirmed. Basis: Q3'25
+released Tue 11-04-25, Q4'25 Wed 02-04-26, Q2'26 Tue 08-04-26 (Ex-99.1 datelines); the cluster began the next day each time.
+Q1'26's cluster began 05-06; I didn't read that dateline. **Finding before the score:** the cluster follows the release, so it
+can't date one in advance. What I'm really testing is a weekday pattern, which isn't evidence by my own rules, so even a hit
+proves little. Done on a Sunday because no other session runs before 11-03; it was a few EDGAR reads and a log entry.
+
+**Skip calibration: EDGAR screen of all 172 unconfirmed past-dated rows (10-17 → 10-30), filing date vs DB.** 145 had a Q3
+Item 2.02 8-K, BMRN has none yet, 26 have none to compare (mostly foreign filers, plus COKE and WLK).
+- **Date:** 139 agree. 6 of 146 are wrong: IRDM −2, SCCO −2 (release 10-20), WHR −2, DAR −1, DVA +1, BMRN (no report by 11-01,
+  DB 10-26). CUBE +1 is ambiguous (07:23 next morning; may be a next-morning filer, as RRC turned out to be).
+- **Session:** 5 DB `amc` rows have a morning 8-K on the date (PYPL, TEL, CTSH, LHX, CHRW). 33 of the matched rows were `Unknown`.
+- **Caveat:** a filing-date screen, not an audit. It's coarse on timing, and I read only index pages for the flagged rows.
+  Rows that are off in the same way as RRC or CUBE can hide here. Rough rate: about 4% of unresearched dates wrong.
+- **Named carry-overs:** CNC, GLW, PCAR, EBAY, SW, OSK held on date. PYPL held on date, wrong on time. **DVA's overdue-PR doubt
+  was right** (DB 10-28 → 10-29), so doubts stand at **4 right / 4 wrong**. WHR moved −2 with no doubt logged. BMRN pending.
+
+**Promoted.** Cadence: JBLU rewritten; rule 6 addendum; new rows DVA, WHR, DAR, CUBE, PYPL group, RRC, PII, ITUB.
+**Hygiene.** notes_for_ben: audit #3 archived; Simple Mode item rewritten; audit #4 and ITUB updated. Outbox ≤ 128 lines, no
+rotation. Inbox root clean. MEMORY.md: pointers resolve, cadence line updated. **STATUS.md** rewritten.
+
+**Drift (mine):** the 10-25 note said next week's audit pool would be ~45 rows. It was 75.
 
 ## Appendix A — Upcoming-Confirmed ledger rows pruned after reporting (verbatim)
 
