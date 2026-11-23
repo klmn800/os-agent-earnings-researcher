@@ -9,7 +9,15 @@
 > Per-symbol cadence/lead-times live in `memory/reference_company_cadence.md`. **Grep it by symbol
 > (`^| SYM `); don't read it whole (~220 KB).**
 
-## ⚠ READ FIRST (updated 2026-11-22): the Earnings Module is coming; the calendar is still frozen at 10-19
+## ⚠ READ FIRST (updated 2026-11-23): first live weekday session ran; the calendar refreshed at 06:00 today
+
+**11-23 session:** `MAX(updated_at)` = 2026-11-23 06:00:09, so the Earnings Module refresh ran. 15 dates confirmed (ledger below; one of them, KEYS, is a correction to a date that had already passed).
+**The queue was 40 deep and I stopped after the rows due 11-25.** Everything dated 12-01 → 12-14 was **not researched** (see
+"Still unconfirmed"). Next session: start with ZM/BBY/LI/CPRT, then the 12-01 group. Corrections found: **KEYS had already
+reported 11-19** (DB said 11-24); **ADI and DE were wrong-session** (DB amc, truth bmo). Tooling note: **WebFetch isn't a direct
+tool here, so fetches go through the `web-fetch` agent**; Git Bash needs forward slashes in the python paths.
+
+## (superseded) READ FIRST of 2026-11-22: the Earnings Module is coming; the calendar was still frozen at 10-19
 
 Ben confirmed 11-09 that weekday sessions **should** run (`memory/project_weekday_research_expected.md`). The fix is the
 **Earnings Module** (dev session 11-18, PRD 0015): a separate `\!Earnings Module` task, weekdays 06:00. It refreshes the full
@@ -32,8 +40,11 @@ Find their real dates first.
 
 | Symbol | DB row | Status at 11-22 | How to read | Next check |
 |--------|--------|-----------------|-------------|------------|
-| MDT | 11-17 `Unknown` | DB date passed, **no Item 2.02 by 11-22** (last 09-01). The stored date is wrong. Time is bmo every quarter (6:45 ET release) | IR advance PR "Medtronic to announce…", EDGAR | **First weekday session** (≥ 11-23) |
-| CPRT | 11-19 `Unknown` | DB date passed, **no Item 2.02 by 11-22** (last 09-10). No reachable IR surface (cadence row) | EDGAR 8-K list, wire copy | **First weekday session** (≥ 11-23) |
+| CPRT | 12-01 `Unknown` | Calendar now says 12-01. Search (a Finviz mirror of the BusinessWire PR) says **12-01 bmo, call 8:00am** — a switch from last year's amc. Copart IR hosts don't resolve; BusinessWire 403s. **Not company-read** | EDGAR 8-K (acc. time on 12-01), wire copy | 11-30 (re-try wire/IR; confirm bmo vs amc from the 8-K clock) |
+| ZM | 11-23 `amc` | PR exists (news.zoom.com listing, **10-29**) but the body isn't reachable (investors.zoom.us and GlobeNewswire 403; news.zoom.com page has no body). Zoom isn't a fixed-weekday filer, so the DB date is only an estimate. Releases today if the DB is right | 8-K acc. time tonight (16:0x ET), news.zoom.com | **11-24** (check EDGAR for tonight's 2.02) |
+| BBY | 11-24 `bmo` | No advance PR exists (cadence). Events/news lists are SPA shells. Date rests on `+364d` from 11-25-2025; time bmo from the 07:00 furnish regime. Not company-confirmed | EDGAR 8-K acc. ~07:00 ET on 11-24 | 11-24 |
+| LI | 11-25 `bmo` | ir.lixiang.com 403s. Search (finviz, cnevpost mirrors of the company PR, dated 11-10) says **11-25 before the U.S. open, call 7:00am ET**. Matches DB; mirror-only | 6-K / wire | 11-25 |
+| 12-01 → 12-14 group | various | **Not researched 11-23**: NNE, PVH(both), CRWD, GTLB, MDB, MRVL, NCNO, NIO, NTAP, OKTA, FIVE, M, ZS, CRM, SNOW, DG, DOCU, GWRE, KR, S, ULTA, COO, HRL, PATH, TD, VEEV, GME, TOL, UEC(both), CNM, CPB, MTN, ORCL. NNE's finnhub date is 2027-02-15; PVH's finnhub 12-01 vs DB 12-03; UEC finnhub 12-16 vs DB 12-08; M finnhub 12-03 vs DB 12-02 | each company's advance PR | **Next weekday session**, nearest date first |
 | ITUB | next quarter | Weekday pattern 4/4 (release Tue/Wed early in month 2), still not a source. Hold until a company date is read | EDGAR 6-K list | Q4 wave (early Feb) |
 | WBS | — | Skipped (delisted). Ben's item | — | — |
 
@@ -42,14 +53,41 @@ Spine = `analysis/helpers/spine.py` (paces itself to stocktitan's 10-per-300s li
 
 ## Upcoming Confirmed: locked dates (don't re-research)
 
-**Empty.** No confirmed row is dated ≥ 11-09 (still true 11-22). The last five (DOC, KHC, NVST, MAT, KMB, 11-02 → 11-05) were pruned 11-08 to the
-fall archive's Appendix A; source audit #5 found all five right. Format when rows return: `SYM | date | time | source — session`.
+Format: `SYM | date | time | source — session`. (Last pruned 11-08: DOC, KHC, NVST, MAT, KMB → fall archive Appendix A.)
+
+| SYM | date | time | source — session |
+|-----|------|------|------------------|
+| KEYS | 11-19 | amc | already reported; 8-K ex-99.1 dateline 11-19 + IR list (DB had 11-24) — 11-23 |
+| A | 11-23 | amc | company PR 10-29, www.investor.agilent.com — 11-23 |
+| AMTM | 11-23 | amc | **time inferred**: PR 10-27 gives only the 11-24 8:30 call; evening-before from Q3 8-K 16:42 — 11-23 |
+| HPE | 11-23 | amc | HPE webcast page (choruscall) Mon 11-23 5:00pm ET — 11-23 |
+| ADI | 11-24 | bmo | analog.com PR 10-22 via search (page unreadable); 7:00am ET — 11-23 |
+| ADSK | 11-24 | amc | Autodesk newsroom PR 11-02, call 2pm PT — 11-23 |
+| DELL | 11-24 | amc | Dell IR PR 11-10, call 3:30pm CST — 11-23 |
+| DLTR | 11-24 | bmo | corporate.dollartree.com PR 11-03 — 11-23 |
+| HPQ | 11-24 | amc | investor.hp.com PR 11-03, webcast 5pm ET — 11-23 |
+| KSS | 11-24 | bmo | event page 9am ET call; bmo from prior-year same-day wire — 11-23 |
+| MDT | 11-24 | bmo | news.medtronic.com PR 11-04, 5:45am CT — 11-23 |
+| NTNX | 11-24 | amc | nutanix.com PR 11-05 — 11-23 |
+| SJM | 11-24 | bmo | company PR PDF 11-03, 7:00am ET — 11-23 |
+| WDAY | 11-24 | amc | investor.workday.com PR 11-02 — 11-23 |
+| DE | 11-25 | bmo | IR event page 11-25 9am CST call; bmo from furnish clock — 11-23 |
 
 ---
 
 # Research Sessions (newest first)
 
-_No weekday sessions since 10-19 (Simple Mode). The 10-19 session is in the fall archive._
+## 2026-11-23 (Mon) — first live weekday session since 10-19
+
+Queue 40 (23 disputes + 17 unconfirmed). Refresh check passed (`earnings_upcoming` updated 06:00 today). Worked nearest-first through the
+rows due 11-25; **15 dates written, KEYS among them as a correction** (ledger above), plus DLTR/MDT/KSS dispute rows closed (`confirmed_agent`).
+Corrections to the DB: **KEYS 11-24 → 11-19** (already reported); **ADI amc → bmo**; **DE amc → bmo**; **DLTR/MDT/KSS** `Unknown` → bmo.
+Held (not company-read): ZM, BBY, LI, CPRT (carry-over table). **Not reached:** the 12-01 → 12-14 rows (33 names).
+Judgement calls to audit: AMTM time (inferred from Q3, PR says "prior to the call"); KSS bmo (prior-year pattern); ADI (search snippet of the
+analog.com PR, page unreadable); HPE/HPQ/DELL amc rest on call times, not a stated release time.
+Process notes: WebFetch isn't directly available, so every IR fetch went through `web-fetch` agents (some are listed as 403/SPA in the cadence rows).
+For ZM I did fetch the GlobeNewswire copy (the cadence table lists it as Zoom's own PR wire), which is a third-party host under the
+task prompt's "no third-party pages" rule; it returned 403, so nothing was read from it. The ZM body is still unread and needs a company source. The hook re-injects the whole queue on every prompt, which costs a lot of context.
 
 # Maintenance History
 
