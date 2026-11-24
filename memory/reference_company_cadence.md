@@ -633,3 +633,36 @@ Related: [[window-gating-and-noop-sessions]], [[reference-sec-via-curl]], [[IR U
 | KEYS (fall) | Keysight / fiscal Q4 | amc | 21d | ⚠⚠ **Already reported Thu 11-19** (8-K ex-99.1 dateline 11-19, call 1:30pm PT today); advance PR **10-29** "…to Report Fourth Quarter and Fiscal Year 2026 Results on November 19". **DB carried 11-24 — 5d late.** Corrected to 11-19 — 11-23 session |
 | NTNX (fall) | Nutanix / Q1 FY27 | amc | 19d | PR **11-05** (GlobeNewswire dateline, nutanix.com copy readable): *"after U.S. markets close on Tuesday, November 24,"* call 4:30pm ET — 11-23 session |
 | SJM (fall) | Smucker / Q2 FY27 | bmo | 21d | PR **11-03** (PDF on s203.q4cdn.com): release **7:00am ET** 11-24, Q&A 9:00am ET. Page lists are SPA shells; the q4cdn file name `…to-Report-Second-Quarter-Earnings-2026.pdf` works — 11-23 session |
+| ZM (fall) | Zoom / fiscal Q3 (Oct qtr) | amc | 25d | ✅ Reported **11-23 amc**: 8-K ex-99.1 dateline 11-23, webinar 2pm PT/5pm ET; advance PR **10-29** (news.zoom.com) — 11-24 session |
+| CRWD (fall) | CrowdStrike / Q3 FY27 | bmo | — | ⚠⚠ **Reported Mon 11-23** (BusinessWire/ir.crowdstrike.com/SEC ex-99.1 `crwd-20261123xex991`), moved up from 12-01 with the **Zscaler acquisition** (all-stock ~$44B); call 5am PT / 8am ET replaced the 12-01 call. DB had 12-01 (**-8d**). Time bmo inferred from the 8am ET call + pre-open timing. ir pages 403 — 11-24 session |
+| ZS (fall) | Zscaler / Q1 FY27 | bmo (inferred) | — | ⚠⚠ **Reported 11-23** with the CRWD deal (GlobeNewswire 11-23); scheduled 12-02 call cancelled, guidance withdrawn. DB had 12-02 (**-9d**). Release time not read, bmo inferred from the joint morning announcement — 11-24 session |
+| MDB (fall) | MongoDB / Q3 FY27 | amc | 26d | PR **11-05** (PRNewswire): after close Tue 12-01, call 5pm ET — 11-24 session |
+| MRVL (fall) | Marvell / Q3 FY27 | amc | 25d | PR **11-06**: call Tue 12-01 1:30pm PT after the release — 11-24 session |
+| NCNO (fall) | nCino / Q3 FY27 | amc | 19d | PR **11-12**: after close Tue 12-01, call 4:30pm ET — 11-24 session |
+| NTAP (fall) | NetApp / Q2 FY27 | amc | 21d | PR **11-10**: after close 12-01, webcast 2:30pm PT — 11-24 session |
+| OKTA (fall) | Okta / Q3 FY27 | amc | 29d | PR **11-02**: after close Tue 12-01, webcast 2pm PT — 11-24 session |
+| GTLB (fall) | GitLab / Q3 FY27 | amc | 14d | PR **11-17**: after close Tue 12-01, call 4:30pm ET — 11-24 session |
+| NIO (fall) | NIO / Q3 | bmo | 14d | PR **11-17** (GlobeNewswire): before US open Tue 12-01, call 7am ET — 11-24 session |
+| CPRT (fall) | Copart / fiscal Q1 | bmo | ~12d | ⚠ Switch from last year's amc: release PR (finviz copy, ~11-12) says before the open Tue 12-01, call 8am. Copart IR unreadable; wire copy only — 11-24 session |
+| FIVE (fall) | Five Below / Q3 | amc | 15d | PR **11-18**: after close Wed 12-02, call 4:15pm ET — 11-24 session |
+| M (fall) | Macy's / Q3 | bmo | ~12d | PR (finviz copy): Wed 12-02, call 8am ET; finnhub's 12-03 was wrong. bmo from the 8am call + usual pre-open release — 11-24 session |
+| CRM (fall) | Salesforce / Q3 FY27 | amc | 22d | PR **11-10**: after close Wed 12-02, call 2pm PT — 11-24 session |
+| SNOW (fall) | Snowflake / Q3 FY27 | amc | 30d | PR **11-02**: after close Wed 12-02, call 2pm PT — 11-24 session |
+| DOCU (fall) | Docusign / Q3 FY27 | amc | 14d | PR **11-19**: after close Thu 12-03 — 11-24 session |
+| DG (fall) | Dollar General / Q3 | bmo (pattern) | 19d | PR **11-05**: date 12-03 stated, call time not seen; bmo from prior-year same-day pre-open pattern — 11-24 session |
+| S (fall) | SentinelOne / Q3 FY27 | amc | 12d | PR **11-12**: after close Thu 12-03, call 2pm PT — 11-24 session |
+| ULTA (fall) | Ulta / Q3 | amc | ~14d | PR (finviz copy): after close Thu 12-03, call 4:30pm ET — 11-24 session |
+| COO (fall) | Cooper / fiscal Q4 | amc | ~3wk | Release-date PR: 12-03 4:15pm ET, call 5pm ET — 11-24 session |
+| GWRE (fall) | Guidewire / Q1 FY27 | amc | 14d | PR **11-19**: after close Thu 12-03, call 2pm PT — 11-24 session |
+| HRL (fall) | Hormel / Q4 FY26 | bmo | 30d | PR **11-03**: before open Thu 12-03, call 8am CT. DB had amc — 11-24 session |
+| PATH (fall) | UiPath / Q3 FY27 | amc | ~3wk | Call-announcement PR: Thu 12-03, call 5pm ET; amc inferred from 5pm call — 11-24 session |
+| VEEV (fall) | Veeva / Q3 FY27 | amc | 21d | PR **11-12**: after close Thu 12-03, call 2pm PT — 11-24 session |
+| NNE (fall) | Nano Nuclear / fiscal Q4 | amc | 19d | PR **11-11**: webcast Mon 11-30 5pm ET after the 10-K. finnhub's 2027-02-15 was the next quarter — 11-24 session |
+| PVH (fall) | PVH / Q3 | bmo | ~17d | PR (finviz copy): before open Thu 12-03, call 8am ET; finnhub 12-01 wrong — 11-24 session |
+| KR (fall) | Kroger / Q3 | bmo (pattern) | 19d | PR **11-05**: call Thu 12-03 8am ET (this year 8am vs 10am last year); release time not stated, bmo from pattern — 11-24 session |
+| TD (fall) | TD Bank / fiscal Q4 | bmo | ~3wk | Media advisory **11-12** (placera repost): Thu 12-03 ~6:30am ET, call 9:30am. DB had amc — 11-24 session |
+| TOL (fall) | Toll Brothers / fiscal Q4 | amc | 28d | PR **11-10**: after close Mon 12-07, call Tue 12-08 8:30am — 11-24 session |
+| SNPS (fall) | Synopsys / fiscal Q4 | amc | 33d | PR **11-05**: after close Tue 12-08, call 2pm PT — 11-24 session |
+| CPB (fall) | Campbell's / Q1 FY27 | bmo | ~3wk | PR (finviz copy): Wed 12-09 7:15am ET release, webcast 9am — 11-24 session |
+| MTN (fall) | Vail / Q1 FY27 | amc | 21d | PR **11-18**: after close Wed 12-09, call 5pm ET — 11-24 session |
+| LI (fall) | Li Auto / Q3 | bmo | 15d | PR **11-10** (finviz/cnevpost copies; ir.lixiang.com 403): Wed 11-25 before US open, call 7am ET — 11-24 session |

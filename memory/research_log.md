@@ -9,13 +9,11 @@
 > Per-symbol cadence/lead-times live in `memory/reference_company_cadence.md`. **Grep it by symbol
 > (`^| SYM `); don't read it whole (~220 KB).**
 
-## ⚠ READ FIRST (updated 2026-11-23): first live weekday session ran; the calendar refreshed at 06:00 today
+## ⚠ READ FIRST (updated 2026-11-24): second live session; queue worked through to 12-09, five rows carried
 
-**11-23 session:** `MAX(updated_at)` = 2026-11-23 06:00:09, so the Earnings Module refresh ran. 15 dates confirmed (ledger below; one of them, KEYS, is a correction to a date that had already passed).
-**The queue was 40 deep and I stopped after the rows due 11-25.** Everything dated 12-01 → 12-14 was **not researched** (see
-"Still unconfirmed"). Next session: start with ZM/BBY/LI/CPRT, then the 12-01 group. Corrections found: **KEYS had already
-reported 11-19** (DB said 11-24); **ADI and DE were wrong-session** (DB amc, truth bmo). Tooling note: **WebFetch isn't a direct
-tool here, so fetches go through the `web-fetch` agent**; Git Bash needs forward slashes in the python paths.
+**11-24 session:** 35 dates confirmed (ledger below). **Two big corrections: CRWD and ZS both reported Mon 11-23** (CrowdStrike agreed to
+acquire Zscaler; both moved up from 12-01/12-02). Time fixes: HRL amc→bmo, TD amc→bmo. Carried: **BBY** (no 8-K before 07:00 ET, check it first),
+**GME, UEC, CNM, ORCL** (no company date found). Tooling: `web-fetch` agents only; the hook re-injects the queue every prompt.
 
 ## (superseded) READ FIRST of 2026-11-22: the Earnings Module is coming; the calendar was still frozen at 10-19
 
@@ -40,11 +38,11 @@ Find their real dates first.
 
 | Symbol | DB row | Status at 11-22 | How to read | Next check |
 |--------|--------|-----------------|-------------|------------|
-| CPRT | 12-01 `Unknown` | Calendar now says 12-01. Search (a Finviz mirror of the BusinessWire PR) says **12-01 bmo, call 8:00am** — a switch from last year's amc. Copart IR hosts don't resolve; BusinessWire 403s. **Not company-read** | EDGAR 8-K (acc. time on 12-01), wire copy | 11-30 (re-try wire/IR; confirm bmo vs amc from the 8-K clock) |
-| ZM | 11-23 `amc` | PR exists (news.zoom.com listing, **10-29**) but the body isn't reachable (investors.zoom.us and GlobeNewswire 403; news.zoom.com page has no body). Zoom isn't a fixed-weekday filer, so the DB date is only an estimate. Releases today if the DB is right | 8-K acc. time tonight (16:0x ET), news.zoom.com | **11-24** (check EDGAR for tonight's 2.02) |
-| BBY | 11-24 `bmo` | No advance PR exists (cadence). Events/news lists are SPA shells. Date rests on `+364d` from 11-25-2025; time bmo from the 07:00 furnish regime. Not company-confirmed | EDGAR 8-K acc. ~07:00 ET on 11-24 | 11-24 |
-| LI | 11-25 `bmo` | ir.lixiang.com 403s. Search (finviz, cnevpost mirrors of the company PR, dated 11-10) says **11-25 before the U.S. open, call 7:00am ET**. Matches DB; mirror-only | 6-K / wire | 11-25 |
-| 12-01 → 12-14 group | various | **Not researched 11-23**: NNE, PVH(both), CRWD, GTLB, MDB, MRVL, NCNO, NIO, NTAP, OKTA, FIVE, M, ZS, CRM, SNOW, DG, DOCU, GWRE, KR, S, ULTA, COO, HRL, PATH, TD, VEEV, GME, TOL, UEC(both), CNM, CPB, MTN, ORCL. NNE's finnhub date is 2027-02-15; PVH's finnhub 12-01 vs DB 12-03; UEC finnhub 12-16 vs DB 12-08; M finnhub 12-03 vs DB 12-02 | each company's advance PR | **Next weekday session**, nearest date first |
+| BBY | 11-24 `bmo` | No advance PR (cadence). Searched 06:15 ET: no Q3 FY27 release or 8-K yet (last 8-K 08-27 07:00). Date rests on `+364d` from 11-25-2025; bmo from the 07:00 furnish regime. Not company-confirmed | EDGAR 8-K acc. ~07:00 ET on 11-24 | **11-24** (first thing) |
+| GME | 12-08 `Unknown` | Finnhub 12-07. No company notice yet (last year's came 11-28, release Tue after close). Third-party calendars only | businesswire "GameStop Announces Release Date for Third Quarter Fiscal 2026" | 11-30 |
+| UEC | 12-08 `Unknown` | Finnhub 12-16. FY26 results were already out 09-29, so the December row is the Q1 FY27 report; no company date found | uraniumenergy.com events page / PR | 12-01 |
+| CNM | 12-08 `Unknown` | Company's 11-10 preliminary-results PR says full Q3 results **12-08**; release/call time not found (call usually 8:30am ET, release time unread) | Core & Main PR / 8-K | 12-01 |
+| ORCL | 12-14 `Unknown` | Q2 FY27 date not announced (Q1's notice came ~8d ahead). Third-party estimates 12-09/12-10/12-14 | investor.oracle.com "Oracle Sets the Date for its Second Quarter Fiscal Year 2027" | 12-02 |
 | ITUB | next quarter | Weekday pattern 4/4 (release Tue/Wed early in month 2), still not a source. Hold until a company date is read | EDGAR 6-K list | Q4 wave (early Feb) |
 | WBS | — | Skipped (delisted). Ben's item | — | — |
 
@@ -57,6 +55,39 @@ Format: `SYM | date | time | source — session`. (Last pruned 11-08: DOC, KHC, 
 
 | SYM | date | time | source — session |
 |-----|------|------|------------------|
+| CRWD | 11-23 | bmo | ⚠ already reported; BusinessWire/SEC ex-99.1 11-23, Zscaler deal (DB had 12-01); time inferred (8am ET call) — 11-24 |
+| ZS | 11-23 | bmo | ⚠ already reported with CRWD deal (DB had 12-02); time inferred — 11-24 |
+| ZM | 11-23 | amc | 8-K ex-99.1 dateline 11-23, webinar 5pm ET — 11-24 |
+| LI | 11-25 | bmo | PR 11-10 mirrors, call 7am ET (ir.lixiang.com 403) — 11-24 |
+| NNE | 11-30 | amc | PR 11-11, webcast 5pm ET after the 10-K — 11-24 |
+| CPRT | 12-01 | bmo | release PR (finviz copy), call 8am ET; switch from amc — 11-24 |
+| GTLB | 12-01 | amc | PR 11-17, call 4:30pm ET — 11-24 |
+| MDB | 12-01 | amc | PR 11-05, call 5pm ET — 11-24 |
+| MRVL | 12-01 | amc | PR 11-06, call 1:30pm PT — 11-24 |
+| NCNO | 12-01 | amc | PR 11-12, call 4:30pm ET — 11-24 |
+| NIO | 12-01 | bmo | PR 11-17, call 7am ET — 11-24 |
+| NTAP | 12-01 | amc | PR 11-10, webcast 2:30pm PT — 11-24 |
+| OKTA | 12-01 | amc | PR 11-02, webcast 2pm PT — 11-24 |
+| FIVE | 12-02 | amc | PR 11-18, call 4:15pm ET — 11-24 |
+| M | 12-02 | bmo | PR (finviz copy), call 8am ET; finnhub 12-03 wrong — 11-24 |
+| CRM | 12-02 | amc | PR 11-10, call 2pm PT — 11-24 |
+| SNOW | 12-02 | amc | PR 11-02, call 2pm PT — 11-24 |
+| COO | 12-03 | amc | release-date PR 4:15pm ET — 11-24 |
+| DG | 12-03 | bmo | PR 11-05 date; **time from pattern** — 11-24 |
+| DOCU | 12-03 | amc | PR 11-19 — 11-24 |
+| GWRE | 12-03 | amc | PR 11-19, call 2pm PT — 11-24 |
+| HRL | 12-03 | bmo | PR 11-03, call 8am CT (DB had amc) — 11-24 |
+| KR | 12-03 | bmo | PR 11-05, call 8am ET; **time from pattern** — 11-24 |
+| PATH | 12-03 | amc | call PR, 5pm ET — 11-24 |
+| PVH | 12-03 | bmo | PR (finviz copy), call 8am ET — 11-24 |
+| S | 12-03 | amc | PR 11-12, call 2pm PT — 11-24 |
+| TD | 12-03 | bmo | advisory 11-12, ~6:30am ET (DB had amc) — 11-24 |
+| ULTA | 12-03 | amc | PR (finviz copy), call 4:30pm ET — 11-24 |
+| VEEV | 12-03 | amc | PR 11-12, call 2pm PT — 11-24 |
+| TOL | 12-07 | amc | PR 11-10, call 12-08 8:30am — 11-24 |
+| SNPS | 12-08 | amc | PR 11-05, call 2pm PT — 11-24 |
+| CPB | 12-09 | bmo | PR (finviz copy), 7:15am ET release — 11-24 |
+| MTN | 12-09 | amc | PR 11-18, call 5pm ET — 11-24 |
 | KEYS | 11-19 | amc | already reported; 8-K ex-99.1 dateline 11-19 + IR list (DB had 11-24) — 11-23 |
 | A | 11-23 | amc | company PR 10-29, www.investor.agilent.com — 11-23 |
 | AMTM | 11-23 | amc | **time inferred**: PR 10-27 gives only the 11-24 8:30 call; evening-before from Q3 8-K 16:42 — 11-23 |
@@ -76,6 +107,16 @@ Format: `SYM | date | time | source — session`. (Last pruned 11-08: DOC, KHC, 
 ---
 
 # Research Sessions (newest first)
+
+## 2026-11-24 (Tue) — second live weekday session
+
+Queue 37 (+ ZM carry-over). **35 confirmed**, all dispute rows closed (`confirmed_agent`; 0 open for today). Corrections: **CRWD 12-01 → 11-23 and
+ZS 12-02 → 11-23** (CrowdStrike/Zscaler deal pulled both reports forward); HRL, TD amc → bmo; CPRT amc-pattern → bmo; M finnhub 12-03 wrong; NNE finnhub
+2027-02-15 wrong (it is the 11-30 10-K webcast). Held: BBY (pre-07:00), GME, UEC, CNM, ORCL (carry-over table).
+Judgement calls to audit: **ZS time (bmo inferred, release clock unread)**; CRWD bmo (8am ET call, search-result PR text; ir.crowdstrike.com 403, SEC exhibit
+name confirms the date); **DG, KR bmo from pattern** (call time stated, release time not); PATH amc from 5pm call; most PR texts came via search-result summaries of
+the company PR (finviz/PRNewswire copies), not the IR page itself (IR hosts 403 through `web-fetch`). IR URLs saved are list pages where the specific PR URL wasn't read.
+Process: WebSearch with query per symbol is the workhorse; EDGAR browse pages work for BBY, 400 for CRWD/ZS.
 
 ## 2026-11-23 (Mon) — first live weekday session since 10-19
 
