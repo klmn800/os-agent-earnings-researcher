@@ -15,6 +15,8 @@
 acquire Zscaler; both moved up from 12-01/12-02). Time fixes: HRL amc→bmo, TD amc→bmo. Carried: **BBY** (no 8-K before 07:00 ET, check it first),
 **GME, UEC, CNM, ORCL** (no company date found). Tooling: `web-fetch` agents only; the hook re-injects the queue every prompt.
 
+**⚠ 11-25 BBY DB ROW NEEDS FIXING (Ben):** BBY reported 11-24 (8-K ex-99.1 dateline 11-24, call 8:00am ET; no stated release time). The morning refresh had already rolled the row to 2027-03-02. My `earnings_confirm.py --date 2026-11-24` overwrote it back to 11-24 (confirmed by agent, days_ahead stale at 97). The restore UPDATE (date 2027-03-02, date_confirmed=0) was denied by the permission classifier, so the row is still wrong. Don't confirm past dates for names the refresh has already rolled.
+
 ## (superseded) READ FIRST of 2026-11-22: the Earnings Module is coming; the calendar was still frozen at 10-19
 
 Ben confirmed 11-09 that weekday sessions **should** run (`memory/project_weekday_research_expected.md`). The fix is the
@@ -38,11 +40,13 @@ Find their real dates first.
 
 | Symbol | DB row | Status at 11-22 | How to read | Next check |
 |--------|--------|-----------------|-------------|------------|
-| BBY | 11-24 `bmo` | No advance PR (cadence). Searched 06:15 ET: no Q3 FY27 release or 8-K yet (last 8-K 08-27 07:00). Date rests on `+364d` from 11-25-2025; bmo from the 07:00 furnish regime. Not company-confirmed | EDGAR 8-K acc. ~07:00 ET on 11-24 | **11-24** (first thing) |
-| GME | 12-08 `Unknown` | Finnhub 12-07. No company notice yet (last year's came 11-28, release Tue after close). Third-party calendars only | businesswire "GameStop Announces Release Date for Third Quarter Fiscal 2026" | 11-30 |
-| UEC | 12-08 `Unknown` | Finnhub 12-16. FY26 results were already out 09-29, so the December row is the Q1 FY27 report; no company date found | uraniumenergy.com events page / PR | 12-01 |
-| CNM | 12-08 `Unknown` | Company's 11-10 preliminary-results PR says full Q3 results **12-08**; release/call time not found (call usually 8:30am ET, release time unread) | Core & Main PR / 8-K | 12-01 |
-| ORCL | 12-14 `Unknown` | Q2 FY27 date not announced (Q1's notice came ~8d ahead). Third-party estimates 12-09/12-10/12-14 | investor.oracle.com "Oracle Sets the Date for its Second Quarter Fiscal Year 2027" | 12-02 |
+| BBY | **RESOLVED 11-25**: reported 11-24 (call 8am ET); DB row damaged, see READ FIRST | — | — | — |
+| (old BBY text) | 11-24 `bmo` | No advance PR (cadence). Searched 06:15 ET: no Q3 FY27 release or 8-K yet (last 8-K 08-27 07:00). Date rests on `+364d` from 11-25-2025; bmo from the 07:00 furnish regime. Not company-confirmed | EDGAR 8-K acc. ~07:00 ET on 11-24 | **11-24** (first thing) |
+| 11-27 group | GIS, LW, ACN, CTAS, FDS, KMX, CAG, PAYX, DRI (DB 12-17/12-18, all `Unknown`) | No company notice yet at 11-27 (LW Finnhub 01-04 and GIS 12-15 unsupported). Prior-year notices came 11-19 to 12-05 | Each company's advance PR on its IR feed / BusinessWire | 12-03 |
+| GME | 12-08 `Unknown` | Finnhub 12-07. No company notice yet (last year's came 11-28, release Tue after close). Third-party calendars only | businesswire "GameStop Announces Release Date for Third Quarter Fiscal 2026" | 11-30 (re-checked 11-25: feed has nothing newer than 10-19) |
+| UEC | 12-08 `Unknown` | Finnhub 12-16. FY26 results were already out 09-29, so the December row is the Q1 FY27 report; no company date found | uraniumenergy.com events page / PR | 12-01 (11-25: events page lists no Q1 FY27 entry) |
+| JBL | 12-16 `Unknown` | Finnhub 12-10. No Q1 FY27 date notice on the IR feed (last notice 09-09). Last year's notice came 12-03 for Wed 12-17 bmo | investors.jabil.com "Jabil's First Quarter of Fiscal Year 2027 Earnings Announcement Set" | 12-03 |
+| ORCL | 12-14 `Unknown` | Q2 FY27 date not announced (Q1's notice came ~8d ahead). Third-party estimates 12-09/12-10/12-14 | investor.oracle.com "Oracle Sets the Date for its Second Quarter Fiscal Year 2027" | 12-02 (11-25: still no Q2 notice) |
 | ITUB | next quarter | Weekday pattern 4/4 (release Tue/Wed early in month 2), still not a source. Hold until a company date is read | EDGAR 6-K list | Q4 wave (early Feb) |
 | WBS | — | Skipped (delisted). Ben's item | — | — |
 
@@ -55,6 +59,11 @@ Format: `SYM | date | time | source — session`. (Last pruned 11-08: DOC, KHC, 
 
 | SYM | date | time | source — session |
 |-----|------|------|------------------|
+| CIEN | 12-10 | bmo | company PR "Reporting Date and Web Broadcast" (finviz copy), before open — 11-27 |
+| LULU | 12-08 | amc | PR 11-24 (corporate.lululemon.com), call 4:30pm ET — 11-25 |
+| CNM | 12-08 | bmo | PR 11-24 "to Announce Q3 Results", before open, call 8:30am ET — 11-25 |
+| ADBE | 12-09 | amc | adobe.com/investor-relations upcoming events: call 2pm PT; release time from pattern — 11-25 |
+| AVGO | 12-09 | amc | Broadcom PR (finviz/search copy; IR page 403 to fetch), call 2pm PT — 11-25 |
 | CRWD | 11-23 | bmo | ⚠ already reported; BusinessWire/SEC ex-99.1 11-23, Zscaler deal (DB had 12-01); time inferred (8am ET call) — 11-24 |
 | ZS | 11-23 | bmo | ⚠ already reported with CRWD deal (DB had 12-02); time inferred — 11-24 |
 | ZM | 11-23 | amc | 8-K ex-99.1 dateline 11-23, webinar 5pm ET — 11-24 |
@@ -107,6 +116,12 @@ Format: `SYM | date | time | source — session`. (Last pruned 11-08: DOC, KHC, 
 ---
 
 # Research Sessions (newest first)
+
+## 2026-11-27 (Fri) session (Thanksgiving-week Friday)
+Queue 14. **Confirmed 1: CIEN 12-10 bmo** (company PR "Ciena Announces Reporting Date..." via finviz copy: Thu 12-10 before the open; DB already had it, unchanged). No company notice yet for the other 13 (searched each, only prior-year notices and third-party estimates): GME (last year's came 11-28), UEC, JBL (last year 12-03), ORCL, GIS, LW, ACN, CTAS (last year 12-04), FDS, KMX (last year 11-25), CAG, PAYX (last year 12-05), DRI. Third-party only, not used: CTAS 12-17 (bullstory), CAG 12-18 (MarketBeat est.), ORCL 12-09/10/14. Dispute rows left open. Next check: GME 11-30, UEC 12-01, ORCL 12-02, JBL/CTAS/PAYX 12-03+, mid-Dec group once notices post (GIS, LW, ACN, FDS, KMX, CAG, DRI).
+
+## 2026-11-25 (Wed) session
+Confirmed: CNM 12-08 bmo, LULU 12-08 amc, ADBE 12-09 amc, AVGO 12-09 amc (company PRs/IR pages). BBY reported 11-24; my confirm of that past date damaged its rolled row (see READ FIRST). Carried with no company date: GME, UEC, ORCL, JBL (DB 12-16 vs Finnhub 12-10). Cadence rows not updated this session.
 
 ## 2026-11-24 (Tue) — second live weekday session
 
